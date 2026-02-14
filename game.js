@@ -405,6 +405,15 @@ class WarehouseWarriorGame {
             answersGrid.appendChild(btn);
         });
         
+        // Timer-sværhed baseret på spørgsmålsnummer
+        const qNum = this.currentQuestionIndex + 1; // 1-15
+        if (qNum <= 5) {
+            this.maxTime = 30;
+        } else if (qNum <= 10) {
+            this.maxTime = 20;
+        } else {
+            this.maxTime = 10;
+        }
         this.timeLeft = this.maxTime;
         this.selectedAnswer = null;
         this.pendingAnswer = null;
@@ -454,9 +463,11 @@ class WarehouseWarriorGame {
             timerFill.style.width = percentage + '%';
             timerText.textContent = this.timeLeft + 's';
             
-            if (this.timeLeft <= 10) {
+            if (this.timeLeft <= 5) {
                 timerFill.classList.add('warning');
-                if (this.timeLeft <= 5) this.playSound('alarm');
+                this.playSound('alarm');
+            } else if (this.timeLeft <= 10 && this.maxTime > 10) {
+                timerFill.classList.add('warning');
             }
             
             document.getElementById('currentScore').textContent = this.score.toLocaleString();
@@ -682,6 +693,7 @@ class WarehouseWarriorGame {
             const speedBonus = Math.round(Math.max(minPoints, maxPoints - (timeTaken / timeLimit) * (maxPoints - minPoints)));
             this.score += speedBonus;
             document.getElementById('currentScore').textContent = this.score.toLocaleString();
+            this.lastRoundPoints = speedBonus;
             document.getElementById('pointsEarned').textContent = '+' + speedBonus;
             
             // Vary host reactions for correct answers
@@ -713,7 +725,7 @@ class WarehouseWarriorGame {
         else if (this.streak >= 2) message = '✨ ' + this.streak + ' i streg! Fortsæt!';
         
         document.getElementById('correctMessage').textContent = message;
-        document.getElementById('pointsEarned').textContent = this.score.toLocaleString();
+        document.getElementById('pointsEarned').textContent = '+' + (this.lastRoundPoints || 0);
         this.showScene('correctScene');
         this.createConfetti('confettiContainer');
         setTimeout(() => this.nextQuestion(), 3000);
@@ -839,6 +851,7 @@ class WarehouseWarriorGame {
         this.streak = 0;
         this.bestStreak = 0;
         this.maxTime = 30;
+        this.lastRoundPoints = 0;
         this.lifelines = { fiftyFifty: false, audience: false, phone: false, extraTime: false };
         document.querySelectorAll('.lifeline-btn').forEach(btn => btn.classList.remove('used'));
         
@@ -919,9 +932,10 @@ class WarehouseWarriorGame {
                 else if (index === 2) rankDisplay = '<span class="rank-medal">🥉</span>';
                 else rankDisplay = (index + 1);
                 
+                const companyLine = entry.company ? `<span class="hs-company">${this.escapeHtml(entry.company)}</span>` : '';
                 tr.innerHTML = `
                     <td>${rankDisplay}</td>
-                    <td>${this.escapeHtml(entry.name)}</td>
+                    <td>${this.escapeHtml(entry.name)}${companyLine}</td>
                     <td>${entry.company ? this.escapeHtml(entry.company) : '-'}</td>
                     <td>${entry.score.toLocaleString()}</td>
                     <td>${entry.correctAnswers}/${entry.totalQuestions}</td>

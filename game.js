@@ -200,7 +200,10 @@ class WarehouseWarriorGame {
             'assets/music/Mac A DeMia - Smoothie Moody.mp3',
             'assets/music/Ian Post - Breaking Point.mp3'
         ];
-        this.currentTrackIndex = 0;
+        this.currentTrackIndex = Math.floor(Math.random() * this.musicTracks.length);
+        
+        // Auto-skip til næste track når en track slutter
+        this.sounds.bgMusic.addEventListener('ended', () => this.nextTrack());
         
         this.init();
     }
@@ -307,7 +310,7 @@ class WarehouseWarriorGame {
         
         // Start music if enabled and not playing
         if (this.musicEnabled && !this.musicPlaying) {
-            this.sounds.bgMusic.play().catch(e => console.log('Music play failed:', e));
+            this.switchMusic(this.musicTracks[this.currentTrackIndex]);
             this.musicPlaying = true;
         }
         
@@ -348,6 +351,10 @@ class WarehouseWarriorGame {
     }
     
     loadQuestion() {
+        // Clear previous answer state completely
+        const oldBtns = document.querySelectorAll('.answer-btn');
+        oldBtns.forEach(btn => btn.classList.remove('selected', 'correct', 'wrong'));
+        
         const question = this.questions[this.currentQuestionIndex];
         
         document.getElementById('playerNameDisplay').textContent = this.playerName || 'Spiller';
@@ -478,11 +485,10 @@ class WarehouseWarriorGame {
         
         this.playSound('click');
         
-        // Highlight selected
+        // Highlight selected (clear previous first)
         const answerBtns = document.querySelectorAll('.answer-btn');
-        answerBtns.forEach((btn, i) => {
-            if (i === index) btn.classList.add('selected');
-        });
+        answerBtns.forEach(btn => btn.classList.remove('selected'));
+        answerBtns[index].classList.add('selected');
         
         // Check if "Er du sikker?" should trigger
         // Chance increases with question number: 0% for Q1-3, then 15% base + 3% per question
@@ -546,7 +552,7 @@ class WarehouseWarriorGame {
         
         answerBtns.forEach((btn, index) => {
             btn.disabled = true;
-            btn.classList.remove('selected');
+            btn.classList.remove('selected', 'correct', 'wrong');
             if (index === shuffledCorrect) {
                 btn.classList.add('correct');
             } else if (index === this.selectedAnswer && index !== shuffledCorrect) {

@@ -485,7 +485,7 @@
                 <button id="installBtn" class="btn-primary install-btn">📲 Installer App</button>
             </div>
             
-            <!-- iOS install guide -->
+            <!-- iOS Safari install guide -->
             <div id="installIOS" style="display:none;">
                 <div class="ios-guide">
                     <div class="ios-step">
@@ -503,6 +503,29 @@
                 </div>
             </div>
             
+            <!-- iOS Chrome/other browser - redirect to Safari -->
+            <div id="installIOSChrome" style="display:none;">
+                <div class="ios-guide">
+                    <div class="ios-step ios-step-warning">
+                        <span class="ios-step-num">⚠️</span>
+                        <span>Apps kan kun installeres via <strong>Safari</strong> på iPhone</span>
+                    </div>
+                    <div class="ios-step">
+                        <span class="ios-step-num">1</span>
+                        <span>Kopier linket: <strong id="copyUrl" class="copy-link">Tryk her for at kopiere</strong></span>
+                    </div>
+                    <div class="ios-step">
+                        <span class="ios-step-num">2</span>
+                        <span>Åbn <strong>Safari</strong> og indsæt linket</span>
+                    </div>
+                    <div class="ios-step">
+                        <span class="ios-step-num">3</span>
+                        <span>Tryk <strong>Del-ikonet</strong> <span class="ios-icon">⬆️</span> → <strong>"Føj til hjemmeskærm"</strong></span>
+                    </div>
+                </div>
+                <div id="copyConfirm" class="copy-confirm" style="display:none;">✅ Link kopieret!</div>
+            </div>
+            
             <button id="installLater" class="btn-secondary install-later">Måske senere</button>
         </div>
     </div>
@@ -512,7 +535,7 @@
     (function() {
         // Register Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js').catch(() => {});
+            navigator.serviceWorker.register('./sw.js').catch(function() {});
         }
 
         // Don't show if already installed as PWA
@@ -521,51 +544,87 @@
         }
 
         // Don't show if dismissed recently (7 days)
-        const dismissed = localStorage.getItem('installDismissed');
+        var dismissed = localStorage.getItem('installDismissed');
         if (dismissed && Date.now() - parseInt(dismissed) < 7 * 24 * 60 * 60 * 1000) {
             return;
         }
 
+        // Detect platform
+        var ua = navigator.userAgent || '';
+        var isIOS = /iPhone|iPad|iPod/i.test(ua);
+        var isMobile = isIOS || /Android/i.test(ua);
+        var isSafari = isIOS && /Safari/i.test(ua) && !/CriOS|FxiOS|OPiOS|EdgiOS/i.test(ua);
+        var isIOSChrome = isIOS && /CriOS/i.test(ua);
+        var isIOSOtherBrowser = isIOS && !isSafari;
+
         // Only show on mobile
-        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         if (!isMobile) return;
 
-        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) && !window.MSStream;
-        const prompt = document.getElementById('installPrompt');
-        const androidDiv = document.getElementById('installAndroid');
-        const iosDiv = document.getElementById('installIOS');
-        let deferredPrompt = null;
+        var prompt = document.getElementById('installPrompt');
+        var androidDiv = document.getElementById('installAndroid');
+        var iosDiv = document.getElementById('installIOS');
+        var iosChromeDiv = document.getElementById('installIOSChrome');
+        var deferredPrompt = null;
 
         // Android: catch beforeinstallprompt
-        window.addEventListener('beforeinstallprompt', (e) => {
+        window.addEventListener('beforeinstallprompt', function(e) {
             e.preventDefault();
             deferredPrompt = e;
             androidDiv.style.display = 'block';
             showPrompt();
         });
 
-        // iOS: show guide
-        if (isIOS) {
+        // iOS Safari: show native guide
+        if (isSafari) {
             iosDiv.style.display = 'block';
-            // Show after 3 seconds
             setTimeout(showPrompt, 3000);
+        }
+        // iOS Chrome/Firefox/other: show "open in Safari" guide
+        else if (isIOSOtherBrowser) {
+            iosChromeDiv.style.display = 'block';
+            setTimeout(showPrompt, 3000);
+
+            // Copy URL functionality
+            var copyBtn = document.getElementById('copyUrl');
+            var copyConfirm = document.getElementById('copyConfirm');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    var url = window.location.href;
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(url).then(function() {
+                            copyConfirm.style.display = 'block';
+                            setTimeout(function() { copyConfirm.style.display = 'none'; }, 2000);
+                        });
+                    } else {
+                        // Fallback for older browsers
+                        var input = document.createElement('input');
+                        input.value = url;
+                        document.body.appendChild(input);
+                        input.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(input);
+                        copyConfirm.style.display = 'block';
+                        setTimeout(function() { copyConfirm.style.display = 'none'; }, 2000);
+                    }
+                });
+            }
         }
 
         function showPrompt() {
             prompt.style.display = 'flex';
-            setTimeout(() => prompt.classList.add('active'), 10);
+            setTimeout(function() { prompt.classList.add('active'); }, 10);
         }
 
         function hidePrompt() {
             prompt.classList.remove('active');
-            setTimeout(() => prompt.style.display = 'none', 300);
+            setTimeout(function() { prompt.style.display = 'none'; }, 300);
         }
 
         // Install button (Android/Chrome)
-        document.getElementById('installBtn').addEventListener('click', () => {
+        document.getElementById('installBtn').addEventListener('click', function() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(() => {
+                deferredPrompt.userChoice.then(function() {
                     deferredPrompt = null;
                     hidePrompt();
                 });
@@ -573,20 +632,15 @@
         });
 
         // Dismiss buttons
-        document.getElementById('installDismiss').addEventListener('click', () => {
+        document.getElementById('installDismiss').addEventListener('click', function() {
             localStorage.setItem('installDismissed', Date.now().toString());
             hidePrompt();
         });
 
-        document.getElementById('installLater').addEventListener('click', () => {
+        document.getElementById('installLater').addEventListener('click', function() {
             localStorage.setItem('installDismissed', Date.now().toString());
             hidePrompt();
         });
-
-        // For Android without beforeinstallprompt (show after delay)
-        if (!isIOS && !deferredPrompt) {
-            // Some browsers don't fire beforeinstallprompt, skip prompt
-        }
     })();
     </script>
 </body>

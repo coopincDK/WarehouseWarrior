@@ -839,80 +839,155 @@ body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    .desktop-only {
-        display: none;
-    }
-    
-    .mobile-only {
-        display: block;
-    }
-    
-    .host-image {
-        max-width: 70vw;
-        max-height: 60vh;
-    }
-    
-    .logo {
-        max-width: 250px;
-    }
-    
-    .answers-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .question-text {
-        font-size: 1.4rem;
-    }
-    
-    .game-header {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .result-title {
-        font-size: 2.5rem;
-    }
-    
-    .lifelines-container {
-        gap: 10px;
-    }
-    
-    .lifeline-btn img {
-        width: 50px;
-        height: 50px;
-    }
+    .desktop-only { display: none; }
+    .mobile-only { display: block; }
+    .host-image { max-width: 60vw; max-height: 55vh; }
+    .logo { max-width: 220px; }
+    .content-overlay { padding: 10px 12px 50px; }
+    .answers-grid { grid-template-columns: 1fr; gap: 8px; margin-bottom: 10px; }
+    .answer-btn { padding: 12px 15px; gap: 10px; }
+    .answer-letter { width: 36px; height: 36px; font-size: 1.1rem; }
+    .answer-text { font-size: 1rem; }
+    .question-text { font-size: 1.2rem; line-height: 1.3; }
+    .question-container { padding: 15px; margin-bottom: 10px; }
+    .game-header { flex-direction: row; flex-wrap: wrap; gap: 8px; padding: 10px 15px; margin-bottom: 10px; }
+    .player-info { font-size: 0.9rem; }
+    .question-progress { font-size: 0.9rem; }
+    .score-display { font-size: 1.1rem; gap: 5px; }
+    .score-icon { width: 25px; height: 25px; }
+    .timer-container { padding: 8px 12px; gap: 8px; margin-bottom: 10px; }
+    .timer-icon { width: 30px; height: 30px; }
+    .timer-bar { height: 20px; }
+    .timer-text { font-size: 1rem; min-width: 40px; }
+    .result-title { font-size: 2rem; }
+    .result-content { padding: 15px; }
+    .result-message { font-size: 1rem; margin: 5px 0; }
+    .points-earned { font-size: 1.4rem; margin: 8px 0; }
+    .correct-answer { font-size: 1.1rem; padding: 8px 15px; margin: 8px 0; }
+    .explanation-box { padding: 10px 15px; margin: 8px 0; }
+    .explanation-box h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .explanation-box p { font-size: 0.95rem; line-height: 1.4; }
+    .lifelines-container { gap: 8px; }
+    .lifeline-btn { padding: 8px; gap: 5px; }
+    .lifeline-btn img { width: 40px; height: 40px; }
+    .lifeline-label { font-size: 0.75rem; }
+    .gameover-content, .victory-content { padding: 15px; }
+    .gameover-content h2, .victory-content h2 { font-size: 2rem; margin: 10px 0; }
+    .final-score { font-size: 1.4rem; margin: 8px 0; }
+    .trophy-icon { max-width: 120px; margin: 10px auto; }
+    .medal { max-width: 80px; }
+    .medal-display { margin: 10px 0; }
+    .gameover-buttons { gap: 8px; margin-top: 10px; }
+    .checkpoint-content { padding: 20px 15px; }
+    .checkpoint-content h2 { font-size: 2rem; margin: 10px 0; }
+    .checkpoint-message { font-size: 1.1rem; margin: 10px 0; }
+    .checkpoint-score { font-size: 1.4rem; margin: 15px 0; }
+    .highscore-content { padding: 15px; }
+    .highscore-content h2 { font-size: 1.8rem; margin: 10px 0; }
+    .highscore-trophy { max-width: 80px; margin: 5px auto; }
+    .highscore-table th, .highscore-table td { padding: 8px 6px; font-size: 0.85rem; }
+    .book-cta { margin-top: 10px; padding-top: 10px; }
+    .book-cta-inner { padding: 12px; }
+    .book-cta-text { font-size: 0.85rem; }
+    .book-title { font-size: 0.95rem; }
+    .btn-cta { padding: 8px 20px; font-size: 0.9rem; }
+    .wrong-score-summary { margin: 8px 0; padding: 10px; }
+    .wrong-score-summary p { font-size: 0.95rem; }
+    .wrong-buttons { gap: 8px; margin: 10px 0; }
+    .highscore-save { padding: 10px; margin: 8px 0; }
+    .highscore-save h3 { font-size: 0.95rem; margin-bottom: 8px; }
+    .highscore-input { padding: 8px 12px; font-size: 0.9rem; margin: 5px auto; }
+    .btn-save { padding: 8px 20px; font-size: 0.9rem; margin-top: 5px; }
+    .footer-logos { padding: 8px 15px; gap: 10px; }
+    .footer-text { font-size: 0.7rem; }
+    .footer-logo { height: 20px; }
+    .footer-separator { font-size: 0.7rem; }
+    .btn-primary { padding: 12px 30px; font-size: 1.1rem; }
+    .btn-secondary { padding: 10px 20px; font-size: 0.95rem; }
+    .result-icon { max-width: 80px; }
+    .gameover-sign, .victory-sign { max-width: 140px; }
 }
 
 @media (max-width: 480px) {
-    .content-overlay {
-        padding: 10px 10px 60px;
-    }
-    
-    .logo {
-        max-width: 180px;
-    }
-    
-    .welcome-layout {
-        padding-top: 10px !important;
-        padding-bottom: 70px !important;
-    }
-    
-    .player-input {
-        margin: 8px 0;
-    }
-    
-    .btn-primary {
-        padding: 10px 25px;
-        font-size: 1rem;
-    }
-    
-    .question-text {
-        font-size: 1.2rem;
-    }
-    
-    .answer-text {
-        font-size: 1rem;
-    }
+    .content-overlay { padding: 8px 8px 45px; }
+    .logo { max-width: 160px; }
+    .welcome-layout { padding-top: 8px !important; padding-bottom: 55px !important; }
+    .host-image { max-width: 55vw; max-height: 50vh; }
+    .player-input { margin: 5px 0; }
+    .btn-primary { padding: 10px 25px; font-size: 1rem; }
+    .btn-secondary { padding: 8px 18px; font-size: 0.85rem; }
+    .question-text { font-size: 1.05rem; }
+    .question-container { padding: 12px; margin-bottom: 8px; }
+    .question-category { padding: 5px 12px; font-size: 0.75rem; margin-bottom: 8px; }
+    .answer-btn { padding: 10px 12px; gap: 8px; border-radius: 10px; }
+    .answer-letter { width: 32px; height: 32px; font-size: 1rem; }
+    .answer-text { font-size: 0.9rem; }
+    .answers-grid { gap: 6px; margin-bottom: 8px; }
+    .game-header { padding: 8px 10px; gap: 5px; margin-bottom: 8px; border-radius: 10px; }
+    .player-info { font-size: 0.8rem; }
+    .question-progress { font-size: 0.8rem; }
+    .score-display { font-size: 1rem; }
+    .score-icon { width: 22px; height: 22px; }
+    .timer-container { padding: 6px 10px; gap: 6px; margin-bottom: 8px; }
+    .timer-icon { width: 25px; height: 25px; }
+    .timer-bar { height: 16px; }
+    .timer-text { font-size: 0.9rem; min-width: 35px; }
+    .lifeline-btn { padding: 6px; gap: 3px; }
+    .lifeline-btn img { width: 32px; height: 32px; }
+    .lifeline-label { font-size: 0.65rem; }
+    .result-icon { max-width: 60px; width: 15%; margin-bottom: 5px; }
+    .result-title { font-size: 1.6rem; margin: 5px 0; }
+    .result-content { padding: 12px 10px; }
+    .points-earned { font-size: 1.2rem; margin: 5px 0; }
+    .correct-answer { font-size: 0.95rem; padding: 6px 10px; margin: 5px 0; }
+    .explanation-box { padding: 8px 10px; margin: 5px 0; }
+    .explanation-box h3 { font-size: 0.95rem; margin-bottom: 5px; }
+    .explanation-box p { font-size: 0.85rem; line-height: 1.3; }
+    .gameover-content, .victory-content { padding: 12px 10px; }
+    .gameover-content h2, .victory-content h2 { font-size: 1.6rem; margin: 8px 0; }
+    .gameover-sign, .victory-sign { max-width: 120px; margin-bottom: 5px; }
+    .final-score { font-size: 1.2rem; margin: 5px 0; }
+    .trophy-icon { max-width: 80px; margin: 5px auto; }
+    .champion-crown { width: 70px; margin-bottom: 5px; }
+    .medal { max-width: 60px; }
+    .medal-display { margin: 5px 0; }
+    .gameover-buttons { gap: 6px; margin-top: 8px; }
+    .checkpoint-content { padding: 15px 10px; }
+    .checkpoint-content h2 { font-size: 1.6rem; margin: 8px 0; }
+    .checkpoint-icon { width: 80px; margin-bottom: 8px; }
+    .checkpoint-message { font-size: 0.95rem; margin: 8px 0; }
+    .checkpoint-score { font-size: 1.2rem; margin: 10px 0; }
+    .highscore-content h2 { font-size: 1.5rem; }
+    .highscore-trophy { max-width: 60px; }
+    .highscore-table th, .highscore-table td { padding: 6px 4px; font-size: 0.8rem; }
+    .highscore-save { padding: 8px; margin: 5px 0; }
+    .highscore-save h3 { font-size: 0.85rem; margin-bottom: 5px; }
+    .highscore-input { padding: 6px 10px; font-size: 0.85rem; margin: 4px auto; max-width: 220px; }
+    .btn-save { padding: 6px 18px; font-size: 0.85rem; }
+    .book-cta { margin-top: 5px; padding-top: 5px; }
+    .book-cta-inner { padding: 8px; }
+    .book-cta-text { font-size: 0.8rem; margin-bottom: 4px; }
+    .book-title { font-size: 0.85rem; }
+    .book-author { font-size: 0.75rem; margin-bottom: 8px; }
+    .btn-cta { padding: 6px 16px; font-size: 0.8rem; }
+    .wrong-score-summary { margin: 5px 0; padding: 8px; }
+    .wrong-score-summary p { font-size: 0.85rem; }
+    .wrong-buttons { gap: 6px; margin: 8px 0; }
+    .btn-book { padding: 10px 20px; font-size: 0.85rem; }
+    .footer-logos { padding: 6px 10px; gap: 8px; }
+    .footer-text { font-size: 0.6rem; }
+    .footer-logo { height: 16px; }
+    .footer-separator { font-size: 0.6rem; }
+    .psyk-image { max-width: 100px; margin-bottom: 8px; }
+    .modal-content { padding: 20px; }
+    .modal-content h3 { font-size: 1.3rem; margin-bottom: 15px; }
+    .phone-message { font-size: 1rem; padding: 12px; margin: 15px 0; }
+    .host-mini-img { max-width: 100px; }
+    .are-you-sure h3 { font-size: 1.3rem; }
+    .expert-card { padding: 10px 12px; gap: 10px; }
+    .expert-card .expert-emoji { font-size: 1.8rem; }
+    .expert-card .expert-name { font-size: 1rem; }
+    .expert-answer-text { font-size: 1rem; padding: 15px; }
 }
 
 /* ===== SECONDARY BUTTON ===== */
@@ -1491,49 +1566,167 @@ body {
     display: block;
 }
 
-@media (max-width: 768px) {
-    .expert-grid {
-        grid-template-columns: 1fr;
+/* Additional 768px overrides already merged into main 768px query above */
+
+/* ===== INSTALL APP PROMPT ===== */
+
+.install-prompt {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.install-prompt.active {
+    opacity: 1;
+}
+
+.install-prompt-content {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 2px solid #ffd700;
+    border-radius: 20px;
+    padding: 30px 25px;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.install-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.install-close:hover {
+    color: #fff;
+}
+
+.install-logo {
+    width: 80px;
+    margin: 0 auto 15px;
+    display: block;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
+}
+
+.install-prompt-content h3 {
+    font-size: 1.4rem;
+    color: #ffd700;
+    margin-bottom: 10px;
+}
+
+.install-text {
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.install-btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.install-later {
+    margin-top: 5px;
+    border: none;
+    background: none;
+    color: #888;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 8px;
+    transition: color 0.2s;
+}
+
+.install-later:hover {
+    color: #ccc;
+}
+
+/* iOS Guide Steps */
+.ios-guide {
+    text-align: left;
+    margin: 15px 0;
+}
+
+.ios-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #eee;
+    line-height: 1.3;
+}
+
+.ios-step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: #ffd700;
+    color: #000;
+    font-weight: bold;
+    border-radius: 50%;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+}
+
+.ios-icon {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 480px) {
+    .install-prompt-content {
+        padding: 20px 15px;
+        max-width: 340px;
     }
     
-    .expert-card .expert-emoji {
-        font-size: 2rem;
+    .install-prompt-content h3 {
+        font-size: 1.2rem;
     }
     
-    .host-mini-img {
-        max-width: 150px;
+    .install-text {
+        font-size: 0.85rem;
     }
     
-    .settings-content {
-        padding: 25px;
+    .install-logo {
+        width: 60px;
     }
     
-    .highscore-input {
-        max-width: 250px;
+    .ios-step {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+        gap: 10px;
     }
     
-    .psyk-image {
-        max-width: 150px;
-    }
-    
-    .champion-crown {
-        width: 90px;
-    }
-    
-    .result-icon {
-        max-width: 100px;
-    }
-    
-    .gameover-sign,
-    .victory-sign {
-        max-width: 180px;
-    }
-    
-    .medal {
-        max-width: 100px;
-    }
-    
-    .footer-logo {
-        height: 22px;
+    .ios-step-num {
+        width: 26px;
+        height: 26px;
+        font-size: 0.8rem;
     }
 }

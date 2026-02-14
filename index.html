@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warehouse Warrior - Lager Quiz</title>
     <link rel="stylesheet" href="style-new.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ffd700">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Warehouse Warrior">
+    <link rel="apple-touch-icon" href="assets/images/icons/01_warehouse_warrior_logo.png">
 </head>
 <body>
     <!-- Background Music -->
@@ -465,5 +471,123 @@
         <span class="footer-separator">×</span>
         <a href="https://www.danskerhverv.dk/" target="_blank" rel="noopener"><img src="assets/images/icons/DE logo.png" alt="Dansk Erhverv" class="footer-logo"></a>
     </div>
+
+    <!-- Install App Prompt -->
+    <div id="installPrompt" class="install-prompt" style="display:none;">
+        <div class="install-prompt-content">
+            <button id="installDismiss" class="install-close">&times;</button>
+            <img src="assets/images/icons/01_warehouse_warrior_logo.png" alt="Warehouse Warrior" class="install-logo">
+            <h3>Installer Warehouse Warrior</h3>
+            <p class="install-text">Spil direkte fra din hjemmeskærm - ingen browser nødvendig!</p>
+            
+            <!-- Android / Chrome install button -->
+            <div id="installAndroid" style="display:none;">
+                <button id="installBtn" class="btn-primary install-btn">📲 Installer App</button>
+            </div>
+            
+            <!-- iOS install guide -->
+            <div id="installIOS" style="display:none;">
+                <div class="ios-guide">
+                    <div class="ios-step">
+                        <span class="ios-step-num">1</span>
+                        <span>Tryk på <strong>Del-ikonet</strong> <span class="ios-icon">⬆️</span> i bunden af Safari</span>
+                    </div>
+                    <div class="ios-step">
+                        <span class="ios-step-num">2</span>
+                        <span>Scroll ned og tryk <strong>"Føj til hjemmeskærm"</strong></span>
+                    </div>
+                    <div class="ios-step">
+                        <span class="ios-step-num">3</span>
+                        <span>Tryk <strong>"Tilføj"</strong> - færdig! 🎉</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="installLater" class="btn-secondary install-later">Måske senere</button>
+        </div>
+    </div>
+
+    <!-- Service Worker & Install Logic -->
+    <script>
+    (function() {
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').catch(() => {});
+        }
+
+        // Don't show if already installed as PWA
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+            return;
+        }
+
+        // Don't show if dismissed recently (7 days)
+        const dismissed = localStorage.getItem('installDismissed');
+        if (dismissed && Date.now() - parseInt(dismissed) < 7 * 24 * 60 * 60 * 1000) {
+            return;
+        }
+
+        // Only show on mobile
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (!isMobile) return;
+
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) && !window.MSStream;
+        const prompt = document.getElementById('installPrompt');
+        const androidDiv = document.getElementById('installAndroid');
+        const iosDiv = document.getElementById('installIOS');
+        let deferredPrompt = null;
+
+        // Android: catch beforeinstallprompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            androidDiv.style.display = 'block';
+            showPrompt();
+        });
+
+        // iOS: show guide
+        if (isIOS) {
+            iosDiv.style.display = 'block';
+            // Show after 3 seconds
+            setTimeout(showPrompt, 3000);
+        }
+
+        function showPrompt() {
+            prompt.style.display = 'flex';
+            setTimeout(() => prompt.classList.add('active'), 10);
+        }
+
+        function hidePrompt() {
+            prompt.classList.remove('active');
+            setTimeout(() => prompt.style.display = 'none', 300);
+        }
+
+        // Install button (Android/Chrome)
+        document.getElementById('installBtn').addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(() => {
+                    deferredPrompt = null;
+                    hidePrompt();
+                });
+            }
+        });
+
+        // Dismiss buttons
+        document.getElementById('installDismiss').addEventListener('click', () => {
+            localStorage.setItem('installDismissed', Date.now().toString());
+            hidePrompt();
+        });
+
+        document.getElementById('installLater').addEventListener('click', () => {
+            localStorage.setItem('installDismissed', Date.now().toString());
+            hidePrompt();
+        });
+
+        // For Android without beforeinstallprompt (show after delay)
+        if (!isIOS && !deferredPrompt) {
+            // Some browsers don't fire beforeinstallprompt, skip prompt
+        }
+    })();
+    </script>
 </body>
 </html>

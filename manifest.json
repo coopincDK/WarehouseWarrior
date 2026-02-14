@@ -1,0 +1,18 @@
+{
+    "name": "Warehouse Warrior - Lager Quiz",
+    "short_name": "Warehouse Warrior",
+    "description": "Test din viden om lager og logistik!",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#000000",
+    "theme_color": "#ffd700",
+    "icons": [
+        {
+            "src": "assets/images/icons/01_warehouse_warrior_logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

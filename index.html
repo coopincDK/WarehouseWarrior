@@ -473,7 +473,7 @@
     </div>
 
     <!-- Install App Prompt -->
-    <div id="installPrompt" class="install-prompt" style="display:none;">
+    <div id="installPrompt" class="install-prompt" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;">
         <div class="install-prompt-content">
             <button id="installDismiss" class="install-close">&times;</button>
             <img src="assets/images/icons/01_warehouse_warrior_logo.png" alt="Warehouse Warrior" class="install-logo">
@@ -611,13 +611,13 @@
         }
 
         function showPrompt() {
-            prompt.style.display = 'flex';
+            prompt.style.cssText = 'display:flex;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);';
             setTimeout(function() { prompt.classList.add('active'); }, 10);
         }
 
         function hidePrompt() {
             prompt.classList.remove('active');
-            setTimeout(function() { prompt.style.display = 'none'; }, 300);
+            setTimeout(function() { prompt.style.cssText = 'display:none;'; }, 300);
         }
 
         // Install button (Android/Chrome)

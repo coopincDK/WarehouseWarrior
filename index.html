@@ -537,9 +537,21 @@
     <!-- Service Worker & Install Logic -->
     <script>
     (function() {
-        // Register Service Worker
+        // Register Service Worker with auto-update
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js').catch(function() {});
+            navigator.serviceWorker.register('./sw.js').then(function(reg) {
+                // Tjek for opdateringer ved hver sidevisning
+                reg.update();
+                // Lyt efter ny version
+                reg.addEventListener('updatefound', function() {
+                    var newWorker = reg.installing;
+                    newWorker.addEventListener('statechange', function() {
+                        if (newWorker.state === 'activated') {
+                            window.location.reload();
+                        }
+                    });
+                });
+            }).catch(function() {});
         }
 
         // Don't show if already installed as PWA

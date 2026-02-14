@@ -113,6 +113,23 @@ body {
     padding-top: 10px;
 }
 
+/* Result-scenes: kassen i toppen, Carsten i bunden */
+#correctScene .content-overlay,
+#wrongScene .content-overlay {
+    justify-content: flex-start;
+    padding-top: 15px;
+}
+
+#correctScene .host-overlay,
+#wrongScene .host-overlay {
+    max-height: 35vh;
+}
+
+#correctScene .host-image,
+#wrongScene .host-image {
+    max-height: 35vh;
+}
+
 /* ===== CONTENT OVERLAY ===== */
 .content-overlay {
     position: relative;
@@ -931,8 +948,11 @@ body {
     .mobile-only { display: block; }
     .host-image { max-width: 75vw; max-height: 65vh; }
     #welcomeScene .host-image { max-width: 85vw; max-height: 70vh; }
-    #questionScene .host-image { max-height: 28vh; }
-    #questionScene .host-overlay { max-height: 28vh; }
+    #questionScene .host-image { max-height: 35vh; }
+    #questionScene .host-overlay { max-height: 35vh; }
+    #correctScene .host-image, #wrongScene .host-image { max-height: 28vh; }
+    #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 28vh; }
+    #correctScene .content-overlay, #wrongScene .content-overlay { padding-top: 10px; }
     .question-container { padding: 10px; margin-bottom: 8px; }
     .logo { max-width: 300px; }
     .content-overlay { padding: 10px 12px 50px; }
@@ -1010,8 +1030,11 @@ body {
     .welcome-layout { padding-top: 8px !important; padding-bottom: 55px !important; }
     .host-image { max-width: 80vw; max-height: 60vh; }
     #welcomeScene .host-image { max-width: 90vw; max-height: 75vh; }
-    #questionScene .host-image { max-height: 22vh; }
-    #questionScene .host-overlay { max-height: 22vh; }
+    #questionScene .host-image { max-height: 30vh; }
+    #questionScene .host-overlay { max-height: 30vh; }
+    #correctScene .host-image, #wrongScene .host-image { max-height: 22vh; }
+    #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 22vh; }
+    #correctScene .content-overlay, #wrongScene .content-overlay { padding-top: 8px; }
     .question-container { padding: 8px; margin-bottom: 6px; }
     .player-input { margin: 5px 0; }
     .btn-primary { padding: 10px 25px; font-size: 1rem; }

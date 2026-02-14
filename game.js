@@ -355,6 +355,7 @@ class WarehouseWarriorGame {
         // Clear previous answer state completely
         const oldBtns = document.querySelectorAll('.answer-btn');
         oldBtns.forEach(btn => btn.classList.remove('selected', 'correct', 'wrong'));
+        this.lifelinePromptShown = false; // Nulstil livline-prompt for nyt spørgsmål
         
         const question = this.questions[this.currentQuestionIndex];
         
@@ -493,22 +494,31 @@ class WarehouseWarriorGame {
         
         const questionNum = this.currentQuestionIndex + 1;
         const hasLifelinesLeft = this.getAvailableLifelines().length > 0;
+        const question = this.questions[this.currentQuestionIndex];
+        const isWrongAnswer = index !== this.currentShuffle.correctIndex;
         
-        // Livline-prompt: Q1-3 = 100% hvis livliner tilbage, Q4+ = random
-        let lifelinePromptChance = 0;
-        if (hasLifelinesLeft) {
+        // Livline-prompt: KUN ved forkert svar, IKKE hvis allerede spurgt dette spørgsmål
+        // Q1-3: 100% chance, Q4+: random chance (uanset om livliner er tilbage)
+        let showLifelinePrompt = false;
+        if (isWrongAnswer && !this.lifelinePromptShown) {
             if (questionNum <= 3) {
-                lifelinePromptChance = 1.0; // 100% de første 3
+                showLifelinePrompt = true;
             } else {
-                lifelinePromptChance = 0.25 + (questionNum - 3) * 0.03; // 25%+ derefter
+                showLifelinePrompt = Math.random() < 0.05;
             }
         }
         
-        if (Math.random() < lifelinePromptChance) {
-            // Vis "Vil du bruge en livline?" - pause timer
+        if (showLifelinePrompt) {
             this.pendingAnswer = index;
+            this.lifelinePromptShown = true;
             this.stopTimer();
-            this.showLifelinePrompt();
+            if (hasLifelinesLeft) {
+                // Vis livline-prompt med knapper
+                this.showLifelinePrompt();
+            } else {
+                // Ingen livliner tilbage - vis "Er du sikker?" i stedet
+                this.showAreYouSure();
+            }
         } else {
             // Normal flow - evt "Er du sikker?" psyk
             let areYouSureChance = 0;

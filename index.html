@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warehouse Warrior - Lager Quiz</title>
-    <link rel="stylesheet" href="style-new.css?v=2.1">
+    <link rel="stylesheet" href="style-new.css?v=2.2">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffd700">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -52,6 +52,7 @@
             <div class="content-overlay welcome-layout">
                 <div class="welcome-top">
                     <img src="assets/images/icons/01_warehouse_warrior_logo.png" alt="Warehouse Warrior" class="logo pulse">
+                    <p class="host-name">Med din vært <strong>Carsten Rose Lundberg</strong></p>
                 </div>
 
                 <div class="welcome-bottom">
@@ -421,6 +422,18 @@
             </div>
         </div>
 
+        <!-- Brug en livline? overlay -->
+        <div id="useLifelineModal" class="modal">
+            <div class="modal-content are-you-sure">
+                <div class="host-mini">
+                    <img src="assets/images/host/10_vaert_hvisker_hemmelighed.png" alt="Vært" class="host-mini-img">
+                </div>
+                <h3 id="useLifelineText">Vil du ikke bruge en livline? 🤔</h3>
+                <div class="lifeline-prompt-btns" id="lifelinePromptBtns"></div>
+                <button class="btn-secondary" onclick="game.skipLifelinePrompt()">Nej tak, jeg er sikker!</button>
+            </div>
+        </div>
+
         <!-- Er du sikker? overlay -->
         <div id="areYouSureModal" class="modal">
             <div class="modal-content are-you-sure">
@@ -465,9 +478,9 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-    <script src="firebase-highscore.js?v=2.1"></script>
-    <script src="questions.js?v=2.1"></script>
-    <script src="game.js?v=2.1"></script>
+    <script src="firebase-highscore.js?v=2.2"></script>
+    <script src="questions.js?v=2.2"></script>
+    <script src="game.js?v=2.2"></script>
     <!-- Footer med logoer -->
     <div class="footer-logos">
         <span class="footer-text">Præsenteret af</span>

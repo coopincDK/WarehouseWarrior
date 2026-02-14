@@ -276,6 +276,7 @@ class WarehouseWarriorGame {
         if (!this.musicEnabled) return;
         this.sounds.bgMusic.pause();
         this.sounds.bgMusic.src = trackUrl;
+        this.sounds.bgMusic.volume = 0.8;
         this.sounds.bgMusic.play().catch(e => console.log('Music switch failed:', e));
     }
     
@@ -490,24 +491,101 @@ class WarehouseWarriorGame {
         answerBtns.forEach(btn => btn.classList.remove('selected'));
         answerBtns[index].classList.add('selected');
         
-        // Check if "Er du sikker?" should trigger
-        // Chance increases with question number: 0% for Q1-3, then 15% base + 3% per question
         const questionNum = this.currentQuestionIndex + 1;
-        let areYouSureChance = 0;
-        if (questionNum > 3) {
-            areYouSureChance = 0.15 + (questionNum - 3) * 0.03;
+        const hasLifelinesLeft = this.getAvailableLifelines().length > 0;
+        
+        // Livline-prompt: Q1-3 = 100% hvis livliner tilbage, Q4+ = random
+        let lifelinePromptChance = 0;
+        if (hasLifelinesLeft) {
+            if (questionNum <= 3) {
+                lifelinePromptChance = 1.0; // 100% de første 3
+            } else {
+                lifelinePromptChance = 0.25 + (questionNum - 3) * 0.03; // 25%+ derefter
+            }
         }
         
-        if (Math.random() < areYouSureChance) {
-            // Show "Er du sikker?" - pause timer
+        if (Math.random() < lifelinePromptChance) {
+            // Vis "Vil du bruge en livline?" - pause timer
             this.pendingAnswer = index;
             this.stopTimer();
-            this.showAreYouSure();
+            this.showLifelinePrompt();
         } else {
-            // Normal flow
-            this.selectedAnswer = index;
-            setTimeout(() => this.checkAnswer(), 500);
+            // Normal flow - evt "Er du sikker?" psyk
+            let areYouSureChance = 0;
+            if (questionNum > 3) {
+                areYouSureChance = 0.15 + (questionNum - 3) * 0.03;
+            }
+            if (Math.random() < areYouSureChance) {
+                this.pendingAnswer = index;
+                this.stopTimer();
+                this.showAreYouSure();
+            } else {
+                this.selectedAnswer = index;
+                setTimeout(() => this.checkAnswer(), 500);
+            }
         }
+    }
+    
+    getAvailableLifelines() {
+        const available = [];
+        if (!this.lifelines.fiftyFifty) available.push({ id: 'fiftyFifty', label: '50/50', icon: 'assets/images/icons/06_lifeline_50_50_ikon.png' });
+        if (!this.lifelines.audience) available.push({ id: 'audience', label: 'Se andre', icon: 'assets/images/icons/07_lifeline_spoerg_publikum_ikon.png' });
+        if (!this.lifelines.phone) available.push({ id: 'phone', label: 'Ring', icon: 'assets/images/icons/08_lifeline_ring_en_ven_ikon.png' });
+        if (!this.lifelines.extraTime) available.push({ id: 'extraTime', label: '+15s', icon: 'assets/images/icons/09_lifeline_ekstra_tid_ikon.png' });
+        return available;
+    }
+    
+    showLifelinePrompt() {
+        const taunts = [
+            'Hov hov! Vil du ikke bruge en livline først? \ud83e\udd14',
+            'Vent lige! Du har stadig livliner tilbage! \ud83d\udca1',
+            'Er du sikker? Måske en livline kunne hjælpe? \ud83e\udd37',
+            'Psst! Glem ikke dine livliner! \ud83d\ude09',
+            'Tænk dig om... en livline måske? \ud83e\uddd0'
+        ];
+        document.getElementById('useLifelineText').textContent = taunts[Math.floor(Math.random() * taunts.length)];
+        
+        // Byg livline-knapper
+        const container = document.getElementById('lifelinePromptBtns');
+        container.innerHTML = '';
+        this.getAvailableLifelines().forEach(ll => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-lifeline-prompt';
+            btn.innerHTML = `<img src="${ll.icon}" alt="${ll.label}"> ${ll.label}`;
+            btn.addEventListener('click', () => this.useLifelineFromPrompt(ll.id));
+            container.appendChild(btn);
+        });
+        
+        this.updateHostImage('whisper');
+        document.getElementById('useLifelineModal').classList.add('active');
+        this.playSound('dramatic');
+    }
+    
+    useLifelineFromPrompt(lifelineId) {
+        document.getElementById('useLifelineModal').classList.remove('active');
+        // Fjern pending - spilleren bruger livline i stedet
+        const answerBtns = document.querySelectorAll('.answer-btn');
+        answerBtns.forEach(btn => btn.classList.remove('selected'));
+        this.pendingAnswer = null;
+        this.startTimer();
+        
+        // Aktiver den valgte livline
+        switch(lifelineId) {
+            case 'fiftyFifty': this.useFiftyFifty(); break;
+            case 'audience': this.useAudience(); break;
+            case 'phone': this.usePhone(); break;
+            case 'extraTime': this.useExtraTime(); break;
+        }
+    }
+    
+    skipLifelinePrompt() {
+        document.getElementById('useLifelineModal').classList.remove('active');
+        this.playSound('click');
+        // Fortsæt med svaret
+        this.selectedAnswer = this.pendingAnswer;
+        this.pendingAnswer = null;
+        this.startTimer();
+        setTimeout(() => this.checkAnswer(), 300);
     }
     
     showAreYouSure() {

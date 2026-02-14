@@ -59,6 +59,20 @@ body {
     display: none;
 }
 
+/* ===== HOST NAME ===== */
+.host-name {
+    font-size: 1.1rem;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8);
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+.host-name strong {
+    color: #fff;
+    font-size: 1.2rem;
+}
+
 /* ===== HOST OVERLAY ===== */
 .host-overlay {
     position: absolute;
@@ -86,12 +100,12 @@ body {
 
 /* Under quiz: skub Carsten ned så svar er over hans hoved */
 #questionScene .host-overlay {
-    max-height: 45vh;
+    max-height: 40vh;
     bottom: 0;
 }
 
 #questionScene .host-image {
-    max-height: 45vh;
+    max-height: 40vh;
 }
 
 #questionScene .content-overlay {
@@ -493,7 +507,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    padding: 15px;
+    padding: 18px;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(20, 10, 40, 0.4));
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -501,6 +515,8 @@ body {
     border-radius: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
+    animation: lifelinePulse 2s ease-in-out infinite;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
 }
 
 .lifeline-btn:hover {
@@ -509,12 +525,17 @@ body {
 }
 
 .lifeline-btn img {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
+    animation: lifelineBounce 3s ease-in-out infinite;
 }
 
+.lifeline-btn:nth-child(2) img { animation-delay: 0.3s; }
+.lifeline-btn:nth-child(3) img { animation-delay: 0.6s; }
+.lifeline-btn:nth-child(4) img { animation-delay: 0.9s; }
+
 .lifeline-label {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #ffd700;
 }
@@ -523,6 +544,56 @@ body {
     opacity: 0.3;
     pointer-events: none;
     border-color: #666;
+    animation: none;
+}
+
+.lifeline-btn.used img {
+    animation: none;
+}
+
+@keyframes lifelinePulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(255, 215, 0, 0.2); border-color: rgba(255, 215, 0, 0.4); }
+    50% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); border-color: rgba(255, 215, 0, 0.8); }
+}
+
+@keyframes lifelineBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* ===== LIFELINE PROMPT BUTTONS ===== */
+.lifeline-prompt-btns {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.btn-lifeline-prompt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+    border: 2px solid #ffd700;
+    border-radius: 12px;
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: lifelinePulse 2s ease-in-out infinite;
+}
+
+.btn-lifeline-prompt:hover {
+    background: rgba(255, 215, 0, 0.25);
+    transform: scale(1.05);
+}
+
+.btn-lifeline-prompt img {
+    width: 36px;
+    height: 36px;
 }
 
 .lifeline-btn.used .lifeline-label {
@@ -860,7 +931,9 @@ body {
     .mobile-only { display: block; }
     .host-image { max-width: 75vw; max-height: 65vh; }
     #welcomeScene .host-image { max-width: 85vw; max-height: 70vh; }
-    #questionScene .host-image { max-height: 35vh; }
+    #questionScene .host-image { max-height: 28vh; }
+    #questionScene .host-overlay { max-height: 28vh; }
+    .question-container { padding: 10px; margin-bottom: 8px; }
     .logo { max-width: 300px; }
     .content-overlay { padding: 10px 12px 50px; }
     .answers-grid { grid-template-columns: 1fr; gap: 8px; margin-bottom: 10px; }
@@ -888,7 +961,7 @@ body {
     .explanation-box p { font-size: 0.95rem; line-height: 1.4; }
     .lifelines-container { gap: 10px; }
     .lifeline-btn { padding: 12px 10px; gap: 6px; min-width: 70px; }
-    .lifeline-btn img { width: 50px; height: 50px; }
+    .lifeline-btn img { width: 55px; height: 55px; }
     .lifeline-label { font-size: 0.85rem; }
     .gameover-content, .victory-content { padding: 15px; }
     .gameover-content h2, .victory-content h2 { font-size: 2rem; margin: 10px 0; }
@@ -937,7 +1010,9 @@ body {
     .welcome-layout { padding-top: 8px !important; padding-bottom: 55px !important; }
     .host-image { max-width: 80vw; max-height: 60vh; }
     #welcomeScene .host-image { max-width: 90vw; max-height: 75vh; }
-    #questionScene .host-image { max-height: 30vh; }
+    #questionScene .host-image { max-height: 22vh; }
+    #questionScene .host-overlay { max-height: 22vh; }
+    .question-container { padding: 8px; margin-bottom: 6px; }
     .player-input { margin: 5px 0; }
     .btn-primary { padding: 10px 25px; font-size: 1rem; }
     .btn-secondary { padding: 8px 18px; font-size: 0.85rem; }
@@ -958,7 +1033,7 @@ body {
     .timer-bar { height: 16px; }
     .timer-text { font-size: 0.9rem; min-width: 35px; }
     .lifeline-btn { padding: 10px 8px; gap: 5px; min-width: 60px; }
-    .lifeline-btn img { width: 44px; height: 44px; }
+    .lifeline-btn img { width: 48px; height: 48px; }
     .lifeline-label { font-size: 0.75rem; }
     .result-icon { max-width: 60px; width: 15%; margin-bottom: 5px; }
     .result-title { font-size: 1.6rem; margin: 5px 0; }
@@ -1015,7 +1090,18 @@ body {
     .modal-content h3 { font-size: 1.3rem; margin-bottom: 15px; }
     .phone-message { font-size: 1rem; padding: 12px; margin: 15px 0; }
     .host-mini-img { max-width: 100px; }
-    .are-you-sure h3 { font-size: 1.3rem; }
+    .are-you-sure h3 { font-size: 1.3rem; margin-bottom: 12px; }
+    .modal-content { padding: 20px 15px; }
+    .modal-content h3 { font-size: 1.4rem; margin-bottom: 15px; }
+    .host-mini-img { max-width: 80px; }
+    .host-mini { margin-bottom: 8px; }
+    .psyk-image { max-width: 80px; margin-bottom: 8px; }
+    .are-you-sure-buttons { gap: 8px; }
+    .are-you-sure-buttons .btn-primary { padding: 10px 20px; font-size: 0.95rem; }
+    .are-you-sure-buttons .btn-secondary { padding: 8px 16px; font-size: 0.85rem; }
+    .lifeline-prompt-btns { gap: 8px; margin: 10px 0; }
+    .btn-lifeline-prompt { padding: 10px 14px; font-size: 0.9rem; }
+    .btn-lifeline-prompt img { width: 28px; height: 28px; }
     .expert-card { padding: 12px 15px; gap: 12px; }
     .expert-card .expert-emoji { font-size: 2rem; }
     .expert-card .expert-name { font-size: 1.1rem; }

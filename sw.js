@@ -1,4 +1,4 @@
-const CACHE_NAME = 'warehouse-warrior-v2.1';
+const CACHE_NAME = 'warehouse-warrior-v2.2';
 
 // Install - cache essential files
 self.addEventListener('install', (event) => {
@@ -6,10 +6,10 @@ self.addEventListener('install', (event) => {
         caches.open(CACHE_NAME).then((cache) => {
             return cache.addAll([
                 './index.html',
-                './style-new.css?v=2.1',
-                './game.js?v=2.1',
-                './questions.js?v=2.1',
-                './firebase-highscore.js?v=2.1',
+                './style-new.css?v=2.2',
+                './game.js?v=2.2',
+                './questions.js?v=2.2',
+                './firebase-highscore.js?v=2.2',
                 './manifest.json'
             ]);
         })

@@ -16,7 +16,7 @@ body {
 #gameContainer {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     overflow: hidden;
 }
 
@@ -26,10 +26,12 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease, visibility 0.5s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .scene.active {
@@ -70,11 +72,12 @@ body {
 /* Værten bag logoet på velkomst-scenen */
 #welcomeScene .host-overlay {
     z-index: 1;
+    left: 42%;
 }
 
 .host-image {
     max-width: 400px;
-    max-height: 60vh;
+    max-height: 70vh;
     width: auto;
     height: auto;
     display: block;
@@ -85,18 +88,40 @@ body {
 .content-overlay {
     position: relative;
     z-index: 3;
-    padding: 40px 20px;
+    padding: 15px 20px 60px;
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 215, 0, 0.3) transparent;
+}
+
+.content-overlay::-webkit-scrollbar {
+    width: 6px;
+}
+
+.content-overlay::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.content-overlay::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.3);
+    border-radius: 3px;
 }
 
 /* ===== RESULT ICONS ===== */
 .result-icon {
-    max-width: 150px;
-    width: 30%;
+    max-width: 100px;
+    width: 20%;
     height: auto;
     display: block;
-    margin: 0 auto 15px;
+    margin: 0 auto 10px;
 }
 
 /* ===== SETTINGS ICON ===== */
@@ -113,10 +138,13 @@ body {
     align-items: center;
     justify-content: center;
     gap: 15px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    position: relative;
-    z-index: 5;
+    padding: 12px 20px;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
 }
 
 .footer-text {
@@ -142,40 +170,33 @@ body {
 }
 
 /* ===== WELCOME SCENE ===== */
+.welcome-layout {
+    justify-content: space-between !important;
+    align-items: center;
+    padding-top: 20px !important;
+    padding-bottom: 80px !important;
+}
+
+.welcome-top {
+    text-align: center;
+}
+
+.welcome-bottom {
+    text-align: center;
+}
+
 .logo {
-    max-width: 500px;
-    width: 90%;
+    max-width: 400px;
+    width: 80%;
     display: block;
-    margin: 40px auto 30px;
+    margin: 0 auto;
     mix-blend-mode: screen;
     filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
 }
 
-.welcome-text {
-    text-align: center;
-    margin: 30px 0;
-}
-
-.welcome-text h1 {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-}
-
-.welcome-text p {
-    font-size: 1.5rem;
-    margin: 10px 0;
-}
-
-.welcome-text .subtitle {
-    font-size: 1.1rem;
-    color: #ffd700;
-    margin-top: 20px;
-}
-
 .player-input {
     text-align: center;
-    margin: 40px 0;
+    margin: 15px 0;
 }
 
 #playerName {
@@ -534,7 +555,7 @@ body {
 /* ===== RESULT SCENES ===== */
 .result-content {
     text-align: center;
-    padding: 40px 20px;
+    padding: 25px 20px;
     max-width: 800px;
     margin: 0 auto;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0.5) 100%);
@@ -545,8 +566,8 @@ body {
 }
 
 .result-title {
-    font-size: 3.5rem;
-    margin: 20px 0;
+    font-size: 2.5rem;
+    margin: 10px 0;
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
 }
 
@@ -559,36 +580,36 @@ body {
 }
 
 .result-message {
-    font-size: 1.5rem;
-    margin: 20px 0;
+    font-size: 1.2rem;
+    margin: 10px 0;
 }
 
 .points-earned {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
     color: #ffd700;
-    margin: 30px 0;
+    margin: 15px 0;
     animation: pointsPop 0.5s ease;
 }
 
 .correct-answer {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: bold;
     color: #00ff00;
-    padding: 20px;
+    padding: 12px 20px;
     background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 180, 0, 0.05));
     border: 2px solid rgba(0, 255, 0, 0.4);
     border-radius: 15px;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 .explanation-box {
     text-align: left;
-    padding: 25px;
+    padding: 15px 20px;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(20, 10, 40, 0.4));
     border: 2px solid rgba(255, 215, 0, 0.35);
     border-radius: 15px;
-    margin: 30px 0;
+    margin: 15px 0;
 }
 
 .explanation-box h3 {
@@ -607,7 +628,7 @@ body {
 .gameover-content,
 .victory-content {
     text-align: center;
-    padding: 40px 20px;
+    padding: 25px 20px;
     max-width: 800px;
     margin: 0 auto;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.65) 40%, rgba(0, 0, 0, 0.65) 60%, rgba(0, 0, 0, 0.4) 100%);
@@ -628,11 +649,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
-    font-size: 2.5rem;
+    gap: 10px;
+    font-size: 2rem;
     font-weight: bold;
     color: #ffd700;
-    margin: 30px 0;
+    margin: 15px 0;
 }
 
 .trophy-icon {
@@ -827,20 +848,12 @@ body {
     }
     
     .host-image {
-        max-width: 200px;
-        max-height: 45vh;
-    }
-    
-    .welcome-text h1 {
-        font-size: 2rem;
-    }
-    
-    .welcome-text p {
-        font-size: 1.2rem;
+        max-width: 70vw;
+        max-height: 60vh;
     }
     
     .logo {
-        max-width: 300px;
+        max-width: 250px;
     }
     
     .answers-grid {
@@ -872,11 +885,25 @@ body {
 
 @media (max-width: 480px) {
     .content-overlay {
-        padding: 20px 10px;
+        padding: 10px 10px 60px;
     }
     
-    .welcome-text h1 {
-        font-size: 1.5rem;
+    .logo {
+        max-width: 180px;
+    }
+    
+    .welcome-layout {
+        padding-top: 10px !important;
+        padding-bottom: 70px !important;
+    }
+    
+    .player-input {
+        margin: 8px 0;
+    }
+    
+    .btn-primary {
+        padding: 10px 25px;
+        font-size: 1rem;
     }
     
     .question-text {
@@ -885,11 +912,6 @@ body {
     
     .answer-text {
         font-size: 1rem;
-    }
-    
-    .btn-primary {
-        padding: 12px 30px;
-        font-size: 1.1rem;
     }
 }
 
@@ -1249,7 +1271,7 @@ body {
 
 /* ===== WRONG SCENE / GAME OVER BUTTONS ===== */
 .wrong-result {
-    max-width: 600px;
+    max-width: 700px;
 }
 
 .wrong-score-summary {
@@ -1352,8 +1374,8 @@ body {
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 215, 0, 0.2);
     border-radius: 15px;
-    padding: 20px;
-    margin: 15px 0;
+    padding: 15px;
+    margin: 10px 0;
     text-align: center;
 }
 
@@ -1464,8 +1486,8 @@ body {
 
 .gameover-sign,
 .victory-sign {
-    max-width: 250px;
-    margin: 0 auto 15px;
+    max-width: 180px;
+    margin: 0 auto 10px;
     display: block;
 }
 

@@ -46,7 +46,7 @@ class WarehouseWarriorGame {
         this.musicEnabled = localStorage.getItem('ww_music') !== 'false';
         this.sfxEnabled = localStorage.getItem('ww_sfx') !== 'false';
         this.musicPlaying = false;
-        this.hasChosenAudio = false;
+
         
         // Expert definitions
         this.experts = [
@@ -282,34 +282,7 @@ class WarehouseWarriorGame {
     }
     
 
-    showMusicPrompt() {
-        var prompt = document.getElementById('musicPrompt');
-        prompt.style.display = 'flex';
-        
-        document.getElementById('musicYes').onclick = () => {
-            this.musicEnabled = true;
-            this.sfxEnabled = true;
-            localStorage.setItem('ww_music', 'true');
-            localStorage.setItem('ww_sfx', 'true');
-            document.getElementById('musicToggle').checked = true;
-            document.getElementById('sfxToggle').checked = true;
-            prompt.style.display = 'none';
-            this.hasChosenAudio = true;
-            this.startGame();
-        };
-        
-        document.getElementById('musicNo').onclick = () => {
-            this.musicEnabled = false;
-            this.sfxEnabled = false;
-            localStorage.setItem('ww_music', 'false');
-            localStorage.setItem('ww_sfx', 'false');
-            document.getElementById('musicToggle').checked = false;
-            document.getElementById('sfxToggle').checked = false;
-            prompt.style.display = 'none';
-            this.hasChosenAudio = true;
-            this.startGame();
-        };
-    }
+
 
     setSfx(enabled) {
         this.sfxEnabled = enabled;
@@ -327,12 +300,6 @@ class WarehouseWarriorGame {
     // ===== GAME FLOW =====
     
     startGame() {
-        // Show music prompt on first play
-        if (!this.hasChosenAudio) {
-            this.showMusicPrompt();
-            return;
-        }
-        
         this.playerName = '';
         this.playerCompany = '';
         

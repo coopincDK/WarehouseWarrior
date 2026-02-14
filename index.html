@@ -138,9 +138,9 @@
                         <img src="assets/images/icons/06_lifeline_50_50_ikon.png" alt="50/50">
                         <span class="lifeline-label">50/50</span>
                     </button>
-                    <button class="lifeline-btn" id="lifelineAudience" title="Spørg publikum">
+                    <button class="lifeline-btn" id="lifelineAudience" title="Se hvad andre svarer">
                         <img src="assets/images/icons/07_lifeline_spoerg_publikum_ikon.png" alt="Publikum">
-                        <span class="lifeline-label">Publikum</span>
+                        <span class="lifeline-label">Andre</span>
                     </button>
                     <button class="lifeline-btn" id="lifelinePhone" title="Ring til en ven">
                         <img src="assets/images/icons/08_lifeline_ring_en_ven_ikon.png" alt="Ring">
@@ -396,7 +396,7 @@
         <!-- Lifeline Modals -->
         <div id="audienceModal" class="modal">
             <div class="modal-content">
-                <h3>👥 Publikums Stemmer</h3>
+                <h3>📊 Se hvad andre svarer</h3>
                 <div class="audience-results" id="audienceResults"></div>
                 <button class="btn-primary" onclick="game.closeAudienceModal()">OK</button>
             </div>
@@ -648,15 +648,6 @@
     })();
     </script>
 
-    <!-- Music Prompt -->
-    <div id="musicPrompt" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9998;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;">
-        <div class="install-prompt-content">
-            <img src="assets/images/icons/01_warehouse_warrior_logo.png" alt="Warehouse Warrior" class="install-logo">
-            <h3>🎵 Fuld oplevelse?</h3>
-            <p class="install-text">Vil du spille med musik og lydeffekter for den bedste oplevelse?</p>
-            <button id="musicYes" class="btn-primary install-btn">🎶 Ja, med musik!</button>
-            <button id="musicNo" class="btn-secondary install-later">Nej tak, uden lyd</button>
-        </div>
-    </div>
+
 </body>
 </html>

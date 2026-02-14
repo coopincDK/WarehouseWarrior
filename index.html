@@ -3,202 +3,473 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warehouse Warrior - Lager & Logistik Quiz</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Warehouse Warrior - Lager Quiz</title>
+    <link rel="stylesheet" href="style-new.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Start Screen -->
-        <div id="startScreen" class="screen active">
-            <div class="logo-container">
-                <h1 class="game-title">WAREHOUSE<br><span class="warrior">WARRIOR</span></h1>
-                <p class="subtitle">Lager & Logistik Quiz</p>
-            </div>
-            <div class="intro-text">
-                <p>15 spørgsmål • 10 sekunder per spørgsmål</p>
-                <p>Point tæller ned - svar hurtigt for max score!</p>
-                <p>Checkpoints ved niveau 5, 10 og 15</p>
-            </div>
-            <button class="btn-primary" onclick="game.showNameInput()">START SPIL</button>
-            <button class="btn-secondary" onclick="game.showScoreboard()">SCOREBOARD</button>
-        </div>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="assets/music/Semo - The Microwave Dance.mp3" type="audio/mpeg">
+    </audio>
 
-        <!-- Name Input Screen -->
-        <div id="nameScreen" class="screen">
-            <h2>Indtast dit navn</h2>
-            <input type="text" id="playerName" maxlength="20" placeholder="Dit navn">
-            <button class="btn-primary" onclick="game.startGame()">FORTSÆT</button>
-            <button class="btn-secondary" onclick="game.showStart()">TILBAGE</button>
-        </div>
+    <!-- Sound Effects -->
+    <audio id="clickSound" src="assets/sounds/Click - Single.MP3"></audio>
+    <audio id="correctSound" src="assets/sounds/Correct - Synthetic Chime.MP3"></audio>
+    <audio id="incorrectSound" src="assets/sounds/Sad Trombone 1.MP3"></audio>
+    <audio id="applauseSound" src="assets/sounds/Applause - Large Crowd 1.MP3"></audio>
+    <audio id="alarmSound" src="assets/sounds/Alert - Tense.MP3"></audio>
+    <audio id="whooshSound" src="assets/sounds/Whoosh - Achievement.MP3"></audio>
+    <audio id="buzzerSound" src="assets/sounds/Buzzer 1.MP3"></audio>
+    <audio id="drumrollSound" src="assets/sounds/Drumroll 1.mp3"></audio>
+    <audio id="crowdCheerSound" src="assets/sounds/Crowd - Cheering - Large 1.MP3"></audio>
+    <audio id="dramaticSound" src="assets/sounds/Dramatic Buildup 1.MP3"></audio>
+    <audio id="explosionSound" src="assets/sounds/Explosion 1.MP3"></audio>
+    <audio id="dingSound" src="assets/sounds/Ding - Single - Bright.MP3"></audio>
+    <audio id="wahwahSound" src="assets/sounds/Wah Wah Waah.MP3"></audio>
+    <audio id="crowdGroanSound" src="assets/sounds/Crowd - Disappointed Groans.MP3"></audio>
+    <audio id="celebrateSound" src="assets/sounds/Celebratory Jingle 1.MP3"></audio>
 
-        <!-- Game Screen -->
-        <div id="gameScreen" class="screen">
-            <div class="game-header">
-                <div class="level-display">
-                    <span class="level-label">NIVEAU</span>
-                    <span class="level-number" id="levelNumber">1</span>
-                    <span class="level-total">/15</span>
+    <!-- Main Container -->
+    <div id="gameContainer">
+        
+        <!-- Welcome Scene -->
+        <div id="welcomeScene" class="scene active">
+            <div class="scene-background">
+                <img src="assets/images/scenes/01_velkomst_scene_desktop.png" class="scene-bg desktop-only" alt="Velkomst">
+                <img src="assets/images/scenes/01_velkomst_scene_mobil.png" class="scene-bg mobile-only" alt="Velkomst">
+            </div>
+            
+            <div class="host-overlay fade-in">
+                <img src="assets/images/host/01_vaert_velkommen_aabne_arme.png" alt="Carsten Rose Lundberg" class="host-image">
+            </div>
+
+            <div class="content-overlay">
+                <img src="assets/images/icons/01_warehouse_warrior_logo.png" alt="Warehouse Warrior" class="logo pulse">
+                
+                <div class="welcome-text">
+                    <h1>Velkommen til Warehouse Warrior!</h1>
+                    <p>Test din viden om lager & logistik</p>
+                    <p class="host-name">Din vært: <strong>Carsten Rose Lundberg</strong></p>
+                    <p class="subtitle">15 spørgsmål • Point tæller ned • Brug dine lifelines klogt!</p>
                 </div>
-                <div class="score-display">
-                    <div class="score-row">
-                        <span class="score-label">TOTAL:</span>
-                        <span class="score-value" id="totalScore">0</span>
+
+                <div class="player-input">
+                    <input type="text" id="playerName" placeholder="Dit navn..." maxlength="20">
+                    <input type="text" id="playerCompany" placeholder="Virksomhed (valgfrit)..." maxlength="30">
+                    <button id="startBtn" class="btn-primary">Start Spillet</button>
+                    <button id="showHighscoreBtn" class="btn-secondary">🏆 Se Highscore</button>
+                </div>
+
+                <div class="music-control">
+                    <button id="settingsBtn" class="btn-icon" title="Indstillinger">
+                        <img src="assets/images/icons/77_indstillinger_tandhjul.png" alt="Indstillinger" class="settings-icon">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Scene -->
+        <div id="questionScene" class="scene">
+            <div class="scene-background">
+                <img src="assets/images/scenes/02_spoergsmaal_scene_desktop.png" class="scene-bg desktop-only" alt="Spørgsmål">
+                <img src="assets/images/scenes/02_spoergsmaal_scene_mobil.png" class="scene-bg mobile-only" alt="Spørgsmål">
+            </div>
+
+            <div class="host-overlay" id="hostOverlay">
+                <img src="assets/images/host/02_vaert_peger_mod_seer.png" alt="Carsten Rose Lundberg" class="host-image" id="hostImage">
+            </div>
+
+            <div class="content-overlay">
+                <!-- Header -->
+                <div class="game-header">
+                    <div class="player-info">
+                        <span id="playerNameDisplay"></span>
                     </div>
-                    <div class="score-row current">
-                        <span class="score-label">NU:</span>
-                        <span class="score-value" id="currentScore">100</span>
+                    <div class="question-progress">
+                        Spørgsmål <span id="currentQuestion">1</span>/15
+                    </div>
+                    <div class="score-display">
+                        <img src="assets/images/icons/05_neon_stjerne_point.png" alt="Point" class="score-icon">
+                        <span id="currentScore">10000</span>
+                    </div>
+                </div>
+
+                <!-- Timer -->
+                <div class="timer-container">
+                    <img src="assets/images/icons/03_tidsbombe_timer_ikon.png" alt="Timer" class="timer-icon pulse-fast">
+                    <div class="timer-bar">
+                        <div class="timer-fill" id="timerFill"></div>
+                    </div>
+                    <span class="timer-text" id="timerText">30s</span>
+                </div>
+
+                <!-- Question -->
+                <div class="question-container">
+                    <div class="question-category" id="questionCategory">
+                        <img class="category-icon" id="categoryIcon" src="assets/images/icons/37_kategori_lagerindretning_flow.png" alt="">
+                        <span id="categoryText">Lagerindretning</span>
+                    </div>
+                    <h2 class="question-text" id="questionText">Hvad er det vigtigste princip ved lagerindretning?</h2>
+                </div>
+
+                <!-- Answers -->
+                <div class="answers-grid" id="answersGrid">
+                    <button class="answer-btn" data-index="0">
+                        <span class="answer-letter">A</span>
+                        <span class="answer-text">Svar A</span>
+                    </button>
+                    <button class="answer-btn" data-index="1">
+                        <span class="answer-letter">B</span>
+                        <span class="answer-text">Svar B</span>
+                    </button>
+                    <button class="answer-btn" data-index="2">
+                        <span class="answer-letter">C</span>
+                        <span class="answer-text">Svar C</span>
+                    </button>
+                    <button class="answer-btn" data-index="3">
+                        <span class="answer-letter">D</span>
+                        <span class="answer-text">Svar D</span>
+                    </button>
+                </div>
+
+                <!-- Lifelines -->
+                <div class="lifelines-container">
+                    <button class="lifeline-btn" id="lifeline5050" title="50/50 - Fjern 2 forkerte svar">
+                        <img src="assets/images/icons/06_lifeline_50_50_ikon.png" alt="50/50">
+                        <span class="lifeline-label">50/50</span>
+                    </button>
+                    <button class="lifeline-btn" id="lifelineAudience" title="Spørg publikum">
+                        <img src="assets/images/icons/07_lifeline_spoerg_publikum_ikon.png" alt="Publikum">
+                        <span class="lifeline-label">Publikum</span>
+                    </button>
+                    <button class="lifeline-btn" id="lifelinePhone" title="Ring til en ven">
+                        <img src="assets/images/icons/08_lifeline_ring_en_ven_ikon.png" alt="Ring">
+                        <span class="lifeline-label">Ring</span>
+                    </button>
+                    <button class="lifeline-btn" id="lifelineTime" title="Ekstra tid">
+                        <img src="assets/images/icons/09_lifeline_ekstra_tid_ikon.png" alt="Tid">
+                        <span class="lifeline-label">+15s</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkpoint Scene -->
+        <div id="checkpointScene" class="scene">
+            <div class="scene-background">
+                <img src="assets/images/scenes/04_checkpoint_scene_desktop.png" class="scene-bg desktop-only" alt="Checkpoint">
+                <img src="assets/images/scenes/04_checkpoint_scene_mobil.png" class="scene-bg mobile-only" alt="Checkpoint">
+            </div>
+
+            <div class="host-overlay">
+                <img src="assets/images/host/04_vaert_begejstret_haender_op.png" alt="Vært" class="host-image">
+            </div>
+
+            <div class="content-overlay">
+                <div class="checkpoint-content">
+                    <img src="assets/images/icons/21_checkpoint_niveau_5_badge.png" alt="Checkpoint" class="checkpoint-icon bounce" id="checkpointBadge">
+                    <h2>🎯 Checkpoint!</h2>
+                    <p class="checkpoint-message">Du har klaret <span id="checkpointQuestion">5</span> spørgsmål!</p>
+                    <div class="checkpoint-score">
+                        <img src="assets/images/icons/05_neon_stjerne_point.png" alt="Point" class="score-icon">
+                        <span id="checkpointScore">7500</span> point
+                    </div>
+                    <button id="continueBtn" class="btn-primary">Fortsæt</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Correct Answer Scene -->
+        <div id="correctScene" class="scene">
+            <div class="scene-background">
+                <img src="assets/images/scenes/06_korrekt_svar_scene_desktop.png" class="scene-bg desktop-only" alt="Korrekt">
+                <img src="assets/images/scenes/06_korrekt_svar_scene_mobil.png" class="scene-bg mobile-only" alt="Korrekt">
+            </div>
+
+            <div class="host-overlay">
+                <img src="assets/images/host/05_vaert_thumbs_up.png" alt="Vært" class="host-image">
+            </div>
+
+            <div class="confetti-container" id="confettiContainer"></div>
+
+            <div class="content-overlay">
+                <div class="result-content">
+                    <img src="assets/images/icons/24_korrekt_svar_checkmark.png" alt="Korrekt" class="result-icon bounce">
+                    <h2 class="result-title correct">Korrekt!</h2>
+                    <p class="result-message" id="correctMessage">Godt klaret!</p>
+                    <div class="points-earned">
+                        +<span id="pointsEarned">500</span> point
                     </div>
                 </div>
             </div>
-
-            <div class="timer-container">
-                <div class="timer-bar" id="timerBar"></div>
-                <div class="timer-text" id="timerText">10</div>
-            </div>
-
-            <div class="lifelines">
-                <button class="lifeline" id="lifeline50" onclick="game.use5050()" title="50/50 - Fjern 2 forkerte svar">
-                    <span class="lifeline-icon">🧠</span>
-                    <span class="lifeline-name">50/50</span>
-                </button>
-                <button class="lifeline" id="lifelineAudience" onclick="game.useAudience()" title="Spørg Publikum">
-                    <span class="lifeline-icon">👥</span>
-                    <span class="lifeline-name">Publikum</span>
-                </button>
-                <button class="lifeline" id="lifelineFriend" onclick="game.useFriend()" title="Ring en Ven">
-                    <span class="lifeline-icon">📞</span>
-                    <span class="lifeline-name">Ring</span>
-                </button>
-                <button class="lifeline" id="lifelineTime" onclick="game.useExtraTime()" title="Ekstra Tid +2 min">
-                    <span class="lifeline-icon">⏰</span>
-                    <span class="lifeline-name">+2 min</span>
-                </button>
-            </div>
-
-            <div class="question-container">
-                <h2 class="question" id="question">Spørgsmål kommer her...</h2>
-            </div>
-
-            <div class="answers-container" id="answersContainer">
-                <!-- Answers will be generated by JS -->
-            </div>
         </div>
 
-        <!-- Checkpoint Screen -->
-        <div id="checkpointScreen" class="screen">
-            <div class="checkpoint-content">
-                <h1 class="checkpoint-title">🎯 CHECKPOINT!</h1>
-                <p class="checkpoint-level">Niveau <span id="checkpointLevel">5</span> nået</p>
-                <div class="checkpoint-score">
-                    <p>Din nuværende score:</p>
-                    <h2 id="checkpointScore">0</h2>
-                </div>
-                <p class="checkpoint-text">Hvis du svarer forkert nu, beholder du denne score.</p>
-                <button class="btn-primary" onclick="game.continueFromCheckpoint()">FORTSÆT</button>
-                <button class="btn-secondary" onclick="game.stopAtCheckpoint()">TAG DINE POINT OG STOP</button>
+        <!-- Wrong Answer Scene (Game Over) -->
+        <div id="wrongScene" class="scene">
+            <div class="scene-background">
+                <img src="assets/images/scenes/07_forkert_svar_scene_desktop.png" class="scene-bg desktop-only" alt="Forkert">
+                <img src="assets/images/scenes/07_forkert_svar_scene_mobil.png" class="scene-bg mobile-only" alt="Forkert">
             </div>
-        </div>
 
-        <!-- Audience Lifeline Screen -->
-        <div id="audienceScreen" class="screen">
-            <h2>👥 Publikums Stemmer</h2>
-            <div class="audience-chart" id="audienceChart">
-                <!-- Chart will be generated by JS -->
+            <div class="host-overlay">
+                <img src="assets/images/host/07_vaert_facepalm_skuffet.png" alt="Carsten Rose Lundberg" class="host-image" id="wrongHostImage">
             </div>
-            <button class="btn-primary" onclick="game.closeAudience()">FORTSÆT</button>
-        </div>
 
-        <!-- Friend Lifeline Screen -->
-        <div id="friendScreen" class="screen">
-            <h2>📞 Ring en Ven</h2>
-            <div class="friends-container" id="friendsContainer">
-                <!-- Friends will be generated by JS -->
-            </div>
-        </div>
+            <div class="content-overlay">
+                <div class="result-content wrong-result">
+                    <img src="assets/images/icons/25_forkert_svar_kryds.png" alt="Forkert" class="result-icon shake">
+                    <h2 class="result-title wrong">Forkert svar!</h2>
+                    <p class="result-message">Det rigtige svar var:</p>
+                    <div class="correct-answer" id="correctAnswerText">Svar B</div>
+                    <div class="explanation-box">
+                        <h3>💡 Forklaring:</h3>
+                        <p id="explanationText">Her er forklaringen...</p>
+                    </div>
+                    
+                    <div class="wrong-score-summary">
+                        <p>Du nåede spørgsmål <span id="wrongQuestionNum">1</span> af 15</p>
+                        <div class="final-score">
+                            <img src="assets/images/icons/05_neon_stjerne_point.png" alt="Point" class="score-icon">
+                            <span id="wrongFinalScore">0</span> point
+                        </div>
+                    </div>
 
-        <!-- Friend Answer Screen -->
-        <div id="friendAnswerScreen" class="screen">
-            <div class="friend-answer-content">
-                <h2 id="friendName">Ven</h2>
-                <div class="friend-thinking">
-                    <p id="friendThinking">Tænker...</p>
-                </div>
-                <div class="friend-response" id="friendResponse" style="display: none;">
-                    <p id="friendText"></p>
-                </div>
-                <button class="btn-primary" onclick="game.closeFriend()" style="display: none;" id="friendContinueBtn">FORTSÆT</button>
-            </div>
-        </div>
+                    <div class="highscore-save">
+                        <h3>💾 Gem din score</h3>
+                        <input type="text" id="wrongHighscoreName" placeholder="Dit navn" class="highscore-input">
+                        <input type="text" id="wrongHighscoreCompany" placeholder="Virksomhed (valgfrit)" class="highscore-input">
+                        <button id="wrongSaveScoreBtn" class="btn-save">💾 Gem Score</button>
+                    </div>
 
-        <!-- Confirmation Dialog -->
-        <div id="confirmDialog" class="screen">
-            <div class="confirm-content">
-                <h2 id="confirmText">Er du sikker?</h2>
-                <div class="confirm-buttons">
-                    <button class="btn-primary" onclick="game.confirmAnswer()">JA, LÅS SVAR</button>
-                    <button class="btn-secondary" onclick="game.cancelAnswer()">NEJ, SKIFT SVAR</button>
+                    <div class="wrong-buttons">
+                        <button id="wrongRetryBtn" class="btn-primary">🔄 Prøv Igen</button>
+                        <button id="wrongHomeBtn" class="btn-secondary">🏠 Gå til Forside</button>
+                        <button id="wrongReadMoreBtn" class="btn-book">📖 Læs mere om svaret</button>
+                    </div>
+
+                    <div class="book-cta">
+                        <div class="book-cta-inner">
+                            <p class="book-cta-text">Bliv klogere med hele bogen:</p>
+                            <p class="book-title">📚 "Lagerhåndbog for den voksende webshop"</p>
+                            <p class="book-author">af Martin René Mortensen, SmartPack</p>
+                            <a href="https://smartpack.dk/lagerhaandbog" target="_blank" class="btn-cta">Se bogen her →</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Explanation Screen -->
-        <div id="explanationScreen" class="screen">
-            <div class="explanation-content">
-                <h2 style="color: #ff4444; margin-bottom: 30px;">❌ Forkert svar</h2>
-                <div id="explanationText" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto;">
-                    <!-- Explanation will be inserted here -->
+        <!-- Game Over Scene (bruges nu kun til "alle spørgsmål besvaret men ikke nok rigtige") -->
+        <div id="gameOverScene" class="scene">
+            <div class="scene-background">
+                <img src="assets/images/scenes/08_game_over_scene_desktop.png" class="scene-bg desktop-only" alt="Game Over">
+                <img src="assets/images/scenes/08_game_over_scene_mobil.png" class="scene-bg mobile-only" alt="Game Over">
+            </div>
+
+            <div class="host-overlay">
+                <img src="assets/images/host/08_vaert_traekker_paa_skuldrene.png" alt="Carsten Rose Lundberg" class="host-image">
+            </div>
+
+            <div class="content-overlay">
+                <div class="gameover-content">
+                    <img src="assets/images/icons/60_spil_over_skilt.png" alt="Game Over" class="gameover-sign">
+                    <h2>Spillet er slut!</h2>
+                    <p>Du klarede <span id="finalQuestion">7</span> ud af 15 spørgsmål</p>
+                    <div class="final-score">
+                        <img src="assets/images/icons/05_neon_stjerne_point.png" alt="Point" class="score-icon">
+                        <span id="finalScore">5000</span> point
+                    </div>
+                    <div class="highscore-save">
+                        <h3>💾 Gem din score</h3>
+                        <input type="text" id="gameoverHighscoreName" placeholder="Dit navn" class="highscore-input">
+                        <input type="text" id="gameoverHighscoreCompany" placeholder="Virksomhed (valgfrit)" class="highscore-input">
+                        <button id="gameoverSaveScoreBtn" class="btn-save">💾 Gem Score</button>
+                    </div>
+
+                    <div class="gameover-buttons">
+                        <button id="restartBtn" class="btn-primary">🔄 Prøv Igen</button>
+                        <button id="gameoverHighscoreBtn" class="btn-secondary">🏆 Se Highscore</button>
+                        <button id="gameoverHomeBtn" class="btn-secondary">🏠 Gå til Forside</button>
+                    </div>
+
+                    <div class="book-cta">
+                        <div class="book-cta-inner">
+                            <p class="book-cta-text">Bliv klogere med hele bogen:</p>
+                            <p class="book-title">📚 "Lagerhåndbog for den voksende webshop"</p>
+                            <p class="book-author">af Martin René Mortensen, SmartPack</p>
+                            <a href="https://smartpack.dk/lagerhaandbog" target="_blank" class="btn-cta">Se bogen her →</a>
+                        </div>
+                    </div>
                 </div>
-                <button class="btn-primary" onclick="game.continueAfterExplanation()">FORTSÆT</button>
             </div>
         </div>
 
-        <!-- Game Over Screen -->
-        <div id="gameOverScreen" class="screen">
-            <div class="gameover-content">
-                <h1 class="gameover-title">⚡ MELTDOWN!</h1>
-                <p class="gameover-level">Niveau <span id="finalLevel">0</span> nået</p>
-                <div class="final-score">
-                    <p>Din endelige score:</p>
-                    <h2 id="finalScore">0</h2>
+        <!-- Victory Scene -->
+        <div id="victoryScene" class="scene">
+            <div class="scene-background">
+                <img src="assets/images/scenes/09_sejr_champion_scene_desktop.png" class="scene-bg desktop-only" alt="Sejr">
+                <img src="assets/images/scenes/09_sejr_champion_scene_mobil.png" class="scene-bg mobile-only" alt="Sejr">
+            </div>
+
+            <div class="host-overlay">
+                <img src="assets/images/host/09_vaert_holder_trofae.png" alt="Carsten Rose Lundberg" class="host-image">
+            </div>
+
+            <div class="confetti-container" id="victoryConfetti"></div>
+
+            <div class="content-overlay">
+                <div class="victory-content">
+                    <img src="assets/images/icons/61_du_vandt_sejr_skilt.png" alt="Du vandt!" class="victory-sign bounce">
+                    <img src="assets/images/icons/80_krone_champion.png" alt="Champion" class="champion-crown">
+                    <h2>🏆 Warehouse Warrior!</h2>
+                    <p>Du klarede alle 15 spørgsmål!</p>
+                    <div class="final-score">
+                        <img src="assets/images/icons/05_neon_stjerne_point.png" alt="Point" class="score-icon">
+                        <span id="victoryScore">10000</span> point
+                    </div>
+                    <div class="medal-display">
+                        <img src="assets/images/icons/12_guld_medalje.png" alt="Guld" class="medal">
+                    </div>
+                    <div class="highscore-save victory-save">
+                        <h3>🏆 Gem din score!</h3>
+                        <input type="text" id="victoryHighscoreName" placeholder="Dit navn" class="highscore-input">
+                        <input type="text" id="victoryHighscoreCompany" placeholder="Virksomhed (valgfrit)" class="highscore-input">
+                        <button id="victorySaveScoreBtn" class="btn-save">💾 Gem Score</button>
+                    </div>
+
+                    <div class="gameover-buttons">
+                        <button id="playAgainBtn" class="btn-primary">🔄 Spil Igen</button>
+                        <button id="victoryHighscoreBtn" class="btn-secondary">🏆 Se Highscore</button>
+                        <button id="victoryHomeBtn" class="btn-secondary">🏠 Gå til Forside</button>
+                    </div>
+
+                    <div class="book-cta victory-cta">
+                        <div class="book-cta-inner">
+                            <p class="book-cta-text">Vil du vide endnu mere?</p>
+                            <p class="book-title">📚 "Lagerhåndbog for den voksende webshop"</p>
+                            <p class="book-author">af Martin René Mortensen, SmartPack</p>
+                            <a href="https://smartpack.dk/lagerhaandbog" target="_blank" class="btn-cta">Se bogen her →</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="correct-answer-reveal" id="correctAnswerReveal">
-                    <p>Det rigtige svar var:</p>
-                    <h3 id="correctAnswerText"></h3>
-                </div>
-                <button class="btn-primary" onclick="game.restart()">PRØV IGEN</button>
-                <button class="btn-secondary" onclick="game.showScoreboard()">SCOREBOARD</button>
             </div>
         </div>
 
-        <!-- Victory Screen -->
-        <div id="victoryScreen" class="screen">
-            <div class="victory-content">
-                <h1 class="victory-title">🏆 GALAXY BRAIN!</h1>
-                <div class="confetti"></div>
-                <p class="victory-text">Du har gennemført alle 15 spørgsmål!</p>
-                <div class="final-score">
-                    <p>Din endelige score:</p>
-                    <h2 id="victoryScore">0</h2>
+        <!-- Highscore Scene -->
+        <div id="highscoreScene" class="scene">
+            <div class="scene-background">
+                <img src="assets/images/scenes/05_highscore_scene_desktop.png" class="scene-bg desktop-only" alt="Highscore">
+                <img src="assets/images/scenes/05_highscore_scene_mobil.png" class="scene-bg mobile-only" alt="Highscore">
+            </div>
+
+            <div class="host-overlay">
+                <img src="assets/images/host/13_vaert_cool_korslagte_arme.png" alt="Vært" class="host-image">
+            </div>
+
+            <div class="content-overlay">
+                <div class="highscore-content">
+                    <img src="assets/images/icons/27_highscore_tavle_ikon.png" alt="Highscore" class="highscore-trophy">
+                    <h2>🏆 Highscore Top 10</h2>
+                    <div class="highscore-table-container">
+                        <table class="highscore-table" id="highscoreTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Navn</th>
+                                    <th>Virksomhed</th>
+                                    <th>Score</th>
+                                    <th>Spørgsmål</th>
+                                </tr>
+                            </thead>
+                            <tbody id="highscoreBody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="gameover-buttons">
+                        <button id="highscoreHomeBtn" class="btn-primary">🏠 Gå til Forside</button>
+                        <button id="highscorePlayBtn" class="btn-secondary">🔄 Spil Igen</button>
+                    </div>
                 </div>
-                <button class="btn-primary" onclick="game.restart()">SPIL IGEN</button>
-                <button class="btn-secondary" onclick="game.showScoreboard()">SCOREBOARD</button>
             </div>
         </div>
 
-        <!-- Scoreboard Screen -->
-        <div id="scoreboardScreen" class="screen">
-            <h1>🏆 SCOREBOARD</h1>
-            <div class="scoreboard-container">
-                <h3>Top 10 Lokale Scores</h3>
-                <div class="scoreboard-list" id="scoreboardList">
-                    <!-- Scores will be generated by JS -->
+        <!-- Lifeline Modals -->
+        <div id="audienceModal" class="modal">
+            <div class="modal-content">
+                <h3>👥 Publikums Stemmer</h3>
+                <div class="audience-results" id="audienceResults"></div>
+                <button class="btn-primary" onclick="game.closeAudienceModal()">OK</button>
+            </div>
+        </div>
+
+        <div id="expertModal" class="modal">
+            <div class="modal-content expert-modal">
+                <h3>📞 Spørg en Ekspert</h3>
+                <p class="expert-intro">Vælg en ekspert at ringe til:</p>
+                <div class="expert-grid" id="expertGrid"></div>
+            </div>
+        </div>
+
+        <div id="expertAnswerModal" class="modal">
+            <div class="modal-content">
+                <div class="expert-answer-header">
+                    <span class="expert-answer-emoji" id="expertAnswerEmoji">🔧</span>
+                    <h3 id="expertAnswerName">Lars Lagerchef</h3>
+                </div>
+                <p class="expert-answer-text" id="expertAnswerText">Hmm, jeg tror svaret er...</p>
+                <button class="btn-primary" onclick="game.closeExpertAnswer()">OK, tak!</button>
+            </div>
+        </div>
+
+        <!-- Er du sikker? overlay -->
+        <div id="areYouSureModal" class="modal">
+            <div class="modal-content are-you-sure">
+                <img src="assets/images/icons/64_psyk_er_du_helt_sikker.png" alt="Er du sikker?" class="psyk-image" id="psykImage">
+                <div class="host-mini">
+                    <img src="assets/images/host/10_vaert_hvisker_hemmelighed.png" alt="Vært" class="host-mini-img">
+                </div>
+                <h3 id="areYouSureText">Er du sikker? 🤔</h3>
+                <div class="are-you-sure-buttons">
+                    <button class="btn-primary" onclick="game.confirmAnswer(true)">Ja, jeg er sikker!</button>
+                    <button class="btn-secondary" onclick="game.confirmAnswer(false)">Nej, lad mig ændre</button>
                 </div>
             </div>
-            <button class="btn-primary" onclick="game.showStart()">TILBAGE</button>
         </div>
+
+        <!-- Settings Panel -->
+        <div id="settingsPanel" class="settings-panel">
+            <div class="settings-content">
+                <h3>⚙️ Indstillinger</h3>
+                <div class="settings-group">
+                    <div class="setting-row">
+                        <span class="setting-label">🎵 Baggrundsmusik</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="musicToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">🔊 Lydeffekter</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="sfxToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="game.closeSettings()">Luk</button>
+            </div>
+        </div>
+
     </div>
 
     <script src="questions.js"></script>
     <script src="game.js"></script>
+    <!-- Footer med logoer -->
+    <div class="footer-logos">
+        <span class="footer-text">Præsenteret af</span>
+        <img src="assets/images/icons/smartpack_logo.png" alt="SmartPack" class="footer-logo">
+        <span class="footer-separator">×</span>
+        <img src="assets/images/icons/DE logo.png" alt="Dansk Erhverv" class="footer-logo">
+    </div>
 </body>
 </html>

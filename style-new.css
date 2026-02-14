@@ -1244,6 +1244,128 @@ body {
     box-shadow: 0 4px 20px rgba(255, 215, 0, 0.5);
 }
 
+/* ===== HIGHSCORE SAVE ===== */
+
+.highscore-save {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.highscore-save h3 {
+    color: #ffd700;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.highscore-input {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 8px auto;
+    padding: 10px 15px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+.highscore-input:focus {
+    outline: none;
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.highscore-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #ffd700, #f0a500);
+    color: #1a1a2e;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.btn-save:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ===== KATEGORI IKON ===== */
+
+.category-icon {
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+    margin-right: 6px;
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.5));
+}
+
+/* ===== PSYK BILLEDE ===== */
+
+.psyk-image {
+    max-width: 200px;
+    margin: 0 auto 15px;
+    display: block;
+    animation: psykPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes psykPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* ===== CHAMPION CROWN ===== */
+
+.champion-crown {
+    width: 100px;
+    margin: 0 auto 10px;
+    display: block;
+    animation: crownBounce 2s ease-in-out infinite;
+}
+
+@keyframes crownBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-10px) rotate(-5deg); }
+    75% { transform: translateY(-10px) rotate(5deg); }
+}
+
+/* ===== CHECKPOINT BADGE ===== */
+
+.checkpoint-icon {
+    width: 120px;
+    margin: 0 auto 15px;
+    display: block;
+}
+
+/* ===== GAMEOVER & VICTORY SIGNS ===== */
+
+.gameover-sign,
+.victory-sign {
+    max-width: 250px;
+    margin: 0 auto 15px;
+    display: block;
+}
+
 @media (max-width: 768px) {
     .expert-grid {
         grid-template-columns: 1fr;
@@ -1259,5 +1381,17 @@ body {
     
     .settings-content {
         padding: 25px;
+    }
+    
+    .highscore-input {
+        max-width: 250px;
+    }
+    
+    .psyk-image {
+        max-width: 150px;
+    }
+    
+    .champion-crown {
+        width: 70px;
     }
 }

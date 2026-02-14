@@ -466,6 +466,7 @@ class WarehouseWarriorGame {
             if (this.timeLeft <= 5) {
                 timerFill.classList.add('warning');
                 this.playSound('alarm');
+                if (this.timeLeft === 5) this.updateHostImage('panic');
             } else if (this.timeLeft <= 10 && this.maxTime > 10) {
                 timerFill.classList.add('warning');
             }

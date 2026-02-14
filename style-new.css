@@ -841,8 +841,8 @@ body {
 @media (max-width: 768px) {
     .desktop-only { display: none; }
     .mobile-only { display: block; }
-    .host-image { max-width: 60vw; max-height: 55vh; }
-    .logo { max-width: 220px; }
+    .host-image { max-width: 75vw; max-height: 65vh; }
+    .logo { max-width: 300px; }
     .content-overlay { padding: 10px 12px 50px; }
     .answers-grid { grid-template-columns: 1fr; gap: 8px; margin-bottom: 10px; }
     .answer-btn { padding: 12px 15px; gap: 10px; }
@@ -867,10 +867,10 @@ body {
     .explanation-box { padding: 10px 15px; margin: 8px 0; }
     .explanation-box h3 { font-size: 1.1rem; margin-bottom: 8px; }
     .explanation-box p { font-size: 0.95rem; line-height: 1.4; }
-    .lifelines-container { gap: 8px; }
-    .lifeline-btn { padding: 8px; gap: 5px; }
-    .lifeline-btn img { width: 40px; height: 40px; }
-    .lifeline-label { font-size: 0.75rem; }
+    .lifelines-container { gap: 10px; }
+    .lifeline-btn { padding: 12px 10px; gap: 6px; min-width: 70px; }
+    .lifeline-btn img { width: 50px; height: 50px; }
+    .lifeline-label { font-size: 0.85rem; }
     .gameover-content, .victory-content { padding: 15px; }
     .gameover-content h2, .victory-content h2 { font-size: 2rem; margin: 10px 0; }
     .final-score { font-size: 1.4rem; margin: 8px 0; }
@@ -910,9 +910,9 @@ body {
 
 @media (max-width: 480px) {
     .content-overlay { padding: 8px 8px 45px; }
-    .logo { max-width: 160px; }
+    .logo { max-width: 260px; }
     .welcome-layout { padding-top: 8px !important; padding-bottom: 55px !important; }
-    .host-image { max-width: 55vw; max-height: 50vh; }
+    .host-image { max-width: 80vw; max-height: 60vh; }
     .player-input { margin: 5px 0; }
     .btn-primary { padding: 10px 25px; font-size: 1rem; }
     .btn-secondary { padding: 8px 18px; font-size: 0.85rem; }
@@ -932,9 +932,9 @@ body {
     .timer-icon { width: 25px; height: 25px; }
     .timer-bar { height: 16px; }
     .timer-text { font-size: 0.9rem; min-width: 35px; }
-    .lifeline-btn { padding: 6px; gap: 3px; }
-    .lifeline-btn img { width: 32px; height: 32px; }
-    .lifeline-label { font-size: 0.65rem; }
+    .lifeline-btn { padding: 10px 8px; gap: 5px; min-width: 60px; }
+    .lifeline-btn img { width: 44px; height: 44px; }
+    .lifeline-label { font-size: 0.75rem; }
     .result-icon { max-width: 60px; width: 15%; margin-bottom: 5px; }
     .result-title { font-size: 1.6rem; margin: 5px 0; }
     .result-content { padding: 12px 10px; }
@@ -959,7 +959,10 @@ body {
     .checkpoint-score { font-size: 1.2rem; margin: 10px 0; }
     .highscore-content h2 { font-size: 1.5rem; }
     .highscore-trophy { max-width: 60px; }
-    .highscore-table th, .highscore-table td { padding: 6px 4px; font-size: 0.8rem; }
+    .highscore-table th, .highscore-table td { padding: 8px 6px; font-size: 0.8rem; }
+    .highscore-table-container { margin: 10px auto; }
+    .highscore-content { padding: 15px 10px; border-radius: 15px; }
+    .highscore-content h2 { font-size: 1.4rem; margin: 8px 0; }
     .highscore-save { padding: 8px; margin: 5px 0; }
     .highscore-save h3 { font-size: 0.85rem; margin-bottom: 5px; }
     .highscore-input { padding: 6px 10px; font-size: 0.85rem; margin: 4px auto; max-width: 220px; }
@@ -984,10 +987,15 @@ body {
     .phone-message { font-size: 1rem; padding: 12px; margin: 15px 0; }
     .host-mini-img { max-width: 100px; }
     .are-you-sure h3 { font-size: 1.3rem; }
-    .expert-card { padding: 10px 12px; gap: 10px; }
-    .expert-card .expert-emoji { font-size: 1.8rem; }
-    .expert-card .expert-name { font-size: 1rem; }
+    .expert-card { padding: 12px 15px; gap: 12px; }
+    .expert-card .expert-emoji { font-size: 2rem; }
+    .expert-card .expert-name { font-size: 1.1rem; }
+    .expert-card .expert-specialty { font-size: 0.85rem; }
     .expert-answer-text { font-size: 1rem; padding: 15px; }
+    .expert-modal { max-width: 95vw; }
+    .expert-intro { font-size: 1rem; margin-bottom: 12px; }
+    .expert-grid { gap: 10px; margin-bottom: 15px; }
+    .expert-avatar { width: 50px; height: 50px; }
 }
 
 /* ===== SECONDARY BUTTON ===== */
@@ -1186,6 +1194,16 @@ body {
     background: rgba(255, 100, 100, 0.2);
     color: #ff6464;
     border: 1px solid #ff6464;
+}
+
+/* Expert card avatar image */
+.expert-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ffd700;
+    object-fit: cover;
+    flex-shrink: 0;
 }
 
 /* Expert Answer */

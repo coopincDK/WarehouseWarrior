@@ -462,6 +462,10 @@
 
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+    <script src="firebase-highscore.js"></script>
     <script src="questions.js"></script>
     <script src="game.js"></script>
     <!-- Footer med logoer -->
@@ -643,5 +647,16 @@
         });
     })();
     </script>
+
+    <!-- Music Prompt -->
+    <div id="musicPrompt" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9998;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;">
+        <div class="install-prompt-content">
+            <img src="assets/images/icons/01_warehouse_warrior_logo.png" alt="Warehouse Warrior" class="install-logo">
+            <h3>🎵 Fuld oplevelse?</h3>
+            <p class="install-text">Vil du spille med musik og lydeffekter for den bedste oplevelse?</p>
+            <button id="musicYes" class="btn-primary install-btn">🎶 Ja, med musik!</button>
+            <button id="musicNo" class="btn-secondary install-later">Nej tak, uden lyd</button>
+        </div>
+    </div>
 </body>
 </html>

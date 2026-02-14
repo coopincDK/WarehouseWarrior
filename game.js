@@ -14,6 +14,7 @@ class WarehouseWarriorGame {
         this.answerStartTime = null; // For speed-based scoring
         this.selectedAnswer = null;
         this.pendingAnswer = null; // For "Er du sikker?"
+        this.currentShuffle = null;
         this.lifelines = {
             fiftyFifty: false,
             audience: false,
@@ -45,6 +46,7 @@ class WarehouseWarriorGame {
         this.musicEnabled = localStorage.getItem('ww_music') !== 'false';
         this.sfxEnabled = localStorage.getItem('ww_sfx') !== 'false';
         this.musicPlaying = false;
+        this.hasChosenAudio = false;
         
         // Expert definitions
         this.experts = [
@@ -279,6 +281,36 @@ class WarehouseWarriorGame {
         this.switchMusic(this.musicTracks[this.currentTrackIndex]);
     }
     
+
+    showMusicPrompt() {
+        var prompt = document.getElementById('musicPrompt');
+        prompt.style.display = 'flex';
+        
+        document.getElementById('musicYes').onclick = () => {
+            this.musicEnabled = true;
+            this.sfxEnabled = true;
+            localStorage.setItem('ww_music', 'true');
+            localStorage.setItem('ww_sfx', 'true');
+            document.getElementById('musicToggle').checked = true;
+            document.getElementById('sfxToggle').checked = true;
+            prompt.style.display = 'none';
+            this.hasChosenAudio = true;
+            this.startGame();
+        };
+        
+        document.getElementById('musicNo').onclick = () => {
+            this.musicEnabled = false;
+            this.sfxEnabled = false;
+            localStorage.setItem('ww_music', 'false');
+            localStorage.setItem('ww_sfx', 'false');
+            document.getElementById('musicToggle').checked = false;
+            document.getElementById('sfxToggle').checked = false;
+            prompt.style.display = 'none';
+            this.hasChosenAudio = true;
+            this.startGame();
+        };
+    }
+
     setSfx(enabled) {
         this.sfxEnabled = enabled;
         localStorage.setItem('ww_sfx', enabled);
@@ -295,6 +327,12 @@ class WarehouseWarriorGame {
     // ===== GAME FLOW =====
     
     startGame() {
+        // Show music prompt on first play
+        if (!this.hasChosenAudio) {
+            this.showMusicPrompt();
+            return;
+        }
+        
         this.playerName = '';
         this.playerCompany = '';
         
@@ -328,6 +366,20 @@ class WarehouseWarriorGame {
         }, 100);
     }
     
+    // Shuffle answers to randomize positions
+    shuffleAnswers(question) {
+        const indices = question.answers.map((_, i) => i);
+        for (let i = indices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [indices[i], indices[j]] = [indices[j], indices[i]];
+        }
+        return {
+            answers: indices.map(i => question.answers[i]),
+            correctIndex: indices.indexOf(question.correct),
+            originalIndices: indices
+        };
+    }
+    
     loadQuestion() {
         const question = this.questions[this.currentQuestionIndex];
         
@@ -351,7 +403,10 @@ class WarehouseWarriorGame {
         const answersGrid = document.getElementById('answersGrid');
         answersGrid.innerHTML = '';
         
-        question.answers.forEach((answer, index) => {
+        // Shuffle answers for random placement
+        this.currentShuffle = this.shuffleAnswers(question);
+        
+        this.currentShuffle.answers.forEach((answer, index) => {
             const btn = document.createElement('button');
             btn.className = 'answer-btn';
             btn.dataset.index = index;
@@ -439,10 +494,11 @@ class WarehouseWarriorGame {
         this.updateHostImage('panic');
         
         const question = this.questions[this.currentQuestionIndex];
+        const shuffledCorrect = this.currentShuffle ? this.currentShuffle.correctIndex : question.correct;
         const answerBtns = document.querySelectorAll('.answer-btn');
         answerBtns.forEach((btn, index) => {
             btn.disabled = true;
-            if (index === question.correct) btn.classList.add('correct');
+            if (index === shuffledCorrect) btn.classList.add('correct');
         });
         
         setTimeout(() => this.showWrongScene(), 1500);
@@ -518,18 +574,20 @@ class WarehouseWarriorGame {
         this.stopTimer();
         
         const question = this.questions[this.currentQuestionIndex];
+        const shuffledCorrect = this.currentShuffle.correctIndex;
         const answerBtns = document.querySelectorAll('.answer-btn');
         
         answerBtns.forEach((btn, index) => {
             btn.disabled = true;
-            if (index === question.correct) {
+            btn.classList.remove('selected');
+            if (index === shuffledCorrect) {
                 btn.classList.add('correct');
-            } else if (index === this.selectedAnswer) {
+            } else if (index === this.selectedAnswer && index !== shuffledCorrect) {
                 btn.classList.add('wrong');
             }
         });
         
-        if (this.selectedAnswer === question.correct) {
+        if (this.selectedAnswer === shuffledCorrect) {
             this.correctAnswers++;
             this.streak++;
             if (this.streak > this.bestStreak) this.bestStreak = this.streak;
@@ -730,10 +788,9 @@ class WarehouseWarriorGame {
     
     // ===== HIGHSCORE =====
     
-    getHighscores() {
+    async getHighscores() {
         try {
-            const data = localStorage.getItem('warehouseWarriorHighscores');
-            return data ? JSON.parse(data) : [];
+            return await firebaseHighscore.getHighscores();
         } catch (e) {
             return [];
         }
@@ -756,23 +813,21 @@ class WarehouseWarriorGame {
         companyInput.disabled = true;
     }
     
-    saveHighscore() {
-        const highscores = this.getHighscores();
-        highscores.push({
+    async saveHighscore() {
+        const entry = {
             name: this.playerName || 'Anonym',
             company: this.playerCompany,
             score: this.score,
             correctAnswers: this.correctAnswers,
             totalQuestions: this.questions.length,
             date: new Date().toISOString()
-        });
-        highscores.sort((a, b) => b.score - a.score);
-        localStorage.setItem('warehouseWarriorHighscores', JSON.stringify(highscores.slice(0, 200)));
+        };
+        await firebaseHighscore.saveScore(entry);
     }
     
-    showHighscore() {
+    async showHighscore() {
         this.playSound('click');
-        const highscores = this.getHighscores();
+        const highscores = await this.getHighscores();
         const tbody = document.getElementById('highscoreBody');
         tbody.innerHTML = '';
         
@@ -825,7 +880,7 @@ class WarehouseWarriorGame {
         
         const wrongAnswers = [];
         answerBtns.forEach((btn, index) => {
-            if (index !== question.correct) wrongAnswers.push(index);
+            if (index !== this.currentShuffle.correctIndex) wrongAnswers.push(index);
         });
         
         const toDisable = wrongAnswers.sort(() => Math.random() - 0.5).slice(0, 2);
@@ -846,7 +901,7 @@ class WarehouseWarriorGame {
         resultsDiv.innerHTML = '';
         
         const votes = [0, 0, 0, 0];
-        const correctIndex = question.correct;
+        const correctIndex = this.currentShuffle.correctIndex;
         
         for (let i = 0; i < 100; i++) {
             if (Math.random() < 0.6) {
@@ -859,7 +914,7 @@ class WarehouseWarriorGame {
         const total = votes.reduce((a, b) => a + b, 0);
         const percentages = votes.map(v => Math.round((v / total) * 100));
         
-        question.answers.forEach((answer, index) => {
+        this.currentShuffle.answers.forEach((answer, index) => {
             const barDiv = document.createElement('div');
             barDiv.className = 'audience-bar';
             barDiv.innerHTML = `
@@ -919,7 +974,7 @@ class WarehouseWarriorGame {
         this.playSound('click');
         
         const isMatch = expert.specialty.includes(question.category);
-        const correctLetter = String.fromCharCode(65 + question.correct);
+        const correctLetter = String.fromCharCode(65 + this.currentShuffle.correctIndex);
         
         let suggestedAnswer;
         let lines;
@@ -984,6 +1039,8 @@ class WarehouseWarriorGame {
 
 // Initialize game when DOM is loaded
 let game;
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Init Firebase highscore
+    await firebaseHighscore.init();
     game = new WarehouseWarriorGame();
 });

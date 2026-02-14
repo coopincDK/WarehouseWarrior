@@ -45,6 +45,7 @@ class WarehouseWarriorGame {
         // Audio settings (load from localStorage)
         this.musicEnabled = localStorage.getItem('ww_music') !== 'false';
         this.sfxEnabled = localStorage.getItem('ww_sfx') !== 'false';
+        this.musicVolume = parseFloat(localStorage.getItem('ww_volume')) || 0.5;
         this.musicPlaying = false;
 
         
@@ -242,10 +243,13 @@ class WarehouseWarriorGame {
         // Settings toggles
         document.getElementById('musicToggle').addEventListener('change', (e) => this.setMusic(e.target.checked));
         document.getElementById('sfxToggle').addEventListener('change', (e) => this.setSfx(e.target.checked));
+        document.getElementById('volumeSlider').addEventListener('input', (e) => this.setVolume(parseFloat(e.target.value)));
         
         // Apply saved settings to checkboxes
         document.getElementById('musicToggle').checked = this.musicEnabled;
         document.getElementById('sfxToggle').checked = this.sfxEnabled;
+        document.getElementById('volumeSlider').value = this.musicVolume;
+        document.getElementById('volumeValue').textContent = Math.round(this.musicVolume * 100) + '%';
         
     }
     
@@ -276,7 +280,7 @@ class WarehouseWarriorGame {
         if (!this.musicEnabled) return;
         this.sounds.bgMusic.pause();
         this.sounds.bgMusic.src = trackUrl;
-        this.sounds.bgMusic.volume = 0.8;
+        this.sounds.bgMusic.volume = this.musicVolume;
         this.sounds.bgMusic.play().catch(e => console.log('Music switch failed:', e));
     }
     
@@ -291,6 +295,13 @@ class WarehouseWarriorGame {
     setSfx(enabled) {
         this.sfxEnabled = enabled;
         localStorage.setItem('ww_sfx', enabled);
+    }
+    
+    setVolume(vol) {
+        this.musicVolume = vol;
+        localStorage.setItem('ww_volume', vol);
+        this.sounds.bgMusic.volume = vol;
+        document.getElementById('volumeValue').textContent = Math.round(vol * 100) + '%';
     }
     
     openSettings() {

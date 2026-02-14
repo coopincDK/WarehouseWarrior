@@ -331,7 +331,7 @@ class WarehouseWarriorGame {
     loadQuestion() {
         const question = this.questions[this.currentQuestionIndex];
         
-        document.getElementById('playerNameDisplay').textContent = this.playerName;
+        document.getElementById('playerNameDisplay').textContent = this.playerName || 'Spiller';
         document.getElementById('currentQuestion').textContent = this.currentQuestionIndex + 1;
         document.getElementById('currentScore').textContent = this.score.toLocaleString();
         // Opdater kategori med ikon

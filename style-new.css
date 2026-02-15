@@ -876,25 +876,44 @@ body {
 .pro-tip-box {
     text-align: left;
     padding: 12px 16px;
-    background: linear-gradient(135deg, rgba(0, 180, 255, 0.15), rgba(0, 100, 200, 0.1));
-    border: 2px solid rgba(0, 180, 255, 0.4);
-    border-left: 4px solid #00b4ff;
+    background: linear-gradient(135deg, rgba(255, 200, 0, 0.12), rgba(255, 160, 0, 0.08));
+    border: 2px solid rgba(255, 200, 0, 0.4);
+    border-left: 4px solid #ffc800;
     border-radius: 12px;
     margin: 10px 0;
     font-size: 1.05rem;
     line-height: 1.5;
-    color: #c8e6ff;
-    animation: proTipSlideIn 0.5s ease-out;
+    color: #fff5d4;
+    animation: proTipSlideIn 0.5s ease-out, proTipGlow 2s ease-in-out 0.5s infinite;
 }
 
 .pro-tip-box strong {
-    color: #00d4ff;
+    color: #ffd54f;
     font-size: 1.1rem;
+}
+
+.pro-tip-bulb {
+    display: inline-block;
+    font-size: 1.4rem;
+    margin-right: 6px;
+    animation: bulbBlink 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 6px rgba(255, 200, 0, 0.8));
 }
 
 @keyframes proTipSlideIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes proTipGlow {
+    0%, 100% { box-shadow: 0 0 8px rgba(255, 200, 0, 0.15); }
+    50% { box-shadow: 0 0 18px rgba(255, 200, 0, 0.35), 0 0 4px rgba(255, 200, 0, 0.2) inset; }
+}
+
+@keyframes bulbBlink {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 6px rgba(255, 200, 0, 0.8)); }
+    40% { opacity: 0.4; filter: drop-shadow(0 0 2px rgba(255, 200, 0, 0.3)); }
+    60% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 200, 0, 1)); }
 }
 
 /* ===== GAME OVER & VICTORY ===== */

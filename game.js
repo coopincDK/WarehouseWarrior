@@ -833,14 +833,15 @@ class WarehouseWarriorGame {
         const correctQ = this.questions[this.currentQuestionIndex];
         const correctProTipEl = document.getElementById('correctProTip');
         if (correctQ.proTip) {
-            correctProTipEl.innerHTML = '<strong>🚀 Pro Tip:</strong> ' + correctQ.proTip;
+            correctProTipEl.innerHTML = '<span class="pro-tip-bulb">💡</span><strong>Pro Tip:</strong> ' + correctQ.proTip;
             correctProTipEl.style.display = 'block';
+            setTimeout(() => this.playSound('ding'), 400);
         } else {
             correctProTipEl.style.display = 'none';
         }
         this.showScene('correctScene');
         this.createConfetti('confettiContainer');
-        setTimeout(() => this.nextQuestion(), correctQ.proTip ? 5000 : 3000);
+        setTimeout(() => this.nextQuestion(), correctQ.proTip ? 6000 : 3000);
     }
     
     showWrongScene() {
@@ -850,8 +851,9 @@ class WarehouseWarriorGame {
         // Pro Tip ved forkert svar
         const wrongProTipEl = document.getElementById('wrongProTip');
         if (question.proTip) {
-            wrongProTipEl.innerHTML = '<strong>🚀 Pro Tip:</strong> ' + question.proTip;
+            wrongProTipEl.innerHTML = '<span class="pro-tip-bulb">💡</span><strong>Pro Tip:</strong> ' + question.proTip;
             wrongProTipEl.style.display = 'block';
+            setTimeout(() => this.playSound('ding'), 400);
         } else {
             wrongProTipEl.style.display = 'none';
         }

@@ -39,7 +39,8 @@ class WarehouseWarriorGame {
             ding: document.getElementById('dingSound'),
             wahwah: document.getElementById('wahwahSound'),
             crowdGroan: document.getElementById('crowdGroanSound'),
-            celebrate: document.getElementById('celebrateSound')
+            celebrate: document.getElementById('celebrateSound'),
+            checkpointRiser: document.getElementById('checkpointRiserSound')
         };
         
         // Audio settings (load from localStorage)
@@ -1121,8 +1122,7 @@ class WarehouseWarriorGame {
         }
         
         this.showScene('checkpointScene');
-        this.playSound('celebrate');
-        this.playSound('crowdCheer');
+        this.playSound('checkpointRiser');
     }
     
     continueFromCheckpoint() {

@@ -29,6 +29,14 @@ const questionBank = [
     },
     {
         level: 2,
+        question: "Hvad er den SIDSTE zone i et ensrettet lagerflow?",
+        answers: ["Modtagelse", "Afsendelse", "Lager", "Pakkeområde"],
+        correct: 1,
+        category: "Lagerindretning",
+        explanation: "Afsendelse er den sidste zone. Flowet går: Modtagelse → Lager → Afsendelse. Mange svarer for hurtigt 'Modtagelse' fordi de husker det fra det lette spørgsmål om første zone, men her spørges der til den SIDSTE."
+    },
+    {
+        level: 2,
         question: "Hvor skal pakkebordet placeres?",
         answers: ["I et hjørne", "Centralt, ikke gemt væk", "Ved indgangen", "Ved udgangen"],
         correct: 1,
@@ -1542,7 +1550,7 @@ const questionBank = [
     {
         level: 13,
         question: "Du skal onboarde 5 nye vikarer en uge før Black Friday. Hvad er den vigtigste prioritet i deres oplæring?",
-        answers: ["At de lærer hele lageret at kende", "At de lærer at håndtere de mest komplekse ordrer", "At de bliver eksperter i én enkelt, simpel opgave, fx at pakke single-line ordrer", "At de læser hele lagerhåndbogen"],
+        answers: ["At de lærer hele lageret at kende fra ende til anden på én dag", "At de lærer at håndtere de mest komplekse multi-line ordrer først", "At de bliver eksperter i én simpel opgave, fx single-line ordrer", "At de læser hele lagerhåndbogen grundigt inden de starter på gulvet"],
         correct: 2,
         category: "Avanceret",
         explanation: "Under pres er specialisering nøglen. Ved at gøre vikarerne til eksperter i én afgrænset opgave minimerer du fejl og maksimerer deres effektivitet, selv med kort oplæring."
@@ -1558,7 +1566,7 @@ const questionBank = [
     {
         level: 13,
         question: "Hvordan bør du justere din min/max-styring på A-varer op til en stor, planlagt kampagne som Black Friday?",
-        answers: ["Du skal ignorere min/max og bestille så meget som muligt hjem", "Du skal sænke både minimum og maksimum for at undgå overstock efter kampagnen", "Du skal midlertidigt hæve både minimum og især maksimum for at kunne håndtere den forventede stigning i salget", "Du skal kun fokusere på C-varer op til en kampagne"],
+        answers: ["Du skal ignorere min/max helt og bestille så meget som muligt hjem til lageret", "Du skal sænke både minimum og maksimum for at undgå overstock efter kampagnen", "Du skal midlertidigt hæve minimum og maksimum for den forventede stigning", "Du skal kun fokusere på at rydde op i C-varer og frigøre plads op til kampagnen"],
         correct: 2,
         category: "Avanceret",
         explanation: "Min/max skal afspejle forventet salg. Op til en kampagne skal du midlertidigt justere dine niveauer op for at undgå at løbe tør for dine vigtigste varer midt i det hele."
@@ -1566,7 +1574,7 @@ const questionBank = [
     {
         level: 13,
         question: "En ny medarbejder er super hurtig til at oprette nye varer, men glemmer ofte at følge SKU-konventionen. Hvad er den største langsigtede risiko?",
-        answers: ["At lageret ser rodet ud", "At det bliver umuligt at lave en præcis ABC-analyse og en fremtidig migrering til et WMS bliver et mareridt", "At medarbejderen bliver demotiveret", "At I løber tør for varenumre"],
+        answers: ["At lageret ser rodet ud og svært at navigere for nye medarbejdere", "At ABC-analysen bliver upræcis og en fremtidig WMS-migrering umulig", "At medarbejderen bliver demotiveret og mister lysten til at oprette varer", "At I løber tør for varenumre og må starte forfra med et nyt system"],
         correct: 1,
         category: "Avanceret",
         explanation: "Dårlig datahygiejne er en teknisk gæld, der vokser over tid. Den største omkostning er ikke rod, men at det ødelægger dine muligheder for analyse og fremtidig automatisering."
@@ -1574,7 +1582,7 @@ const questionBank = [
     {
         level: 13,
         question: "Hvad er den største risiko ved IKKE at have en klar exit-plan i din 3PL-aftale fra dag ét?",
-        answers: ["At din 3PL-partner bliver sur, hvis du nævner det", "At du bliver 'låst fast' hos en partner, der ikke performer, fordi omkostningerne og besværet ved at flytte er uoverskuelige", "At du går glip af en rabat", "At du ikke kan skifte til en billigere partner med det samme"],
+        answers: ["At din 3PL-partner bliver sur og hæver priserne, hvis du nævner det", "At du bliver låst fast hos en partner, der ikke performer, fordi flytning er uoverskuelig", "At du går glip af en mængderabat, som kun gives ved langvarige aftaler", "At du ikke kan skifte til en billigere partner, selvom du finder en bedre"],
         correct: 1,
         category: "Avanceret",
         explanation: "En manglende exit-plan fjerner din forhandlingskraft. Hvis det er for dyrt og komplekst at flytte, er du reelt stavnsbundet, selvom partnerskabet er dårligt."
@@ -1582,7 +1590,7 @@ const questionBank = [
     {
         level: 13,
         question: "Din A-zone er perfekt, men dine B- og C-varer er totalt uorganiserede. Hvilket problem vil du primært opleve?",
-        answers: ["Langsommere pluk af A-varer", "At din rullende lageroptælling bliver næsten umulig at gennemføre effektivt", "At dine medarbejdere bliver demotiverede", "At du ikke kan modtage nye varer"],
+        answers: ["Langsommere pluk af A-varer, fordi medarbejderne bliver forvirrede af rodet", "At din rullende lageroptælling bliver umulig at gennemføre effektivt", "At dine medarbejdere bliver demotiverede og begynder at lave flere fejl", "At du ikke kan modtage nye varer, fordi der ikke er plads til dem"],
         correct: 1,
         category: "Avanceret",
         explanation: "Selvom du ikke plukker B- og C-varer ofte, skal de stadig tælles. Rod i disse zoner gør lageroptælling til et mareridt, hvilket fører til upålidelige lagerdata over tid."
@@ -1590,7 +1598,7 @@ const questionBank = [
     {
         level: 13,
         question: "Du har en A-vare, der ofte kommer retur pga. 'forkert størrelse'. Hvad er den mest proaktive løsning ifølge guidens principper?",
-        answers: ["At fjerne varen fra sortimentet", "At forbedre produktbeskrivelsen og størrelsesguiden på webshoppen markant", "At bestille færre af den pågældende vare hjem", "At sende to forskellige størrelser til kunden og bede dem returnere den, der ikke passer"],
+        answers: ["At fjerne varen fra sortimentet helt, da den skaber for mange returer", "At forbedre produktbeskrivelsen og størrelsesguiden på webshoppen", "At bestille færre af den pågældende vare hjem for at reducere risikoen", "At sende to størrelser til kunden og bede dem returnere den forkerte"],
         correct: 1,
         category: "Avanceret",
         explanation: "Returdata skal bruges proaktivt. I stedet for kun at håndtere returen, skal du løse grundårsagen. En bedre størrelsesguide forhindrer fremtidige returer og forbedrer kundeoplevelsen."
@@ -1598,7 +1606,7 @@ const questionBank = [
     {
         level: 14,
         question: "Din ABC-analyse viser, at en A-vare er fysisk meget stor og uhåndterbar. Hvad er den bedste løsning ifølge guidens principper?",
-        answers: ["At ignorere ABC-analysen for denne vare og placere den bagerst", "At placere den i A-zonen, selvom den blokerer for andre varer", "At finde en dedikeret plads til den tæt på flowet, men hvor den ikke er i vejen for de andre, mindre A-varer", "At stoppe med at sælge varen"],
+        answers: ["At ignorere ABC-analysen for denne vare og placere den bagerst på lageret", "At placere den i A-zonen, selvom den blokerer for andre varer i nærheden", "At finde en dedikeret plads tæt på flowet, hvor den ikke blokerer andre A-varer", "At stoppe med at sælge varen, da den er for besværlig at håndtere på lageret"],
         correct: 2,
         category: "Avanceret",
         explanation: "Princippet er at reducere skridt, men ikke på bekostning af hele flowet. En dedikeret plads tæt på, men uden for den primære A-zone, er den bedste balance mellem ABC-princippet og praktisk lagerdrift."
@@ -1606,7 +1614,7 @@ const questionBank = [
     {
         level: 14,
         question: "Hvornår kan batch-plukning ironisk nok øge den samlede gennemløbstid for en enkelt hasteordre?",
-        answers: ["Aldrig, batch-plukning er altid hurtigere", "Hvis hasteordren bliver holdt tilbage i et stort batch, der først skal plukkes færdigt", "Hvis hasteordren indeholder en C-vare", "Hvis der bruges plukkekasser"],
+        answers: ["Aldrig, batch-plukning er altid hurtigere uanset ordretypen", "Hvis hasteordren holdes tilbage i et stort batch, der skal plukkes færdigt", "Hvis hasteordren indeholder en C-vare, der står langt væk", "Hvis der bruges plukkekasser, som gør processen mere kompleks"],
         correct: 1,
         category: "Avanceret",
         explanation: "Batch-plukning optimerer for den samlede tid, ikke for den enkelte ordre. En hasteordre kan sidde fast i et stort batch og vente på at blive plukket, selvom den kunne være plukket hurtigere alene."
@@ -1614,7 +1622,7 @@ const questionBank = [
     {
         level: 14,
         question: "Du vil skabe en 'wow'-oplevelse med special-emballage, men det øger fragtprisen med 10 kr. pr. ordre. Hvordan vurderer du, om det er en god idé?",
-        answers: ["Det er altid en god idé, fordi kundeoplevelsen er vigtigst", "Ved at måle om den øgede omkostning fører til en mærkbar stigning i genkøbsrate eller kundetilfredshed", "Ved at spørge transportøren, om de kan give rabat", "Det er aldrig en god idé at øge omkostningerne"],
+        answers: ["Det er altid en god idé, fordi kundeoplevelsen altid er vigtigst", "Ved at måle om omkostningen fører til stigning i genkøbsrate", "Ved at spørge transportøren, om de kan give rabat på fragten", "Det er aldrig en god idé at øge omkostningerne på en ordre"],
         correct: 1,
         category: "Avanceret",
         explanation: "En 'wow'-oplevelse er kun en god investering, hvis den betaler sig tilbage i form af øget loyalitet og genkøb. Det skal måles, ikke bare føles rigtigt."
@@ -1622,7 +1630,7 @@ const questionBank = [
     {
         level: 14,
         question: "Du indfører en ny plukkerute. 'Pluk pr. time' stiger med 20%, men 'pakkefejlsprocenten' stiger også. Hvad er det mest sandsynlige problem?",
-        answers: ["Medarbejderne er blevet dårligere til at pakke", "Den nye rute skaber stress eller forvirring, som fører til flere fejl", "Systemet måler forkert", "Kunderne er begyndt at bestille sværere varer"],
+        answers: ["Medarbejderne er blevet dårligere til at pakke efter ændringen", "Den nye rute skaber stress eller forvirring, som giver flere fejl", "Systemet måler forkert og viser upulidelige tal for fejlraten", "Kunderne er begyndt at bestille sværere varer med flere linjer"],
         correct: 1,
         category: "Avanceret",
         explanation: "Nøgletal skal ses i sammenhæng. En stigning i effektivitet, der samtidig øger fejlraten, peger på, at den nye proces er for stressende, ulogisk eller mangler indbygget kvalitetssikring."
@@ -1630,7 +1638,7 @@ const questionBank = [
     {
         level: 14,
         question: "Du laver rullende optælling og finder konstante små-afvigelser på dine B-varer. Hvad er den mest sandsynlige årsag ifølge guiden?",
-        answers: ["Systematisk tyveri af B-varer", "At B-varerne er placeret forkert", "Proces-svind: små fejl i hverdagen som manglende registrering ved modtagelse eller pluk", "At B-varer er mere følsomme over for fugt"],
+        answers: ["Systematisk tyveri af B-varer, som bør undersøges med overvågning", "At B-varerne er placeret forkert og derfor tælles på de forkerte pladser", "Proces-svind: små daglige fejl som manglende registrering ved modtagelse", "At B-varer er mere følsomme over for fugt og derfor går i stykker"],
         correct: 2,
         category: "Avanceret",
         explanation: "Konstante små-afvigelser peger sjældent på stort, planlagt tyveri, men oftere på små, gentagne fejl i de daglige processer. Løsningen er bedre processer, ikke mere overvågning."
@@ -1638,7 +1646,7 @@ const questionBank = [
     {
         level: 14,
         question: "Hvorfor er det ifølge guiden vigtigere at sortere din ABC-analyse efter 'antal ordrer varen er med på' end efter 'omsætning'?",
-        answers: ["Fordi det giver et mere præcist billede af, hvor ofte du skal gå hen til en vare", "Fordi varer med høj omsætning ofte er C-varer", "Fordi det er nemmere at trække den rapport fra de fleste shopsystemer", "Fordi omsætning er et misvisende tal"],
+        answers: ["Fordi det viser, hvor ofte du fysisk skal gå hen til en vare", "Fordi varer med høj omsætning ofte ender som C-varer alligevel", "Fordi det er nemmere at trække den rapport fra de fleste systemer", "Fordi omsætning er et misvisende tal, der ikke afspejler plukfrekvens"],
         correct: 0,
         category: "Avanceret",
         explanation: "En dyr vare med høj omsætning, du kun sælger én gang om måneden, skal ikke optage plads i A-zonen. En billig vare, du plukker 20 gange om dagen, skal. Antal pluk (ordrer) er det, der bestemmer dine skridt, ikke omsætningen."
@@ -1646,7 +1654,7 @@ const questionBank = [
     {
         level: 15,
         question: "Din fejllog viser næsten ingen pakkefejl, men din returlog er fuld af 'forkert vare modtaget'. Hvad er det mest sandsynlige problem?",
-        answers: ["Kunderne lyver om årsagen til returnering", "Fejlloggen bliver ikke udfyldt korrekt, og der er en kultur, hvor fejl skjules", "Dit shopsystem sender forkerte ordredata til lageret", "Transportøren bytter rundt på pakkerne"],
+        answers: ["Kunderne lyver om årsagen til returnering for at få pengene tilbage", "Fejlloggen udfyldes ikke korrekt, og der er en kultur hvor fejl skjules", "Dit shopsystem sender forkerte ordredata til lageret ved høj belastning", "Transportøren bytter rundt på pakkerne under sortering i terminalen"],
         correct: 1,
         category: "Avanceret",
         explanation: "Når de to datakilder er i direkte modstrid, peger det oftest på et proces- eller kulturproblem. Hvis fejl ikke logges (af frygt for konsekvenser), er loggen værdiløs, og du kan ikke løse de reelle årsager."
@@ -1654,7 +1662,7 @@ const questionBank = [
     {
         level: 15,
         question: "Din 3PL-partner overholder sin SLA på 99,5% korrekte pluk, men de 0,5% fejl rammer altid dine vigtigste kunder. Hvad er det grundlæggende problem?",
-        answers: ["SLA'en er for dårlig og skal være 100%", "Dine vigtigste kunder er for krævende", "En SLA måler gennemsnit og tager ikke højde for, HVEM fejlene rammer. Problemet er et partnerskab, der ikke forstår din forretning.", "Du skal selv plukke ordrer til de vigtigste kunder"],
+        answers: ["SLA'en er for dårlig og skal være 100% for at være acceptabel", "Dine vigtigste kunder er for krævende og bør sænke forventningerne", "SLA måler gennemsnit, ikke HVEM fejlene rammer. Partnerskabet forstår ikke din forretning", "Du skal selv plukke ordrer til de vigtigste kunder for at sikre kvaliteten"],
         correct: 2,
         category: "Avanceret",
         explanation: "En SLA er kun et tal. Hvis fejlene konsekvent rammer dine VIP-kunder, er partnerskabet og den fælles forståelse for din forretning problemet, ikke kun procenttallet."
@@ -1662,7 +1670,7 @@ const questionBank = [
     {
         level: 15,
         question: "Hvorfor er 'bundet lager i langsomme varer' et farligere nøgletal end en lav 'pluk pr. time'?",
-        answers: ["Fordi det er sværere at beregne", "Fordi det direkte påvirker virksomhedens likviditet og evne til at investere i A-varer", "Fordi det er et tegn på dårlig ledelse", "Fordi det altid fører til flere pakkefejl"],
+        answers: ["Fordi det er sværere at beregne og kræver avancerede værktøjer", "Fordi det påvirker likviditeten og evnen til at investere i A-varer", "Fordi det er et tegn på dårlig ledelse og manglende overblik", "Fordi det altid fører til flere pakkefejl og højere returrate"],
         correct: 1,
         category: "Avanceret",
         explanation: "Langsom pluk er en operationel omkostning. Bundet kapital i C-varer er en strategisk omkostning, der dræner din likviditet og forhindrer dig i at investere i de varer, der rent faktisk driver din forretning."
@@ -1670,7 +1678,7 @@ const questionBank = [
     {
         level: 15,
         question: "Hvorfor er en fast returproces (modtag -> tjek -> beslut -> opdater) vigtigere for bundlinjen end en hurtig plukkeproces?",
-        answers: ["Fordi plukning kan automatiseres, men returhåndtering kan ikke", "Fordi en ineffektiv returproces skaber 'skjult lager' af varer, der ikke kan sælges, og binder kapital", "Fordi kunderne er mere tilgivende over for langsom levering end langsom returbehandling", "Fordi det er lovpligtigt at have en fast returproces"],
+        answers: ["Fordi plukning kan automatiseres, men returhåndtering kræver altid manuelt arbejde", "Fordi en ineffektiv returproces skaber skjult lager af varer, der binder kapital", "Fordi kunderne er mere tilgivende over for langsom levering end langsom retur", "Fordi det er lovpligtigt at have en fast returproces med dokumentation"],
         correct: 1,
         category: "Avanceret",
         explanation: "En langsom plukkeproces koster løntimer. En dårlig returproces koster både løntimer OG binder kapital i varer, der ligger i limbo. Det er en dobbelt omkostning."
@@ -1678,7 +1686,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du overvejer et WMS. Hvilket problem løser et WMS, som en optimeret ABC-analyse og batch-plukning IKKE kan løse?",
-        answers: ["At reducere antallet af skridt på lageret", "At finde den hurtigste plukkerute dynamisk baseret på ordrernes indhold og plukkernes placering", "At vide hvilke varer der sælger mest", "At håndtere single-line og multi-line ordrer forskelligt"],
+        answers: ["At reducere antallet af skridt på lageret ved at optimere placeringer", "At finde den hurtigste plukkerute dynamisk baseret på ordreindhold", "At vide hvilke varer der sælger mest og bør stå i A-zonen", "At håndtere single-line og multi-line ordrer i separate processer"],
         correct: 1,
         category: "Avanceret",
         explanation: "Manuelle systemer som ABC og batch-pluk er statiske. Et WMS kan dynamisk optimere ruter i realtid, hvilket er en kompleksitet, manuelle processer ikke kan matche."
@@ -1686,7 +1694,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har 100 ordrer. 50 er single-line ordrer på den samme A-vare. 50 er multi-line ordrer med B- og C-varer. Hvad er den mest effektive strategi?",
-        answers: ["At plukke alle 100 ordrer i én lang rute", "At starte med multi-line ordrerne, fordi de er sværest", "At lave et stort batch-pluk på de 50 single-line ordrer først, og derefter plukke multi-line ordrerne i et separat batch", "At plukke én ordre ad gangen for at undgå fejl"],
+        answers: ["At plukke alle 100 ordrer i én lang rute for at spare tid på gangen", "At starte med multi-line ordrerne først, fordi de er de sværeste", "At batch-plukke de 50 single-line ordrer først, derefter multi-line separat", "At plukke én ordre ad gangen for at minimere risikoen for plukfejl"],
         correct: 2,
         category: "Avanceret",
         explanation: "Dette er kernen i at opdele plukkestrategier. Ved at fjerne de 50 simple ordrer først i et hurtigt batch-pluk, frigør du tid og mental kapacitet til at håndtere de mere komplekse multi-line ordrer bagefter."
@@ -1694,7 +1702,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har indført tavlemøder, men medarbejderne byder ikke ind med forbedringsforslag. Hvad er den mest sandsynlige årsag ifølge guidens tone?",
-        answers: ["Medarbejderne har ingen gode idéer", "Møderne er for korte", "Der er en kultur, hvor fokus er på at finde syndebukke, ikke på at løse problemer i fællesskab", "Du har allerede optimeret alt, hvad der kan optimeres"],
+        answers: ["Medarbejderne har ingen gode idéer til forbedringer af processerne", "Møderne er for korte til at nå igennem alle punkterne på dagsordenen", "Der er en kultur med fokus på syndebukke, ikke på fælles problemløsning", "Du har allerede optimeret alt, så der er ikke mere at komme efter"],
         correct: 2,
         category: "Avanceret",
         explanation: "Hvis medarbejdere er tavse, er det ofte et tegn på, at de ikke føler sig trygge. Hvis tidligere forslag er blevet skudt ned, eller hvis fejl fører til skældud, holder folk op med at byde ind. Fokus skal være på læring, ikke skyld."
@@ -1703,7 +1711,7 @@ const questionBank = [
     {
         level: 11,
         question: "Du har en høj pakkefejlsprocent på dine B-varer. Din ABC-analyse er korrekt, og A-zonen fungerer. Hvad er den mest sandsynlige årsag, der kombinerer lagerindretning og svind-principper?",
-        answers: ["Dine B-varer står for tæt på C-varerne", "Dårlig belysning i B-zonen kombineret med manglende faste pladser, hvilket øger risikoen for fejlpluk", "Dine plukkevogne er for små til B-varer", "Dine B-varer er for populære"],
+        answers: ["Dine B-varer står for tæt på C-varerne og bliver forvekslet med dem", "Dårlig belysning i B-zonen kombineret med manglende faste pladser", "Dine plukkevogne er for små til B-varer og skaber håndteringsfejl", "Dine B-varer er for populære og burde reklassificeres som A-varer"],
         correct: 1,
         category: "Ekspert",
         explanation: "En høj fejlrate på en specifik varegruppe peger ofte på en kombination af faktorer. Dårlig belysning (Kap. 6) og mangel på faste, adskilte pladser (Kap. 2 & 8) er en klassisk cocktail, der fører til fejlpluk, især på varer, man ikke håndterer dagligt."
@@ -1711,7 +1719,7 @@ const questionBank = [
     {
         level: 11,
         question: "Du overvejer 3PL. Din største bekymring er tab af kontrol med kundeoplevelsen. Hvilket krav i din SLA vil bedst imødekomme dette, udover en lav fejlprocent?",
-        answers: ["Krav om brug af specifik emballage", "En aftale om en fast kontaktperson hos 3PL-partneren", "Krav om realtidsadgang til lagerdata og en klar proces for håndtering af hasteopgaver og kundehenvendelser", "Lavere pris pr. pluk"],
+        answers: ["Krav om brug af specifik emballage med dit logo og design på", "En aftale om en fast kontaktperson hos 3PL-partneren til daglig kontakt", "Krav om realtidsadgang til lagerdata og klar proces for hasteopgaver", "Lavere pris pr. pluk, da det er den største løbende omkostning"],
         correct: 2,
         category: "Ekspert",
         explanation: "Kontrol handler om transparens og reaktionsevne. Realtidsdata (Kap. 13) og en aftalt proces for undtagelser giver dig mulighed for at være proaktiv over for kunden, selvom du ikke selv pakker varen."
@@ -1719,7 +1727,7 @@ const questionBank = [
     {
         level: 11,
         question: "Din 'pluk pr. time' er faldet, efter du har omorganiseret lageret efter ABC-princippet. Hvad er den mest sandsynlige 'kontra-intuitive' årsag?",
-        answers: ["Medarbejderne er utilfredse med ændringerne", "Du har skabt en flaskehals i A-zonen ved at samle alle A-varer for tæt, så plukkere står i kø", "Dine C-varer er blevet for svære at finde", "Du har for mange B-varer"],
+        answers: ["Medarbejderne er utilfredse med ændringerne og arbejder langsommere i protest", "Du har skabt en flaskehals i A-zonen, fordi plukkere står i kø for tæt", "Dine C-varer er blevet for svære at finde efter omorganiseringen af lageret", "Du har for mange B-varer, som burde have været reklassificeret som C-varer"],
         correct: 1,
         category: "Ekspert",
         explanation: "ABC-optimering kan fejle, hvis den skaber nye problemer. En overfyldt A-zone (Kap. 2) er en klassisk fejl, hvor teorien (kort afstand) kolliderer med praksis (kø og ventetid), hvilket sænker den samlede effektivitet."
@@ -1727,7 +1735,7 @@ const questionBank = [
     {
         level: 11,
         question: "Du har et tavlemøde. En medarbejder foreslår en ændring, der vil forbedre plukketiden for C-varer markant, men som vil gøre det lidt mere besværligt at plukke A-varer. Hvad er den korrekte beslutning ifølge guidens filosofi?",
-        answers: ["At implementere forslaget, fordi alle forbedringer er gode", "At afvise forslaget, fordi optimering af C-varer er spild af tid", "At anerkende forslaget, men forklare hvorfor lageret altid skal optimeres omkring A-varerne, da de driver flest pluk og størst værdi", "At bede medarbejderen om at lave en detaljeret rapport"],
+        answers: ["At implementere forslaget med det samme, fordi alle forbedringer er gode", "At afvise forslaget, fordi optimering af C-varer altid er spild af tid", "At anerkende forslaget, men forklare at lageret skal optimeres for A-varer", "At bede medarbejderen om at lave en detaljeret rapport med tal på det"],
         correct: 2,
         category: "Ekspert",
         explanation: "Hele lagerets flow og effektivitet bygger på at optimere for de 20% af varerne, der skaber 80% af aktiviteten (Kap. 1). En forbedring for C-varer må aldrig ske på bekostning af A-varerne."
@@ -1735,7 +1743,7 @@ const questionBank = [
     {
         level: 11,
         question: "Du har en vare, der sælger ekstremt godt i 2 uger (en trend), hvorefter salget dør. Hvordan bør du behandle denne vare i dit ABC/min/max-system?",
-        answers: ["Den skal behandles som en A-vare permanent", "Den skal ignoreres, da den er en anomali", "Den skal midlertidigt behandles som en A-vare, men med et meget aggressivt og lavt minimumslager for at undgå dødt lager, når trenden slutter", "Den skal placeres i C-zonen for at være på den sikre side"],
+        answers: ["Den skal behandles som en A-vare permanent og have fast plads i A-zonen", "Den skal ignoreres helt, da den er en anomali der forsvinder af sig selv", "Den skal midlertidigt være A-vare, men med lavt minimumslager mod dødt lager", "Den skal placeres i C-zonen for at være på den sikre side med lav risiko"],
         correct: 2,
         category: "Ekspert",
         explanation: "Dette kræver en kombination af ABC-analyse (Kap. 1) og min/max-styring (Kap. 5). Varen er en A-vare lige nu, men du skal have en strategi for at undgå at brænde inde med et stort lager, når salget forsvinder."
@@ -1743,7 +1751,7 @@ const questionBank = [
     {
         level: 11,
         question: "Hvad er den største fare ved at outsource dit lager til en 3PL-partner, FØR du selv har styr på dine egne grundlæggende processer som fejllog og ABC-analyse?",
-        answers: ["3PL-partneren vil ikke arbejde sammen med dig", "Du kan ikke forhandle en god pris", "Du aner ikke, hvad du skal kræve i en SLA, og du kan ikke gennemskue, om 3PL-partnerens fejl skyldes dem eller dit eget rodede datagrundlag", "Det er dyrere at starte op"],
+        answers: ["3PL-partneren vil ikke arbejde sammen med dig, fordi du virker uprofessionel", "Du kan ikke forhandle en god pris, fordi du mangler data til at sammenligne", "Du kan ikke stille krav i en SLA eller gennemskue, om fejl skyldes dem eller dig", "Det er dyrere at starte op, fordi 3PL-partneren skal bruge tid på oplæring"],
         correct: 2,
         category: "Ekspert",
         explanation: "Hvis du ikke kender dine egne nøgletal og processer (Kap. 6, 9), kan du ikke stille kvalificerede krav til din partner (Kap. 13). Du betaler en partner for at løse et problem, du ikke selv har defineret."
@@ -1751,7 +1759,7 @@ const questionBank = [
     {
         level: 12,
         question: "Du har indført dobbelttjek (én plukker, én pakker), men fejlprocenten er stadig høj. Hvad er den mest sandsynlige årsag, der ligger i processen?",
-        answers: ["Den, der pakker, stoler blindt på plukkeren og udfører ikke et reelt tjek", "Medarbejderne er ikke dygtige nok", "I har for travlt til at dobbelttjekke", "Systemet tæller forkert"],
+        answers: ["Pakkeren stoler blindt på plukkeren og udfører ikke et reelt tjek", "Medarbejderne er ikke dygtige nok til at opdage fejl i plukket", "I har for travlt til at dobbelttjekke ordentligt i hverdagen", "Systemet tæller forkert og sender forkerte data til plukkeren"],
         correct: 0,
         category: "Ekspert",
         explanation: "Dobbelttjek er kun effektivt, hvis det er et reelt, uafhængigt tjek. Hvis kulturen er, at man 'bare lige' godkender kollegaens arbejde uden at kigge ordentligt efter, er processen værdiløs (Kap. 6)."
@@ -1767,7 +1775,7 @@ const questionBank = [
     {
         level: 12,
         question: "Du har 50.000 kr. at investere. Hvad vil give det største afkast ifølge guidens principper: Et WMS til at optimere plukkeruter, eller at fjerne dødt lager (C-varer) for 50.000 kr. og geninvestere pengene i A-varer?",
-        answers: ["Et WMS, fordi teknologi altid er fremtiden", "At fjerne dødt lager, fordi det frigør bundet kapital og skaber plads til varer, der rent faktisk driver forretningen", "At give alle medarbejdere en bonus", "At købe nye, flottere reoler"],
+        answers: ["Et WMS, fordi teknologi altid er den bedste investering for fremtiden", "At fjerne dødt lager, fordi det frigør kapital og plads til A-varer", "At give alle medarbejdere en bonus for at øge motivationen på lageret", "At købe nye, flottere reoler der gør lageret mere overskueligt"],
         correct: 1,
         category: "Ekspert",
         explanation: "Guiden lægger vægt på at fjerne spild og frigøre kapital (Kap. 1, 5, 9). Et WMS er en optimering, men at fjerne dødt lager er en fundamental forbedring af din forretnings sundhed og likviditet."
@@ -1775,7 +1783,7 @@ const questionBank = [
     {
         level: 12,
         question: "Under en kampagne bliver dine medarbejdere ved med at plukke udsolgte varer. Hvad er den mest sandsynlige årsag til denne systemfejl?",
-        answers: ["Medarbejderne ignorerer systemet", "Dit shopsystem opdaterer ikke lagerstatus i realtid, når der er høj belastning", "Kunderne bestiller for hurtigt", "Dine A-varer er for populære"],
+        answers: ["Medarbejderne ignorerer systemet og plukker på egen hånd", "Dit shopsystem opdaterer ikke lagerstatus i realtid under høj belastning", "Kunderne bestiller for hurtigt, og systemet kan ikke følge med", "Dine A-varer er for populære og bør have højere minimumslager"],
         correct: 1,
         category: "Ekspert",
         explanation: "Dette er et teknisk problem, ikke et medarbejderproblem. Mange shopsystemer kan have en forsinkelse på lageropdatering under spidsbelastning (Kap. 12), hvilket fører til oversalg. Løsningen er teknisk, ikke mere disciplin."
@@ -1783,7 +1791,7 @@ const questionBank = [
     {
         level: 12,
         question: "Du har en fast fragtpris på 49 kr. En kunde køber en meget lille, let C-vare til 60 kr. Hvorfor er denne ordre potentielt en underskudsforretning, selvom avancen på varen er 100%?",
-        answers: ["Fordi kunden måske returnerer varen", "Fordi din reelle omkostning til pluk, pak, emballage og fragt overstiger varens dækningsbidrag", "Fordi C-varer altid er en dårlig forretning", "Fordi du burde have tilbudt fri fragt"],
+        answers: ["Fordi kunden måske returnerer varen, og så taber du fragten begge veje", "Fordi den reelle omkostning til pluk, pak og fragt overstiger dækningsbidraget", "Fordi C-varer altid er en dårlig forretning med for lav avance pr. ordre", "Fordi du burde have tilbudt fri fragt for at undgå at kunden fortryder"],
         correct: 1,
         category: "Ekspert",
         explanation: "Dette tester forståelsen af de samlede omkostninger. Avancen på varen (30 kr.) skal dække både plukketid, emballage, betalingsgebyr OG fragt (Kap. 10). En lille ordre kan nemt blive en underskudsforretning, når alle omkostninger medregnes."
@@ -1791,7 +1799,7 @@ const questionBank = [
     {
         level: 12,
         question: "Hvorfor er det en dårlig idé at lave en stor, årlig lageroptælling lige FØR Black Friday?",
-        answers: ["Fordi det er spild af tid", "Fordi du risikerer at finde fejl, du ikke kan nå at rette, og det skaber unødig stress og rod lige inden årets travleste periode", "Fordi det er bedre at gøre det lige efter", "Fordi medarbejderne hellere vil holde fri"],
+        answers: ["Fordi det er spild af tid, når der er så travlt på lageret alligevel", "Fordi du finder fejl du ikke kan rette, og det skaber stress inden travlheden", "Fordi det er bedre at gøre det lige efter kampagnen, når der er ro", "Fordi medarbejderne hellere vil holde fri og fokusere på kampagnen"],
         correct: 1,
         category: "Ekspert",
         explanation: "En stor optælling lige før en kampagne skaber maksimal forstyrrelse på det værst tænkelige tidspunkt (Kap. 8 & 12). Rullende optælling og fokus på kampagnevarer er en langt bedre strategi."
@@ -1807,7 +1815,7 @@ const questionBank = [
     {
         level: 13,
         question: "Din 'returprocent' er lav, men din kundeservice bruger ekstremt meget tid på retursager. Hvad er den mest sandsynlige årsag?",
-        answers: ["Kunderne er langsomme til at sende varer retur", "Din returproces er så besværlig og ulogisk, at hver enkelt sag kræver manuel håndtering og dialog med kunden", "Dine nøgletal er for simple", "Kundeservicemedarbejderne er ineffektive"],
+        answers: ["Kunderne er langsomme til at sende varer retur og skal rykkes manuelt", "Din returproces er besværlig, så hver sag kræver manuel dialog med kunden", "Dine nøgletal er for simple og fanger ikke den reelle tidsanvendelse", "Kundeservicemedarbejderne er ineffektive og bør have bedre oplæring"],
         correct: 1,
         category: "Ekspert",
         explanation: "Nøgletal kan lyve. En lav returprocent kan dække over en ekstremt ineffektiv proces (Kap. 7 & 9), hvor omkostningen pr. retursag er tårnhøj. Det er processen, ikke antallet, der er problemet."
@@ -1815,7 +1823,7 @@ const questionBank = [
     {
         level: 13,
         question: "Hvorfor er det vigtigt at have en dedikeret zone til 'varer klar til at blive sat på lager' i varemodtagelsen?",
-        answers: ["Fordi det ser ryddeligt ud", "For at adskille varer, der er talt op og kontrolleret, fra varer, der lige er ankommet og er ukontrollerede", "Fordi det er et lovkrav", "For at kunne plukke direkte fra pallen"],
+        answers: ["Fordi det ser ryddeligt ud og giver et godt førsteindtryk af lageret", "For at adskille kontrollerede varer fra ukontrollerede nyankomne varer", "Fordi det er et lovkrav i de fleste brancher med fødevarer og medicin", "For at kunne plukke direkte fra pallen uden at flytte varer til reoler"],
         correct: 1,
         category: "Ekspert",
         explanation: "En klar adskillelse i varemodtagelsen (Kap. 2) forhindrer, at ukontrollerede varer ved en fejl bliver lagt på lager, eller at kontrollerede varer bliver talt op igen. Det sikrer datakvaliteten fra start."
@@ -1823,7 +1831,7 @@ const questionBank = [
     {
         level: 13,
         question: "Du har en medarbejder, der er ekstremt hurtig til at plukke, men som skaber rod og ikke følger faste pladser. Hvad er den største skjulte omkostning?",
-        answers: ["At de andre medarbejdere bliver demotiverede", "Den tid, alle andre efterfølgende bruger på at lede efter varer og rette op på lagerfejl", "Slid på plukkevognene", "At medarbejderen kræver mere i løn"],
+        answers: ["At de andre medarbejdere bliver demotiverede og føler sig langsomme", "Den tid alle andre bruger på at lede efter varer og rette lagerfejl", "Slid på plukkevognene, som skal udskiftes oftere end normalt", "At medarbejderen kræver mere i løn, fordi vedkommende er hurtigst"],
         correct: 1,
         category: "Ekspert",
         explanation: "Individuel optimering er farlig, hvis den ødelægger systemet for alle andre. Den hurtigste plukker kan være den dyreste, hvis vedkommendes rod koster alle andre mere tid i sidste ende (Kap. 6)."
@@ -1831,7 +1839,7 @@ const questionBank = [
     {
         level: 13,
         question: "Du har en kampagne med 'køb 3, betal for 2'. Hvordan påvirker det din plukkestrategi for disse varer?",
-        answers: ["Det har ingen betydning for plukkestrategien", "Det gør, at disse ordrer bør behandles som multi-line ordrer, selvom det er samme vare, da antallet varierer", "Det gør, at du bør overveje at pre-packe bundtet for at gøre det til en enkelt SKU", "Det gør batch-plukning umuligt"],
+        answers: ["Det har ingen betydning for plukkestrategien, da det er samme vare", "Disse ordrer bør behandles som multi-line, selvom det er samme vare", "Du bør pre-packe bundtet som en ny SKU, så det bliver single-line", "Det gør batch-plukning umuligt, fordi antallet varierer per ordre"],
         correct: 2,
         category: "Ekspert",
         explanation: "Dette er et avanceret logistisk problem. Ved at samle de 3 varer i et pre-pakket bundt med et nyt, unikt varenummer, kan du omdanne en kompleks ordre til en simpel single-line ordre og plukke den langt mere effektivt (Kap. 3 & 12)."
@@ -1839,7 +1847,7 @@ const questionBank = [
     {
         level: 13,
         question: "Hvorfor er en 'exit-plan' i en 3PL-aftale ikke et tegn på mistillid, men på professionalisme?",
-        answers: ["Fordi det viser, at du har tænkt dig at skifte partner hurtigt", "Fordi det tvinger begge parter til at forholde sig til en potentiel skilsmisse på et tidspunkt, hvor alle stadig er venner", "Fordi det er en standard-skabelon, som alle bruger", "Fordi det giver dig ret til at opsige aftalen uden varsel"],
+        answers: ["Fordi det viser, at du har tænkt dig at skifte partner relativt hurtigt", "Fordi det tvinger begge parter til at planlægge en fair afslutning i god tid", "Fordi det er en standard-skabelon, som alle professionelle virksomheder bruger", "Fordi det giver dig ret til at opsige aftalen uden varsel eller kompensation"],
         correct: 1,
         category: "Ekspert",
         explanation: "At planlægge for afslutningen fra start er et tegn på modenhed. Det fjerner usikkerhed og sikrer en fair proces for begge parter, hvis samarbejdet en dag skal ophøre (Kap. 13). Det er sund fornuft, ikke mistillid."
@@ -1847,7 +1855,7 @@ const questionBank = [
     {
         level: 14,
         question: "Du har en A-vare, der fylder meget lidt. Hvad er den største risiko ved at bestille et kæmpe lager hjem for at få mængderabat?",
-        answers: ["At du løber tør for lagerplads", "At du binder unødigt meget kapital i lager, som kunne være brugt på andre varer eller markedsføring", "At varen går af mode", "At leverandøren bliver afhængig af dig"],
+        answers: ["At du løber tør for lagerplads til andre vigtige A-varer i sortimentet", "At du binder kapital i lager, som kunne være brugt på andre varer", "At varen går af mode, og du ender med et stort dødt lager af den", "At leverandøren bliver afhængig af dig og hæver prisen næste gang"],
         correct: 1,
         category: "Ekspert",
         explanation: "Selvom du har pladsen, er det dårlig økonomi. Mængderabat skal altid holdes op imod omkostningen ved at have penge bundet i lager i stedet for at have dem i banken eller investeret i vækst (Kap. 5 & 9)."
@@ -1855,7 +1863,7 @@ const questionBank = [
     {
         level: 14,
         question: "Hvilket af disse problemer kan et simpelt, mekanisk rullefelt ved pakkebordet løse?",
-        answers: ["Dårlig belysning", "Forkert SKU-navngivning", "En flaskehals hvor pakkeren bruger tid på at gå væk fra bordet for at stable færdige pakker", "Høj returprocent"],
+        answers: ["Dårlig belysning, som gør det svært at læse labels og ordresedler", "Forkert SKU-navngivning, som skaber forvirring ved varemodtagelse", "En flaskehals hvor pakkeren går væk fra bordet for at stable pakker", "Høj returprocent, fordi kunderne modtager beskadigede produkter"],
         correct: 2,
         category: "Ekspert",
         explanation: "Et rullefelt fjerner afbrydelser i pakkerutinen. Pakkeren kan blive ved sit bord og fokusere på at pakke, mens de færdige pakker selv ruller væk. Det kan næsten fordoble pakkehastigheden (Kap. 2)."
@@ -1863,7 +1871,7 @@ const questionBank = [
     {
         level: 14,
         question: "Du har en A-vare, der sælger stabilt hele året, men som fylder meget. Hvad er den bedste placering ifølge guidens principper?",
-        answers: ["I A-zonen, selvom den fylder", "I C-zonen for at spare plads", "På en dedikeret palleplads tæt på pakkebordet, men uden for de primære reoler", "Lige ved varemodtagelsen"],
+        answers: ["I A-zonen, selvom den fylder og tager plads fra andre små A-varer", "I C-zonen for at spare plads i de primære reoler til små varer", "På en dedikeret palleplads tæt på pakkebordet, uden for reolerne", "Lige ved varemodtagelsen, så den ikke skal flyttes så langt"],
         correct: 2,
         category: "Ekspert",
         explanation: "Dette er en balance. Varen skal være tæt på (ABC-princippet), men den må ikke optage værdifuld reolplads, der kan bruges til 50 andre små A-varer. En dedikeret gulvplads er ofte den bedste løsning (Kap. 1 & 2)."
@@ -1871,7 +1879,7 @@ const questionBank = [
     {
         level: 14,
         question: "Hvorfor er det vigtigt at sortere ABC-analysen efter antal ordrer og ikke antal solgte enheder?",
-        answers: ["Fordi det er nemmere at tælle", "Fordi en enkelt kunde, der køber 100 enheder i én ordre, ikke afspejler den daglige pluk-aktivitet", "Fordi omsætningen er vigtigere", "Fordi det giver færre A-varer"],
+        answers: ["Fordi det er nemmere at tælle og giver et hurtigere overblik", "Fordi én stor ordre med 100 enheder ikke afspejler daglig pluk-aktivitet", "Fordi omsætningen er vigtigere end antallet af fysiske pluk på lageret", "Fordi det giver færre A-varer og dermed en mere overskuelig zone"],
         correct: 1,
         category: "Ekspert",
         explanation: "ABC-analysen skal optimere for antallet af gåture til en lokation. En ordre med 100 enheder er én gåtur. 100 ordrer med én enhed er 100 gåture. Antal ordrer afspejler den reelle arbejdsbyrde (Kap. 1)."
@@ -1879,7 +1887,7 @@ const questionBank = [
     {
         level: 14,
         question: "Du har en medarbejder, der altid glemmer at logge kasserede varer. Hvilket nøgletal bliver mest upålideligt af denne fejl?",
-        answers: ["Pakkefejlsprocent", "Lagerets samlede værdi og nøjagtigheden af din lageroptælling", "Pluk pr. time", "Returprocent"],
+        answers: ["Pakkefejlsprocent, fordi kasserede varer tæller som fejl i systemet", "Lagerets samlede værdi og nøjagtigheden af din lageroptælling", "Pluk pr. time, fordi plukkeren spilder tid på at lede efter varer", "Returprocent, fordi kasserede varer fejlagtigt registreres som retur"],
         correct: 1,
         category: "Ekspert",
         explanation: "Når kasserede varer ikke registreres, opstår der et 'usynligt' svind. Dit system tror, du har varer, som reelt er smidt ud. Det gør din lagerbeholdning og dermed din lageroptælling upålidelig (Kap. 8 & 9)."
@@ -1887,7 +1895,7 @@ const questionBank = [
     {
         level: 14,
         question: "Hvad er den primære forskel på 'proces-svind' og 'naturligt svind'?",
-        answers: ["Proces-svind er tyveri, naturligt svind er uheld", "Proces-svind kan ofte reduceres markant gennem bedre arbejdsgange, mens naturligt svind (fx en udløbsdato) er en forventet del af driften", "Naturligt svind dækkes af forsikringen", "Proces-svind sker kun på A-varer"],
+        answers: ["Proces-svind er tyveri, og naturligt svind er uheld og ulykker på lageret", "Proces-svind kan reduceres med bedre arbejdsgange, naturligt svind er forventet", "Naturligt svind dækkes af forsikringen, men proces-svind gør det ikke", "Proces-svind sker kun på A-varer, mens naturligt svind rammer alle varer"],
         correct: 1,
         category: "Ekspert",
         explanation: "Guiden skelner mellem de to for at fokusere indsatsen. Proces-svind (fejl i hverdagen) kan og skal minimeres. Naturligt svind (varer der udløber) skal planlægges og budgetteres (Kap. 8)."
@@ -1895,7 +1903,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har en webshop, der sælger skrøbelige glas. Hvilken del af din lagerproces, udover emballagen, er vigtigst for at undgå reklamationer?",
-        answers: ["En hurtig plukkeproces", "En klar og tydelig returproces", "En grundig kvalitetskontrol i varemodtagelsen for at fange transportskader fra leverandøren, FØR varen lægges på lager", "At have en god forsikring"],
+        answers: ["En hurtig plukkeproces, så glasset ikke står og venter på lageret", "En klar og tydelig returproces, så kunden nemt kan reklamere online", "En grundig kvalitetskontrol i varemodtagelsen for at fange transportskader", "At have en god forsikring, der dækker skader under hele processen"],
         correct: 2,
         category: "Ekspert",
         explanation: "Mange reklamationer starter, før varen overhovedet er på din hylde. En grundig kontrol i varemodtagelsen (Kap. 2 & 7) sikrer, at du ikke sender en allerede beskadiget vare videre til kunden."
@@ -1903,7 +1911,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har en meget sæsonpræget vare (fx julepynt). Hvordan bør den behandles i din ABC-analyse i juli måned?",
-        answers: ["Som en A-vare, fordi den sælger godt i december", "Som en C-vare, fordi den ikke har solgt de sidste 90 dage", "Den bør tages helt ud af ABC-analysen i lavsæsonen for ikke at forvrænge billedet", "Som en B-vare for at være på den sikre side"],
+        answers: ["Som en A-vare, fordi den sælger godt i december og skal være klar", "Som en C-vare, fordi den ikke har solgt noget de sidste 90 dage", "Den bør tages ud af ABC-analysen i lavsæsonen for ikke at forvrænge", "Som en B-vare for at være på den sikre side med en mellemplacering"],
         correct: 1,
         category: "Ekspert",
         explanation: "En standard ABC-analyse baseret på de sidste 90 dage vil klassificere sæsonvarer forkert. I lavsæsonen er de C-varer og skal placeres bagerst. Deres status ændrer sig med sæsonen (Kap. 1)."
@@ -1911,7 +1919,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har en meget høj medarbejderudskiftning på lageret. Hvilket princip fra guiden bliver vigtigst for at opretholde kvaliteten?",
-        answers: ["At have mange plukkevogne", "At have en meget detaljeret og nedskrevet onboarding-proces og simple, visuelle tjeklister ved pakkebordet", "At tilbyde en højere løn end konkurrenterne", "At afholde flere sociale arrangementer"],
+        answers: ["At have mange plukkevogne, så nye medarbejdere altid har udstyr klar", "At have en nedskrevet onboarding-proces og visuelle tjeklister ved pakkebordet", "At tilbyde en højere løn end konkurrenterne for at tiltrække de bedste", "At afholde flere sociale arrangementer for at styrke sammenholdet på lageret"],
         correct: 1,
         category: "Ekspert",
         explanation: "Når folk ofte skiftes ud, kan du ikke basere driften på erfaring. Du er nødt til at basere den på et system. Klare, simple processer og tjeklister (Kap. 6) sikrer, at nye medarbejdere hurtigt kan levere en acceptabel kvalitet."
@@ -1919,7 +1927,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har en kunde, der bestiller den samme A-vare hver uge. Hvilken type pluk er dette et eksempel på, selvom det kun er én kunde?",
-        answers: ["Multi-line pluk", "Et tegn på en loyal kunde, som bør have en gave", "En forudsigelig ordre, som potentielt kan pre-plukkes eller håndteres i et fast, ugentligt batch", "En C-vare ordre"],
+        answers: ["Multi-line pluk, fordi kunden bestiller den samme vare flere gange", "Et tegn på en loyal kunde, som bør have en gave med i pakken", "En forudsigelig ordre, som kan pre-plukkes i et fast ugentligt batch", "En C-vare ordre, fordi det kun er én vare og én kunde per bestilling"],
         correct: 2,
         category: "Ekspert",
         explanation: "Forudsigelighed er nøglen til effektivitet. Selvom det er én kunde, kan denne ordre behandles som en del af et fast batch, hvilket sparer tid og planlægning (Kap. 3)."
@@ -1927,7 +1935,7 @@ const questionBank = [
     {
         level: 15,
         question: "Hvad er den største ulempe ved at indrette lageret som en 'butik' (fx alle T-shirts sammen, alle bukser sammen)?",
-        answers: ["Det ser uorganiseret ud", "Det ignorerer salgsdata og tvinger dig til at gå langt efter dine bestsellere, som er spredt ud over hele lageret", "Det gør det svært at finde varer for nye medarbejdere", "Det er dyrere i reoler"],
+        answers: ["Det ser uorganiseret ud og giver et dårligt indtryk af lageret", "Det ignorerer salgsdata og tvinger dig til at gå langt efter bestsellere", "Det gør det svært at finde varer for nye medarbejdere uden erfaring", "Det er dyrere i reoler, fordi du skal have flere sektioner opdelt"],
         correct: 1,
         category: "Ekspert",
         explanation: "Et lager er ikke en butik for kunder; det er en maskine for medarbejdere. Indretning efter salgsdata (ABC) minimerer skridt og maksimerer effektivitet. Indretning efter kategori gør det modsatte (Kap. 1)."
@@ -1936,7 +1944,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har en medarbejder, der er dobbelt så hurtig som alle andre til at plukke, men som også laver lidt flere fejl. Hvad er den bedste løsning ifølge bogens principper om systemer og mennesker?",
-        answers: ["Gøre medarbejderen til teamleder for at lære de andre at være hurtige.", "Analysere medarbejderens metode for at se, om noget kan standardiseres, men samtidig indføre et 100% dobbelttjek på alle vedkommendes ordrer.", "Give medarbejderen en bonus for at anerkende den høje hastighed.", "Indføre en hastighedsgrænse på lageret for at sikre, at alle arbejder i samme tempo og laver færre fejl."],
+        answers: ["Gøre medarbejderen til teamleder for at lære de andre at være hurtige.", "Analysere metoden for at standardisere den, og indføre dobbelttjek.", "Give medarbejderen en bonus for at anerkende den høje hastighed.", "Indføre en hastighedsgrænse, så alle arbejder i samme tempo."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Dette er et dilemma mellem individuel performance og systemets robusthed. Svaret er at lære af individet, men at bygge et system (dobbelttjek), der fanger fejlene. At belønne en fejlbehæftet proces (bonus) eller at sænke alles performance (hastighedsgrænse) er dårlige langsigtede løsninger."
@@ -1944,7 +1952,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har 10.000 kr. til overs. Hvad er den bedste investering for at forbedre din bundlinje på lang sigt, hvis din største udfordring er en høj fejlrate?",
-        answers: ["Nye, hurtigere labelprintere for at øge pakkehastigheden.", "En konsulent til at forhandle bedre fragtpriser.", "Bedre belysning over alle pakkeborde og indkøb af simple tjekliste-holdere.", "Et kursus i avanceret lagerstyring for dig selv."],
+        answers: ["Nye, hurtigere labelprintere for at øge pakkehastigheden.", "En konsulent til at forhandle bedre fragtpriser for dig.", "Bedre belysning over pakkeborde og indkøb af tjekliste-holdere.", "Et kursus i avanceret lagerstyring for dig selv som leder."],
         correct: 2,
         category: "Super Ekspert",
         explanation: "Bogen understreger, at man skal løse de grundlæggende problemer først. Hvis fejlraten er høj, er den mest effektive investering ofte de simple, lavpraktiske forbedringer (belysning, tjeklister), der direkte reducerer fejl, frem for optimeringer (hastighed, fragtpris), der ikke løser rodproblemet."
@@ -1952,7 +1960,7 @@ const questionBank = [
     {
         level: 15,
         question: "Din 3PL-partner foreslår at flytte dine A-varer til en 'premium zone' mod et ekstra gebyr for at sikre hurtigere pluk. Hvad er det klogeste modspørgsmål?",
-        answers: ["'Kan vi få rabat på gebyret?'", "'Hvorfor er mine A-varer ikke allerede placeret optimalt som en del af standardaftalen?'", "'Hvor meget hurtigere bliver plukketiden helt præcist?'", "'Kan I garantere nul fejl i premium zonen?'"],
+        answers: ["'Kan vi få rabat på gebyret, hvis vi binder os i 12 måneder?'", "'Hvorfor er mine A-varer ikke allerede placeret optimalt i standardaftalen?'", "'Hvor meget hurtigere bliver plukketiden helt præcist i minutter?'", "'Kan I garantere nul fejl i premium zonen som en del af aftalen?'"],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Dette spørgsmål afslører, om 3PL-partneren forsøger at sælge dig en service, der burde være standard. Optimal placering af A-varer er grundlæggende lagerdrift (Kap. 1), ikke en premium-service. Svaret tester, om du forstår, hvad du har ret til at forvente."
@@ -1960,7 +1968,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du opdager, at en C-vare pludselig er begyndt at sælge godt pga. en TikTok-trend. Hvad er den største risiko ved at reagere for hurtigt?",
-        answers: ["At du ikke får bestilt nok hjem og går glip af salg.", "At du flytter den til A-zonen og forstyrrer det etablerede flow for dine stabile bestsellere.", "At du brænder inde med et kæmpe lager, når trenden dør om 3 uger, fordi du behandlede den som en permanent A-vare.", "At dine medarbejdere bliver forvirrede over den pludselige ændring."],
+        answers: ["At du ikke får bestilt nok hjem og går glip af salg i trenden.", "At du flytter den til A-zonen og forstyrrer flowet for dine bestsellere.", "At du brænder inde med et kæmpe lager, når trenden dør om 3 uger.", "At dine medarbejdere bliver forvirrede over den pludselige ændring."],
         correct: 2,
         category: "Super Ekspert",
         explanation: "Dette er et dilemma mellem agilitet og stabilitet. Den største strategiske fejl er at antage, at en kortvarig trend er en permanent ændring, og dermed binde en masse kapital i en vare, der snart bliver en C-vare igen (Kap. 5)."
@@ -1968,7 +1976,7 @@ const questionBank = [
     {
         level: 15,
         question: "Hvorfor er et ugentligt tavlemøde på 15 minutter ofte mere værdifuldt end et månedligt strategimøde på 2 timer?",
-        answers: ["Fordi det er billigere i lønkroner.", "Fordi det skaber en kultur med konstant, iterativ forbedring (kaizen), hvor små justeringer laves løbende, frem for store planer, der sjældent bliver eksekveret.", "Fordi medarbejderne bedre kan huske, hvad der blev besluttet.", "Fordi det er nemmere at finde tid til i kalenderen."],
+        answers: ["Fordi det er billigere i lønkroner og sparer tid for alle.", "Fordi det skaber en kultur med konstant forbedring og små justeringer.", "Fordi medarbejderne bedre kan huske, hvad der blev besluttet.", "Fordi det er nemmere at finde tid til det i en travl kalender."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Bogens filosofi er bygget på små, konstante forbedringer (Kap. 6). Hyppige, korte møder holder momentum og gør optimering til en del af den daglige drift, ikke et separat projekt. Det er en kulturændring."
@@ -1976,7 +1984,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har en B-vare, der fylder meget. Du har plads til den i A-zonen. Hvorfor kan det alligevel være en dårlig idé at placere den der?",
-        answers: ["Fordi B-varer aldrig må stå i A-zonen.", "Fordi den optager plads, der kunne have været brugt til 10 små, hurtigt-sælgende A-varer, hvilket samlet set ville spare flere skridt.", "Fordi det vil forvirre dine medarbejdere.", "Fordi det er bedre at have en tom plads i A-zonen."],
+        answers: ["Fordi B-varer aldrig må stå i A-zonen ifølge ABC-princippet.", "Fordi den optager plads til 10 små A-varer, der samlet sparer flere skridt.", "Fordi det vil forvirre dine medarbejdere og skabe usikkerhed.", "Fordi det er bedre at have en tom plads i A-zonen som buffer."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Dette tester en dybere forståelse af ABC-analysen. Målet er ikke kun at flytte varer tættere på, men at maksimere værdien af den bedste plads. A-zonen er din dyreste 'byggegrund', og den skal bruges på de varer, der giver flest pluk pr. kubikmeter (Kap. 1 & 2)."
@@ -1984,7 +1992,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har indført en fejllog, men den er næsten altid tom. Hvad er det første, du bør undersøge?",
-        answers: ["Om lageret er blevet perfekt, og der ikke længere laves fejl.", "Om medarbejderne opfatter loggen som et kontrolværktøj til at finde syndebukke, og derfor undlader at registrere fejl.", "Om systemet til at logge fejl er for kompliceret at bruge.", "Om du har ansat de rigtige medarbejdere."],
+        answers: ["Om lageret er blevet perfekt, og der ikke længere laves fejl overhovedet.", "Om medarbejderne opfatter loggen som syndebuk-jagt og skjuler fejl.", "Om systemet til at logge fejl er for kompliceret at bruge i praksis.", "Om du har ansat de rigtige medarbejdere, der tager ansvar for fejl."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "En tom fejllog er et faresignal, ikke en succes. Det peger næsten altid på et kulturproblem (Kap. 6). Hvis medarbejderne frygter konsekvenserne, vil de skjule fejl, og du mister den vigtigste kilde til forbedring: data."
@@ -1992,7 +2000,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har to A-varer, der ofte sælges sammen. Hvad er den mest avancerede optimering, du kan lave, udover at placere dem tæt på hinanden?",
-        answers: ["Altid at have dem på lager.", "At pre-packe dem som et nyt, samlet produkt (et bundle) med sin egen SKU, så det bliver til et enkelt pluk.", "At tilbyde rabat, når man køber dem sammen.", "At placere dem på hver sin reol for at undgå fejl."],
+        answers: ["Altid at have dem på lager, så kunden aldrig oplever udsolgt.", "At pre-packe dem som et bundle med egen SKU, så det bliver ét pluk.", "At tilbyde rabat, når man køber dem sammen for at øge salget.", "At placere dem på hver sin reol for at undgå forvekslingsfejl."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Dette er næste niveau af procesoptimering. Ved at omdanne to hyppige pluk til ét enkelt pluk (Kap. 3), fjerner du en arbejdsgang og reducerer kompleksiteten. Det kræver en forståelse af både salgsmønstre og lagerprocesser."
@@ -2000,7 +2008,7 @@ const questionBank = [
     {
         level: 15,
         question: "Hvad er den største strategiske fejl ved at se på nøgletal som 'pluk pr. time' isoleret?",
-        answers: ["Tallet kan være svært at måle præcist.", "Det kan motivere medarbejdere til at arbejde for hurtigt.", "Det ignorerer de andre nøgletals indvirkning; en stigning i pluk pr. time kan fx forårsage en stigning i pakkefejlsprocenten, hvilket samlet set er en forværring.", "Det tager ikke højde for, om det er A-, B- eller C-varer, der plukkes."],
+        answers: ["Tallet kan være svært at måle præcist i en travl hverdag på lageret.", "Det kan motivere medarbejdere til at arbejde for hurtigt og sjuske.", "Det ignorerer andre nøgletal, fx kan flere pluk pr. time øge fejlraten.", "Det tager ikke højde for, om det er A-, B- eller C-varer der plukkes."],
         correct: 2,
         category: "Super Ekspert",
         explanation: "Nøgletal skal altid ses i sammenhæng (Kap. 9). At optimere ét tal på bekostning af et andet er suboptimering. En hurtigere plukketid er værdiløs, hvis det koster mere i returfragt og tabt kundeloyalitet pga. fejl."
@@ -2008,7 +2016,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har en meget loyal kunde, der klager over en pakkefejl. Hvad er den bedste håndtering ifølge bogens principper om kundeloyalitet og proces?",
-        answers: ["At give kunden ret og sende en ny vare med det samme, uden at undersøge sagen nærmere.", "At følge standardproceduren og bede kunden om at returnere den forkerte vare, før en ny sendes.", "At sende en ny vare med det samme, inkludere en håndskreven undskyldning og en lille ekstra gave, og derefter bruge fejlen til at finde og rette årsagen i fejlloggen.", "At tilbyde kunden en rabatkode som kompensation."],
+        answers: ["At give kunden ret og sende en ny vare med det samme uden undersøgelse.", "At følge standardproceduren og bede kunden returnere varen først.", "At sende ny vare med undskyldning og gave, og bruge fejlen til forbedring.", "At tilbyde kunden en rabatkode som kompensation for ulejligheden."],
         correct: 2,
         category: "Super Ekspert",
         explanation: "Dette kombinerer 'wow'-princippet (Kap. 11) med den systematiske tilgang fra fejlloggen (Kap. 6). Du løser kundens problem exceptionelt godt og bruger samtidig data til at forhindre, at det sker igen. Det er både kunde- og procesorienteret."
@@ -2016,7 +2024,7 @@ const questionBank = [
     {
         level: 15,
         question: "Hvorfor er det ofte mere effektivt at indføre en simpel, visuel min/max-styring (den røde streg) end at købe et avanceret indkøbsmodul?",
-        answers: ["Fordi det er billigere.", "Fordi et simpelt, visuelt system, der bliver brugt konsekvent af alle, er mere værd end et avanceret system, som ingen forstår eller stoler på.", "Fordi et indkøbsmodul ikke kan forudsige salg.", "Fordi den røde streg aldrig kan løbe tør for batteri."],
+        answers: ["Fordi det er billigere og kræver ingen licens eller vedligeholdelse.", "Fordi et simpelt visuelt system, der bruges af alle, slår et avanceret system.", "Fordi et indkøbsmodul ikke kan forudsige salg med sikkerhed alligevel.", "Fordi den røde streg aldrig kan løbe tør for batteri eller gå ned."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Bogens kernefilosofi er, at simple, robuste processer, der følges af alle, slår komplekse systemer, der skaber afstand til virkeligheden på lagergulvet (Kap. 5). Succes ligger i implementeringen, ikke i teknologien."
@@ -2024,7 +2032,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har en perfekt optimeret A-zone, men din 'gennemløbstid for ordrer' er stadig lang. Hvor skal du lede efter flaskehalsen?",
-        answers: ["I C-zonen, hvor varerne er svære at finde.", "I processerne FØR og EFTER pluk: varemodtagelse, ordre-frigivelse, eller ved pakkebordet/labelprint.", "Hos transportøren, som sandsynligvis er for langsom.", "I dit shopsystem, som er for langsomt til at registrere ordrer."],
+        answers: ["I C-zonen, hvor varerne er svære at finde og tager lang tid at plukke.", "I processerne før og efter pluk: varemodtagelse, pakkebordet eller labels.", "Hos transportøren, som sandsynligvis er for langsom til at afhente ordrer.", "I dit shopsystem, som er for langsomt til at registrere og frigive ordrer."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Pluk er kun én del af flowet. En lang gennemløbstid (Kap. 9) med en effektiv plukproces peger altid på flaskehalse i andre led af kæden. Pakkebordet er en meget hyppig synder (Kap. 2)."
@@ -2032,7 +2040,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har en medarbejder, der insisterer på at indrette lageret efter brands, fordi det 'ser pænere ud'. Hvad er det stærkeste, databaserede argument imod dette?",
-        answers: ["At det er gammeldags at tænke sådan.", "At vise en udregning af de ekstra kilometer, der gås hver uge for at hente A-varer, som er spredt ud over hele lageret, og hvad det koster i løntimer.", "At true medarbejderen med en fyring, hvis de ikke følger ABC-princippet.", "At forklare, at kunderne er ligeglade med, hvordan lageret ser ud."],
+        answers: ["At det er gammeldags at tænke sådan og ikke passer til moderne drift.", "At vise en udregning af ekstra kilometer og løntimer ved spredte A-varer.", "At true medarbejderen med en fyring, hvis ABC-princippet ikke følges.", "At forklare, at kunderne er ligeglade med, hvordan lageret ser ud."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Argumenter vinder med data. Ved at kvantificere spildtiden i kroner og øre (Kap. 1 & 9) flytter du diskussionen fra en subjektiv holdning ('pænere') til en objektiv forretningsmæssig beslutning."
@@ -2040,7 +2048,7 @@ const questionBank = [
     {
         level: 15,
         question: "Hvad er den primære grund til, at en god onboarding-proces for nye medarbejdere er en langsigtet investering i færre returvarer?",
-        answers: ["Fordi glade medarbejdere pakker pænere.", "Fordi en grundig oplæring i pluk- og pakkeprocesser markant reducerer antallet af pakkefejl, som er en hyppig årsag til returer.", "Fordi nye medarbejdere lærer at håndtere returvarer korrekt.", "Fordi det reducerer medarbejderudskiftningen."],
+        answers: ["Fordi glade medarbejdere pakker pænere og med mere omhu.", "Fordi grundig oplæring i pluk og pak reducerer pakkefejl og returer.", "Fordi nye medarbejdere lærer at håndtere returvarer korrekt fra dag ét.", "Fordi det reducerer medarbejderudskiftningen og sparer rekruttering."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Dette forbinder onboarding (Kap. 6) direkte med returårsager (Kap. 7). En god start for en medarbejder er ikke bare et HR-mål; det er en direkte investering i at reducere de omkostninger, der opstår fra fejl længere nede i kæden."
@@ -2048,7 +2056,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har en mulighed for at få 10% rabat på emballage ved at købe ind til et helt år ad gangen. Hvorfor kan dette være en dårlig forretning?",
-        answers: ["Fordi du måske skifter logo i løbet af året.", "Fordi det binder en stor mængde kapital i papkasser og optager værdifuld lagerplads, som kunne være brugt til salgbare varer.", "Fordi leverandøren kan gå konkurs.", "Fordi du måske finder en billigere leverandør i mellemtiden."],
+        answers: ["Fordi du måske skifter logo eller design i løbet af året.", "Fordi det binder kapital i papkasser og optager plads til salgbare varer.", "Fordi leverandøren kan gå konkurs, og du mister din investering.", "Fordi du måske finder en billigere leverandør i mellemtiden alligevel."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Dette er et klassisk likviditets-dilemma. 10% rabat lyder godt, men omkostningen ved at binde kapital og lagerplads (Kap. 5 & 11) er ofte højere end den besparelse, du opnår. Kapitalen er næsten altid bedre brugt på varer, der kan sælges."
@@ -2056,7 +2064,7 @@ const questionBank = [
     {
         level: 15,
         question: "Hvorfor er det vigtigt at have en fast procedure for, hvad der sker med en vare, der bliver fundet 'løs' på lagergulvet?",
-        answers: ["For at undgå, at nogen falder over den.", "For at sikre, at varen enten bliver lagt tilbage på sin korrekte plads eller registreret som svind, så lagerdata forbliver korrekte.", "For at finde ud af, hvem der har tabt den.", "For at kunne sælge den på et personaleudsalg."],
+        answers: ["For at undgå, at nogen falder over den og kommer til skade.", "For at sikre at varen lægges tilbage korrekt eller registreres som svind.", "For at finde ud af, hvem der har tabt den og give en advarsel.", "For at kunne sælge den på et personaleudsalg til nedsat pris."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "En 'løs' vare er en potentiel datafejl. Uden en fast proces (fx en 'hittegods-kasse' og en rutine for at undersøge varen) risikerer du, at lagerdata langsomt bliver upålidelige, hvilket underminerer alt fra optælling til salg (Kap. 8)."
@@ -2064,7 +2072,7 @@ const questionBank = [
     {
         level: 15,
         question: "Du har en meget kompleks multi-line ordre med 15 forskellige C-varer. Hvad er den største risiko ved at plukke den?",
-        answers: ["At det tager lang tid at gå rundt på lageret.", "At sandsynligheden for at lave mindst én plukfejl er ekstremt høj på grund af de mange, uvante varer.", "At kunden fortryder ordren, inden du er færdig.", "At du ikke kan finde en kasse, der er stor nok."],
+        answers: ["At det tager lang tid at gå rundt på lageret efter alle varerne.", "At sandsynligheden for mindst én plukfejl er ekstremt høj med 15 varer.", "At kunden fortryder ordren, inden du er færdig med at plukke den.", "At du ikke kan finde en kasse, der er stor nok til alle 15 varer."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Kompleksitet øger fejlrisikoen eksponentielt. Mens tidsforbruget er et problem, er den største forretningsmæssige risiko omkostningen ved en pakkefejl (Kap. 6), som er langt mere sandsynlig, når en medarbejder skal finde 15 uvante varer på fjerntliggende lokationer."
@@ -2072,7 +2080,7 @@ const questionBank = [
     {
         level: 15,
         question: "Hvad er den skjulte fordel ved at lade den samme person, der håndterer returvarer, også være ansvarlig for at opdatere produktbeskrivelser og størrelsesguider?",
-        answers: ["Det er en god måde at spare en medarbejder på.", "Det skaber et ekstremt kort feedback-loop, hvor den person, der ser problemerne (returårsagerne), har magten til at løse dem ved kilden (på webshoppen).", "Det sikrer, at alle returvarer bliver lagt korrekt på lager.", "Det er den mest kedelige opgave, så det er godt at samle den hos én person."],
+        answers: ["Det er en god måde at spare en medarbejder på i en lille virksomhed.", "Det skaber et kort feedback-loop, hvor returårsager løses ved kilden.", "Det sikrer, at alle returvarer bliver lagt korrekt på lager bagefter.", "Det er den mest kedelige opgave, så det er godt at samle den ét sted."],
         correct: 1,
         category: "Super Ekspert",
         explanation: "Dette er et organisatorisk design, der bygger på bogens principper. Ved at fjerne afstanden mellem problem (retur) og løsning (webshop-opdatering), skaber du en hyper-effektiv forbedringscyklus (Kap. 7)."

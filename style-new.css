@@ -754,6 +754,15 @@ body {
     border: 1px solid rgba(255, 215, 0, 0.15);
 }
 
+/* Checkpoint: Carsten mindre så indhold har plads */
+#checkpointScene .host-image {
+    max-height: 50vh;
+}
+
+#checkpointScene .host-overlay {
+    max-height: 50vh;
+}
+
 .checkpoint-icon {
     max-width: 200px;
     margin: 20px auto;
@@ -1277,10 +1286,13 @@ body {
     .medal { max-width: 80px; }
     .medal-display { margin: 10px 0; }
     .gameover-buttons { gap: 8px; margin-top: 10px; }
-    .checkpoint-content { padding: 20px 15px; }
-    .checkpoint-content h2 { font-size: 2rem; margin: 10px 0; }
-    .checkpoint-message { font-size: 1.1rem; margin: 10px 0; }
-    .checkpoint-score { font-size: 1.4rem; margin: 15px 0; }
+    .checkpoint-content { padding: 15px 12px; }
+    .checkpoint-content h2 { font-size: 1.8rem; margin: 8px 0; }
+    .checkpoint-message { font-size: 1rem; margin: 8px 0; }
+    .checkpoint-score { font-size: 1.3rem; margin: 10px 0; }
+    .checkpoint-icon { max-width: 120px; margin: 10px auto; }
+    #checkpointScene .host-image { max-height: 40vh; }
+    #checkpointScene .host-overlay { max-height: 40vh; }
     .highscore-content { padding: 15px; }
     .highscore-content h2 { font-size: 1.8rem; margin: 10px 0; }
     .highscore-trophy { max-width: 80px; margin: 5px auto; }
@@ -1373,11 +1385,14 @@ body {
     .medal { max-width: 60px; }
     .medal-display { margin: 5px 0; }
     .gameover-buttons { gap: 6px; margin-top: 8px; }
-    .checkpoint-content { padding: 15px 10px; }
-    .checkpoint-content h2 { font-size: 1.6rem; margin: 8px 0; }
-    .checkpoint-icon { width: 80px; margin-bottom: 8px; }
-    .checkpoint-message { font-size: 0.95rem; margin: 8px 0; }
-    .checkpoint-score { font-size: 1.2rem; margin: 10px 0; }
+    .checkpoint-content { padding: 10px 8px; }
+    .checkpoint-content h2 { font-size: 1.4rem; margin: 5px 0; }
+    .checkpoint-icon { width: 70px; margin-bottom: 5px; }
+    .checkpoint-message { font-size: 0.9rem; margin: 5px 0; }
+    .checkpoint-score { font-size: 1.1rem; margin: 8px 0; }
+    .checkpoint-speech { padding: 10px 14px; font-size: 0.9rem; margin: 8px 0 5px; }
+    #checkpointScene .host-image { max-height: 35vh; }
+    #checkpointScene .host-overlay { max-height: 35vh; }
     .highscore-content h2 { font-size: 1.5rem; }
     .highscore-trophy { max-width: 60px; }
     .highscore-table th, .highscore-table td { padding: 6px 3px; font-size: 0.7rem; }

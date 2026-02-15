@@ -415,6 +415,7 @@
             <button class="tab" onclick="switchTab('questions')">📋 Spørgsmål</button>
             <button class="tab" onclick="switchTab('players')">👥 Spillere</button>
             <button class="tab" onclick="switchTab('levels')">📊 Level-analyse</button>
+            <button class="tab" onclick="switchTab('wronganswers')">❌ Forkerte svar</button>
         </div>
         
         <!-- INSIGHTS TAB -->
@@ -447,6 +448,18 @@
                 <div class="insight-box">
                     <h3>🔗 Klik på logoer</h3>
                     <ul class="insight-list" id="clickStatsList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>📚 E-bog klik</h3>
+                    <ul class="insight-list" id="ebookClicksList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>🎮 Spil-events</h3>
+                    <ul class="insight-list" id="gameEventsList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>💡 Livliner brugt</h3>
+                    <ul class="insight-list" id="lifelinesList"></ul>
                 </div>
                 <div class="insight-box">
                     <h3>📆 Spil pr. uge</h3>
@@ -497,6 +510,12 @@
             </div>
         </div>
         
+        <!-- WRONG ANSWERS TAB -->
+        <div class="tab-content" id="tab-wronganswers">
+            <p style="color:#888;margin-bottom:15px">Spørgsmål sorteret efter flest forkerte svar. Viser hvilke svar spillerne vælger — nyttigt til at finde dårlige formuleringer eller fejl.</p>
+            <div id="wrongAnswersList"></div>
+        </div>
+        
         <!-- PLAYERS TAB -->
         <div class="tab-content" id="tab-players">
             <div class="table-wrap">
@@ -540,6 +559,7 @@
         let questionStats = [];
         let highscores = [];
         let clickStats = {};
+        let eventStats = {};
         
         // ===== LOAD DATA =====
         async function loadAllData() {
@@ -564,6 +584,8 @@
                         correctAnswers: correct,
                         correctRatio: ratio,
                         suggestedLevel: ratioToLevel(ratio, total),
+                        wrongChoices: d.wrongChoices || {},
+                        correctAnswerText: d.correctAnswerText || '',
                         lastUpdated: d.lastUpdated || ''
                     });
                 });
@@ -571,6 +593,10 @@
                 // Hent click stats
                 const clickSnap = await db.ref('clickStats').once('value');
                 clickStats = clickSnap.val() || {};
+                
+                // Hent event stats
+                const eventsSnap = await db.ref('events').once('value');
+                eventStats = eventsSnap.val() || {};
                 
                 // Hent highscores
                 const hsSnap = await db.ref('highscores').orderByChild('score').limitToLast(200).once('value');
@@ -705,6 +731,18 @@
             
             // Klik stats
             renderClickStats();
+            
+            // E-bog klik
+            renderEbookClicks();
+            
+            // Spil-events
+            renderGameEvents();
+            
+            // Livliner
+            renderLifelineStats();
+            
+            // Forkerte svar
+            renderWrongAnswers();
             
             // Spil pr. uge
             renderWeeklyChart();
@@ -849,6 +887,65 @@
             }).join('');
         }
         
+        // ===== WRONG ANSWERS =====
+        function renderWrongAnswers() {
+            const el = document.getElementById('wrongAnswersList');
+            
+            // Filtrer spørgsmål med forkerte svar og sorter efter flest forkerte
+            const withWrong = questionStats
+                .filter(q => Object.keys(q.wrongChoices).length > 0)
+                .sort((a, b) => {
+                    const aWrong = a.totalAnswers - a.correctAnswers;
+                    const bWrong = b.totalAnswers - b.correctAnswers;
+                    return bWrong - aWrong;
+                });
+            
+            if (withWrong.length === 0) {
+                el.innerHTML = '<p style="color:#888;text-align:center">Ingen data endnu — vent på at spillere svarer forkert.</p>';
+                return;
+            }
+            
+            el.innerHTML = withWrong.map((q, idx) => {
+                const wrongCount = q.totalAnswers - q.correctAnswers;
+                const wrongPct = q.totalAnswers > 0 ? Math.round((wrongCount / q.totalAnswers) * 100) : 0;
+                
+                // Sorter forkerte valg efter hyppighed
+                const choices = Object.entries(q.wrongChoices)
+                    .sort((a, b) => b[1] - a[1]);
+                
+                const choicesHtml = choices.map(([answer, count]) => {
+                    const pctOfWrong = wrongCount > 0 ? Math.round((count / wrongCount) * 100) : 0;
+                    const barWidth = Math.max(5, pctOfWrong);
+                    return `<div style="display:flex;align-items:center;gap:8px;margin:4px 0">
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;justify-content:space-between;margin-bottom:2px">
+                                <span style="font-size:0.8rem;color:#ff6b6b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${answer}">❌ ${answer}</span>
+                                <span style="font-size:0.75rem;color:#888;white-space:nowrap;margin-left:8px">${count}x (${pctOfWrong}%)</span>
+                            </div>
+                            <div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden">
+                                <div style="height:100%;width:${barWidth}%;background:#ff6b6b;border-radius:2px"></div>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+                
+                return `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;margin-bottom:12px">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+                        <div style="flex:1">
+                            <span style="color:#ffd700;font-size:0.75rem;font-weight:bold">#${idx + 1} · Level ${q.level} · ${q.category}</span>
+                            <p style="color:#fff;margin:4px 0 0;font-size:0.95rem">${q.question}</p>
+                        </div>
+                        <span style="background:${wrongPct >= 60 ? '#ff6b6b' : wrongPct >= 40 ? '#fbbf24' : '#4ade80'};color:#000;padding:4px 10px;border-radius:20px;font-weight:bold;font-size:0.8rem;white-space:nowrap;margin-left:12px">${wrongPct}% forkert</span>
+                    </div>
+                    <div style="margin-bottom:6px">
+                        <span style="font-size:0.8rem;color:#4ade80">✅ Rigtigt svar: <strong>${q.correctAnswerText || '?'}</strong></span>
+                    </div>
+                    <div style="font-size:0.8rem;color:#aaa;margin-bottom:6px">Mest valgte forkerte svar (${wrongCount} forkerte af ${q.totalAnswers} total):</div>
+                    ${choicesHtml}
+                </div>`;
+            }).join('');
+        }
+        
         // ===== CLICK STATS =====
         function renderClickStats() {
             const el = document.getElementById('clickStatsList');
@@ -879,6 +976,101 @@
             }).join('') + `<li style="border-top:1px solid rgba(255,215,0,0.2);padding-top:10px">
                 <span class="q-text"><strong>Total klik</strong></span>
                 <span class="q-stat" style="color:#ffd700">${totalClicks}</span>
+            </li>`;
+        }
+        
+        // ===== EBOOK CLICKS =====
+        function renderEbookClicks() {
+            const el = document.getElementById('ebookClicksList');
+            const ebookKeys = {
+                'ebook_correct': { name: 'Efter rigtigt svar', emoji: '✅' },
+                'ebook_wrong': { name: 'Efter forkert svar', emoji: '❌' },
+                'ebook_gameover': { name: 'Game Over scene', emoji: '💥' },
+                'ebook_victory': { name: 'Victory scene', emoji: '🏆' },
+                'ebook_chapter': { name: 'Læs mere (kapitel)', emoji: '📖' }
+            };
+            
+            const entries = Object.entries(ebookKeys).map(([key, info]) => {
+                const data = clickStats[key] || {};
+                return { ...info, clicks: data.totalClicks || 0, lastClicked: data.lastClicked };
+            });
+            
+            const totalEbook = entries.reduce((s, e) => s + e.clicks, 0);
+            
+            el.innerHTML = entries.map(e => {
+                const last = e.lastClicked ? new Date(e.lastClicked).toLocaleString('da-DK') : '';
+                return `<li>
+                    <span class="q-text">${e.emoji} ${e.name}</span>
+                    <span class="q-stat" style="color:#f7b731">${e.clicks} klik</span>
+                </li>`;
+            }).join('') + `<li style="border-top:1px solid rgba(255,215,0,0.2);padding-top:8px">
+                <span class="q-text"><strong>Total e-bog klik</strong></span>
+                <span class="q-stat" style="color:#ffd700">${totalEbook}</span>
+            </li>`;
+        }
+        
+        // ===== GAME EVENTS =====
+        function renderGameEvents() {
+            const el = document.getElementById('gameEventsList');
+            const eventKeys = {
+                'game_started': { name: 'Spil startet', emoji: '🎮' },
+                'game_over': { name: 'Game Over (forkert svar)', emoji: '💥' },
+                'game_victory': { name: 'Victory (gennemført)', emoji: '🏆' },
+                'time_up': { name: 'Tid udløbet', emoji: '⏰' },
+                'checkpoint_reached': { name: 'Checkpoint nået', emoji: '🚩' }
+            };
+            
+            const entries = Object.entries(eventKeys).map(([key, info]) => {
+                const data = eventStats[key] || {};
+                return { ...info, count: data.count || 0, breakdown: data.breakdown || {} };
+            });
+            
+            const started = entries[0].count;
+            const victories = entries[2].count;
+            const completionRate = started > 0 ? Math.round((victories / started) * 100) : 0;
+            
+            el.innerHTML = entries.map(e => {
+                let extra = '';
+                if (Object.keys(e.breakdown).length > 0) {
+                    const top3 = Object.entries(e.breakdown).sort((a,b) => b[1] - a[1]).slice(0, 3);
+                    extra = `<br><span style="font-size:0.7rem;color:#666">${top3.map(([k,v]) => k + ': ' + v).join(', ')}</span>`;
+                }
+                return `<li>
+                    <span class="q-text">${e.emoji} ${e.name}${extra}</span>
+                    <span class="q-stat" style="color:#4ecdc4">${e.count}</span>
+                </li>`;
+            }).join('') + `<li style="border-top:1px solid rgba(78,205,196,0.2);padding-top:8px">
+                <span class="q-text">🎯 <strong>Gennemførelsesrate</strong></span>
+                <span class="q-stat" style="color:${completionRate >= 20 ? '#4ade80' : '#ff6b6b'}">${completionRate}%</span>
+            </li>`;
+        }
+        
+        // ===== LIFELINE STATS =====
+        function renderLifelineStats() {
+            const el = document.getElementById('lifelinesList');
+            const data = eventStats['lifeline_used'] || {};
+            const breakdown = data.breakdown || {};
+            const total = data.count || 0;
+            
+            const lifelineNames = {
+                'fiftyFifty': { name: '50/50', emoji: '✂️' },
+                'audience': { name: 'Spørg publikum', emoji: '👥' },
+                'phone': { name: 'Ring en ven', emoji: '📞' },
+                'extraTime': { name: '+15 sekunder', emoji: '⏱️' }
+            };
+            
+            const entries = Object.entries(lifelineNames).map(([key, info]) => {
+                const count = breakdown[key] || 0;
+                const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+                return { ...info, count, pct };
+            });
+            
+            el.innerHTML = entries.map(e => `<li>
+                <span class="q-text">${e.emoji} ${e.name}</span>
+                <span class="q-stat" style="color:#a78bfa">${e.count} <span style="color:#666;font-size:0.8rem">(${e.pct}%)</span></span>
+            </li>`).join('') + `<li style="border-top:1px solid rgba(167,139,250,0.2);padding-top:8px">
+                <span class="q-text"><strong>Total livliner brugt</strong></span>
+                <span class="q-stat" style="color:#a78bfa">${total}</span>
             </li>`;
         }
         

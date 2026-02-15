@@ -100,12 +100,12 @@ body {
 
 /* Under quiz: skub Carsten ned så svar er over hans hoved */
 #questionScene .host-overlay {
-    max-height: 55vh;
+    max-height: 60vh;
     bottom: 0;
 }
 
 #questionScene .host-image {
-    max-height: 55vh;
+    max-height: 60vh;
 }
 
 #questionScene .content-overlay {
@@ -122,12 +122,12 @@ body {
 
 #correctScene .host-overlay,
 #wrongScene .host-overlay {
-    max-height: 70vh;
+    max-height: 75vh;
 }
 
 #correctScene .host-image,
 #wrongScene .host-image {
-    max-height: 70vh;
+    max-height: 75vh;
 }
 
 .hs-company {
@@ -1092,10 +1092,10 @@ body {
     .mobile-only { display: block; }
     .host-image { max-width: 75vw; max-height: 65vh; }
     #welcomeScene .host-image { max-width: 85vw; max-height: 70vh; }
-    #questionScene .host-image { max-height: 48vh; }
-    #questionScene .host-overlay { max-height: 48vh; }
-    #correctScene .host-image, #wrongScene .host-image { max-height: 50vh; }
-    #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 50vh; }
+    #questionScene .host-image { max-height: 55vh; }
+    #questionScene .host-overlay { max-height: 55vh; }
+    #correctScene .host-image, #wrongScene .host-image { max-height: 58vh; }
+    #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 58vh; }
     #correctScene .content-overlay, #wrongScene .content-overlay { padding-top: 0; }
     .question-container { padding: 10px; margin-bottom: 8px; }
     .logo { max-width: 300px; }
@@ -1181,10 +1181,10 @@ body {
     .welcome-layout { padding-top: 8px !important; padding-bottom: 55px !important; }
     .host-image { max-width: 80vw; max-height: 60vh; }
     #welcomeScene .host-image { max-width: 90vw; max-height: 75vh; }
-    #questionScene .host-image { max-height: 44vh; }
-    #questionScene .host-overlay { max-height: 44vh; }
-    #correctScene .host-image, #wrongScene .host-image { max-height: 40vh; }
-    #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 40vh; }
+    #questionScene .host-image { max-height: 50vh; }
+    #questionScene .host-overlay { max-height: 50vh; }
+    #correctScene .host-image, #wrongScene .host-image { max-height: 48vh; }
+    #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 48vh; }
     #correctScene .content-overlay, #wrongScene .content-overlay { padding-top: 8px; }
     .question-container { padding: 8px; margin-bottom: 6px; }
     .player-input { margin: 5px 0; }

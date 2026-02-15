@@ -331,6 +331,9 @@ class WarehouseWarriorGame {
             this.musicPlaying = true;
         }
         
+        // Track spil startet
+        if (typeof firebaseHighscore !== 'undefined') firebaseHighscore.trackEvent('game_started');
+        
         // Generate questions
         this.questions = generateQuestionSet();
         this.currentQuestionIndex = 0;
@@ -555,6 +558,7 @@ class WarehouseWarriorGame {
     timeUp() {
         this.playSound('explosion');
         this.playSound('buzzer');
+        if (typeof firebaseHighscore !== 'undefined') firebaseHighscore.trackEvent('time_up', { subKey: 'q' + (this.currentQuestionIndex + 1) });
         this.updateHostImage('panic');
         
         const question = this.questions[this.currentQuestionIndex];
@@ -672,6 +676,9 @@ class WarehouseWarriorGame {
         this.pendingAnswer = null;
         this.startTimer();
         
+        // Track livline brug
+        if (typeof firebaseHighscore !== 'undefined') firebaseHighscore.trackEvent('lifeline_used', { subKey: lifelineId });
+        
         // Aktiver den valgte livline
         switch(lifelineId) {
             case 'fiftyFifty': this.useFiftyFifty(); break;
@@ -743,8 +750,10 @@ class WarehouseWarriorGame {
         
         // Track analytics
         const isCorrect = this.selectedAnswer === shuffledCorrect;
+        const chosenAnswerText = this.currentShuffle.answers[this.selectedAnswer] || '';
+        const correctAnswerText = this.currentShuffle.answers[shuffledCorrect] || '';
         if (typeof firebaseHighscore !== 'undefined') {
-            firebaseHighscore.trackAnswer(question.question, question.level, question.category, isCorrect);
+            firebaseHighscore.trackAnswer(question.question, question.level, question.category, isCorrect, chosenAnswerText, correctAnswerText);
         }
         
         if (isCorrect) {
@@ -948,6 +957,7 @@ class WarehouseWarriorGame {
     openChapterForCurrentQuestion() {
         const question = this.questions[this.currentQuestionIndex];
         const chapterInfo = this.chapterMap[question.category];
+        if (typeof firebaseHighscore !== 'undefined') firebaseHighscore.trackClick('ebook_chapter');
         if (chapterInfo) {
             window.open(chapterInfo.url, '_blank');
         } else {
@@ -970,6 +980,7 @@ class WarehouseWarriorGame {
     }
     
     showCheckpoint() {
+        if (typeof firebaseHighscore !== 'undefined') firebaseHighscore.trackEvent('checkpoint_reached', { subKey: 'q' + this.currentQuestionIndex });
         document.getElementById('checkpointQuestion').textContent = this.currentQuestionIndex;
         document.getElementById('checkpointScore').textContent = this.score.toLocaleString();
         
@@ -1005,6 +1016,7 @@ class WarehouseWarriorGame {
     }
     
     gameOver() {
+        if (typeof firebaseHighscore !== 'undefined') firebaseHighscore.trackEvent('game_over', { subKey: 'q' + (this.currentQuestionIndex + 1) });
         document.getElementById('finalQuestion').textContent = this.correctAnswers;
         document.getElementById('finalScore').textContent = this.score.toLocaleString();
         this.showScene('gameOverScene');
@@ -1015,6 +1027,7 @@ class WarehouseWarriorGame {
     }
     
     victory() {
+        if (typeof firebaseHighscore !== 'undefined') firebaseHighscore.trackEvent('game_victory');
         document.getElementById('victoryScore').textContent = this.score.toLocaleString();
         this.showScene('victoryScene');
         this.playSound('celebrate');

@@ -112,7 +112,7 @@ class FirebaseHighscore {
     
     // ===== QUESTION ANALYTICS =====
     
-    async trackAnswer(questionText, level, category, isCorrect) {
+    async trackAnswer(questionText, level, category, isCorrect, chosenAnswer, correctAnswer) {
         if (this.fallbackToLocal || !this.initialized) return;
         
         try {
@@ -123,18 +123,33 @@ class FirebaseHighscore {
             // Brug transaction for atomisk opdatering
             await ref.transaction(current => {
                 if (current === null) {
-                    return {
+                    current = {
                         question: questionText.substring(0, 100),
                         level: level,
                         category: category || '',
-                        totalAnswers: 1,
-                        correctAnswers: isCorrect ? 1 : 0,
+                        totalAnswers: 0,
+                        correctAnswers: 0,
+                        wrongChoices: {},
+                        correctAnswerText: (correctAnswer || '').substring(0, 80),
                         lastUpdated: new Date().toISOString()
                     };
                 }
                 current.totalAnswers = (current.totalAnswers || 0) + 1;
                 current.correctAnswers = (current.correctAnswers || 0) + (isCorrect ? 1 : 0);
                 current.lastUpdated = new Date().toISOString();
+                
+                // Gem forkerte svar-valg
+                if (!isCorrect && chosenAnswer) {
+                    if (!current.wrongChoices) current.wrongChoices = {};
+                    const safeKey = chosenAnswer.substring(0, 60).replace(/[.#$/\[\]]/g, '_');
+                    current.wrongChoices[safeKey] = (current.wrongChoices[safeKey] || 0) + 1;
+                }
+                
+                // Opdater korrekt svar-tekst (hvis ikke sat)
+                if (!current.correctAnswerText && correctAnswer) {
+                    current.correctAnswerText = correctAnswer.substring(0, 80);
+                }
+                
                 return current;
             });
         } catch (e) {
@@ -199,6 +214,29 @@ class FirebaseHighscore {
         if (ratio >= 30) return 13;  // Meget svær
         return 15;                    // Ekstremt svær
     }
+    // ===== EVENT TRACKING =====
+    
+    async trackEvent(eventName, data = {}) {
+        if (this.fallbackToLocal || !this.initialized) return;
+        
+        try {
+            const ref = this.db.ref('events/' + eventName);
+            await ref.transaction(current => {
+                if (!current) current = { count: 0 };
+                current.count = (current.count || 0) + 1;
+                current.lastOccurred = new Date().toISOString();
+                // Gem ekstra data som sub-counts
+                if (data.subKey) {
+                    if (!current.breakdown) current.breakdown = {};
+                    current.breakdown[data.subKey] = (current.breakdown[data.subKey] || 0) + 1;
+                }
+                return current;
+            });
+        } catch (e) {
+            console.warn('Event tracking failed:', e);
+        }
+    }
+    
     // ===== CLICK TRACKING =====
     
     async trackClick(linkName) {

@@ -166,7 +166,9 @@ class WarehouseWarriorGame {
             'Emballage': { chapter: 'Kapitel 13: Emballage', url: 'https://smartpack.dk/lagerhaandbog#kapitel13' },
             'Kampagner': { chapter: 'Kapitel 14: Kampagner & Peak', url: 'https://smartpack.dk/lagerhaandbog#kapitel14' },
             'Generelt': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' },
-            'Avanceret': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' }
+            'Avanceret': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' },
+            'Ekspert': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' },
+            'Super Ekspert': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' }
         };
         
         // Kategori til ikon-mapping
@@ -182,7 +184,9 @@ class WarehouseWarriorGame {
             'Nøgletal': 'assets/images/icons/44_kategori_noegletal.png',
             '3PL': 'assets/images/icons/45_kategori_3pl_skalering.png',
             'Generelt': 'assets/images/icons/02_quiz_spoergsmaalstegn_ikon.png',
-            'Avanceret': 'assets/images/icons/02_quiz_spoergsmaalstegn_ikon.png'
+            'Avanceret': 'assets/images/icons/02_quiz_spoergsmaalstegn_ikon.png',
+            'Ekspert': 'assets/images/icons/02_quiz_spoergsmaalstegn_ikon.png',
+            'Super Ekspert': 'assets/images/icons/02_quiz_spoergsmaalstegn_ikon.png'
         };
         
         // Psyk-billeder til "Er du sikker?"
@@ -962,16 +966,16 @@ class WarehouseWarriorGame {
         if (wasCorrect) {
             // Spilleren svarede rigtigt
             if (wrongPct >= 70) {
-                facts.push('\ud83e\udde0 Kun ' + correctPct + '% svarer rigtigt på dette — du er skarp!');
+                facts.push('\ud83e\udde0 Kun ' + correctPct + '% svarer rigtigt på dette, du er skarp!');
                 facts.push('\ud83d\udcaa ' + wrongPct + '% falder i fælden her. Ikke dig!');
-                facts.push('\ud83c\udfaf Et af de sværeste spørgsmål — ' + wrongPct + '% svarer forkert!');
+                facts.push('\ud83c\udfaf Et af de sværeste spørgsmål, ' + wrongPct + '% svarer forkert!');
             } else if (wrongPct >= 50) {
                 facts.push('\ud83d\udcca ' + wrongPct + '% svarer forkert på dette spørgsmål');
-                facts.push('\u2696\ufe0f Halvdelen fejler her — godt klaret!');
+                facts.push('\u2696\ufe0f Halvdelen fejler her. Godt klaret!');
             } else if (wrongPct >= 30) {
-                facts.push('\ud83d\udcca ' + correctPct + '% svarer rigtigt — du er med i flertallet!');
+                facts.push('\ud83d\udcca ' + correctPct + '% svarer rigtigt, du er med i flertallet!');
             } else {
-                facts.push('\u2705 ' + correctPct + '% klarer dette spørgsmål — godt gået!');
+                facts.push('\u2705 ' + correctPct + '% klarer dette spørgsmål. Godt gået!');
             }
             
             // Streak-baserede facts
@@ -979,18 +983,18 @@ class WarehouseWarriorGame {
                 facts.push('\ud83d\udd25 ' + this.streak + ' i streg! Kun de bedste holder det niveau!');
             }
             if (this.correctAnswers === this.currentQuestionIndex + 1 && this.currentQuestionIndex >= 4) {
-                facts.push('\ud83c\udfc6 Perfekt score indtil videre — ' + this.correctAnswers + '/' + (this.currentQuestionIndex + 1) + '!');
+                facts.push('\ud83c\udfc6 Perfekt score indtil videre: ' + this.correctAnswers + '/' + (this.currentQuestionIndex + 1) + '!');
             }
         } else {
             // Spilleren svarede forkert
             if (wrongPct >= 60) {
-                facts.push('\ud83d\ude2c ' + wrongPct + '% svarer også forkert her — du er ikke alene!');
+                facts.push('\ud83d\ude2c ' + wrongPct + '% svarer også forkert her, du er ikke alene!');
                 facts.push('\ud83d\udcca Et af de sværeste! ' + wrongPct + '% fejler dette spørgsmål');
             } else if (wrongPct >= 40) {
                 facts.push('\ud83d\udcca ' + wrongPct + '% falder også i denne fælde');
             } else {
-                facts.push('\ud83d\ude33 Kun ' + wrongPct + '% svarer forkert her — et sjældent fejltrin!');
-                facts.push('\ud83d\udcda ' + correctPct + '% klarer dette — tid til at læse op!');
+                facts.push('\ud83d\ude33 Kun ' + wrongPct + '% svarer forkert her. Et sjældent fejltrin!');
+                facts.push('\ud83d\udcda ' + correctPct + '% klarer dette, tid til at læse op!');
             }
         }
         
@@ -1071,12 +1075,12 @@ class WarehouseWarriorGame {
             if (this.currentQuestionIndex >= 10) {
                 // Checkpoint 10 — finale-runde! Dramatisk Carsten.
                 const finalQuotes = [
-                    '😱 Hånden på hjertet — nu bliver det SVÆRT! Men dine point er også ×5 herfra. Så giv den gas! 🚀',
-                    '💪 Nu gælder det! De sidste 5 spørgsmål giver ×5 point. Intet er for stort og intet er for småt — undtagen dine point! 💰',
-                    '🔥 Dugfriske nyheder: Du er i FINALEN! Point ×5 — men spørgsmålene tapper ind i det sværeste stof. Klar? 🎯',
-                    '⚡ Med ro i maven: Du har klaret 10 spørgsmål. Men nu kommer der modvind på cykelstien — og ×5 point som belønning! 🚴‍♂️',
+                    '😱 Hånden på hjertet, nu bliver det SVÆRT! Men dine point er også ×5 herfra. Så giv den gas! 🚀',
+                    '💪 Nu gælder det! De sidste 5 spørgsmål giver ×5 point. Intet er for stort og intet er for småt, undtagen dine point! 💰',
+                    '🔥 Dugfriske nyheder: Du er i FINALEN! Point ×5, men spørgsmålene tapper ind i det sværeste stof. Klar? 🎯',
+                    '⚡ Med ro i maven: Du har klaret 10 spørgsmål. Men nu kommer der modvind på cykelstien, og ×5 point som belønning! 🚴‍♂️',
                     '🏆 For god ordens skyld: Herfra er ALLE point ganget med 5! Men det kræver også at du virkelig kender dit lager-stof. Let\'s go! 💪',
-                    '🚀 Okay, nu er det alvor! ×5 point på ALLE rigtige svar. Det er kommet for at blive — så vis hvad du kan! 🔥'
+                    '🚀 Okay, nu er det alvor! ×5 point på ALLE rigtige svar. Det er kommet for at blive, så vis hvad du kan! 🔥'
                 ];
                 speechText.innerHTML = finalQuotes[Math.floor(Math.random() * finalQuotes.length)];
                 speechEl.style.display = 'block';
@@ -1086,10 +1090,10 @@ class WarehouseWarriorGame {
                 // Checkpoint 5 — point x3!
                 const midQuotes = [
                     '💡 Godt gået! Og her er en krølle på den: Fra nu af er dine point ganget med 3! ×3 på ALT! 🌟',
-                    '✨ Flot arbejde! Og gode nyheder — dine point er nu ×3! Så svar hurtigt og korrekt, så flyver scoren! 🚀',
+                    '✨ Flot arbejde! Og gode nyheder: dine point er nu ×3! Så svar hurtigt og korrekt, så flyver scoren! 🚀',
                     '🎯 5 spørgsmål i kassen! Nu øger vi indsatsen: ×3 point på alle rigtige svar herfra. Kan du føle det?! 💪',
                     '📈 Dugfrisk update: Du har klaret runde 1! Herfra giver hvert rigtigt svar TREDOBBELTE point. Giv den gas! 🔥',
-                    '🏃‍♂️ Stærkt løbet! Og nu med en ekstra bonus: ×3 point på alle svar. Tænk på det som en #RunNTalk — bare hurtigere! 😅',
+                    '🏃‍♂️ Stærkt løbet! Og nu med en ekstra bonus: ×3 point på alle svar. Tænk på det som en #RunNTalk, bare hurtigere! 😅',
                     '💰 For god ordens skyld: Dine point er nu ganget med 3! Det er som at få turbo på din lager-viden. Kør på! 🚀'
                 ];
                 speechText.innerHTML = midQuotes[Math.floor(Math.random() * midQuotes.length)];
@@ -1129,15 +1133,15 @@ class WarehouseWarriorGame {
     
     showWelcomeQuote() {
         const quotes = [
-            '🎯 “Klar til at teste din lager-viden? Hånden på hjertet — det bliver sjovt!” 🚀',
+            '🎯 “Klar til at teste din lager-viden? Hånden på hjertet, det bliver sjovt!” 🚀',
             '📦 “Tør du tage udfordringen? 15 spørgsmål, 3 runder, og point der stiger! Lad os se hvad du kan” 💪',
-            '🏆 “Dugfrisk quiz klar! Vis at du er en ægte Warehouse Warrior — tryk Start!” 🔥',
+            '🏆 “Dugfrisk quiz klar! Vis at du er en ægte Warehouse Warrior. Tryk Start!” 🔥',
             '💡 “Vidste du at de bedste lagre kører med struktur og disciplin? Test om DU har styr på det!” 📋',
-            '🇩🇰 “Velkommen! Små, løbende forbedringer skaber den største værdi — også i en quiz. Klar?” ⚡',
+            '🇩🇰 “Velkommen! Små, løbende forbedringer skaber den største værdi, også i en quiz. Klar?” ⚡',
             '🎮 “Nysgerrig på hvor god du er til lager? Der er kun én måde at finde ud af det på! Tryk Start” 🚀',
             '📊 “Fun fact: De fleste fejl på lageret skyldes manglende struktur. Lad os se om DU kender løsningerne!” 💡',
-            '🏃‍♂️ “Tænk på det som en #RunNTalk — bare uden løbeskoene. Klar til at give den gas?” 😅',
-            '🔥 “Intet er for stort og intet er for småt — heller ikke din lager-viden. Bevis det!” 🎯',
+            '🏃‍♂️ “Tænk på det som en #RunNTalk, bare uden løbeskoene. Klar til at give den gas?” 😅',
+            '🔥 “Intet er for stort og intet er for småt, heller ikke din lager-viden. Bevis det!” 🎯',
             '⭐ “Med ro i maven: Det her bliver fedt. 15 spørgsmål, stigende sværhedsgrad, og DU i hovedrollen!” 🎬'
         ];
         const el = document.getElementById('welcomeSpeechText');

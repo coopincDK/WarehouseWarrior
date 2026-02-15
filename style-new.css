@@ -330,7 +330,7 @@ body {
 
 .music-control {
     position: fixed;
-    bottom: 20px;
+    top: 20px;
     right: 20px;
     z-index: 1000;
 }
@@ -410,6 +410,32 @@ body {
 
 .timer-fill.warning {
     background: linear-gradient(90deg, #ff6600, #ff0000);
+}
+
+.timer-fill.danger {
+    background: linear-gradient(90deg, #ff0000, #990000);
+    animation: dangerPulse 0.5s ease infinite;
+}
+
+@keyframes dangerPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.timer-bar.danger-glow {
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6), 0 0 30px rgba(255, 0, 0, 0.3);
+    animation: dangerGlow 0.5s ease infinite;
+}
+
+@keyframes dangerGlow {
+    0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.6), 0 0 30px rgba(255, 0, 0, 0.3); }
+    50% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.9), 0 0 50px rgba(255, 0, 0, 0.5); }
+}
+
+.timer-text.danger {
+    color: #ff0000;
+    animation: dangerPulse 0.5s ease infinite;
+    font-size: 1.8rem;
 }
 
 .timer-text {

@@ -460,8 +460,11 @@ class WarehouseWarriorGame {
         this.stopTimer();
         const timerFill = document.getElementById('timerFill');
         const timerText = document.getElementById('timerText');
+        const timerBar = document.querySelector('.timer-bar');
         timerFill.style.width = '100%';
-        timerFill.classList.remove('warning');
+        timerFill.classList.remove('warning', 'danger');
+        timerText.classList.remove('danger');
+        if (timerBar) timerBar.classList.remove('danger-glow');
         
         this.timer = setInterval(() => {
             this.timeLeft--;
@@ -470,10 +473,15 @@ class WarehouseWarriorGame {
             timerText.textContent = this.timeLeft + 's';
             
             if (this.timeLeft <= 5) {
-                timerFill.classList.add('warning');
-                this.playSound('alarm');
+                // DANGER: rød puls + tick-lyd
+                timerFill.classList.remove('warning');
+                timerFill.classList.add('danger');
+                timerText.classList.add('danger');
+                if (timerBar) timerBar.classList.add('danger-glow');
+                this.playTickSound();
                 if (this.timeLeft === 5) this.updateHostImage('panic');
-            } else if (this.timeLeft <= 10 && this.maxTime > 10) {
+            } else if (this.timeLeft <= 10) {
+                // WARNING: orange
                 timerFill.classList.add('warning');
             }
             
@@ -486,11 +494,51 @@ class WarehouseWarriorGame {
         }, 1000);
     }
     
+    // Syntetisk tick-lyd via Web Audio API
+    playTickSound() {
+        if (!this.sfxEnabled) return;
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            // Tick lyd
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.value = 800;
+            osc.type = 'square';
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + 0.15);
+            // Tock lyd (lidt dybere, kort efter)
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.connect(gain2);
+            gain2.connect(ctx.destination);
+            osc2.frequency.value = 600;
+            osc2.type = 'square';
+            gain2.gain.setValueAtTime(0.2, ctx.currentTime + 0.08);
+            gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+            osc2.start(ctx.currentTime + 0.08);
+            osc2.stop(ctx.currentTime + 0.2);
+        } catch(e) {
+            // Fallback: brug alarm lyd
+            this.playSound('alarm');
+        }
+    }
+    
     stopTimer() {
         if (this.timer) {
             clearInterval(this.timer);
             this.timer = null;
         }
+        // Ryd danger-effekter
+        const timerFill = document.getElementById('timerFill');
+        const timerText = document.getElementById('timerText');
+        const timerBar = document.querySelector('.timer-bar');
+        if (timerFill) timerFill.classList.remove('warning', 'danger');
+        if (timerText) timerText.classList.remove('danger');
+        if (timerBar) timerBar.classList.remove('danger-glow');
     }
     
     timeUp() {

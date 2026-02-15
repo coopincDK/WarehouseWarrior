@@ -894,6 +894,72 @@ const questionBank = [
         correct: 1,
         category: "3PL",
         explanation: "Kunden kender ikke dit lagerhotel. Når der sker en fejl, er det DIT brand der tager skaden. Derfor er det vigtigt med klare SLA'er, løbende opfølgning og en exit-plan hvis kvaliteten ikke holder."
+    },
+
+    // NYE SPØRGSMÅL - ABC-analyse & lagerlayout + flow
+    {
+        level: 3,
+        question: "Hvad er det vigtigste formål med en ABC-analyse på et lille lager?",
+        answers: ["At få styr på bogføringen", "At placere de mest solgte varer tættest på pakkebordet", "At sikre, at alle varer står alfabetisk", "At få et flottere visuelt udtryk i reolerne"],
+        correct: 1,
+        category: "ABC-analyse & lagerlayout",
+        explanation: "ABC-analysen handler om at give de varer, der driver mest salg, de bedste pladser. Derfor er målet at få A-varerne tættest på pakkebordet."
+    },
+    {
+        level: 4,
+        question: "Hvad kendetegner typisk dine A-varer i en ABC-analyse?",
+        answers: ["Varer der sjældent sælges, men fylder meget", "Varer med lav avance", "Varer der står for en stor del af omsætningen og går igen på mange ordrer", "Varer som kun sælges på udsalg"],
+        correct: 2,
+        category: "ABC-analyse & lagerlayout",
+        explanation: "A-varer er dem, der står for en forholdsmæssigt stor del af salget. De optræder ofte og er derfor nøglen til et effektivt lager."
+    },
+    {
+        level: 5,
+        question: "Hvorfor er det problematisk, hvis en langsomt sælgende vase står ved pakkebordet, mens en storsælgende T-shirt står 15 meter væk?",
+        answers: ["Det gør statusoptælling sværere", "Det øger risikoen for svind", "Det øger plukketiden unødigt på de varer, du sælger mest", "Det påvirker kun indretningen kosmetisk"],
+        correct: 2,
+        category: "ABC-analyse & lagerlayout",
+        explanation: "Når dine bestsellere står langt væk, bruger du for mange skridt på de ordrer, der fylder mest. Det sluger både tid og lønkroner."
+    },
+    {
+        level: 6,
+        question: "Hvorfor giver det ofte mening at indrette lageret efter salgshyppighed frem for kun efter brand eller varegruppe?",
+        answers: ["Fordi det ser bedre ud på billeder", "Fordi det gør det lettere at bestille hos leverandører", "Fordi det forkorter plukkeruterne på de varer, du rører ved hver dag", "Fordi det er et krav fra transportørerne"],
+        correct: 2,
+        category: "ABC-analyse & lagerlayout",
+        explanation: "Når reolerne afspejler salgsdata, minimerer du gåafstand på de mest brugte varer og øger tempoet uden flere hænder."
+    },
+    {
+        level: 7,
+        question: "Hvordan kan du bruge din ABC-analyse aktivt til at frigøre likviditet?",
+        answers: ["Ved at købe flere A-varer hjem uden plan", "Ved at udsælge C-varer, der har stået stille længe", "Ved at flytte A-varer længere væk", "Ved at sætte prisen ned på alle varer"],
+        correct: 1,
+        category: "ABC-analyse & lagerlayout",
+        explanation: "C-varer binder ofte unødvendig kapital. Ved at sælge dem ud frigør du både plads og likviditet til varer, der faktisk vender sig."
+    },
+    {
+        level: 4,
+        question: "Hvad er den vigtigste forskel på at indrette et lager og en fysisk butik?",
+        answers: ["Butikken skal være pænere for kunderne", "På lageret optimerer du for medarbejderens effektivitet – ikke kundens oplevelse", "Lageret må ikke have skilte", "Butikken må ikke have smalle gange"],
+        correct: 1,
+        category: "Lagerlayout & flow",
+        explanation: "I butikken designer du til kunderejsen. På lageret designer du til plukkerens rute og effektivitet."
+    },
+    {
+        level: 6,
+        question: "Hvorfor er et ensrettet flow på lageret en fordel?",
+        answers: ["Det gør lagergangen smallere", "Det forlænger den samlede rute", "Det mindsker mængden af krydsende ruter og kø", "Det gør det lettere at dekorere"],
+        correct: 2,
+        category: "Lagerlayout & flow",
+        explanation: "Når folk ikke konstant går mod hinanden, får du færre stop, mindre trængsel og et mere stabilt tempo."
+    },
+    {
+        level: 7,
+        question: "Hvorfor giver det mening at lade medarbejderne pege på flaskehalse, før du tegner nyt layout?",
+        answers: ["De har som regel flest ideer til indretning", "De kender lageret i praksis og mærker friktionen hver dag", "De skal godkende alle investeringer", "De ved mest om webshopdesign"],
+        correct: 1,
+        category: "Lagerlayout & flow",
+        explanation: "Medarbejderne oplever dagligt hvor det halter. Deres input er guld værd, fordi de kender de reelle flaskehalse – ikke kun dem der ser logiske ud på papir."
     }
 ];
 

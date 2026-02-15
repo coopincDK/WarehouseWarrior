@@ -163,11 +163,11 @@ const questionBank = [
     // NIVEAU 10-12: Pakkefejl & Returer
     {
         level: 10,
-        question: "Hvad koster en typisk pakkefejl cirka?",
+        question: "Hvad estimerer guiden at en pakkefejl koster i snit?",
         answers: ["50 kr.", "150 kr.", "350 kr.", "1000 kr."],
         correct: 2,
         category: "Pakkefejl",
-        explanation: "En pakkefejl koster cirka 350 kr. når du regner alt med: Ny forsendelse, returfragt, ekstra håndtering, kundeservice-tid, og tabt goodwill. Hvis du laver 10 fejl om ugen, koster det dig 182.000 kr. om året!"
+        explanation: "En pakkefejl koster cirka 350 kr. i løn, ekstra omkostninger og tabte ordrer — renset for varens værdi. Det dækker bl.a. returfragt, ekstra håndtering og kundeservice-tid. Hvis du laver 10 fejl om ugen, koster det dig 182.000 kr. om året!"
     },
     {
         level: 10,
@@ -435,7 +435,7 @@ const questionBank = [
         answers: ["5 fejl", "10 fejl", "20 fejl", "50 fejl"],
         correct: 1,
         category: "Pakkefejl",
-        explanation: "10 fejl om ugen à 350 kr. = 3.500 kr/uge = 182.000 kr/år! Det er en halv medarbejders løn spildt på fejl. Hvis du kan reducere til 2 fejl/uge ved dobbelttjek, sparer du 145.000 kr/år. Pakkefejl er DYRE!"
+        explanation: "10 fejl om ugen à 350 kr. (løn, ekstra omkostninger og tabte ordrer, renset for varens værdi) = 3.500 kr/uge = 182.000 kr/år! Det er en halv medarbejders løn spildt på fejl. Hvis du kan reducere til 2 fejl/uge ved dobbelttjek, sparer du 145.000 kr/år. Pakkefejl er DYRE!"
     },
     {
         level: 11,
@@ -667,7 +667,7 @@ const questionBank = [
         answers: ["Fordi de aldrig opdages", "Fordi de typisk koster meget pr. fejl uden at man lægger mærke til det i hverdagen", "Fordi det handler om støjniveau på lageret", "Fordi kunder aldrig klager over dem"],
         correct: 1,
         category: "Pakkefejl",
-        explanation: "Pakkefejl er 'den stille dræber' fordi de sker løbende uden at nogen reagerer. Hver fejl koster ca. 350 kr., men det mærkes ikke i hverdagen. Først når du regner det sammen - 10 fejl/uge = 182.000 kr/år - ser du hvor dyrt det er.",
+        explanation: "Pakkefejl er 'den stille dræber' fordi de sker løbende uden at nogen reagerer. Hver fejl koster ca. 350 kr. i løn, ekstra omkostninger og tabte ordrer (renset for varens værdi), men det mærkes ikke i hverdagen. Først når du regner det sammen - 10 fejl/uge = 182.000 kr/år - ser du hvor dyrt det er.",
         proTip: "En stregkodescanner ved pakkebordet kan fange de fleste pakkefejl automatisk — scan vare mod ordre, og systemet advarer hvis noget ikke matcher."
     },
     {

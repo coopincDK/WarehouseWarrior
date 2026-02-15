@@ -1758,14 +1758,17 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 420px;
 }
 
 .are-you-sure-psyk {
-    max-width: 140px;
-    max-height: 100px;
-    filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.4));
+    max-width: 220px;
+    max-height: 180px;
+    filter: drop-shadow(0 4px 16px rgba(255, 215, 0, 0.5));
     animation: psykFloat 2s ease-in-out infinite;
-    margin-bottom: -10px;
+    margin-bottom: -15px;
     z-index: 3;
     position: relative;
 }

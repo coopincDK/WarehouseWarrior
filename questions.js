@@ -613,7 +613,8 @@ const questionBank = [
         answers: ["Der bliver for stille på lageret", "Alle plukker for hurtigt", "Der opstår kø og ventetid fordi folk mangler udstyr til at tage flere ordrer ad gangen", "Vognene står i vejen for nødudgangene"],
         correct: 2,
         category: "Redskaber",
-        explanation: "Hvis der kun er én plukkevogn til tre plukkere, venter to af dem altid. Ventetid er spildt arbejdstid. Hver aktiv plukker skal have sin egen vogn plus 1-2 ekstra. Plukkevogne er billige - ventetid er dyrt!"
+        explanation: "Hvis der kun er én plukkevogn til tre plukkere, venter to af dem altid. Ventetid er spildt arbejdstid. Hver aktiv plukker skal have sin egen vogn plus 1-2 ekstra. Plukkevogne er billige - ventetid er dyrt!",
+        proTip: "Når du har styr på vognene, kan næste skridt være en tablet eller scanner på vognen — så får plukkeren den optimale rute vist direkte."
     },
     {
         level: 7,
@@ -621,7 +622,8 @@ const questionBank = [
         answers: ["Den gør lageret pænere", "Den gør det muligt at samle flere ordrer på én rute og mindsker tunge løft", "Den gør det lettere at holde pauser", "Den mindsker behovet for emballage"],
         correct: 1,
         category: "Redskaber",
-        explanation: "En plukkevogn med flere rum lader dig plukke til 5-10 ordrer på én rute. Plus den mindsker tunge løft fordi du ikke bærer alt i hænderne. En vogn til 3.000 kr. kan spare 10+ minutter om dagen - tjent hjem på få måneder."
+        explanation: "En plukkevogn med flere rum lader dig plukke til 5-10 ordrer på én rute. Plus den mindsker tunge løft fordi du ikke bærer alt i hænderne. En vogn til 3.000 kr. kan spare 10+ minutter om dagen - tjent hjem på få måneder.",
+        proTip: "Med en scanner eller tablet på vognen kan du få vist den optimale plukkerute og bekræfte hvert pluk — det øger både hastighed og præcision."
     },
     {
         level: 8,
@@ -629,7 +631,8 @@ const questionBank = [
         answers: ["At købe så lidt ind som muligt", "At sikre at du aldrig har mere end én enhed på lager", "At have et visuelt styringsprincip for hvornår du skal bestille mere af dine A-varer", "At undgå at lave indkøbsaftaler"],
         correct: 2,
         category: "Lagerstyring",
-        explanation: "Min/max er simpelt: Sæt et minimum (bestil når du rammer dette) og et maximum (bestil op til dette). Det forhindrer at du løber tør, men også at du overbestiller. Perfekt til små lagre uden avancerede systemer."
+        explanation: "Min/max er simpelt: Sæt et minimum (bestil når du rammer dette) og et maximum (bestil op til dette). Det forhindrer at du løber tør, men også at du overbestiller. Perfekt til små lagre uden avancerede systemer.",
+        proTip: "Når du vokser, kan et lagerstyringssystem automatisk overvåge niveauer og sende bestillingsforslag — så slipper du for at tjekke reolerne manuelt."
     },
     {
         level: 8,
@@ -637,7 +640,8 @@ const questionBank = [
         answers: ["Som dekoration på lageret", "Som markering af hvor højt kasserne må stables", "Som visuelt niveau for hvornår en vare er under minimum og skal på bestillingslisten", "Som markering af hvilke varer der er på tilbud"],
         correct: 2,
         category: "Lagerstyring",
-        explanation: "Den røde streg er en simpel visuel markering på reolen. Når varerne når ned til stregen, er det tid til at genbestille. Alle kan se det - ingen systemer nødvendige. Det er lavpraktisk lagerstyring der virker!"
+        explanation: "Den røde streg er en simpel visuel markering på reolen. Når varerne når ned til stregen, er det tid til at genbestille. Alle kan se det - ingen systemer nødvendige. Det er lavpraktisk lagerstyring der virker!",
+        proTip: "Næste skridt kan være en simpel scanner-løsning der automatisk opdaterer lagerbeholdningen — så ved systemet hvornår du rammer minimum."
     },
     {
         level: 9,
@@ -645,7 +649,8 @@ const questionBank = [
         answers: ["At have et meget avanceret ERP-system", "At alle varer har unikke og konsistente SKU'er og kun én primær placering", "At alle varer har samme varenummer", "At alle varer lagres efter farve"],
         correct: 1,
         category: "Lagerstyring",
-        explanation: "Uden WMS er datadisciplin alt. Hver vare skal have et unikt SKU-nummer og kun én fast placering. Hvis samme vare har tre forskellige numre eller ligger tre steder, opstår der kaos. God datahygiejne er fundamentet for alt andet."
+        explanation: "Uden WMS er datadisciplin alt. Hver vare skal have et unikt SKU-nummer og kun én fast placering. Hvis samme vare har tre forskellige numre eller ligger tre steder, opstår der kaos. God datahygiejne er fundamentet for alt andet.",
+        proTip: "God datadisciplin er det perfekte fundament for et fremtidigt WMS — når dine SKU'er og placeringer allerede er på plads, bliver overgangen meget lettere."
     },
     {
         level: 9,
@@ -653,7 +658,8 @@ const questionBank = [
         answers: ["Alt tælles dagligt", "A-varer månedligt, B-varer kvartalsvist og resten cirka én gang om året", "Kun C-varer tælles", "Der tælles kun ved årsskifte"],
         correct: 1,
         category: "Svind",
-        explanation: "Fokusér optællingen hvor det betyder mest: A-varer bevæger sig hurtigt og skal tælles månedligt. B-varer kvartalsvist. C-varer årligt. Det er rullende optælling - du lukker aldrig lageret, men holder styr på de vigtigste varer."
+        explanation: "Fokusér optællingen hvor det betyder mest: A-varer bevæger sig hurtigt og skal tælles månedligt. B-varer kvartalsvist. C-varer årligt. Det er rullende optælling - du lukker aldrig lageret, men holder styr på de vigtigste varer.",
+        proTip: "Med en håndscanner og simpelt lagersystem kan optælling gå meget hurtigere — scan lokation, scan vare, indtast antal. Færdig."
     },
     {
         level: 10,
@@ -661,7 +667,8 @@ const questionBank = [
         answers: ["Fordi de aldrig opdages", "Fordi de typisk koster meget pr. fejl uden at man lægger mærke til det i hverdagen", "Fordi det handler om støjniveau på lageret", "Fordi kunder aldrig klager over dem"],
         correct: 1,
         category: "Pakkefejl",
-        explanation: "Pakkefejl er 'den stille dræber' fordi de sker løbende uden at nogen reagerer. Hver fejl koster ca. 350 kr., men det mærkes ikke i hverdagen. Først når du regner det sammen - 10 fejl/uge = 182.000 kr/år - ser du hvor dyrt det er."
+        explanation: "Pakkefejl er 'den stille dræber' fordi de sker løbende uden at nogen reagerer. Hver fejl koster ca. 350 kr., men det mærkes ikke i hverdagen. Først når du regner det sammen - 10 fejl/uge = 182.000 kr/år - ser du hvor dyrt det er.",
+        proTip: "En stregkodescanner ved pakkebordet kan fange de fleste pakkefejl automatisk — scan vare mod ordre, og systemet advarer hvis noget ikke matcher."
     },
     {
         level: 10,
@@ -669,7 +676,8 @@ const questionBank = [
         answers: ["At gøre processen langsommere", "At give medarbejderne mere papirarbejde", "At én plukker og en anden kontrollerer og pakker for at fange fejl før afsendelse", "At kunne bruge flere printere"],
         correct: 2,
         category: "Pakkefejl",
-        explanation: "Dobbelttjek er den mest effektive fejlreduktion: Én person plukker, en anden kontrollerer og pakker. Fire øjne ser mere end to. Det virker langsommere, men du sparer enormt på færre fejl, returer og utilfredse kunder."
+        explanation: "Dobbelttjek er den mest effektive fejlreduktion: Én person plukker, en anden kontrollerer og pakker. Fire øjne ser mere end to. Det virker langsommere, men du sparer enormt på færre fejl, returer og utilfredse kunder.",
+        proTip: "Når volumen vokser, kan en simpel stregkodescanner ved pakkebordet automatisere dette tjek — scan vare mod ordre og fang fejl med det samme."
     },
     {
         level: 11,
@@ -677,7 +685,8 @@ const questionBank = [
         answers: ["At kunne placere skyld", "At have noget til revision", "At finde mønstre i fejltyper, varer og tidspunkter for at kunne løse årsagerne", "At måle hvem der laver flest fejl"],
         correct: 2,
         category: "Pakkefejl",
-        explanation: "Fejlloggen er IKKE til at finde syndebukke! Den er til at finde systemfejl og mønstre: Sker fejl mest om fredagen? Er det altid samme vare? Ligger to ens varer for tæt? Når du løser årsagen, forsvinder fejlene."
+        explanation: "Fejlloggen er IKKE til at finde syndebukke! Den er til at finde systemfejl og mønstre: Sker fejl mest om fredagen? Er det altid samme vare? Ligger to ens varer for tæt? Når du løser årsagen, forsvinder fejlene.",
+        proTip: "Et simpelt WMS kan automatisk logge fejl og vise mønstre i dashboards — så slipper du for manuelle noter og får bedre data."
     },
     {
         level: 11,
@@ -685,7 +694,8 @@ const questionBank = [
         answers: ["At begrænse medarbejdernes frihed", "At gøre oplæring og drift mere ensartet og reducere fejl", "At kunne sende manualer til kunderne", "At gøre lageret mere bureaukratisk"],
         correct: 1,
         category: "Pakkefejl",
-        explanation: "Standarder sikrer at alle gør tingene ens - uanset om det er en erfaren medarbejder eller en ny vikar. Det reducerer fejl, gør oplæring hurtigere og sikrer ensartet kvalitet. Det handler ikke om kontrol, men om konsistens."
+        explanation: "Standarder sikrer at alle gør tingene ens - uanset om det er en erfaren medarbejder eller en ny vikar. Det reducerer fejl, gør oplæring hurtigere og sikrer ensartet kvalitet. Det handler ikke om kontrol, men om konsistens.",
+        proTip: "Når du vokser, kan et WMS guide medarbejderen trin-for-trin på en skærm — så bliver standarden digital og endnu sværere at springe over."
     },
     {
         level: 11,
@@ -693,7 +703,8 @@ const questionBank = [
         answers: ["Fordi den erstatter al oplæring", "Fordi den gør det sværere at lave fejl i de vigtigste trin uden at gøre arbejdet langsommere", "Fordi den pynter på væggen", "Fordi den gør det lettere at gemme fejl"],
         correct: 1,
         category: "Pakkefejl",
-        explanation: "En kort tjekliste (5-7 punkter) ved pakkebordet fungerer som et sikkerhedsnet. Selv erfarne medarbejdere glemmer ting under pres. Tjeklisten fanger de vigtigste fejl uden at bremse tempoet. Piloter bruger dem - det bør du også."
+        explanation: "En kort tjekliste (5-7 punkter) ved pakkebordet fungerer som et sikkerhedsnet. Selv erfarne medarbejdere glemmer ting under pres. Tjeklisten fanger de vigtigste fejl uden at bremse tempoet. Piloter bruger dem - det bør du også.",
+        proTip: "Med en stregkodescanner kan tjeklisten blive digital — scan vare, scan ordre, og systemet bekræfter automatisk at det matcher."
     },
     {
         level: 13,
@@ -709,7 +720,8 @@ const questionBank = [
         answers: ["Fordi det gør medarbejderne trætte", "Fordi labels bliver mørkere", "Fordi det er sværere at se små forskelle på produkter og størrelser", "Fordi scannere ikke virker i lys"],
         correct: 2,
         category: "Pakkefejl",
-        explanation: "Dårlig belysning gør det svært at skelne mellem næsten ens produkter - fx navy vs. sort, str. M vs. L. Det er en billig fejlkilde at løse: God LED-belysning over pluk- og pakkeområder reducerer fejl markant."
+        explanation: "Dårlig belysning gør det svært at skelne mellem næsten ens produkter - fx navy vs. sort, str. M vs. L. Det er en billig fejlkilde at løse: God LED-belysning over pluk- og pakkeområder reducerer fejl markant.",
+        proTip: "Kombiner god belysning med stregkodescanning — så behøver du slet ikke skelne visuelt mellem ens varer. Scanneren ved præcis hvilken det er."
     },
     {
         level: 12,
@@ -725,7 +737,8 @@ const questionBank = [
         answers: ["At gemme kundernes adresser", "At logge fejl i bogføringen", "At se mønstre i hvilke produkter, årsager og leverandører der giver flest returer", "At måle hvor hurtigt PostNord leverer"],
         correct: 2,
         category: "Returer",
-        explanation: "Returloggen afslører mønstre: Returneres samme produkt ofte? Er det altid 'for lille'? Er det altid fra samme leverandør? Med disse data kan du forbedre produkttekster, størrelsesguider og leverandørvalg."
+        explanation: "Returloggen afslører mønstre: Returneres samme produkt ofte? Er det altid 'for lille'? Er det altid fra samme leverandør? Med disse data kan du forbedre produkttekster, størrelsesguider og leverandørvalg.",
+        proTip: "Et WMS kan automatisk koble returdata til produkter og vise dig dashboards over returmønstre — så slipper du for manuelt regneark."
     },
     {
         level: 12,
@@ -733,7 +746,8 @@ const questionBank = [
         answers: ["Der er ingen grænse", "Mindst 14 dage", "Så kort som muligt – fx maks. 2 timer eller samme dag", "Indtil kunden ringer"],
         correct: 2,
         category: "Returer",
-        explanation: "Returer skal behandles SAMME DAG - helst inden for 2 timer. Hver dag en retur ligger, er det en vare du ikke kan sælge, en kunde der venter, og rod der hober sig op. Hurtig behandling = bedre økonomi og gladere kunder."
+        explanation: "Guidens anbefaling er at sigte efter samme dag — fx inden for 2 timer som et mål. Jo længere en retur ligger, jo længere er varen ude af salg og kunden venter. Hurtig behandling giver bedre økonomi og gladere kunder.",
+        proTip: "Et simpelt lagersystem med scanning kan automatisk opdatere beholdningen, når returen modtages — så er varen straks salgsklar igen."
     },
     {
         level: 13,
@@ -741,7 +755,8 @@ const questionBank = [
         answers: ["Proces-svind handler om fejl i arbejdsgange, naturligt svind om fx ødelagte varer og samples", "Der er ingen forskel", "Proces-svind er lovligt, naturligt svind er ulovligt", "Naturligt svind handler kun om tyveri"],
         correct: 0,
         category: "Svind",
-        explanation: "Proces-svind er fejl i arbejdsgange: fejltælling, manglende registrering, forkert modtagelse. Naturligt svind er kendte tab: beskadigede varer, demo-produkter, samples. Begge skal registreres, men løsningerne er forskellige."
+        explanation: "Proces-svind er fejl i arbejdsgange: fejltælling, manglende registrering, forkert modtagelse. Naturligt svind er kendte tab: beskadigede varer, demo-produkter, samples. Begge skal registreres, men løsningerne er forskellige.",
+        proTip: "Scanning ved modtagelse og pluk kan drastisk reducere proces-svind — systemet fanger afvigelser med det samme i stedet for ved næste optælling."
     },
     {
         level: 13,
@@ -749,7 +764,8 @@ const questionBank = [
         answers: ["At undgå at tælle lageret", "At samle al optælling på én lang nat én gang om året", "At fordele optællingen over året og fokusere mest på de vigtigste varer", "At tælle kun C-varer"],
         correct: 2,
         category: "Svind",
-        explanation: "Rullende optælling fordeler arbejdet over hele året: A-varer månedligt, B-varer kvartalsvist, C-varer årligt. Du lukker aldrig lageret, opdager fejl hurtigere, og fokuserer energien på de varer der betyder mest."
+        explanation: "Rullende optælling fordeler arbejdet over hele året: A-varer månedligt, B-varer kvartalsvist, C-varer årligt. Du lukker aldrig lageret, opdager fejl hurtigere, og fokuserer energien på de varer der betyder mest.",
+        proTip: "Med en håndscanner og lagersystem kan cyklusoptælling gå meget hurtigere — scan lokation, tæl, bekræft. Ingen papir og kuglepen."
     },
     {
         level: 13,
@@ -757,7 +773,8 @@ const questionBank = [
         answers: ["Så de kan sælges som nye", "Så de ikke forstyrrer medarbejderne", "Så svind bliver noget, du aktivt tager stilling til og kan reducere", "Så der kommer mere rod på lageret"],
         correct: 2,
         category: "Svind",
-        explanation: "Hvis kasserede varer bare forsvinder stille, ved du aldrig hvor meget du taber. Gør dem synlige med en 'Defekt'-kasse og registrer dem. Når svind er synligt, kan du måle det, forstå det og reducere det."
+        explanation: "Hvis kasserede varer bare forsvinder stille, ved du aldrig hvor meget du taber. Gør dem synlige med en 'Defekt'-kasse og registrer dem. Når svind er synligt, kan du måle det, forstå det og reducere det.",
+        proTip: "Et lagersystem kan automatisk trække kasserede varer fra beholdningen og vise svind-rapporter — så har du altid overblik over det reelle tab."
     },
     {
         level: 14,
@@ -765,7 +782,8 @@ const questionBank = [
         answers: ["Omsætning pr. dag", "Antal reoler på lageret", "Pakkefejlsprocent", "Antal medarbejdere"],
         correct: 2,
         category: "Nøgletal",
-        explanation: "Pakkefejlsprocenten er dit vigtigste kvalitetsnøgletal. Den viser direkte om dine processer virker. Under 1% er godt, over 2% er alarmerende. Følg den ugentligt og reager når den stiger."
+        explanation: "Pakkefejlsprocenten er dit vigtigste kvalitetsnøgletal. Den viser direkte om dine processer virker. Under 1% er godt, over 2% er alarmerende. Følg den ugentligt og reager når den stiger.",
+        proTip: "Et WMS med scanning kan automatisk beregne din pakkefejlsprocent i realtid — så ser du straks om en ny proces virker eller ej."
     },
     {
         level: 14,
@@ -781,7 +799,8 @@ const questionBank = [
         answers: ["Likes på sociale medier", "Antal nye produkter pr. måned", "Plukkede ordrelinjer eller ordrer pr. time", "Antal leverandører"],
         correct: 2,
         category: "Nøgletal",
-        explanation: "'Pluk pr. time' viser direkte om dine layout-ændringer virker. Hvis du flytter A-varer tættere på pakkebordet og tallet stiger fra 40 til 60, ved du det virker. Det er dit effektivitets-kompas."
+        explanation: "'Pluk pr. time' viser direkte om dine layout-ændringer virker. Hvis du flytter A-varer tættere på pakkebordet og tallet stiger fra 40 til 60, ved du det virker. Det er dit effektivitets-kompas.",
+        proTip: "Med et WMS kan du måle pluk pr. time automatisk og se trends over tid — ingen manuel optælling nødvendig."
     },
     {
         level: 15,
@@ -789,7 +808,8 @@ const questionBank = [
         answers: ["Hvor pænt lageret ser ud", "Hvor meget kapital der står stille i varer, der ikke sælger", "Hvor stor kredit du har hos leverandører", "Hvor meget der er solgt på udsalg"],
         correct: 1,
         category: "Nøgletal",
-        explanation: "Bundne lagerkroner er penge der står stille. Hvis du har C-varer for 200.000 kr. der ikke har solgt i 90 dage, er det 200.000 kr. du ikke kan bruge på A-varer, marketing eller vækst. Død kapital er en stille dræber."
+        explanation: "Bundne lagerkroner er penge der står stille. Hvis du har C-varer for 200.000 kr. der ikke har solgt i 90 dage, er det 200.000 kr. du ikke kan bruge på A-varer, marketing eller vækst. Død kapital er en stille dræber.",
+        proTip: "Et lagerstyringssystem kan automatisk flagge varer uden salg i X dage og beregne den bundne kapital — så opdager du problemet tidligt."
     },
     {
         level: 15,
@@ -797,7 +817,8 @@ const questionBank = [
         answers: ["Tælle alle varer fysisk", "Gætte ud fra reolpladsen", "Trække en liste over varer uden salg de sidste 90 dage og summere kostprisen", "Spørge kunderne"],
         correct: 2,
         category: "Nøgletal",
-        explanation: "Træk en liste fra dit shopsystem over varer uden salg de sidste 90 dage. Summer kostprisen. Det tal er din bundne kapital i langsomme varer. Ofte er det overraskende højt - og det er penge du kan frigøre."
+        explanation: "Træk en liste fra dit shopsystem over varer uden salg de sidste 90 dage. Summer kostprisen. Det tal er din bundne kapital i langsomme varer. Ofte er det overraskende højt - og det er penge du kan frigøre.",
+        proTip: "Et lagersystem med ABC-analyse kan automatisk generere denne rapport og endda foreslå udsalgspriser baseret på alder og kostpris."
     },
     {
         level: 8,
@@ -1024,7 +1045,8 @@ const questionBank = [
         answers: ["Det ser rodet ud for besøgende", "Det gør optælling umulig", "Det øger risikoen for plukfejl markant", "Det forstyrrer pakkemaskinen"],
         correct: 2,
         category: "Lagerindretning",
-        explanation: "Når næsten identiske varer står lige ved siden af hinanden, er det meget nemmere at tage den forkerte – især uden scanning – og pakkefejlene stiger."
+        explanation: "Når næsten identiske varer står lige ved siden af hinanden, er det meget nemmere at tage den forkerte – især uden scanning – og pakkefejlene stiger.",
+        proTip: "Med stregkodescanning eliminerer du denne fejlkilde helt — scanneren bekræfter at du har taget den rigtige vare, uanset hvor den står."
     },
     {
         level: 6,
@@ -1032,7 +1054,8 @@ const questionBank = [
         answers: ["At få pænere plukkelister", "At reducere antal ture til de samme hylder ved at plukke til flere ordrer ad gangen", "At kunne pakke langsommere men mere sikkert", "At gøre det lettere at finde returvarer"],
         correct: 1,
         category: "Plukkestrategi",
-        explanation: "Batch-plukning handler om at samle ens pluk, så du kun går til samme lokation få gange, mens du plukker til flere ordrer på én tur."
+        explanation: "Batch-plukning handler om at samle ens pluk, så du kun går til samme lokation få gange, mens du plukker til flere ordrer på én tur.",
+        proTip: "Et WMS kan automatisk gruppere ordrer og generere optimerede batch-plukkelister — så slipper du for at sortere manuelt."
     },
     {
         level: 7,
@@ -1040,7 +1063,8 @@ const questionBank = [
         answers: ["En ordre med én kunde", "En ordre med én varelinje, fx én T-shirt", "En ordre med kun A-varer", "En ordre der sendes som brev"],
         correct: 1,
         category: "Plukkestrategi",
-        explanation: "Single-line ordrer er ordrer med kun én varelinje, og de egner sig godt til meget effektiv batch-plukning."
+        explanation: "Single-line ordrer er ordrer med kun én varelinje, og de egner sig godt til meget effektiv batch-plukning.",
+        proTip: "Et WMS kan automatisk identificere single-line ordrer og samle dem til én effektiv batch — helt uden manuelt arbejde."
     },
     {
         level: 7,
@@ -1048,7 +1072,8 @@ const questionBank = [
         answers: ["Én kasse til hele dagens ordrer", "Én kasse pr. hyldemeter", "Én kasse pr. ordre, hvor varer lægges direkte i ordenes kasser under plukkeruten", "Kun til returvarer"],
         correct: 2,
         category: "Plukkestrategi",
-        explanation: "Ved multi-line ordrer giver det mening, at hver kasse repræsenterer en ordre, så plukkeren kan lægge varer direkte i den rigtige ordre på ruten."
+        explanation: "Ved multi-line ordrer giver det mening, at hver kasse repræsenterer en ordre, så plukkeren kan lægge varer direkte i den rigtige ordre på ruten.",
+        proTip: "Med en scanner og WMS kan systemet bekræfte hvert pluk og advare hvis du lægger en vare i den forkerte kasse — endnu færre fejl."
     },
     {
         level: 5,
@@ -1056,7 +1081,8 @@ const questionBank = [
         answers: ["For at matche virksomhedens visuelle identitet", "For at gøre lageret mere Instagram-venligt", "For at vise prioritet, fx hasteordrer eller særlige ruter", "For at skelne mellem A-, B- og C-varer"],
         correct: 2,
         category: "Plukkestrategi",
-        explanation: "Farvekoder bruges praktisk til at indikere, hvilke ordrer eller ruter der har højeste prioritet (fx hasteordrer), så plukningen kan styres bedre."
+        explanation: "Farvekoder bruges praktisk til at indikere, hvilke ordrer eller ruter der har højeste prioritet (fx hasteordrer), så plukningen kan styres bedre.",
+        proTip: "Et WMS kan automatisk prioritere og farvemarkere ordrer baseret på deadline, forsendelsesmetode eller kundegruppe."
     },
     {
         level: 4,
@@ -1064,7 +1090,8 @@ const questionBank = [
         answers: ["De får lageret til at se mere professionelt ud for gæster", "De kan bruges som midlertidig opbevaring", "De reducerer antallet af ture og tunge løft og kan hurtigt tjene sig hjem i sparet tid", "De er nødvendige for at kunne bruge et WMS"],
         correct: 2,
         category: "Redskaber",
-        explanation: "Plukkevogne gør det muligt at plukke til flere ordrer på én rute, reducere bæring og spare tid, så investeringen ofte er tjent hjem på få måneder."
+        explanation: "Plukkevogne gør det muligt at plukke til flere ordrer på én rute, reducere bæring og spare tid, så investeringen ofte er tjent hjem på få måneder.",
+        proTip: "Næste skridt kan være en tablet eller scanner på vognen — så får plukkeren den optimale rute vist direkte."
     },
     {
         level: 6,
@@ -1088,7 +1115,8 @@ const questionBank = [
         answers: ["At få styr på leverandørernes rabatter", "At minimere antal varenumre i sortimentet", "At definere et minimums- og maksimumsniveau og visualisere det på reolen", "At finde de varer, der kan sælges bedst på tilbud"],
         correct: 2,
         category: "Lagerstyring",
-        explanation: "Min/max handler om at bestemme hvornår du skal bestille (minimum) og hvor meget du typisk vil have liggende (maksimum), og gøre det synligt fx med en rød streg."
+        explanation: "Min/max handler om at bestemme hvornår du skal bestille (minimum) og hvor meget du typisk vil have liggende (maksimum), og gøre det synligt fx med en rød streg.",
+        proTip: "Et lagerstyringssystem kan automatisk overvåge niveauer og sende bestillingsforslag — så slipper du for at tjekke reolerne manuelt."
     },
     {
         level: 5,
@@ -1096,7 +1124,8 @@ const questionBank = [
         answers: ["Fordi de er lettest at tælle", "Fordi de fylder mest fysisk", "Fordi det er her, du hurtigst mærker effekten af færre stockouts", "Fordi leverandørerne stiller krav om det"],
         correct: 2,
         category: "Lagerstyring",
-        explanation: "A-varer står for hovedparten af salget, så bedre styring af deres lagerniveauer giver hurtigst effekt på kundeservice og omsætning."
+        explanation: "A-varer står for hovedparten af salget, så bedre styring af deres lagerniveauer giver hurtigst effekt på kundeservice og omsætning.",
+        proTip: "Et lagersystem kan automatisk advare når A-varer nærmer sig minimum — så undgår du stockouts på dine vigtigste varer."
     },
     {
         level: 6,
@@ -1104,7 +1133,8 @@ const questionBank = [
         answers: ["Tælle hele lageret én gang om året", "Tælle C-varer hver uge og A-varer én gang om året", "Tælle A-varer oftere, B-varer kvartalsvis og resten mindst én gang om året", "Kun tælle ved årsafslutning"],
         correct: 2,
         category: "Lagerstyring",
-        explanation: "Fokus er på de mest kritiske varer: A-varer tælles hyppigt, B-varer jævnligt og hele lageret mindst én gang årligt."
+        explanation: "Fokus er på de mest kritiske varer: A-varer tælles hyppigt, B-varer jævnligt og hele lageret mindst én gang årligt.",
+        proTip: "Med en håndscanner kan optælling gå markant hurtigere — scan lokation, tæl, bekræft. Ingen papir og kuglepen."
     },
     {
         level: 7,
@@ -1112,7 +1142,8 @@ const questionBank = [
         answers: ["Det ser bedre ud i Google", "Det gør det lettere at skifte webshop-platform", "Det reducerer fejl ved import/eksport og gør optælling og placeringer lettere at styre", "Det får leverandørerne til at tage dig mere seriøst"],
         correct: 2,
         category: "Lagerstyring",
-        explanation: "Konsistente og unikke SKU'er reducerer fejl i CSV-filer, gør placeringer og optælling mere styrbare og gør en fremtidig system-migrering enklere."
+        explanation: "Konsistente og unikke SKU'er reducerer fejl i CSV-filer, gør placeringer og optælling mere styrbare og gør en fremtidig system-migrering enklere.",
+        proTip: "God SKU-disciplin er det perfekte fundament for et fremtidigt WMS — når dine data allerede er rene, bliver overgangen meget lettere."
     },
     {
         level: 6,
@@ -1120,7 +1151,8 @@ const questionBank = [
         answers: ["Fordi de sjældent opdages af kunden", "Fordi de mest handler om kosmetiske fejl", "Fordi de koster tid, fragt og goodwill langt ud over den enkelte ordre", "Fordi de kun opstår ved meget store kampagner"],
         correct: 2,
         category: "Pakkefejl",
-        explanation: "Pakkefejl akkumulerer omkostninger til retur, ny forsendelse, kundeservice og tabt loyalitet – og kan derfor blive meget dyre, selv ved lave fejlprocenter."
+        explanation: "Pakkefejl akkumulerer omkostninger til retur, ny forsendelse, kundeservice og tabt loyalitet – og kan derfor blive meget dyre, selv ved lave fejlprocenter.",
+        proTip: "En stregkodescanner ved pakkebordet kan fange de fleste pakkefejl automatisk — scan vare mod ordre, og systemet advarer hvis noget ikke matcher."
     },
     {
         level: 7,
@@ -1128,7 +1160,8 @@ const questionBank = [
         answers: ["At kunne dokumentere fejl over for Skat", "At kunne fordele skyld mellem medarbejdere", "At opdage mønstre og årsager i fejlene, så processerne kan forbedres", "At kunne beregne præcis fragtomkostning pr. fejl"],
         correct: 2,
         category: "Pakkefejl",
-        explanation: "Fejlloggen skal bruges til læring: den gør det muligt at se mønstre og adressere de underliggende årsager fremfor at håndtere fejl enkeltvis."
+        explanation: "Fejlloggen skal bruges til læring: den gør det muligt at se mønstre og adressere de underliggende årsager fremfor at håndtere fejl enkeltvis.",
+        proTip: "Et WMS kan automatisk logge fejl og vise mønstre i dashboards — så slipper du for manuelle noter og får bedre data."
     },
     {
         level: 5,
@@ -1136,7 +1169,8 @@ const questionBank = [
         answers: ["Én person plukker og pakker alt selv", "Kunden dobbelttjekker sin ordre i checkout", "Én plukker, én pakker og kontrollerer, at varen matcher ordren", "To plukkere plukker samme ordre uafhængigt"],
         correct: 2,
         category: "Pakkefejl",
-        explanation: "Guiden anbefaler en simpel opdeling, hvor én plukker og én pakker/tjekker, så fejl fanges, inden pakken forlader lageret."
+        explanation: "Guiden anbefaler en simpel opdeling, hvor én plukker og én pakker/tjekker, så fejl fanges, inden pakken forlader lageret.",
+        proTip: "Med en stregkodescanner kan pakke-tjekket automatiseres — scan vare mod ordre, og systemet bekræfter at det matcher."
     },
     {
         level: 6,
@@ -1144,7 +1178,8 @@ const questionBank = [
         answers: ["At kunne certificere lageret", "At gøre det nemmere at oplære nye og sikre ensartet kvalitet", "At dokumentere arbejdsforhold til HR", "At kunne erstatte lagersystemer"],
         correct: 1,
         category: "Pakkefejl",
-        explanation: "Små procedurer sikrer, at alle udfører de vigtigste trin ens, og at nye medarbejdere hurtigere bliver trygge og laver færre fejl."
+        explanation: "Små procedurer sikrer, at alle udfører de vigtigste trin ens, og at nye medarbejdere hurtigere bliver trygge og laver færre fejl.",
+        proTip: "Et WMS kan guide medarbejderen trin-for-trin på en skærm — så bliver proceduren digital og endnu sværere at springe over."
     },
     {
         level: 5,
@@ -1152,7 +1187,8 @@ const questionBank = [
         answers: ["At gennemgå alle ordrer én for én", "At planlægge kantineordning", "At tale om fejl, forbedringer og flaskehalse og vælge få konkrete ændringer", "At lave detaljerede budgetter"],
         correct: 2,
         category: "Pakkefejl",
-        explanation: "Tavlemødet bruges til at dele erfaringer, fejl og irritationsmomenter og beslutte små, konkrete forbedringer fra uge til uge."
+        explanation: "Tavlemødet bruges til at dele erfaringer, fejl og irritationsmomenter og beslutte små, konkrete forbedringer fra uge til uge.",
+        proTip: "Et dashboard fra dit lagersystem kan vise gårsdagens nøgletal direkte på tavlen — så starter mødet med fakta i stedet for fornemmelser."
     },
     {
         level: 6,
@@ -1160,7 +1196,8 @@ const questionBank = [
         answers: ["Det gør det lettere at gemme returvarer til senere", "Det ser pænere ud for besøgende", "Alle ved præcis, hvor returer lander og skal behandles, så de ikke 'forsvinder' i driften", "Det reducerer behovet for returlabels"],
         correct: 2,
         category: "Returer",
-        explanation: "Når alle returer lander samme sted, bliver de synlige, og du kan sikre, at de konsekvent behandles og registreres i systemet."
+        explanation: "Når alle returer lander samme sted, bliver de synlige, og du kan sikre, at de konsekvent behandles og registreres i systemet.",
+        proTip: "Med scanning i returzonen kan du automatisk opdatere lagerbeholdningen og logge returtypen — hurtigere og mere præcist end manuelt."
     },
     {
         level: 7,
@@ -1176,7 +1213,8 @@ const questionBank = [
         answers: ["For at bogholderiet kan få flere konti", "For at kunne justere markedsføring bedre", "For at kunne se, om problemet handler om produkt, forventningsafstemning eller pluk/pak", "For at leverandøren kan få et flot skema"],
         correct: 2,
         category: "Returer",
-        explanation: "Ved at skelne mellem årsager kan du se, om returer skyldes fx størrelsesguides, kvalitet, emballage eller rene pakkefejl – og handle derefter."
+        explanation: "Ved at skelne mellem årsager kan du se, om returer skyldes fx størrelsesguides, kvalitet, emballage eller rene pakkefejl – og handle derefter.",
+        proTip: "Et WMS kan automatisk koble returdata til produkter og vise dashboards over returmønstre — så slipper du for manuelt regneark."
     },
     {
         level: 7,
@@ -1184,7 +1222,8 @@ const questionBank = [
         answers: ["At få mere farve på lageret", "At kunne gemme varer længere uden beslutning", "At tvinge leverandøren til at tage alt retur", "At gøre svind synligt og aktivt tage stilling til, hvad der skal kasseres og hvad der kan sælges billigt"],
         correct: 3,
         category: "Svind",
-        explanation: "Når du fysisk adskiller beskadigede varer og 2. sortering, bliver svindet synligt og du kan træffe bedre beslutninger om udsalg, kassation eller leverandørdialog."
+        explanation: "Når du fysisk adskiller beskadigede varer og 2. sortering, bliver svindet synligt og du kan træffe bedre beslutninger om udsalg, kassation eller leverandørdialog.",
+        proTip: "Et lagersystem kan automatisk registrere og kategorisere svind — så får du rapporter over tab fordelt på årsag og leverandør."
     },
     {
         level: 6,
@@ -1192,7 +1231,8 @@ const questionBank = [
         answers: ["At undgå krav om revision", "At slippe for at tælle C-varer", "At fordele optælling ud over året og opdage afvigelser løbende", "At kunne holde lageret åbent 24/7"],
         correct: 2,
         category: "Svind",
-        explanation: "Rullende optælling gør, at du løbende får øje på afvigelser og ikke skal lukke alt ned for én stor, tung optælling."
+        explanation: "Rullende optælling gør, at du løbende får øje på afvigelser og ikke skal lukke alt ned for én stor, tung optælling.",
+        proTip: "Med en håndscanner og lagersystem kan du lave cyklusoptælling på få minutter — scan lokation, tæl, bekræft. Færdig."
     },
     {
         level: 8,
@@ -1200,7 +1240,8 @@ const questionBank = [
         answers: ["Tyveri fra eksterne", "Fejl der opstår i hverdagens arbejdsgange, fx ved modtagelse, pluk eller flytninger uden registrering", "Naturligt spild ved udløb", "Skader under transport"],
         correct: 1,
         category: "Svind",
-        explanation: "Proces-svind handler om fejl i dine interne processer – ikke nødvendigvis tyveri – som fx korrekte registreringer ved modtagelse og pluk."
+        explanation: "Proces-svind handler om fejl i dine interne processer – ikke nødvendigvis tyveri – som fx korrekte registreringer ved modtagelse og pluk.",
+        proTip: "Scanning ved modtagelse og pluk kan drastisk reducere proces-svind — systemet fanger afvigelser med det samme."
     },
     {
         level: 6,
@@ -1216,7 +1257,8 @@ const questionBank = [
         answers: ["Pluk pr. time", "Returprocent", "Pakkefejlsprocent", "Lagerbinding i C-varer"],
         correct: 2,
         category: "Nøgletal",
-        explanation: "Pakkefejlsprocenten siger direkte noget om, hvor ofte kunderne modtager noget andet, end de har bestilt."
+        explanation: "Pakkefejlsprocenten siger direkte noget om, hvor ofte kunderne modtager noget andet, end de har bestilt.",
+        proTip: "Med scanning ved pakkebordet kan du måle pakkefejlsprocenten automatisk — og se om nye tiltag faktisk virker."
     },
     {
         level: 8,
@@ -1224,7 +1266,8 @@ const questionBank = [
         answers: ["Det ser bedre ud i rapporter", "Det er nemmere at forklare til ledelsen", "Det tager højde for forskellen mellem simple og komplekse ordrer", "Det giver mulighed for at ignorere returvarer"],
         correct: 2,
         category: "Nøgletal",
-        explanation: "En ordre med mange linjer kræver mere arbejde end en single-line ordre. Ved at måle linjer pr. time får du et bedre billede af den reelle produktivitet."
+        explanation: "En ordre med mange linjer kræver mere arbejde end en single-line ordre. Ved at måle linjer pr. time får du et bedre billede af den reelle produktivitet.",
+        proTip: "Et WMS måler automatisk linjer pr. time pr. medarbejder — så kan du se produktivitet i realtid uden manuelt regneark."
     },
     {
         level: 7,
@@ -1232,7 +1275,8 @@ const questionBank = [
         answers: ["Hvor mange hyldemeter du har", "Hvor meget kapital der står stille i varer, der ikke bevæger sig", "Hvor mange A-varer du har i sortiment", "Hvor mange ordrer du håndterer dagligt"],
         correct: 1,
         category: "Nøgletal",
-        explanation: "Det handler om at se, hvor meget kapital der står bundet i langsomt omsættende varer, så du kan frigøre plads og penge."
+        explanation: "Det handler om at se, hvor meget kapital der står bundet i langsomt omsættende varer, så du kan frigøre plads og penge.",
+        proTip: "Et lagersystem kan automatisk beregne bundet kapital og foreslå udsalg på varer der ikke har solgt i X dage."
     },
     {
         level: 6,
@@ -1240,7 +1284,8 @@ const questionBank = [
         answers: ["For mange fragtaftaler", "For mange transportører i checkout", "Alt for stor emballage med meget luft", "For få afhentninger pr. uge"],
         correct: 2,
         category: "Fragt",
-        explanation: "At sende 'luft' i alt for store kasser er en klassisk kilde til unødige fragtomkostninger, især når volumen-pris spiller ind."
+        explanation: "At sende 'luft' i alt for store kasser er en klassisk kilde til unødige fragtomkostninger, især når volumen-pris spiller ind.",
+        proTip: "Nogle WMS-systemer kan foreslå den optimale kassestørrelse baseret på varens dimensioner — så undgår du at sende luft."
     },
     {
         level: 7,
@@ -1360,7 +1405,8 @@ const questionBank = [
         answers: ["At alle skal investere i avanceret WMS hurtigst muligt", "At lageroptimering er et engangsprojekt, der kan afsluttes", "At små, løbende forbedringer i flow, disciplin og struktur ofte skaber den største værdi", "At lageret primært er et marketingværktøj"],
         correct: 2,
         category: "Generelt",
-        explanation: "Guiden understreger, at de største gevinster ofte ligger i simple, kontinuerlige forbedringer – ikke nødvendigvis i store engangsinvesteringer."
+        explanation: "Guiden understreger, at de største gevinster ofte ligger i simple, kontinuerlige forbedringer – ikke nødvendigvis i store engangsinvesteringer.",
+        proTip: "Når de manuelle forbedringer er på plads, er du klar til næste skridt: et simpelt WMS eller lagersystem der bygger videre på det fundament du allerede har skabt."
     }
 ];
 

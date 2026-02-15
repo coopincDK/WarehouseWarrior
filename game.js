@@ -829,15 +829,32 @@ class WarehouseWarriorGame {
         document.getElementById('pointsEarned').textContent = '+' + (this.lastRoundPoints || 0);
         document.getElementById('pointsTotal').textContent = this.score.toLocaleString();
         this.loadFunFact('correctFunFact', true);
+        // Pro Tip ved korrekt svar
+        const correctQ = this.questions[this.currentQuestionIndex];
+        const correctProTipEl = document.getElementById('correctProTip');
+        if (correctQ.proTip) {
+            correctProTipEl.innerHTML = '<strong>🚀 Pro Tip:</strong> ' + correctQ.proTip;
+            correctProTipEl.style.display = 'block';
+        } else {
+            correctProTipEl.style.display = 'none';
+        }
         this.showScene('correctScene');
         this.createConfetti('confettiContainer');
-        setTimeout(() => this.nextQuestion(), 3000);
+        setTimeout(() => this.nextQuestion(), correctQ.proTip ? 5000 : 3000);
     }
     
     showWrongScene() {
         const question = this.questions[this.currentQuestionIndex];
         document.getElementById('correctAnswerText').textContent = question.answers[question.correct];
         document.getElementById('explanationText').textContent = question.explanation || 'Ingen forklaring tilgængelig.';
+        // Pro Tip ved forkert svar
+        const wrongProTipEl = document.getElementById('wrongProTip');
+        if (question.proTip) {
+            wrongProTipEl.innerHTML = '<strong>🚀 Pro Tip:</strong> ' + question.proTip;
+            wrongProTipEl.style.display = 'block';
+        } else {
+            wrongProTipEl.style.display = 'none';
+        }
         
         // Vis score og spørgsmålsnummer
         document.getElementById('wrongQuestionNum').textContent = this.currentQuestionIndex + 1;

@@ -237,7 +237,7 @@ class WarehouseWarriorGame {
         document.getElementById('victoryHighscoreBtn').addEventListener('click', () => this.showHighscore());
         document.getElementById('victoryHomeBtn').addEventListener('click', () => this.goHome());
         document.getElementById('highscoreHomeBtn').addEventListener('click', () => this.goHome());
-        document.getElementById('highscorePlayBtn').addEventListener('click', () => this.goHome());
+        document.getElementById('highscorePlayBtn').addEventListener('click', () => this.startGame());
         
         // Lifeline buttons
         document.getElementById('lifeline5050').addEventListener('click', () => this.useFiftyFifty());
@@ -424,6 +424,7 @@ class WarehouseWarriorGame {
         this.pendingAnswer = null;
         this.answerStartTime = Date.now();
         this.startTimer();
+        this.startRoulette();
     }
     
     updateHostImage(mood) {
@@ -493,6 +494,7 @@ class WarehouseWarriorGame {
     }
     
     timeUp() {
+        this.stopRoulette();
         this.playSound('explosion');
         this.playSound('buzzer');
         this.updateHostImage('panic');
@@ -514,19 +516,57 @@ class WarehouseWarriorGame {
         if (this.selectedAnswer !== null) return;
         
         this.playSound('click');
+        this.stopRoulette();
         
-        // Highlight selected (clear previous first)
+        // Highlight det valgte svar
         const answerBtns = document.querySelectorAll('.answer-btn');
         answerBtns.forEach(btn => btn.classList.remove('selected'));
         answerBtns[index].classList.add('selected');
+        
+        // Fortsæt med normal flow
+        this.afterRoulette(index, answerBtns);
+    }
+    
+    startRoulette() {
+        this.stopRoulette();
+        const answerBtns = document.querySelectorAll('.answer-btn');
+        const activeIndices = [];
+        answerBtns.forEach((btn, i) => {
+            if (!btn.classList.contains('hidden')) activeIndices.push(i);
+        });
+        if (activeIndices.length <= 1) return;
+        
+        let current = -1;
+        this.rouletteInterval = setInterval(() => {
+            answerBtns.forEach(btn => btn.classList.remove('selected'));
+            let next;
+            do {
+                next = activeIndices[Math.floor(Math.random() * activeIndices.length)];
+            } while (next === current);
+            current = next;
+            answerBtns[current].classList.add('selected');
+        }, 150);
+    }
+    
+    stopRoulette() {
+        if (this.rouletteInterval) {
+            clearInterval(this.rouletteInterval);
+            this.rouletteInterval = null;
+        }
+        // Clear highlight
+        document.querySelectorAll('.answer-btn').forEach(btn => btn.classList.remove('selected'));
+    }
+    
+    afterRoulette(index, answerBtns) {
+        // Genaktiver knapper (så checkAnswer kan disable dem igen)
+        answerBtns.forEach(btn => btn.disabled = false);
         
         const questionNum = this.currentQuestionIndex + 1;
         const hasLifelinesLeft = this.getAvailableLifelines().length > 0;
         const question = this.questions[this.currentQuestionIndex];
         const isWrongAnswer = index !== this.currentShuffle.correctIndex;
         
-        // Livline-prompt: KUN ved forkert svar, IKKE hvis allerede spurgt dette spørgsmål
-        // Q1-3: 100% chance, Q4+: random chance (uanset om livliner er tilbage)
+        // Livline-prompt: KUN ved forkert svar
         let showLifelinePrompt = false;
         if (isWrongAnswer && !this.lifelinePromptShown) {
             if (questionNum <= 3) {
@@ -539,12 +579,9 @@ class WarehouseWarriorGame {
         if (showLifelinePrompt) {
             this.pendingAnswer = index;
             this.lifelinePromptShown = true;
-            this.stopTimer();
             if (hasLifelinesLeft) {
-                // Vis livline-prompt med knapper
                 this.showLifelinePrompt();
             } else {
-                // Ingen livliner tilbage - vis "Er du sikker?" i stedet
                 this.showAreYouSure();
             }
         } else {
@@ -555,11 +592,10 @@ class WarehouseWarriorGame {
             }
             if (Math.random() < areYouSureChance) {
                 this.pendingAnswer = index;
-                this.stopTimer();
                 this.showAreYouSure();
             } else {
                 this.selectedAnswer = index;
-                setTimeout(() => this.checkAnswer(), 500);
+                setTimeout(() => this.checkAnswer(), 300);
             }
         }
     }
@@ -732,6 +768,7 @@ class WarehouseWarriorGame {
         
         document.getElementById('correctMessage').textContent = message;
         document.getElementById('pointsEarned').textContent = '+' + (this.lastRoundPoints || 0);
+        document.getElementById('pointsTotal').textContent = this.score.toLocaleString();
         this.showScene('correctScene');
         this.createConfetti('confettiContainer');
         setTimeout(() => this.nextQuestion(), 3000);

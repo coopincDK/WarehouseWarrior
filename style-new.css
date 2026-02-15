@@ -122,12 +122,12 @@ body {
 
 #correctScene .host-overlay,
 #wrongScene .host-overlay {
-    max-height: 45vh;
+    max-height: 55vh;
 }
 
 #correctScene .host-image,
 #wrongScene .host-image {
-    max-height: 45vh;
+    max-height: 55vh;
 }
 
 .hs-company {
@@ -330,7 +330,7 @@ body {
 
 .music-control {
     position: fixed;
-    top: 20px;
+    bottom: 20px;
     right: 20px;
     z-index: 1000;
 }
@@ -501,6 +501,8 @@ body {
 .answer-btn.selected {
     border-color: #00bfff;
     background: rgba(0, 191, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
+    transition: all 0.08s ease;
 }
 
 .answer-btn.correct {
@@ -702,8 +704,14 @@ body {
     font-size: 2rem;
     font-weight: bold;
     color: #ffd700;
-    margin: 15px 0;
+    margin: 10px 0 5px;
     animation: pointsPop 0.5s ease;
+}
+
+.points-total {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 10px;
 }
 
 .correct-answer {
@@ -879,6 +887,7 @@ body {
 
 .confetti {
     position: absolute;
+    top: -20px;
     width: 10px;
     height: 10px;
     background: #ffd700;
@@ -921,7 +930,7 @@ body {
 
 @keyframes confettiFall {
     0% {
-        transform: translateY(-100%) rotate(0deg);
+        transform: translateY(-50px) rotate(0deg);
         opacity: 1;
     }
     100% {
@@ -959,8 +968,8 @@ body {
     #welcomeScene .host-image { max-width: 85vw; max-height: 70vh; }
     #questionScene .host-image { max-height: 35vh; }
     #questionScene .host-overlay { max-height: 35vh; }
-    #correctScene .host-image, #wrongScene .host-image { max-height: 35vh; }
-    #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 35vh; }
+    #correctScene .host-image, #wrongScene .host-image { max-height: 42vh; }
+    #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 42vh; }
     #correctScene .content-overlay, #wrongScene .content-overlay { padding-top: 0; }
     .question-container { padding: 10px; margin-bottom: 8px; }
     .logo { max-width: 300px; }
@@ -983,7 +992,8 @@ body {
     .result-title { font-size: 2rem; }
     .result-content { padding: 15px; }
     .result-message { font-size: 1rem; margin: 5px 0; }
-    .points-earned { font-size: 1.4rem; margin: 8px 0; }
+    .points-earned { font-size: 1.4rem; margin: 6px 0 3px; }
+    .points-total { font-size: 1rem; }
     .correct-answer { font-size: 1.1rem; padding: 8px 15px; margin: 8px 0; }
     .explanation-box { padding: 10px 15px; margin: 8px 0; }
     .explanation-box h3 { font-size: 1.1rem; margin-bottom: 8px; }
@@ -1044,8 +1054,8 @@ body {
     #welcomeScene .host-image { max-width: 90vw; max-height: 75vh; }
     #questionScene .host-image { max-height: 30vh; }
     #questionScene .host-overlay { max-height: 30vh; }
-    #correctScene .host-image, #wrongScene .host-image { max-height: 22vh; }
-    #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 22vh; }
+    #correctScene .host-image, #wrongScene .host-image { max-height: 30vh; }
+    #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 30vh; }
     #correctScene .content-overlay, #wrongScene .content-overlay { padding-top: 8px; }
     .question-container { padding: 8px; margin-bottom: 6px; }
     .player-input { margin: 5px 0; }
@@ -1073,7 +1083,8 @@ body {
     .result-icon { max-width: 60px; width: 15%; margin-bottom: 5px; }
     .result-title { font-size: 1.6rem; margin: 5px 0; }
     .result-content { padding: 12px 10px; }
-    .points-earned { font-size: 1.2rem; margin: 5px 0; }
+    .points-earned { font-size: 1.2rem; margin: 4px 0 2px; }
+    .points-total { font-size: 0.9rem; }
     .correct-answer { font-size: 0.95rem; padding: 6px 10px; margin: 5px 0; }
     .explanation-box { padding: 8px 10px; margin: 5px 0; }
     .explanation-box h3 { font-size: 0.95rem; margin-bottom: 5px; }

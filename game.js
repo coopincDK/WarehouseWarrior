@@ -424,7 +424,7 @@ class WarehouseWarriorGame {
         this.pendingAnswer = null;
         this.answerStartTime = Date.now();
         this.startTimer();
-        this.startRoulette();
+
     }
     
     updateHostImage(mood) {
@@ -547,7 +547,6 @@ class WarehouseWarriorGame {
     }
     
     timeUp() {
-        this.stopRoulette();
         this.playSound('explosion');
         this.playSound('buzzer');
         this.updateHostImage('panic');
@@ -569,7 +568,6 @@ class WarehouseWarriorGame {
         if (this.selectedAnswer !== null) return;
         
         this.playSound('click');
-        this.stopRoulette();
         
         // Highlight det valgte svar
         const answerBtns = document.querySelectorAll('.answer-btn');
@@ -580,43 +578,7 @@ class WarehouseWarriorGame {
         this.afterRoulette(index, answerBtns);
     }
     
-    startRoulette() {
-        this.stopRoulette();
-        const answerBtns = document.querySelectorAll('.answer-btn');
-        const activeIndices = [];
-        answerBtns.forEach((btn, i) => {
-            if (!btn.classList.contains('hidden')) activeIndices.push(i);
-        });
-        if (activeIndices.length <= 1) return;
-        
-        // Altid gul glow på alle 4 svar
-        answerBtns.forEach(btn => btn.classList.add('roulette-glow'));
-        
-        // Langsom puls-effekt: toggle glow on/off
-        let glowOn = true;
-        this.rouletteInterval = setInterval(() => {
-            glowOn = !glowOn;
-            answerBtns.forEach(btn => {
-                if (glowOn) {
-                    btn.classList.add('roulette-glow');
-                } else {
-                    btn.classList.remove('roulette-glow');
-                }
-            });
-        }, 800);
-    }
-    
-    stopRoulette() {
-        if (this.rouletteInterval) {
-            clearInterval(this.rouletteInterval);
-            this.rouletteInterval = null;
-        }
-        // Clear highlight
-        document.querySelectorAll('.answer-btn').forEach(btn => {
-            btn.classList.remove('selected');
-            btn.classList.remove('roulette-glow');
-        });
-    }
+
     
     afterRoulette(index, answerBtns) {
         // Genaktiver knapper (så checkAnswer kan disable dem igen)

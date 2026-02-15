@@ -1,4 +1,4 @@
-const CACHE_NAME = 'warehouse-warrior-v3.47';
+const CACHE_NAME = 'warehouse-warrior-v3.48';
 
 // Install - cache essential files
 self.addEventListener('install', (event) => {

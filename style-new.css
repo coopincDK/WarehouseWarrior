@@ -120,14 +120,18 @@ body {
     padding-top: 0;
 }
 
+#correctScene .content-overlay {
+    margin-top: -15px;
+}
+
 #correctScene .host-overlay,
 #wrongScene .host-overlay {
-    max-height: 75vh;
+    max-height: 70vh;
 }
 
 #correctScene .host-image,
 #wrongScene .host-image {
-    max-height: 75vh;
+    max-height: 70vh;
 }
 
 .hs-company {

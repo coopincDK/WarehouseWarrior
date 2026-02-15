@@ -473,16 +473,18 @@ class WarehouseWarriorGame {
             timerText.textContent = this.timeLeft + 's';
             
             if (this.timeLeft <= 5) {
-                // DANGER: rød puls + tick-lyd
+                // DANGER: rød puls + tick-lyd + HELE skærmen
                 timerFill.classList.remove('warning');
                 timerFill.classList.add('danger');
                 timerText.classList.add('danger');
                 if (timerBar) timerBar.classList.add('danger-glow');
+                document.getElementById('questionScene').classList.add('screen-danger');
                 this.playTickSound();
                 if (this.timeLeft === 5) this.updateHostImage('panic');
             } else if (this.timeLeft <= 10) {
-                // WARNING: orange
+                // WARNING: orange + rød skærm-vignette
                 timerFill.classList.add('warning');
+                document.getElementById('questionScene').classList.add('screen-warning');
             }
             
             document.getElementById('currentScore').textContent = this.score.toLocaleString();
@@ -539,6 +541,9 @@ class WarehouseWarriorGame {
         if (timerFill) timerFill.classList.remove('warning', 'danger');
         if (timerText) timerText.classList.remove('danger');
         if (timerBar) timerBar.classList.remove('danger-glow');
+        // Ryd skærm-effekter
+        const questionScene = document.getElementById('questionScene');
+        if (questionScene) questionScene.classList.remove('screen-warning', 'screen-danger');
     }
     
     timeUp() {
@@ -584,16 +589,21 @@ class WarehouseWarriorGame {
         });
         if (activeIndices.length <= 1) return;
         
-        let current = -1;
+        // Altid gul glow på alle 4 svar
+        answerBtns.forEach(btn => btn.classList.add('roulette-glow'));
+        
+        // Langsom puls-effekt: toggle glow on/off
+        let glowOn = true;
         this.rouletteInterval = setInterval(() => {
-            answerBtns.forEach(btn => btn.classList.remove('selected'));
-            let next;
-            do {
-                next = activeIndices[Math.floor(Math.random() * activeIndices.length)];
-            } while (next === current);
-            current = next;
-            answerBtns[current].classList.add('selected');
-        }, 150);
+            glowOn = !glowOn;
+            answerBtns.forEach(btn => {
+                if (glowOn) {
+                    btn.classList.add('roulette-glow');
+                } else {
+                    btn.classList.remove('roulette-glow');
+                }
+            });
+        }, 800);
     }
     
     stopRoulette() {
@@ -887,12 +897,12 @@ class WarehouseWarriorGame {
         document.getElementById('checkpointQuestion').textContent = this.currentQuestionIndex;
         document.getElementById('checkpointScore').textContent = this.score.toLocaleString();
         
-        // Opdater checkpoint badge baseret på niveau
+        // Opdater checkpoint badge baseret på niveau (currentQuestionIndex er allerede incrementeret)
         const badge = document.getElementById('checkpointBadge');
         if (badge) {
-            if (this.currentQuestionIndex >= 10) {
+            if (this.currentQuestionIndex >= 15) {
                 badge.src = 'assets/images/icons/23_checkpoint_niveau_15_badge.png';
-            } else if (this.currentQuestionIndex >= 5) {
+            } else if (this.currentQuestionIndex >= 10) {
                 badge.src = 'assets/images/icons/22_checkpoint_niveau_10_badge.png';
             } else {
                 badge.src = 'assets/images/icons/21_checkpoint_niveau_5_badge.png';

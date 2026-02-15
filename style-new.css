@@ -100,12 +100,12 @@ body {
 
 /* Under quiz: skub Carsten ned så svar er over hans hoved */
 #questionScene .host-overlay {
-    max-height: 40vh;
+    max-height: 50vh;
     bottom: 0;
 }
 
 #questionScene .host-image {
-    max-height: 40vh;
+    max-height: 50vh;
 }
 
 #questionScene .content-overlay {
@@ -122,12 +122,12 @@ body {
 
 #correctScene .host-overlay,
 #wrongScene .host-overlay {
-    max-height: 55vh;
+    max-height: 65vh;
 }
 
 #correctScene .host-image,
 #wrongScene .host-image {
-    max-height: 55vh;
+    max-height: 65vh;
 }
 
 .hs-company {
@@ -432,6 +432,58 @@ body {
     50% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.9), 0 0 50px rgba(255, 0, 0, 0.5); }
 }
 
+/* ===== SCREEN DANGER EFFECTS ===== */
+.screen-warning {
+    animation: screenWarning 1.5s ease infinite;
+}
+
+.screen-danger {
+    animation: screenDanger 0.6s ease infinite;
+}
+
+.screen-warning::after,
+.screen-danger::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 50;
+    border-radius: 0;
+}
+
+.screen-warning::after {
+    box-shadow: inset 0 0 80px rgba(255, 0, 0, 0.2), inset 0 0 150px rgba(255, 0, 0, 0.1);
+    animation: vignetteWarning 1.5s ease infinite;
+}
+
+.screen-danger::after {
+    box-shadow: inset 0 0 120px rgba(255, 0, 0, 0.4), inset 0 0 250px rgba(255, 0, 0, 0.2);
+    animation: vignetteDanger 0.6s ease infinite;
+}
+
+@keyframes vignetteWarning {
+    0%, 100% { box-shadow: inset 0 0 80px rgba(255, 0, 0, 0.15), inset 0 0 150px rgba(255, 0, 0, 0.05); }
+    50% { box-shadow: inset 0 0 100px rgba(255, 0, 0, 0.3), inset 0 0 200px rgba(255, 0, 0, 0.15); }
+}
+
+@keyframes vignetteDanger {
+    0%, 100% { box-shadow: inset 0 0 120px rgba(255, 0, 0, 0.35), inset 0 0 250px rgba(255, 0, 0, 0.15); }
+    50% { box-shadow: inset 0 0 160px rgba(255, 0, 0, 0.55), inset 0 0 300px rgba(255, 0, 0, 0.3); }
+}
+
+@keyframes screenWarning {
+    0%, 100% { filter: none; }
+    50% { filter: brightness(0.95); }
+}
+
+@keyframes screenDanger {
+    0%, 100% { filter: none; }
+    50% { filter: brightness(0.85) saturate(1.3); }
+}
+
 .timer-text.danger {
     color: #ff0000;
     animation: dangerPulse 0.5s ease infinite;
@@ -534,12 +586,12 @@ body {
 .answer-btn.roulette-glow {
     border-color: #ffd700;
     background: rgba(255, 215, 0, 0.15);
-    box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
-    transition: all 0.2s ease;
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.45);
+    transition: all 0.5s ease;
 }
 
 .answer-btn:not(.roulette-glow) {
-    transition: all 0.2s ease;
+    transition: all 0.5s ease;
 }
 
 .answer-btn.correct {
@@ -565,6 +617,12 @@ body {
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
+    position: fixed;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 0 10px;
 }
 
 .lifeline-btn {

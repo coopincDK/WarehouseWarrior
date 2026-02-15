@@ -1290,6 +1290,7 @@ body {
     .content-overlay { padding: 8px 8px 45px; }
     .logo { max-width: 260px; }
     .welcome-layout { padding-top: 8px !important; padding-bottom: 55px !important; }
+    .welcome-speech { margin-top: 75px; }
     .host-image { max-width: 80vw; max-height: 60vh; }
     #welcomeScene .host-image { max-width: 90vw; max-height: 75vh; }
     #questionScene .host-image { max-height: 48vh; }

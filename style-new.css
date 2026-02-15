@@ -1728,6 +1728,20 @@ body {
     z-index: 1;
 }
 
+.speech-overlay-bubble .psyk-image {
+    max-width: 160px;
+    max-height: 120px;
+    margin: 0 auto 10px;
+    display: block;
+    filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.4));
+    animation: psykFloat 2s ease-in-out infinite;
+}
+
+@keyframes psykFloat {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-8px) rotate(2deg); }
+}
+
 .speech-overlay-bubble p {
     font-size: 1.3rem;
     color: #fff;

@@ -758,16 +758,37 @@ body {
 }
 
 /* ===== CHECKPOINT ===== */
+
+/* Fog-lag: blur + tone bag kassen men foran baggrundsbilledet */
+#checkpointScene::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse 80% 70% at 50% 45%,
+        rgba(0, 0, 0, 0.55) 0%,
+        rgba(0, 0, 0, 0.3) 50%,
+        transparent 100%
+    );
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1;
+    pointer-events: none;
+}
+
 .checkpoint-content {
     text-align: center;
     padding: 40px 25px;
     max-width: 700px;
     margin: 0 auto;
-    background: rgba(40, 30, 0, 0.75);
+    background: rgba(40, 30, 0, 0.45);
     border-radius: 20px;
-    border: 2px solid rgba(255, 215, 0, 0.3);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 215, 0, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 /* Checkpoint: Carsten mindre så indhold har plads */

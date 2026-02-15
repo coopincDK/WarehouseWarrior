@@ -815,11 +815,21 @@ class WarehouseWarriorGame {
             const minPoints = 100;
             const timeLimit = this.maxTime;
             // Linear: full points at 0s, min points at timeLimit
-            const speedBonus = Math.round(Math.max(minPoints, maxPoints - (timeTaken / timeLimit) * (maxPoints - minPoints)));
-            this.score += speedBonus;
+            let speedBonus = Math.round(Math.max(minPoints, maxPoints - (timeTaken / timeLimit) * (maxPoints - minPoints)));
+            
+            // Point multiplier: Runde 1 (1-5) = x1, Runde 2 (6-10) = x3, Runde 3 (11-15) = x5
+            const currentLevel = this.questions[this.currentQuestionIndex].level;
+            const multiplier = currentLevel >= 11 ? 5 : currentLevel >= 6 ? 3 : 1;
+            const totalPoints = speedBonus * multiplier;
+            
+            this.score += totalPoints;
             document.getElementById('currentScore').textContent = this.score.toLocaleString();
-            this.lastRoundPoints = speedBonus;
-            document.getElementById('pointsEarned').textContent = '+' + speedBonus;
+            this.lastRoundPoints = totalPoints;
+            if (multiplier > 1) {
+                document.getElementById('pointsEarned').textContent = '+' + speedBonus + ' × ' + multiplier + ' = ' + totalPoints;
+            } else {
+                document.getElementById('pointsEarned').textContent = '+' + totalPoints;
+            }
             
             // Vary host reactions for correct answers
             const correctMoods = ['excited', 'thumbsup', 'dancing', 'strong', 'cool'];
@@ -1054,21 +1064,49 @@ class WarehouseWarriorGame {
             }
         }
         
-        this.showScene('checkpointScene');
-        this.playSound('celebrate');
-        this.playSound('crowdCheer');
-    }
-    
-    continueFromCheckpoint() {
-        this.playSound('click');
+        // Carsten tale-boks med random citater
+        const speechEl = document.getElementById('checkpointSpeech');
+        const speechText = document.getElementById('checkpointSpeechText');
+        if (speechEl && speechText) {
+            if (this.currentQuestionIndex >= 10) {
+                // Checkpoint 10 — finale-runde! Dramatisk Carsten.
+                const finalQuotes = [
+                    '😱 Hånden på hjertet — nu bliver det SVÆRT! Men dine point er også ×5 herfra. Så giv den gas! 🚀',
+                    '💪 Nu gælder det! De sidste 5 spørgsmål giver ×5 point. Intet er for stort og intet er for småt — undtagen dine point! 💰',
+                    '🔥 Dugfriske nyheder: Du er i FINALEN! Point ×5 — men spørgsmålene tapper ind i det sværeste stof. Klar? 🎯',
+                    '⚡ Med ro i maven: Du har klaret 10 spørgsmål. Men nu kommer der modvind på cykelstien — og ×5 point som belønning! 🚴‍♂️',
+                    '🏆 For god ordens skyld: Herfra er ALLE point ganget med 5! Men det kræver også at du virkelig kender dit lager-stof. Let\'s go! 💪',
+                    '🚀 Okay, nu er det alvor! ×5 point på ALLE rigtige svar. Det er kommet for at blive — så vis hvad du kan! 🔥'
+                ];
+                speechText.innerHTML = finalQuotes[Math.floor(Math.random() * finalQuotes.length)];
+                speechEl.style.display = 'block';
+                speechEl.classList.add('final-round-speech');
+                speechEl.classList.remove('mid-round-speech');
+            } else if (this.currentQuestionIndex >= 5) {
+                // Checkpoint 5 — point x3!
+                const midQuotes = [
+                    '💡 Godt gået! Og her er en krølle på den: Fra nu af er dine point ganget med 3! ×3 på ALT! 🌟',
+                    '✨ Flot arbejde! Og gode nyheder — dine point er nu ×3! Så svar hurtigt og korrekt, så flyver scoren! 🚀',
+                    '🎯 5 spørgsmål i kassen! Nu øger vi indsatsen: ×3 point på alle rigtige svar herfra. Kan du føle det?! 💪',
+                    '📈 Dugfrisk update: Du har klaret runde 1! Herfra giver hvert rigtigt svar TREDOBBELTE point. Giv den gas! 🔥',
+                    '🏃‍♂️ Stærkt løbet! Og nu med en ekstra bonus: ×3 point på alle svar. Tænk på det som en #RunNTalk — bare hurtigere! 😅',
+                    '💰 For god ordens skyld: Dine point er nu ganget med 3! Det er som at få turbo på din lager-viden. Kør på! 🚀'
+                ];
+                speechText.innerHTML = midQuotes[Math.floor(Math.random() * midQuotes.length)];
+                speechEl.style.display = 'block';
+                speechEl.classList.add('mid-round-speech');
+                speechEl.classList.remove('final-round-speech');
+            } else {
+                speechEl.style.display = 'none';
+            }
+        }
         
-        // Skift til finale-musik ved level 11+ (efter checkpoint 10)
+        // Skift til finale-musik ved checkpoint 10 (så det sker med det samme)
         if (this.currentQuestionIndex >= 10 && !this.inFinalRound) {
             this.inFinalRound = true;
             this.musicTracks = this.finalTracks;
             this.currentTrackIndex = Math.floor(Math.random() * this.finalTracks.length);
             this.playSound('dramatic');
-            // Fade ud normal musik og start finale-track efter kort pause
             if (this.musicPlaying) {
                 const fadeOut = setInterval(() => {
                     if (this.sounds.bgMusic.volume > 0.05) {
@@ -1084,6 +1122,13 @@ class WarehouseWarriorGame {
             }
         }
         
+        this.showScene('checkpointScene');
+        this.playSound('celebrate');
+        this.playSound('crowdCheer');
+    }
+    
+    continueFromCheckpoint() {
+        this.playSound('click');
         this.showScene('questionScene');
         this.loadQuestion();
     }
@@ -1137,7 +1182,11 @@ class WarehouseWarriorGame {
         this.lifelines = { fiftyFifty: false, audience: false, phone: false, extraTime: false };
         document.querySelectorAll('.lifeline-btn').forEach(btn => btn.classList.remove('used'));
         
-        // Skift til tilfældig musik-track
+        // Reset til normal musik-playlist hvis vi var i finale
+        if (this.inFinalRound) {
+            this.inFinalRound = false;
+            this.musicTracks = this.normalTracks;
+        }
         this.currentTrackIndex = Math.floor(Math.random() * this.musicTracks.length);
         if (this.musicEnabled) {
             this.switchMusic(this.musicTracks[this.currentTrackIndex]);
@@ -1155,6 +1204,14 @@ class WarehouseWarriorGame {
             firebaseHighscore.trackEvent('game_abandoned', { subKey: 'q' + (this.currentQuestionIndex + 1) });
         }
         this.gameActive = false;
+        
+        // Reset til normal musik-playlist
+        if (this.inFinalRound) {
+            this.inFinalRound = false;
+            this.musicTracks = this.normalTracks;
+            this.currentTrackIndex = Math.floor(Math.random() * this.normalTracks.length);
+        }
+        
         this.showScene('welcomeScene');
     }
     

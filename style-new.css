@@ -877,6 +877,49 @@ body {
     color: #fff;
 }
 
+/* ===== CHECKPOINT SPEECH BUBBLE ===== */
+.checkpoint-speech {
+    text-align: left;
+    padding: 14px 18px;
+    border-radius: 16px;
+    margin: 12px 0 8px;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    position: relative;
+    animation: speechSlideIn 0.6s ease-out;
+}
+
+.checkpoint-speech p {
+    margin: 0;
+}
+
+/* Runde 2: x3 point - varm/opmuntrende */
+.checkpoint-speech.mid-round-speech {
+    background: linear-gradient(135deg, rgba(0, 200, 100, 0.15), rgba(0, 150, 80, 0.1));
+    border: 2px solid rgba(0, 200, 100, 0.4);
+    border-left: 4px solid #00c864;
+    color: #d4ffe8;
+}
+
+/* Runde 3: x5 point - dramatisk/intens */
+.checkpoint-speech.final-round-speech {
+    background: linear-gradient(135deg, rgba(255, 50, 50, 0.18), rgba(200, 0, 50, 0.12));
+    border: 2px solid rgba(255, 80, 80, 0.5);
+    border-left: 4px solid #ff4444;
+    color: #ffd4d4;
+    animation: speechSlideIn 0.6s ease-out, finalPulse 2s ease-in-out 0.6s infinite;
+}
+
+@keyframes speechSlideIn {
+    from { opacity: 0; transform: translateY(15px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes finalPulse {
+    0%, 100% { border-color: rgba(255, 80, 80, 0.5); box-shadow: 0 0 8px rgba(255, 50, 50, 0.2); }
+    50% { border-color: rgba(255, 80, 80, 0.9); box-shadow: 0 0 20px rgba(255, 50, 50, 0.4); }
+}
+
 /* ===== PRO TIP BOX ===== */
 .pro-tip-box {
     text-align: left;

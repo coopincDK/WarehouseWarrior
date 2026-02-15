@@ -254,6 +254,19 @@ body {
 .player-input {
     text-align: center;
     margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.player-input .btn-primary,
+.player-input .btn-secondary {
+    width: 280px;
+    max-width: 90%;
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    text-align: center;
 }
 
 #playerName {
@@ -296,7 +309,7 @@ body {
     font-weight: bold;
     color: #000;
     background: linear-gradient(135deg, #ffd700, #ffed4e);
-    border: none;
+    border: 2px solid transparent;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1137,6 +1150,8 @@ body {
     .footer-separator { font-size: 0.7rem; }
     .btn-primary { padding: 12px 30px; font-size: 1.1rem; }
     .btn-secondary { padding: 10px 20px; font-size: 0.95rem; }
+    .player-input .btn-primary,
+    .player-input .btn-secondary { width: 260px; padding: 12px 30px; font-size: 1.1rem; box-sizing: border-box; }
     .result-icon { max-width: 80px; }
     .gameover-sign, .victory-sign { max-width: 140px; }
 }
@@ -1156,6 +1171,8 @@ body {
     .player-input { margin: 5px 0; }
     .btn-primary { padding: 10px 25px; font-size: 1rem; }
     .btn-secondary { padding: 8px 18px; font-size: 0.85rem; }
+    .player-input .btn-primary,
+    .player-input .btn-secondary { width: 240px; padding: 10px 25px; font-size: 1rem; box-sizing: border-box; }
     .question-text { font-size: 1.05rem; }
     .question-container { padding: 12px; margin-bottom: 8px; }
     .question-category { padding: 5px 12px; font-size: 0.75rem; margin-bottom: 8px; }

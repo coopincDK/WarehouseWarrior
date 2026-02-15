@@ -10,6 +10,11 @@ body {
     background: #000;
     color: #fff;
     overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* ===== GAME CONTAINER ===== */
@@ -325,6 +330,8 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary:hover {
@@ -578,12 +585,21 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: left;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .answer-btn:hover {
     border-color: #ffd700;
     background: rgba(255, 215, 0, 0.1);
     transform: translateY(-3px);
+}
+
+.answer-btn:active {
+    transform: translateY(-1px);
+    background: rgba(255, 215, 0, 0.15);
 }
 
 .answer-letter {
@@ -2345,4 +2361,31 @@ body {
         height: 26px;
         font-size: 0.8rem;
     }
+}
+
+/* ===== LANDSCAPE MODE (MOBILE) ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .host-image { max-height: 75vh !important; }
+    .host-overlay { max-height: 75vh !important; }
+    .content-overlay { padding: 5px 10px 35px !important; }
+    .question-container { padding: 6px; margin-bottom: 4px; }
+    .answer-btn { padding: 8px 10px; gap: 6px; }
+    .answer-letter { width: 28px; height: 28px; font-size: 0.9rem; }
+    .answer-text { font-size: 0.85rem; }
+    .game-header { padding: 5px 8px; margin-bottom: 5px; }
+    .timer-container { padding: 4px 8px; margin-bottom: 5px; }
+    .btn-primary { padding: 8px 20px; font-size: 0.9rem; }
+    .logo { max-width: 200px; }
+}
+
+/* ===== VERY SMALL SCREENS (< 360px) ===== */
+@media (max-width: 360px) {
+    .question-text { font-size: 0.95rem; }
+    .answer-text { font-size: 0.85rem; }
+    .answer-letter { width: 30px; height: 30px; font-size: 0.95rem; }
+    .answer-btn { padding: 8px 10px; gap: 6px; }
+    .btn-primary { padding: 8px 20px; font-size: 0.9rem; }
+    .logo { max-width: 220px; }
+    .player-input .btn-primary,
+    .player-input .btn-secondary { width: 200px; padding: 8px 20px; font-size: 0.9rem; }
 }

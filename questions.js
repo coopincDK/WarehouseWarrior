@@ -195,11 +195,11 @@ const questionBank = [
     },
     {
         level: 12,
-        question: "Hvor lang tid skal en retur maksimalt ligge ubehandlet?",
-        answers: ["En uge", "Inden dagens slutning eller maks. 2 timer", "En måned", "Det er ligegyldigt"],
+        question: "Hvad anbefaler guiden ift. hvor hurtigt returer bør behandles?",
+        answers: ["Inden for en uge", "Hurtigst muligt, gerne samme dag", "Inden for en måned", "Det er ligegyldigt"],
         correct: 1,
         category: "Returer",
-        explanation: "Returer skal håndteres SAMME DAG - helst inden for 2 timer. Hver dag en retur ligger, er det en vare du ikke kan sælge. Hvis 10 returer ligger i en uge, har du bundet 10 varer i 70 dage samlet. Det er tabt salg!"
+        explanation: "Guiden anbefaler at returer behandles hurtigst muligt — gerne samme dag. Hver dag en retur ligger, er det en vare du ikke kan sælge. Hurtig håndtering giver bedre økonomi og gladere kunder."
     },
     {
         level: 12,
@@ -1082,7 +1082,7 @@ const questionBank = [
         correct: 2,
         category: "Plukkestrategi",
         explanation: "Farvekoder bruges praktisk til at indikere, hvilke ordrer eller ruter der har højeste prioritet (fx hasteordrer), så plukningen kan styres bedre.",
-        proTip: "Et WMS kan automatisk prioritere og farvemarkere ordrer baseret på deadline, forsendelsesmetode eller kundegruppe."
+        proTip: "Med et scannersystem kan prioritering ske automatisk — systemet viser plukkeren hvilke ordrer der haster, uden behov for manuelle farvekoder på kasser."
     },
     {
         level: 4,
@@ -1407,6 +1407,297 @@ const questionBank = [
         category: "Generelt",
         explanation: "Guiden understreger, at de største gevinster ofte ligger i simple, kontinuerlige forbedringer – ikke nødvendigvis i store engangsinvesteringer.",
         proTip: "Når de manuelle forbedringer er på plads, er du klar til næste skridt: et simpelt WMS eller lagersystem der bygger videre på det fundament du allerede har skabt."
+    },
+    {
+        level: 14,
+        question: "Hvad måler nøgletallet 'gennemløbstid'?",
+        answers: ["Hvor lang tid en vare er på lager", "Tiden fra ordren er modtaget, til pakken er klar til afhentning", "Hvor hurtigt transportøren leverer", "Antallet af returvarer pr. dag"],
+        correct: 1,
+        category: "Nøgletal",
+        explanation: "Gennemløbstid måler den interne tid på lageret – fra ordren lander, til den er plukket, pakket og klar til afhentning. Det afslører interne flaskehalse.",
+        proTip: "Et WMS kan automatisk måle gennemløbstiden pr. ordre og vise trends — så ser du straks om en procesændring gør en forskel."
+    },
+    {
+        level: 6,
+        question: "Hvad er den anbefalede 3-trins model til onboarding af nye medarbejdere?",
+        answers: ["Uddannelse, eksamen, certificering", "Intro, én fast rolle, makkerordning", "Læs manualen, se videoer, start selv", "Først pakke, så plukke, så rydde op"],
+        correct: 1,
+        category: "Pakkefejl",
+        explanation: "Guiden anbefaler: 1) Kort intro til lageret, 2) Start med én fast rolle (fx kun pak), 3) Hav en erfaren makker de første dage. Det skaber tryghed og færre fejl."
+    },
+    {
+        level: 7,
+        question: "Hvordan anbefaler guiden, at man håndterer reklamationer forskelligt fra almindelige returer?",
+        answers: ["Alle reklamationer afvises som udgangspunkt", "Ved at bruge en model, fx 'under X kr.' løses hurtigt, 'over X kr.' kræver billeder og vurdering", "Alle reklamationer sendes direkte til leverandøren", "Ved at give dobbelt erstatning på alle reklamationer"],
+        correct: 1,
+        category: "Returer",
+        explanation: "En simpel model som 'under X kr. løses med det samme, over X kr. kræver dokumentation' gør processen effektiv og forudsigelig, uden at du taber for mange penge."
+    },
+    {
+        level: 10,
+        question: "Hvordan kan en lille webshop ifølge guiden opnå bedre fragtpriser uden at have stor volumen?",
+        answers: ["Ved at true med at skifte transportør hver måned", "Ved at tilbyde struktur og forudsigelighed, fx ved selv at sortere pakker eller indlevere på terminalen", "Ved kun at sende pakker én gang om måneden", "Ved at betale et år forud"],
+        correct: 1,
+        category: "Fragt",
+        explanation: "Du vinder ikke på størrelse, men på struktur. Ved at gøre det nemmere for transportøren (fx ved at sortere eller indlevere selv), kan du ofte forhandle dig til bedre vilkår."
+    },
+    {
+        level: 8,
+        question: "Hvorfor kan 'fælles' områder på lageret, hvor alle bare kan tage, føre til mere svind?",
+        answers: ["Fordi det er ulovligt ifølge arbejdsmiljøloven", "Fordi det skaber en kultur, hvor ingen føler ejerskab eller ansvar for området", "Fordi det gør det lettere at holde rent", "Fordi det ser pænere ud"],
+        correct: 1,
+        category: "Svind",
+        explanation: "Når ingen har et klart ansvar for et område, er det lettere, at ting forsvinder, uden at nogen reagerer. Klare ansvarsområder gør svind synligt."
+    },
+    {
+        level: 8,
+        question: "Hvad anbefaler guiden, at du gør, hvis du midlertidigt må flytte en vare fra dens faste plads?",
+        answers: ["Huske hvor du har stillet den", "Lægge en seddel eller magnet på den tomme plads, så alle kan se, hvor varen er flyttet hen", "Opdatere varens placering i webshoppen med det samme", "Sætte varen på udsalg"],
+        correct: 1,
+        category: "Svind",
+        explanation: "En simpel seddel eller magnet på den tomme hylde, der viser den midlertidige placering, forhindrer, at varen bliver 'væk' og skaber forvirring.",
+        proTip: "Med et lagersystem kan du registrere midlertidige flytninger digitalt — så ved alle præcis hvor varen er, uden fysiske sedler."
+    },
+    {
+        level: 2,
+        question: "Hvad er den primære fordel ved et hæve-sænkebord ved pakkestationen?",
+        answers: ["Det ser moderne ud", "Det er et lovkrav for alle lagre", "Det forbedrer ergonomien og kan reducere træthed og fejl", "Det gør det muligt at stable flere pakker"],
+        correct: 2,
+        category: "Lagerindretning",
+        explanation: "Et hæve-sænkebord er en lille investering i bedre ergonomi, som kan føre til færre sygedage, mindre træthed og dermed færre fejl i pakkeriet."
+    },
+    {
+        level: 2,
+        question: "Hvad menes der med at 'plukke direkte fra nyankomne varer'?",
+        answers: ["At alle varer skal plukkes, så snart de ankommer", "En metode hvor varer, der skal direkte videre til en kunde, ikke lægges på lager først", "At kunderne selv kan hente varer i varemodtagelsen", "At alle nyankomne varer skal tælles to gange"],
+        correct: 1,
+        category: "Lagerindretning",
+        explanation: "Det er en form for cross-docking, hvor du sparer tid ved at sende varer direkte fra modtagelse til afsendelse, uden at de optager lagerplads. Ideelt til forudbestillinger."
+    },
+    {
+        level: 10,
+        question: "Hvad er en vigtig overvejelse, når du fastsætter din grænse for fri fragt?",
+        answers: ["At den skal være så lav som muligt for at tiltrække kunder", "At den skal matche din største konkurrents grænse præcist", "At den skal ligge på et niveau, hvor du stadig tjener penge på ordren", "At den kun skal gælde for A-varer"],
+        correct: 2,
+        category: "Fragt",
+        explanation: "Du skal regne på det. Hvis din fri fragt-grænse er for lav, risikerer du at tabe penge på mange ordrer, fordi fragtomkostningen spiser din avance."
+    },
+    {
+        level: 12,
+        question: "Hvad er det vigtigste at gøre i 'efter'-fasen af en stor kampagne?",
+        answers: ["Holde en stor fest for medarbejderne", "Slette alle data fra kampagnen for at overholde GDPR", "Samle nøgletal og evaluere med teamet, hvad der gik godt, og hvad der skal forbedres til næste gang", "Give alle kunder en ekstra rabatkode"],
+        correct: 2,
+        category: "Kampagner",
+        explanation: "'Efter'-fasen er der, hvor læringen sker. Ved at analysere data og evaluere processen sikrer du, at du ikke gentager de samme fejl næste gang."
+    },
+    {
+        level: 13,
+        question: "Hvad bør en god exit-plan i en 3PL-aftale som minimum indeholde?",
+        answers: ["En liste over 3PL-partnerens konkurrenter", "En klar proces for hvordan lageret flyttes, hvad det koster, og hvordan du får dine data ud", "En klausul om at du aldrig må skifte partner", "En aftale om at 3PL-partneren beholder alle dine C-varer"],
+        correct: 1,
+        category: "3PL",
+        explanation: "En exit-plan er din forsikring. Den skal tydeligt beskrive omkostninger, proces og tidslinje for at flytte dit lager og dine data, hvis samarbejdet ophører."
+    },
+    {
+        level: 5,
+        question: "Hvorfor er det vigtigt at sprede dine A-varer ud i A-zonen i stedet for at samle dem alle på ét sted?",
+        answers: ["Fordi det ser pænere ud i reolerne", "Fordi det gør det lettere at tælle dem", "Fordi plukkere ellers står oven i hinanden og skaber kø i den travleste zone", "Fordi transportøren kræver det"],
+        correct: 2,
+        category: "Lagerindretning",
+        explanation: "Hvis alle A-varer står samlet på få hylder, opstår der kø, når flere plukkere skal derhen samtidig. Spred dem ud, så A-zonen ikke selv bliver en flaskehals."
+    },
+    {
+        level: 9,
+        question: "Hvad er fordelen ved at samle dine afsendelser til færre dage om ugen i stedet for at sende hver dag?",
+        answers: ["Det giver kunderne en bedre oplevelse", "Det reducerer behovet for emballage", "Det gør dig mere forudsigelig for transportøren og kan give bedre fragtvilkår", "Det er et krav fra de fleste fragtportaler"],
+        correct: 2,
+        category: "Fragt",
+        explanation: "Når du samler afsendelser, bliver du mere forudsigelig for transportøren. Det kan give bedre prisstrukturer, mere fleksibel afhentning og en bedre relation."
+    },
+    {
+        level: 11,
+        question: "Hvad er kerneprincippet i guidens anbefaling om tavlemøder?",
+        answers: ["Gennemgå alle ugens ordrer én for én", "Vælg maks. én konkret ting, der skal ændres inden næste uge", "Lav en detaljeret handlingsplan med mindst 10 forbedringspunkter", "Hold mødet mindst en time for at nå alt igennem"],
+        correct: 1,
+        category: "Generelt",
+        explanation: "Små forbedringer over tid slår store ambitioner, der aldrig bliver til noget. Vælg én ting, gennemfør den, og tag den næste til næste uge. Konsistens er nøglen."
+    },
+    {
+        level: 9,
+        question: "Hvorfor anbefaler guiden, at ansvaret for lageroptælling skifter mellem medarbejdere?",
+        answers: ["Fordi det er mere retfærdigt", "Fordi det er et lovkrav", "Fordi flere lærer lageret godt at kende, og du undgår afhængighed af én person", "Fordi det gør optællingen hurtigere"],
+        correct: 2,
+        category: "Svind",
+        explanation: "Når ansvaret roterer, får flere medarbejdere et godt kendskab til lageret. Det reducerer afhængighed af nøglepersoner og giver friske øjne på eventuelle afvigelser."
+    },
+    {
+        level: 3,
+        question: "Hvorfor anbefaler guiden at sætte pris på emballagen ud over stregkode og varenummer?",
+        answers: ["Fordi det er et lovkrav ved salg af emballage", "Fordi det gør det lettere at bogføre emballageomkostninger", "Fordi pakkemedarbejderen kan se konsekvensen af at vælge en dyr kasse frem for en billigere", "Fordi kunderne gerne vil vide, hvad emballagen koster"],
+        correct: 2,
+        category: "Emballage",
+        explanation: "Når prisen er synlig, motiverer det pakkemedarbejderen til at vælge den billigste passende kasse i stedet for bare at gribe den nærmeste store kasse. Det sparer penge på både emballage og fragt."
+    },
+    // NIVEAU 13-15: Avanceret (Scenariebaserede spørgsmål)
+    {
+        level: 13,
+        question: "Du skal onboarde 5 nye vikarer en uge før Black Friday. Hvad er den vigtigste prioritet i deres oplæring?",
+        answers: ["At de lærer hele lageret at kende", "At de lærer at håndtere de mest komplekse ordrer", "At de bliver eksperter i én enkelt, simpel opgave, fx at pakke single-line ordrer", "At de læser hele lagerhåndbogen"],
+        correct: 2,
+        category: "Avanceret",
+        explanation: "Under pres er specialisering nøglen. Ved at gøre vikarerne til eksperter i én afgrænset opgave minimerer du fejl og maksimerer deres effektivitet, selv med kort oplæring."
+    },
+    {
+        level: 13,
+        question: "Du har kun budget til én af disse: nye plukkevogne eller bedre belysning over pakkebordet. Din pakkefejlsprocent er høj. Hvad bør du vælge?",
+        answers: ["Plukkevogne, fordi de sparer flest skridt", "Bedre belysning, fordi mange fejl opstår, fordi man ikke kan se ordentligt", "Ingen af delene, spar pengene til et WMS", "En lønforhøjelse til den hurtigste plukker"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "Guiden understreger, at dårlig belysning er en hyppig og undervurderet årsag til fejl. Hvis fejlprocenten er høj, er det ofte en mere direkte og billigere løsning end nye vogne."
+    },
+    {
+        level: 13,
+        question: "Hvordan bør du justere din min/max-styring på A-varer op til en stor, planlagt kampagne som Black Friday?",
+        answers: ["Du skal ignorere min/max og bestille så meget som muligt hjem", "Du skal sænke både minimum og maksimum for at undgå overstock efter kampagnen", "Du skal midlertidigt hæve både minimum og især maksimum for at kunne håndtere den forventede stigning i salget", "Du skal kun fokusere på C-varer op til en kampagne"],
+        correct: 2,
+        category: "Avanceret",
+        explanation: "Min/max skal afspejle forventet salg. Op til en kampagne skal du midlertidigt justere dine niveauer op for at undgå at løbe tør for dine vigtigste varer midt i det hele."
+    },
+    {
+        level: 13,
+        question: "En ny medarbejder er super hurtig til at oprette nye varer, men glemmer ofte at følge SKU-konventionen. Hvad er den største langsigtede risiko?",
+        answers: ["At lageret ser rodet ud", "At det bliver umuligt at lave en præcis ABC-analyse og en fremtidig migrering til et WMS bliver et mareridt", "At medarbejderen bliver demotiveret", "At I løber tør for varenumre"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "Dårlig datahygiejne er en teknisk gæld, der vokser over tid. Den største omkostning er ikke rod, men at det ødelægger dine muligheder for analyse og fremtidig automatisering."
+    },
+    {
+        level: 13,
+        question: "Hvad er den største risiko ved IKKE at have en klar exit-plan i din 3PL-aftale fra dag ét?",
+        answers: ["At din 3PL-partner bliver sur, hvis du nævner det", "At du bliver 'låst fast' hos en partner, der ikke performer, fordi omkostningerne og besværet ved at flytte er uoverskuelige", "At du går glip af en rabat", "At du ikke kan skifte til en billigere partner med det samme"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "En manglende exit-plan fjerner din forhandlingskraft. Hvis det er for dyrt og komplekst at flytte, er du reelt stavnsbundet, selvom partnerskabet er dårligt."
+    },
+    {
+        level: 13,
+        question: "Din A-zone er perfekt, men dine B- og C-varer er totalt uorganiserede. Hvilket problem vil du primært opleve?",
+        answers: ["Langsommere pluk af A-varer", "At din rullende lageroptælling bliver næsten umulig at gennemføre effektivt", "At dine medarbejdere bliver demotiverede", "At du ikke kan modtage nye varer"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "Selvom du ikke plukker B- og C-varer ofte, skal de stadig tælles. Rod i disse zoner gør lageroptælling til et mareridt, hvilket fører til upålidelige lagerdata over tid."
+    },
+    {
+        level: 13,
+        question: "Du har en A-vare, der ofte kommer retur pga. 'forkert størrelse'. Hvad er den mest proaktive løsning ifølge guidens principper?",
+        answers: ["At fjerne varen fra sortimentet", "At forbedre produktbeskrivelsen og størrelsesguiden på webshoppen markant", "At bestille færre af den pågældende vare hjem", "At sende to forskellige størrelser til kunden og bede dem returnere den, der ikke passer"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "Returdata skal bruges proaktivt. I stedet for kun at håndtere returen, skal du løse grundårsagen. En bedre størrelsesguide forhindrer fremtidige returer og forbedrer kundeoplevelsen."
+    },
+    {
+        level: 14,
+        question: "Din ABC-analyse viser, at en A-vare er fysisk meget stor og uhåndterbar. Hvad er den bedste løsning ifølge guidens principper?",
+        answers: ["At ignorere ABC-analysen for denne vare og placere den bagerst", "At placere den i A-zonen, selvom den blokerer for andre varer", "At finde en dedikeret plads til den tæt på flowet, men hvor den ikke er i vejen for de andre, mindre A-varer", "At stoppe med at sælge varen"],
+        correct: 2,
+        category: "Avanceret",
+        explanation: "Princippet er at reducere skridt, men ikke på bekostning af hele flowet. En dedikeret plads tæt på, men uden for den primære A-zone, er den bedste balance mellem ABC-princippet og praktisk lagerdrift."
+    },
+    {
+        level: 14,
+        question: "Hvornår kan batch-plukning ironisk nok øge den samlede gennemløbstid for en enkelt hasteordre?",
+        answers: ["Aldrig, batch-plukning er altid hurtigere", "Hvis hasteordren bliver holdt tilbage i et stort batch, der først skal plukkes færdigt", "Hvis hasteordren indeholder en C-vare", "Hvis der bruges plukkekasser"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "Batch-plukning optimerer for den samlede tid, ikke for den enkelte ordre. En hasteordre kan sidde fast i et stort batch og vente på at blive plukket, selvom den kunne være plukket hurtigere alene."
+    },
+    {
+        level: 14,
+        question: "Du vil skabe en 'wow'-oplevelse med special-emballage, men det øger fragtprisen med 10 kr. pr. ordre. Hvordan vurderer du, om det er en god idé?",
+        answers: ["Det er altid en god idé, fordi kundeoplevelsen er vigtigst", "Ved at måle om den øgede omkostning fører til en mærkbar stigning i genkøbsrate eller kundetilfredshed", "Ved at spørge transportøren, om de kan give rabat", "Det er aldrig en god idé at øge omkostningerne"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "En 'wow'-oplevelse er kun en god investering, hvis den betaler sig tilbage i form af øget loyalitet og genkøb. Det skal måles, ikke bare føles rigtigt."
+    },
+    {
+        level: 14,
+        question: "Du indfører en ny plukkerute. 'Pluk pr. time' stiger med 20%, men 'pakkefejlsprocenten' stiger også. Hvad er det mest sandsynlige problem?",
+        answers: ["Medarbejderne er blevet dårligere til at pakke", "Den nye rute skaber stress eller forvirring, som fører til flere fejl", "Systemet måler forkert", "Kunderne er begyndt at bestille sværere varer"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "Nøgletal skal ses i sammenhæng. En stigning i effektivitet, der samtidig øger fejlraten, peger på, at den nye proces er for stressende, ulogisk eller mangler indbygget kvalitetssikring."
+    },
+    {
+        level: 14,
+        question: "Du laver rullende optælling og finder konstante små-afvigelser på dine B-varer. Hvad er den mest sandsynlige årsag ifølge guiden?",
+        answers: ["Systematisk tyveri af B-varer", "At B-varerne er placeret forkert", "Proces-svind: små fejl i hverdagen som manglende registrering ved modtagelse eller pluk", "At B-varer er mere følsomme over for fugt"],
+        correct: 2,
+        category: "Avanceret",
+        explanation: "Konstante små-afvigelser peger sjældent på stort, planlagt tyveri, men oftere på små, gentagne fejl i de daglige processer. Løsningen er bedre processer, ikke mere overvågning."
+    },
+    {
+        level: 14,
+        question: "Hvorfor er det ifølge guiden vigtigere at sortere din ABC-analyse efter 'antal ordrer varen er med på' end efter 'omsætning'?",
+        answers: ["Fordi det giver et mere præcist billede af, hvor ofte du skal gå hen til en vare", "Fordi varer med høj omsætning ofte er C-varer", "Fordi det er nemmere at trække den rapport fra de fleste shopsystemer", "Fordi omsætning er et misvisende tal"],
+        correct: 0,
+        category: "Avanceret",
+        explanation: "En dyr vare med høj omsætning, du kun sælger én gang om måneden, skal ikke optage plads i A-zonen. En billig vare, du plukker 20 gange om dagen, skal. Antal pluk (ordrer) er det, der bestemmer dine skridt, ikke omsætningen."
+    },
+    {
+        level: 15,
+        question: "Din fejllog viser næsten ingen pakkefejl, men din returlog er fuld af 'forkert vare modtaget'. Hvad er det mest sandsynlige problem?",
+        answers: ["Kunderne lyver om årsagen til returnering", "Fejlloggen bliver ikke udfyldt korrekt, og der er en kultur, hvor fejl skjules", "Dit shopsystem sender forkerte ordredata til lageret", "Transportøren bytter rundt på pakkerne"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "Når de to datakilder er i direkte modstrid, peger det oftest på et proces- eller kulturproblem. Hvis fejl ikke logges (af frygt for konsekvenser), er loggen værdiløs, og du kan ikke løse de reelle årsager."
+    },
+    {
+        level: 15,
+        question: "Din 3PL-partner overholder sin SLA på 99,5% korrekte pluk, men de 0,5% fejl rammer altid dine vigtigste kunder. Hvad er det grundlæggende problem?",
+        answers: ["SLA'en er for dårlig og skal være 100%", "Dine vigtigste kunder er for krævende", "En SLA måler gennemsnit og tager ikke højde for, HVEM fejlene rammer. Problemet er et partnerskab, der ikke forstår din forretning.", "Du skal selv plukke ordrer til de vigtigste kunder"],
+        correct: 2,
+        category: "Avanceret",
+        explanation: "En SLA er kun et tal. Hvis fejlene konsekvent rammer dine VIP-kunder, er partnerskabet og den fælles forståelse for din forretning problemet, ikke kun procenttallet."
+    },
+    {
+        level: 15,
+        question: "Hvorfor er 'bundet lager i langsomme varer' et farligere nøgletal end en lav 'pluk pr. time'?",
+        answers: ["Fordi det er sværere at beregne", "Fordi det direkte påvirker virksomhedens likviditet og evne til at investere i A-varer", "Fordi det er et tegn på dårlig ledelse", "Fordi det altid fører til flere pakkefejl"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "Langsom pluk er en operationel omkostning. Bundet kapital i C-varer er en strategisk omkostning, der dræner din likviditet og forhindrer dig i at investere i de varer, der rent faktisk driver din forretning."
+    },
+    {
+        level: 15,
+        question: "Hvorfor er en fast returproces (modtag -> tjek -> beslut -> opdater) vigtigere for bundlinjen end en hurtig plukkeproces?",
+        answers: ["Fordi plukning kan automatiseres, men returhåndtering kan ikke", "Fordi en ineffektiv returproces skaber 'skjult lager' af varer, der ikke kan sælges, og binder kapital", "Fordi kunderne er mere tilgivende over for langsom levering end langsom returbehandling", "Fordi det er lovpligtigt at have en fast returproces"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "En langsom plukkeproces koster løntimer. En dårlig returproces koster både løntimer OG binder kapital i varer, der ligger i limbo. Det er en dobbelt omkostning."
+    },
+    {
+        level: 15,
+        question: "Du overvejer et WMS. Hvilket problem løser et WMS, som en optimeret ABC-analyse og batch-plukning IKKE kan løse?",
+        answers: ["At reducere antallet af skridt på lageret", "At finde den hurtigste plukkerute dynamisk baseret på ordrernes indhold og plukkernes placering", "At vide hvilke varer der sælger mest", "At håndtere single-line og multi-line ordrer forskelligt"],
+        correct: 1,
+        category: "Avanceret",
+        explanation: "Manuelle systemer som ABC og batch-pluk er statiske. Et WMS kan dynamisk optimere ruter i realtid, hvilket er en kompleksitet, manuelle processer ikke kan matche."
+    },
+    {
+        level: 15,
+        question: "Du har 100 ordrer. 50 er single-line ordrer på den samme A-vare. 50 er multi-line ordrer med B- og C-varer. Hvad er den mest effektive strategi?",
+        answers: ["At plukke alle 100 ordrer i én lang rute", "At starte med multi-line ordrerne, fordi de er sværest", "At lave et stort batch-pluk på de 50 single-line ordrer først, og derefter plukke multi-line ordrerne i et separat batch", "At plukke én ordre ad gangen for at undgå fejl"],
+        correct: 2,
+        category: "Avanceret",
+        explanation: "Dette er kernen i at opdele plukkestrategier. Ved at fjerne de 50 simple ordrer først i et hurtigt batch-pluk, frigør du tid og mental kapacitet til at håndtere de mere komplekse multi-line ordrer bagefter."
+    },
+    {
+        level: 15,
+        question: "Du har indført tavlemøder, men medarbejderne byder ikke ind med forbedringsforslag. Hvad er den mest sandsynlige årsag ifølge guidens tone?",
+        answers: ["Medarbejderne har ingen gode idéer", "Møderne er for korte", "Der er en kultur, hvor fokus er på at finde syndebukke, ikke på at løse problemer i fællesskab", "Du har allerede optimeret alt, hvad der kan optimeres"],
+        correct: 2,
+        category: "Avanceret",
+        explanation: "Hvis medarbejdere er tavse, er det ofte et tegn på, at de ikke føler sig trygge. Hvis tidligere forslag er blevet skudt ned, eller hvis fejl fører til skældud, holder folk op med at byde ind. Fokus skal være på læring, ikke skyld."
     }
 ];
 

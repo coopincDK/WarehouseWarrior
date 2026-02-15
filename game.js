@@ -165,7 +165,8 @@ class WarehouseWarriorGame {
             'Fragt': { chapter: 'Kapitel 12: Fragt & Levering', url: 'https://smartpack.dk/lagerhaandbog#kapitel12' },
             'Emballage': { chapter: 'Kapitel 13: Emballage', url: 'https://smartpack.dk/lagerhaandbog#kapitel13' },
             'Kampagner': { chapter: 'Kapitel 14: Kampagner & Peak', url: 'https://smartpack.dk/lagerhaandbog#kapitel14' },
-            'Generelt': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' }
+            'Generelt': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' },
+            'Avanceret': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' }
         };
         
         // Kategori til ikon-mapping
@@ -180,7 +181,8 @@ class WarehouseWarriorGame {
             'Svind': 'assets/images/icons/43_kategori_svind_lageroptaelling.png',
             'Nøgletal': 'assets/images/icons/44_kategori_noegletal.png',
             '3PL': 'assets/images/icons/45_kategori_3pl_skalering.png',
-            'Generelt': 'assets/images/icons/02_quiz_spoergsmaalstegn_ikon.png'
+            'Generelt': 'assets/images/icons/02_quiz_spoergsmaalstegn_ikon.png',
+            'Avanceret': 'assets/images/icons/02_quiz_spoergsmaalstegn_ikon.png'
         };
         
         // Psyk-billeder til "Er du sikker?"

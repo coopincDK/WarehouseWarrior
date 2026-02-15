@@ -196,8 +196,8 @@ class WarehouseWarriorGame {
         this.streak = 0;
         this.bestStreak = 0;
         
-        // Music tracks
-        this.musicTracks = [
+        // Music tracks - normal playlist (level 1-10)
+        this.normalTracks = [
             'assets/music/Semo - The Microwave Dance.mp3',
             'assets/music/Ian Post - Super Duper.mp3',
             'assets/music/Matt Evans - Comedy of Errors.mp3',
@@ -211,6 +211,18 @@ class WarehouseWarriorGame {
             'assets/music/Rex Banner - So Fresh.mp3',
             'assets/music/Rex Banner - Turn It Up - No Lead Vocals.mp3'
         ];
+        
+        // Final round playlist (level 11-15) - dramatisk stemningsskift
+        this.finalTracks = [
+            'assets/music/Raz Burg - Rushing Earth.mp3',
+            'assets/music/Kyle Preston - Medieval Hitman.mp3',
+            'assets/music/Elia Azarzar - March of the Damned.mp3',
+            'assets/music/Jan Sanejko - The Brave Ones.mp3',
+            'assets/music/Tilman Sillescu - Into the Transcendence.mp3'
+        ];
+        
+        this.musicTracks = this.normalTracks;
+        this.inFinalRound = false;
         this.currentTrackIndex = Math.floor(Math.random() * this.musicTracks.length);
         
         // Auto-skip til næste track når en track slutter
@@ -330,10 +342,20 @@ class WarehouseWarriorGame {
         
         this.playSound('whoosh');
         
+        // Reset til normal musik-playlist ved ny quiz
+        if (this.inFinalRound) {
+            this.inFinalRound = false;
+            this.musicTracks = this.normalTracks;
+            this.currentTrackIndex = Math.floor(Math.random() * this.normalTracks.length);
+        }
+        
         // Start music if enabled and not playing
         if (this.musicEnabled && !this.musicPlaying) {
             this.switchMusic(this.musicTracks[this.currentTrackIndex]);
             this.musicPlaying = true;
+        } else if (this.musicEnabled && this.musicPlaying) {
+            // Skift til normal track hvis vi kom fra finale
+            this.switchMusic(this.musicTracks[this.currentTrackIndex]);
         }
         
         // Track spil startet + session data
@@ -1039,6 +1061,29 @@ class WarehouseWarriorGame {
     
     continueFromCheckpoint() {
         this.playSound('click');
+        
+        // Skift til finale-musik ved level 11+ (efter checkpoint 10)
+        if (this.currentQuestionIndex >= 10 && !this.inFinalRound) {
+            this.inFinalRound = true;
+            this.musicTracks = this.finalTracks;
+            this.currentTrackIndex = Math.floor(Math.random() * this.finalTracks.length);
+            this.playSound('dramatic');
+            // Fade ud normal musik og start finale-track efter kort pause
+            if (this.musicPlaying) {
+                const fadeOut = setInterval(() => {
+                    if (this.sounds.bgMusic.volume > 0.05) {
+                        this.sounds.bgMusic.volume = Math.max(0, this.sounds.bgMusic.volume - 0.05);
+                    } else {
+                        clearInterval(fadeOut);
+                        this.switchMusic(this.finalTracks[this.currentTrackIndex]);
+                    }
+                }, 50);
+            } else {
+                this.switchMusic(this.finalTracks[this.currentTrackIndex]);
+                this.musicPlaying = true;
+            }
+        }
+        
         this.showScene('questionScene');
         this.loadQuestion();
     }

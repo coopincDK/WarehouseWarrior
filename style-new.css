@@ -884,7 +884,7 @@ body {
     background: linear-gradient(135deg, rgba(40, 30, 0, 0.75), rgba(30, 20, 0, 0.7));
     border: 2px solid rgba(255, 200, 0, 0.35);
     border-radius: 16px;
-    margin: 8px 0;
+    margin: 20px 0 8px;
     font-size: 1.05rem;
     line-height: 1.5;
     color: #fff5d4;

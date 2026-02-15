@@ -1133,6 +1133,23 @@ class WarehouseWarriorGame {
         this.loadQuestion();
     }
     
+    showWelcomeQuote() {
+        const quotes = [
+            '🎯 Klar til at teste din lager-viden? Hånden på hjertet — det bliver sjovt! 🚀',
+            '📦 Tør du tage udfordringen? 15 spørgsmål, 3 runder, og point der stiger! Lad os se hvad du kan 💪',
+            '🏆 Dugfrisk quiz klar! Vis at du er en ægte Warehouse Warrior — tryk Start! 🔥',
+            '💡 Vidste du at de bedste lagre kører med struktur og disciplin? Test om DU har styr på det! 📋',
+            '🇩🇰 Velkommen! Små, løbende forbedringer skaber den største værdi — også i en quiz. Klar? ⚡',
+            '🎮 Nysgerrig på hvor god du er til lager? Der er kun én måde at finde ud af det på! Tryk Start 🚀',
+            '📊 Fun fact: De fleste fejl på lageret skyldes manglende struktur. Lad os se om DU kender løsningerne! 💡',
+            '🏃‍♂️ Tænk på det som en #RunNTalk — bare uden løbeskoene. Klar til at give den gas? 😅',
+            '🔥 Intet er for stort og intet er for småt — heller ikke din lager-viden. Bevis det! 🎯',
+            '⭐ Med ro i maven: Det her bliver fedt. 15 spørgsmål, stigende sværhedsgrad, og DU i hovedrollen! 🎬'
+        ];
+        const el = document.getElementById('welcomeSpeechText');
+        if (el) el.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+    }
+    
     gameComplete() {
         if (this.correctAnswers >= 12) {
             this.victory();
@@ -1199,6 +1216,7 @@ class WarehouseWarriorGame {
     goHome() {
         this.playSound('click');
         this.stopTimer();
+        this.showWelcomeQuote();
         // Track at spilleren forlod spillet frivilligt
         if (this.gameActive && typeof firebaseHighscore !== 'undefined') {
             firebaseHighscore.trackEvent('game_abandoned', { subKey: 'q' + (this.currentQuestionIndex + 1) });
@@ -1546,6 +1564,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Init Firebase highscore
     await firebaseHighscore.init();
     game = new WarehouseWarriorGame();
+    game.showWelcomeQuote();
     
     // Track abandon ved browser-luk/navigation
     window.addEventListener('beforeunload', () => {

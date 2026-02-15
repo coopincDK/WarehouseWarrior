@@ -877,6 +877,24 @@ body {
     color: #fff;
 }
 
+/* ===== WELCOME SPEECH BUBBLE ===== */
+.welcome-speech {
+    text-align: center;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, rgba(255, 200, 0, 0.14), rgba(255, 160, 0, 0.08));
+    border: 2px solid rgba(255, 200, 0, 0.35);
+    border-radius: 16px;
+    margin: 8px 0;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: #fff5d4;
+    animation: speechSlideIn 0.8s ease-out;
+}
+
+.welcome-speech p {
+    margin: 0;
+}
+
 /* ===== CHECKPOINT SPEECH BUBBLE ===== */
 .checkpoint-speech {
     text-align: left;

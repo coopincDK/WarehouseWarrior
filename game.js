@@ -199,7 +199,12 @@ class WarehouseWarriorGame {
             'assets/music/Ilona Harpaz - Rabbit Hole.mp3',
             'assets/music/T Bless - Froggy Fraud Adventure.mp3',
             'assets/music/Mac A DeMia - Smoothie Moody.mp3',
-            'assets/music/Ian Post - Breaking Point.mp3'
+            'assets/music/Ian Post - Breaking Point.mp3',
+            'assets/music/Dizzy - Lift Me Up.mp3',
+            'assets/music/FASSounds - Rock Your Body.mp3',
+            'assets/music/Liquify - Sky Dive.mp3',
+            'assets/music/Rex Banner - So Fresh.mp3',
+            'assets/music/Rex Banner - Turn It Up - No Lead Vocals.mp3'
         ];
         this.currentTrackIndex = Math.floor(Math.random() * this.musicTracks.length);
         

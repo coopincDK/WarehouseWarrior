@@ -1101,25 +1101,19 @@ class WarehouseWarriorGame {
             }
         }
         
-        // Skift til finale-musik ved checkpoint 10 (så det sker med det samme)
+        // Skift til finale-musik ved checkpoint 10
         if (this.currentQuestionIndex >= 10 && !this.inFinalRound) {
             this.inFinalRound = true;
             this.musicTracks = this.finalTracks;
             this.currentTrackIndex = Math.floor(Math.random() * this.finalTracks.length);
             this.playSound('dramatic');
-            if (this.musicPlaying) {
-                const fadeOut = setInterval(() => {
-                    if (this.sounds.bgMusic.volume > 0.05) {
-                        this.sounds.bgMusic.volume = Math.max(0, this.sounds.bgMusic.volume - 0.05);
-                    } else {
-                        clearInterval(fadeOut);
-                        this.switchMusic(this.finalTracks[this.currentTrackIndex]);
-                    }
-                }, 50);
-            } else {
+            // Stop nuværende musik og start finale-track efter kort dramatisk pause
+            this.sounds.bgMusic.pause();
+            this.sounds.bgMusic.volume = 0;
+            setTimeout(() => {
                 this.switchMusic(this.finalTracks[this.currentTrackIndex]);
                 this.musicPlaying = true;
-            }
+            }, 1500); // 1.5 sek pause så dramatic-lyden høres først
         }
         
         this.showScene('checkpointScene');

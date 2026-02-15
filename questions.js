@@ -400,10 +400,10 @@ const questionBank = [
     {
         level: 6,
         question: "Hvad er eksemplet fra virkeligheden på batch-plukning under Black Friday?",
-        answers: ["10 ordrer på 1 time", "675 single-line ordrer på lidt over 2 timer med 2 personer", "1000 ordrer på en dag", "50 ordrer på 10 minutter"],
+        answers: ["10 ordrer på 1 time", "Lidt under 700 single-line ordrer plukket OG pakket på lidt over 2 timer med 2 personer", "1000 ordrer på en dag", "50 ordrer på 10 minutter"],
         correct: 1,
         category: "Plukkestrategi",
-        explanation: "Et virkeligt eksempel fra Black Friday: 2 personer plukkede 675 single-line ordrer på lidt over 2 timer ved at batch-plukke! Det er over 300 ordrer i timen. Uden batch-plukning ville det have taget hele dagen. Batch-plukning er superkraft!"
+        explanation: "Et virkeligt eksempel fra Black Friday: 2 personer plukkede OG pakkede lidt under 700 single-line ordrer på lidt over 2 timer ved at batch-plukke! Både pluk og pakning på den tid — det er kraften i batch-plukning. Uden det ville det have taget hele dagen!"
     },
     {
         level: 7,

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warehouse Warrior - Lager Quiz</title>
-    <link rel="stylesheet" href="style-new.css?v=2.5">
+    <link rel="stylesheet" href="style-new.css?v=2.9">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffd700">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -83,8 +83,8 @@
             <div class="content-overlay">
                 <!-- Header -->
                 <div class="game-header">
-                    <div class="player-info">
-                        <span id="playerNameDisplay"></span>
+                    <div class="level-badge">
+                        Lvl <span id="currentLevel">1</span>
                     </div>
                     <div class="question-progress">
                         Spørgsmål <span id="currentQuestion">1</span>/15
@@ -204,6 +204,7 @@
                     <div class="points-total">
                         <span id="pointsTotal">0</span> i alt
                     </div>
+                    <div class="fun-fact" id="correctFunFact"></div>
                 </div>
             </div>
         </div>
@@ -229,6 +230,7 @@
                         <h3>💡 Forklaring:</h3>
                         <p id="explanationText">Her er forklaringen...</p>
                     </div>
+                    <div class="fun-fact" id="wrongFunFact"></div>
                     
                     <div class="wrong-score-summary">
                         <p>Du nåede spørgsmål <span id="wrongQuestionNum">1</span> af 15</p>
@@ -488,15 +490,15 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-    <script src="firebase-highscore.js?v=2.6"></script>
-    <script src="questions.js?v=2.6"></script>
-    <script src="game.js?v=2.6"></script>
+    <script src="firebase-highscore.js?v=2.9"></script>
+    <script src="questions.js?v=2.9"></script>
+    <script src="game.js?v=2.9"></script>
     <!-- Footer med logoer -->
     <div class="footer-logos">
         <span class="footer-text">Præsenteret af</span>
-        <a href="https://smartpack.dk" target="_blank" rel="noopener"><img src="assets/images/icons/smartpack_logo.png" alt="SmartPack" class="footer-logo footer-logo-smartpack"></a>
+        <a href="https://smartpack.dk" target="_blank" rel="noopener" onclick="if(typeof firebaseHighscore!=='undefined')firebaseHighscore.trackClick('smartpack')"><img src="assets/images/icons/smartpack_logo.png" alt="SmartPack" class="footer-logo footer-logo-smartpack"></a>
         <span class="footer-separator">×</span>
-        <a href="https://www.danskerhverv.dk/" target="_blank" rel="noopener"><img src="assets/images/icons/DE logo.png" alt="Dansk Erhverv" class="footer-logo"></a>
+        <a href="https://www.danskerhverv.dk/" target="_blank" rel="noopener" onclick="if(typeof firebaseHighscore!=='undefined')firebaseHighscore.trackClick('dansk_erhverv')"><img src="assets/images/icons/DE logo.png" alt="Dansk Erhverv" class="footer-logo"></a>
     </div>
 
     <!-- Install App Prompt -->

@@ -109,6 +109,113 @@ class FirebaseHighscore {
             return [];
         }
     }
+    
+    // ===== QUESTION ANALYTICS =====
+    
+    async trackAnswer(questionText, level, category, isCorrect) {
+        if (this.fallbackToLocal || !this.initialized) return;
+        
+        try {
+            // Lav et stabilt ID fra spørgsmålsteksten
+            const qId = this.hashQuestion(questionText);
+            const ref = this.db.ref('questionStats/' + qId);
+            
+            // Brug transaction for atomisk opdatering
+            await ref.transaction(current => {
+                if (current === null) {
+                    return {
+                        question: questionText.substring(0, 100),
+                        level: level,
+                        category: category || '',
+                        totalAnswers: 1,
+                        correctAnswers: isCorrect ? 1 : 0,
+                        lastUpdated: new Date().toISOString()
+                    };
+                }
+                current.totalAnswers = (current.totalAnswers || 0) + 1;
+                current.correctAnswers = (current.correctAnswers || 0) + (isCorrect ? 1 : 0);
+                current.lastUpdated = new Date().toISOString();
+                return current;
+            });
+        } catch (e) {
+            console.warn('Analytics track failed:', e);
+        }
+    }
+    
+    // Simpel hash af spørgsmålstekst til Firebase-key
+    hashQuestion(text) {
+        let hash = 0;
+        for (let i = 0; i < text.length; i++) {
+            const char = text.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return 'q_' + Math.abs(hash).toString(36);
+    }
+    
+    async getQuestionStats() {
+        if (this.fallbackToLocal || !this.initialized) return [];
+        
+        try {
+            const ref = this.db.ref('questionStats');
+            const snapshot = await ref.once('value');
+            const stats = [];
+            
+            snapshot.forEach(child => {
+                const data = child.val();
+                const ratio = data.totalAnswers > 0 
+                    ? Math.round((data.correctAnswers / data.totalAnswers) * 100) 
+                    : 0;
+                stats.push({
+                    id: child.key,
+                    ...data,
+                    correctRatio: ratio,
+                    suggestedLevel: this.ratioToLevel(ratio, data.totalAnswers)
+                });
+            });
+            
+            // Sortér efter sværhedsgrad (lavest ratio = sværest)
+            stats.sort((a, b) => a.correctRatio - b.correctRatio);
+            return stats;
+        } catch (e) {
+            console.warn('Failed to get question stats:', e);
+            return [];
+        }
+    }
+    
+    // Foreslå level baseret på korrekt-ratio
+    ratioToLevel(ratio, totalAnswers) {
+        // Kræv mindst 10 svar for at foreslå
+        if (totalAnswers < 10) return null;
+        
+        // Høj ratio = let spørgsmål = lavt level
+        // Lav ratio = svært spørgsmål = højt level
+        if (ratio >= 90) return 1;   // Meget let
+        if (ratio >= 80) return 3;   // Let
+        if (ratio >= 70) return 5;   // Medium-let
+        if (ratio >= 60) return 7;   // Medium
+        if (ratio >= 50) return 9;   // Medium-svær
+        if (ratio >= 40) return 11;  // Svær
+        if (ratio >= 30) return 13;  // Meget svær
+        return 15;                    // Ekstremt svær
+    }
+    // ===== CLICK TRACKING =====
+    
+    async trackClick(linkName) {
+        if (this.fallbackToLocal || !this.initialized) return;
+        
+        try {
+            const ref = this.db.ref('clickStats/' + linkName);
+            await ref.transaction(current => {
+                if (!current) current = { totalClicks: 0 };
+                current.totalClicks = (current.totalClicks || 0) + 1;
+                current.lastClicked = new Date().toISOString();
+                return current;
+            });
+        } catch (e) {
+            console.warn('Click tracking failed:', e);
+        }
+    }
 }
 
 // Global instance

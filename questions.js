@@ -960,6 +960,407 @@ const questionBank = [
         correct: 1,
         category: "Lagerlayout & flow",
         explanation: "Medarbejderne oplever dagligt hvor det halter. Deres input er guld værd, fordi de kender de reelle flaskehalse – ikke kun dem der ser logiske ud på papir."
+    },
+    // ===== NYE SPØRGSMÅL FRA EBOG (sp4) =====
+    {
+        level: 3,
+        question: "Hvad er hovedformålet med en ABC-analyse på et lille webshop-lager?",
+        answers: ["At sortere varer efter farve", "At placere de mest solgte varer mest tilgængeligt", "At finde de billigste leverandører", "At reducere antallet af varenumre"],
+        correct: 1,
+        category: "ABC",
+        explanation: "ABC-analysen bruges primært til at identificere de varer, der driver størstedelen af salget, så de kan placeres tæt på pakkebordet og reducere unødvendige skridt."
+    },
+    {
+        level: 4,
+        question: "Når du laver en simpel ABC-analyse, hvad kigger du typisk på først?",
+        answers: ["Omsætning i kroner pr. vare", "Antal ordrer, hvor varen indgår", "Antal styklager på hylden", "Indkøbsprisen på varen"],
+        correct: 1,
+        category: "ABC",
+        explanation: "I guiden lægges vægt på, at du sorterer efter hvor mange ordrer varen indgår i – ikke kun omsætning – fordi det bedre afspejler den daglige belastning på lageret."
+    },
+    {
+        level: 5,
+        question: "Hvad kendetegner typisk C-varer i en ABC-analyse?",
+        answers: ["De sælger få, men er meget dyre", "De sælger ofte og i store mængder", "De sælger sjældent og binder ofte unødigt lager", "De er altid nye produkter i sortimentet"],
+        correct: 2,
+        category: "ABC",
+        explanation: "C-varer er de langsomt omsættende varer, som ofte står stille og binder kapital og plads. Derfor bør de ligge perifert og løbende vurderes for udsalg."
+    },
+    {
+        level: 6,
+        question: "Hvad er den mest lavpraktiske måde at komme i gang med ABC på, hvis du bruger et simpelt shopsystem?",
+        answers: ["Eksportér alle varer til et lagerstyringssystem", "Gå en tur på lageret og gæt dig til A-varer", "Træk salgsrapport for 3 måneder, sorter på antal ordrer og marker top 20 %", "Lad leverandøren fortælle dig, hvad der er A-varer"],
+        correct: 2,
+        category: "ABC",
+        explanation: "Guiden anbefaler at trække en simpel rapport fra webshoppen for de seneste måneder, sortere efter ordrefrekvens og markere de varer, der står for størstedelen af salget."
+    },
+    {
+        level: 4,
+        question: "Hvorfor er det problematisk at indrette lageret som en butik – fx efter brands – i stedet for efter flow?",
+        answers: ["Det gør lageret mere uoverskueligt for kunder", "Det ser mindre pænt ud på billeder", "Det forlænger plukkeruterne og giver flere skridt pr. ordre", "Det gør det sværere at tage pæne produktfotos"],
+        correct: 2,
+        category: "Lagerindretning",
+        explanation: "Når varer står efter brand eller kategori i stedet for salgsfrekvens og flow, må plukkeren ofte krydse lageret igen og igen efter de samme bestsellere."
+    },
+    {
+        level: 5,
+        question: "Hvad er det vigtigste, du skal observere, når du 'går en tur på lageret' for at forbedre flowet?",
+        answers: ["Om reolerne har samme højde", "Hvor medarbejderne venter, går i vejen for hinanden eller går unødigt langt", "Om alle kasserne matcher din brandfarve", "Hvor mange paller der er i alt"],
+        correct: 1,
+        category: "Lagerindretning",
+        explanation: "Pointen med lager-walken er at se, hvor der opstår flaskehalse, krydsende ruter og spildte skridt – ikke om lageret er visuelt perfekt."
+    },
+    {
+        level: 6,
+        question: "Hvad menes der med at tænke i 'ensrettet flow' i lagerindretningen?",
+        answers: ["At alle medarbejdere går i samme tempo", "At al trafik kun må gå med uret rundt i bygningen", "At varerne bevæger sig i én logisk retning fra modtagelse til afsendelse", "At man kun må plukke én ordre ad gangen"],
+        correct: 2,
+        category: "Lagerindretning",
+        explanation: "Ensrettet flow betyder, at varerne ideelt bevæger sig i én retning gennem tre zoner: modtagelse, lager og afsendelse – frem for kaotiske frem-og-tilbage-bevægelser."
+    },
+    {
+        level: 5,
+        question: "Hvorfor frarådes det at placere næsten identiske varer lige ved siden af hinanden, hvis du ikke scanner?",
+        answers: ["Det ser rodet ud for besøgende", "Det gør optælling umulig", "Det øger risikoen for plukfejl markant", "Det forstyrrer pakkemaskinen"],
+        correct: 2,
+        category: "Lagerindretning",
+        explanation: "Når næsten identiske varer står lige ved siden af hinanden, er det meget nemmere at tage den forkerte – især uden scanning – og pakkefejlene stiger."
+    },
+    {
+        level: 6,
+        question: "Hvad er hovedpointen med batch-plukning fremfor at plukke én ordre ad gangen?",
+        answers: ["At få pænere plukkelister", "At reducere antal ture til de samme hylder ved at plukke til flere ordrer ad gangen", "At kunne pakke langsommere men mere sikkert", "At gøre det lettere at finde returvarer"],
+        correct: 1,
+        category: "Pluk & pak",
+        explanation: "Batch-plukning handler om at samle ens pluk, så du kun går til samme lokation få gange, mens du plukker til flere ordrer på én tur."
+    },
+    {
+        level: 7,
+        question: "Hvad kendetegner typisk en 'single-line' ordre i plukstrategien?",
+        answers: ["En ordre med én kunde", "En ordre med én varelinje, fx én T-shirt", "En ordre med kun A-varer", "En ordre der sendes som brev"],
+        correct: 1,
+        category: "Pluk & pak",
+        explanation: "Single-line ordrer er ordrer med kun én varelinje, og de egner sig godt til meget effektiv batch-plukning."
+    },
+    {
+        level: 7,
+        question: "Hvordan bruges plukkekasser typisk i arbejdet med multi-line ordrer?",
+        answers: ["Én kasse til hele dagens ordrer", "Én kasse pr. hyldemeter", "Én kasse pr. ordre, hvor varer lægges direkte i ordenes kasser under plukkeruten", "Kun til returvarer"],
+        correct: 2,
+        category: "Pluk & pak",
+        explanation: "Ved multi-line ordrer giver det mening, at hver kasse repræsenterer en ordre, så plukkeren kan lægge varer direkte i den rigtige ordre på ruten."
+    },
+    {
+        level: 5,
+        question: "Hvorfor kan det give mening at indføre farvekoder på plukkelister eller kasser?",
+        answers: ["For at matche virksomhedens visuelle identitet", "For at gøre lageret mere Instagram-venligt", "For at vise prioritet, fx hasteordrer eller særlige ruter", "For at skelne mellem A-, B- og C-varer"],
+        correct: 2,
+        category: "Pluk & pak",
+        explanation: "Farvekoder bruges praktisk til at indikere, hvilke ordrer eller ruter der har højeste prioritet (fx hasteordrer), så plukningen kan styres bedre."
+    },
+    {
+        level: 4,
+        question: "Hvad er et centralt argument i guiden for at investere i plukkevogne?",
+        answers: ["De får lageret til at se mere professionelt ud for gæster", "De kan bruges som midlertidig opbevaring", "De reducerer antallet af ture og tunge løft og kan hurtigt tjene sig hjem i sparet tid", "De er nødvendige for at kunne bruge et WMS"],
+        correct: 2,
+        category: "Hardware",
+        explanation: "Plukkevogne gør det muligt at plukke til flere ordrer på én rute, reducere bæring og spare tid, så investeringen ofte er tjent hjem på få måneder."
+    },
+    {
+        level: 6,
+        question: "Hvad er en realistisk fremgangsmåde, når du vil teste om en ny vogn-type fungerer i praksis?",
+        answers: ["Købe til hele lageret på én gang", "Bestille én vogn, teste den i nogle uger og tilpasse antal og model efter erfaring", "Leje vogne på dagsbasis", "Lade leverandøren beslutte for dig"],
+        correct: 1,
+        category: "Hardware",
+        explanation: "Guiden anbefaler at starte småt: test 1–2 vogne, se hvordan de bruges i praksis og tilpas derefter i stedet for at lave en stor forkert investering."
+    },
+    {
+        level: 5,
+        question: "Hvorfor kan et simpelt mekanisk rullefelt være en god investering ved høj ordrevolumen?",
+        answers: ["Det giver bedre ergonomi ved varemodtagelse", "Det gør det lettere at fotografere pakker", "Det flytter færdigpakkede ordrer væk fra pakkebordet og minimerer afbrydelser for pakkeren", "Det gør det muligt at veje pakker automatisk"],
+        correct: 2,
+        category: "Hardware",
+        explanation: "Rullefeltet gør, at færdigpakkede ordrer glider væk fra pakkebordet, så pakkeren kan holde fokus og slippe for mange små afbrydelser og løft."
+    },
+    {
+        level: 4,
+        question: "Hvad er hovedideen med min/max-styring uden et lagersystem?",
+        answers: ["At få styr på leverandørernes rabatter", "At minimere antal varenumre i sortimentet", "At definere et minimums- og maksimumsniveau og visualisere det på reolen", "At finde de varer, der kan sælges bedst på tilbud"],
+        correct: 2,
+        category: "Lagerstyring",
+        explanation: "Min/max handler om at bestemme hvornår du skal bestille (minimum) og hvor meget du typisk vil have liggende (maksimum), og gøre det synligt fx med en rød streg."
+    },
+    {
+        level: 5,
+        question: "Hvorfor giver det mest mening at starte min/max-arbejdet på A-varer?",
+        answers: ["Fordi de er lettest at tælle", "Fordi de fylder mest fysisk", "Fordi det er her, du hurtigst mærker effekten af færre stockouts", "Fordi leverandørerne stiller krav om det"],
+        correct: 2,
+        category: "Lagerstyring",
+        explanation: "A-varer står for hovedparten af salget, så bedre styring af deres lagerniveauer giver hurtigst effekt på kundeservice og omsætning."
+    },
+    {
+        level: 6,
+        question: "Hvordan anbefales det i guiden at planlægge optælling uden lagersystem?",
+        answers: ["Tælle hele lageret én gang om året", "Tælle C-varer hver uge og A-varer én gang om året", "Tælle A-varer oftere, B-varer kvartalsvis og resten mindst én gang om året", "Kun tælle ved årsafslutning"],
+        correct: 2,
+        category: "Lagerstyring",
+        explanation: "Fokus er på de mest kritiske varer: A-varer tælles hyppigt, B-varer jævnligt og hele lageret mindst én gang årligt."
+    },
+    {
+        level: 7,
+        question: "Hvorfor er konsistent SKU-navngivning vigtig, selv hvis du kun bruger et simpelt shopsystem?",
+        answers: ["Det ser bedre ud i Google", "Det gør det lettere at skifte webshop-platform", "Det reducerer fejl ved import/eksport og gør optælling og placeringer lettere at styre", "Det får leverandørerne til at tage dig mere seriøst"],
+        correct: 2,
+        category: "Lagerstyring",
+        explanation: "Konsistente og unikke SKU'er reducerer fejl i CSV-filer, gør placeringer og optælling mere styrbare og gør en fremtidig system-migrering enklere."
+    },
+    {
+        level: 6,
+        question: "Hvad er den primære årsag til, at pakkefejl kaldes 'den stille dræber' i guiden?",
+        answers: ["Fordi de sjældent opdages af kunden", "Fordi de mest handler om kosmetiske fejl", "Fordi de koster tid, fragt og goodwill langt ud over den enkelte ordre", "Fordi de kun opstår ved meget store kampagner"],
+        correct: 2,
+        category: "Pakkefejl",
+        explanation: "Pakkefejl akkumulerer omkostninger til retur, ny forsendelse, kundeservice og tabt loyalitet – og kan derfor blive meget dyre, selv ved lave fejlprocenter."
+    },
+    {
+        level: 7,
+        question: "Hvad er en central pointe ved at indføre en fejllog for pakkefejl?",
+        answers: ["At kunne dokumentere fejl over for Skat", "At kunne fordele skyld mellem medarbejdere", "At opdage mønstre og årsager i fejlene, så processerne kan forbedres", "At kunne beregne præcis fragtomkostning pr. fejl"],
+        correct: 2,
+        category: "Pakkefejl",
+        explanation: "Fejlloggen skal bruges til læring: den gør det muligt at se mønstre og adressere de underliggende årsager fremfor at håndtere fejl enkeltvis."
+    },
+    {
+        level: 5,
+        question: "Hvordan bør dobbelttjek typisk organiseres for at reducere pakkefejl?",
+        answers: ["Én person plukker og pakker alt selv", "Kunden dobbelttjekker sin ordre i checkout", "Én plukker, én pakker og kontrollerer, at varen matcher ordren", "To plukkere plukker samme ordre uafhængigt"],
+        correct: 2,
+        category: "Pakkefejl",
+        explanation: "Guiden anbefaler en simpel opdeling, hvor én plukker og én pakker/tjekker, så fejl fanges, inden pakken forlader lageret."
+    },
+    {
+        level: 6,
+        question: "Hvad er formålet med korte, konkrete procedurer ved pakkebordet?",
+        answers: ["At kunne certificere lageret", "At gøre det nemmere at oplære nye og sikre ensartet kvalitet", "At dokumentere arbejdsforhold til HR", "At kunne erstatte lagersystemer"],
+        correct: 1,
+        category: "Træning & onboarding",
+        explanation: "Små procedurer sikrer, at alle udfører de vigtigste trin ens, og at nye medarbejdere hurtigere bliver trygge og laver færre fejl."
+    },
+    {
+        level: 5,
+        question: "Hvad er idéen med et kort, ugentligt tavlemøde på lageret?",
+        answers: ["At gennemgå alle ordrer én for én", "At planlægge kantineordning", "At tale om fejl, forbedringer og flaskehalse og vælge få konkrete ændringer", "At lave detaljerede budgetter"],
+        correct: 2,
+        category: "Træning & onboarding",
+        explanation: "Tavlemødet bruges til at dele erfaringer, fejl og irritationsmomenter og beslutte små, konkrete forbedringer fra uge til uge."
+    },
+    {
+        level: 6,
+        question: "Hvad er den vigtigste fordel ved én samlet fysisk returzone?",
+        answers: ["Det gør det lettere at gemme returvarer til senere", "Det ser pænere ud for besøgende", "Alle ved præcis, hvor returer lander og skal behandles, så de ikke 'forsvinder' i driften", "Det reducerer behovet for returlabels"],
+        correct: 2,
+        category: "Returer",
+        explanation: "Når alle returer lander samme sted, bliver de synlige, og du kan sikre, at de konsekvent behandles og registreres i systemet."
+    },
+    {
+        level: 7,
+        question: "Hvilket element er IKKE et fast trin i den anbefalede returproces?",
+        answers: ["Modtag og identificér ordren", "Tjek varens stand", "Opdater lager og ordre", "Gem alle returer ubehandlede til månedsafslutning"],
+        correct: 3,
+        category: "Returer",
+        explanation: "Guiden understreger, at returer ikke må ligge og vente for længe – de skal behandles og ind på lageret igen hurtigt, ikke samles i en bunke."
+    },
+    {
+        level: 7,
+        question: "Hvorfor anbefales det at skelne mellem retur-typer i returloggen (fortrydelse, fejl, defekt osv.)?",
+        answers: ["For at bogholderiet kan få flere konti", "For at kunne justere markedsføring bedre", "For at kunne se, om problemet handler om produkt, forventningsafstemning eller pluk/pak", "For at leverandøren kan få et flot skema"],
+        correct: 2,
+        category: "Returer",
+        explanation: "Ved at skelne mellem årsager kan du se, om returer skyldes fx størrelsesguides, kvalitet, emballage eller rene pakkefejl – og handle derefter."
+    },
+    {
+        level: 7,
+        question: "Hvad er formålet med at have separate zoner for 'defekt/kan ikke sælges' og '2. sortering/udsalg'?",
+        answers: ["At få mere farve på lageret", "At kunne gemme varer længere uden beslutning", "At tvinge leverandøren til at tage alt retur", "At gøre svind synligt og aktivt tage stilling til, hvad der skal kasseres og hvad der kan sælges billigt"],
+        correct: 3,
+        category: "Svind",
+        explanation: "Når du fysisk adskiller beskadigede varer og 2. sortering, bliver svindet synligt og du kan træffe bedre beslutninger om udsalg, kassation eller leverandørdialog."
+    },
+    {
+        level: 6,
+        question: "Hvad er hovedideen med rullende lageroptælling fremfor én stor årlig optælling?",
+        answers: ["At undgå krav om revision", "At slippe for at tælle C-varer", "At fordele optælling ud over året og opdage afvigelser løbende", "At kunne holde lageret åbent 24/7"],
+        correct: 2,
+        category: "Svind",
+        explanation: "Rullende optælling gør, at du løbende får øje på afvigelser og ikke skal lukke alt ned for én stor, tung optælling."
+    },
+    {
+        level: 8,
+        question: "Hvad kendetegner 'proces-svind' i guiden?",
+        answers: ["Tyveri fra eksterne", "Fejl der opstår i hverdagens arbejdsgange, fx ved modtagelse, pluk eller flytninger uden registrering", "Naturligt spild ved udløb", "Skader under transport"],
+        correct: 1,
+        category: "Svind",
+        explanation: "Proces-svind handler om fejl i dine interne processer – ikke nødvendigvis tyveri – som fx korrekte registreringer ved modtagelse og pluk."
+    },
+    {
+        level: 6,
+        question: "Hvad er målet med at arbejde med simple nøgletal på lageret ifølge guiden?",
+        answers: ["At kunne vise pæne grafer på bestyrelsesmøder", "At kunne sammenligne sig med store konkurrenter", "At få et praktisk kompas til at se, om ændringer faktisk forbedrer lageret over tid", "At overflødiggøre dialogen med medarbejderne"],
+        correct: 2,
+        category: "Nøgletal",
+        explanation: "Nøgletal skal fungere som et lille kompas, der viser, om dine tiltag forbedrer eller forværrer drift – ikke som pynt."
+    },
+    {
+        level: 7,
+        question: "Hvilket nøgletal er mest direkte knyttet til kundens oplevelse af korrekt levering?",
+        answers: ["Pluk pr. time", "Returprocent", "Pakkefejlsprocent", "Lagerbinding i C-varer"],
+        correct: 2,
+        category: "Nøgletal",
+        explanation: "Pakkefejlsprocenten siger direkte noget om, hvor ofte kunderne modtager noget andet, end de har bestilt."
+    },
+    {
+        level: 8,
+        question: "Hvorfor kan det være bedre at måle 'plukkede linjer pr. time' end 'ordrer pr. time'?",
+        answers: ["Det ser bedre ud i rapporter", "Det er nemmere at forklare til ledelsen", "Det tager højde for forskellen mellem simple og komplekse ordrer", "Det giver mulighed for at ignorere returvarer"],
+        correct: 2,
+        category: "Nøgletal",
+        explanation: "En ordre med mange linjer kræver mere arbejde end en single-line ordre. Ved at måle linjer pr. time får du et bedre billede af den reelle produktivitet."
+    },
+    {
+        level: 7,
+        question: "Hvad viser nøgletallet 'bundet lager i langsomme varer' dig primært?",
+        answers: ["Hvor mange hyldemeter du har", "Hvor meget kapital der står stille i varer, der ikke bevæger sig", "Hvor mange A-varer du har i sortiment", "Hvor mange ordrer du håndterer dagligt"],
+        correct: 1,
+        category: "Nøgletal",
+        explanation: "Det handler om at se, hvor meget kapital der står bundet i langsomt omsættende varer, så du kan frigøre plads og penge."
+    },
+    {
+        level: 6,
+        question: "Hvad er den hyppigste form for spild på fragt, som guiden nævner for mindre webshops?",
+        answers: ["For mange fragtaftaler", "For mange transportører i checkout", "Alt for stor emballage med meget luft", "For få afhentninger pr. uge"],
+        correct: 2,
+        category: "Fragt",
+        explanation: "At sende 'luft' i alt for store kasser er en klassisk kilde til unødige fragtomkostninger, især når volumen-pris spiller ind."
+    },
+    {
+        level: 7,
+        question: "Hvorfor kan det være en fordel at begrænse antallet af transportører i checkout?",
+        answers: ["For at gøre designet pænere", "For at få en bedre pris ved at samle volumen", "For at tvinge kunder til hjemmelevering", "For at kunne fjerne pakkeshops"],
+        correct: 1,
+        category: "Fragt",
+        explanation: "Ved at samle volumen på færre transportører står du stærkere i forhandlinger og får en overskueligere drift."
+    },
+    {
+        level: 7,
+        question: "Hvad er hovedpointen med et lille tilvalg som 'prioriteret pluk og pak' i checkout?",
+        answers: ["At højere pris automatisk giver hurtigere fragt fra transportøren", "At kunne søge tilskud hos fragtfirmaet", "At nogle kunder gerne betaler lidt ekstra for at føle sig prioriteret – hvilket kan hjælpe med at dække samlede fragtomkostninger", "At gøre checkout mere avanceret"],
+        correct: 2,
+        category: "Fragt",
+        explanation: "Tilvalget kan være en måde at hente lidt ekstra indtægt, uden nødvendigvis at ændre den faktiske leveringstid dramatisk."
+    },
+    {
+        level: 5,
+        question: "Hvad er det primære minimumskrav til emballage ifølge guiden?",
+        answers: ["At den matcher brandfarverne", "At den er miljøcertificeret", "At varen kommer frem i ét stykke", "At den kan genbruges af kunden"],
+        correct: 2,
+        category: "Emballage",
+        explanation: "Det vigtigste er altid, at varen kommer frem uden skader. Alt andet er lag ovenpå dette minimum."
+    },
+    {
+        level: 6,
+        question: "Hvad kendetegner 'professionel' emballage ifølge de tre niveauer i guiden?",
+        answers: ["Mange stickers og brochurer", "En kæmpe kasse uanset varetype", "Passende størrelse, pænt pakket og uden unødig luft og fyld", "Kun genbrugte kasser"],
+        correct: 2,
+        category: "Emballage",
+        explanation: "Professionel emballage handler om, at pakken er velproportioneret, ser ordentlig ud og ikke indeholder unødvendigt fyld."
+    },
+    {
+        level: 7,
+        question: "Hvad er formålet med et lille 'wow'-element i emballagen?",
+        answers: ["At overraske fragtmanden", "At kompensere for dårlig leveringstid", "At styrke kundens lyst til at handle igen og anbefale dig videre", "At kunne tage et højere gebyr for emballage"],
+        correct: 2,
+        category: "Emballage",
+        explanation: "Et lille ekstra element (hilsen, sticker, prøve) kan skabe en positiv oplevelse, der øger loyalitet og word-of-mouth."
+    },
+    {
+        level: 7,
+        question: "Hvordan foreslår guiden, at du ser på store kampagnedage som fx Black Friday?",
+        answers: ["Som noget der bare skal overleves", "Som et årligt nødvendigt kaos", "Som lagerets eksamen og en mulighed for at teste om processerne holder under pres", "Som en ren marketingopgave"],
+        correct: 2,
+        category: "Kampagner",
+        explanation: "Kampagnedage ses som stresstest og eksamen for lageret, hvor du viser, om fundamentet faktisk holder til øget volumen."
+    },
+    {
+        level: 8,
+        question: "Hvad er den vigtigste grund til at lave forberedelse 'før' kampagnen starter?",
+        answers: ["At kunne lave ekstra grafisk materiale", "At kunne holde flere møder", "At have styr på bemanding, lager, emballage og prioriteringer, så man ikke improviserer i kaosset", "At kunne invitere leverandøren på besøg"],
+        correct: 2,
+        category: "Kampagner",
+        explanation: "Forarbejdet sikrer, at driften kan følge med, så du ikke skal opfinde løsninger, mens det brænder."
+    },
+    {
+        level: 8,
+        question: "Hvilke tre faser anbefales det at se kampagner igennem?",
+        answers: ["Planlægning, HR og økonomi", "Før, under og efter", "Marketing, lager og kundeservice", "Indkøb, lager og bogholderi"],
+        correct: 1,
+        category: "Kampagner",
+        explanation: "En kampagne bør ses som et forløb: forberedelse før, eksekvering under og oprydning/læring efter."
+    },
+    {
+        level: 7,
+        question: "Hvad er det vigtigste ved en kort 'krigsplan' på én A4 til en kampagne?",
+        answers: ["At den er grafisk flot", "At alle medarbejdere kan skrive under på den", "At roller, ansvar og prioritering er krystalklare, når trykket stiger", "At den indeholder detaljerede økonomiske prognoser"],
+        correct: 2,
+        category: "Kampagner",
+        explanation: "En simpel, tydelig plan på én side betyder, at alle ved, hvad der forventes, når volumen stiger – uden at skulle læse en manual."
+    },
+    {
+        level: 8,
+        question: "Hvad er en typisk situation, hvor 3PL kan give god mening for en mindre webshop?",
+        answers: ["Når man ikke vil have noget med lager at gøre overhovedet", "Ved meget lav volumen (1–2 ordrer om ugen)", "Når man vil skalere hurtigt uden selv at binde kapital i lokaler og bemanding", "Når man kun sælger digitale produkter"],
+        correct: 2,
+        category: "3PL",
+        explanation: "3PL kan være en genvej til skalering, hvis du vil vokse uden selv at opbygge et stort lager-setup."
+    },
+    {
+        level: 8,
+        question: "Hvad er en vigtig erkendelse ift. kundeoplevelse, når du bruger 3PL?",
+        answers: ["At kundens oplevelse nu er 3PL'ens ansvar", "At fejl hos 3PL normalt opfattes som din fejl af kunden", "At du ikke længere behøver at tænke på leveringstid", "At kundeservice automatisk bliver bedre"],
+        correct: 1,
+        category: "3PL",
+        explanation: "Kunden skelner sjældent mellem dig og 3PL – det er stadig din butik, de forholder sig til. Derfor er kvaliteten hos 3PL også din udfordring."
+    },
+    {
+        level: 9,
+        question: "Hvad er et konkret eksempel på en SLA, du kunne aftale med en 3PL-partner?",
+        answers: ["At de lover at gøre deres bedste", "At lageret altid er åbent", "Fx at 99,5 % af alle ordrer plukkes og er klar til afsendelse samme dag ved bestilling før kl. 14", "At de svarer på e-mails inden for en uge"],
+        correct: 2,
+        category: "3PL",
+        explanation: "En god SLA er konkret og målbar – fx procentandel af ordrer, der er klar til afsendelse inden for en bestemt frist."
+    },
+    {
+        level: 9,
+        question: "Hvad er en typisk faldgrube i 3PL-aftaler, som guiden nævner?",
+        answers: ["For mange forskellige lagersystemer", "Alt for kort opsigelsesvarsel", "Utydelige eller skjulte omkostninger og minimumsbetalinger", "For store lokaler"],
+        correct: 2,
+        category: "3PL",
+        explanation: "Hvis prisstrukturen ikke er gennemsigtig – inkl. minimumsbetaling og ekstra gebyrer – kan 3PL blive dyrere end forventet."
+    },
+    {
+        level: 10,
+        question: "Hvorfor er en exit-plan så central i en 3PL-aftale?",
+        answers: ["For at kunne skifte bank lettere", "For at kunne ændre sortimentet hurtigere", "For at sikre, at du ved, hvordan lager, data og drift flyttes, hvis samarbejdet stopper", "For at gøre revisionsprocessen kortere"],
+        correct: 2,
+        category: "3PL",
+        explanation: "En klar exit-plan sikrer, at du ikke låses fast, og at du ved, hvordan du får dine varer og data med dig ved et skifte."
+    },
+    {
+        level: 8,
+        question: "Hvad er den overordnede pointe med guiden om lageroptimering?",
+        answers: ["At alle skal investere i avanceret WMS hurtigst muligt", "At lageroptimering er et engangsprojekt, der kan afsluttes", "At små, løbende forbedringer i flow, disciplin og struktur ofte skaber den største værdi", "At lageret primært er et marketingværktøj"],
+        correct: 2,
+        category: "Fundament",
+        explanation: "Guiden understreger, at de største gevinster ofte ligger i simple, kontinuerlige forbedringer – ikke nødvendigvis i store engangsinvesteringer."
     }
 ];
 

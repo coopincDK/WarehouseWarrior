@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Warrior — Admin Dashboard</title>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0a0a1a;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        
+        /* Lock screen */
+        .lock-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #0a0a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .lock-screen h2 { color: #ffd700; font-size: 1.5rem; }
+        .lock-screen input {
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 200px;
+            letter-spacing: 8px;
+        }
+        .lock-screen input:focus { outline: none; border-color: #ffd700; }
+        .lock-screen .error { color: #f87171; font-size: 0.9rem; display: none; }
+        .lock-screen button {
+            background: #ffd700;
+            color: #000;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .lock-screen button:hover { background: #ffed4a; }
+        body.unlocked .lock-screen { display: none; }
+        
+        .header {
+            background: linear-gradient(135deg, #1a1a3e, #0d0d2b);
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            color: #ffd700;
+            font-size: 1.5rem;
+        }
+        
+        .header .subtitle {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .header-right {
+            text-align: right;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        
+        .header-right .status {
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* ===== SUMMARY CARDS ===== */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .card .value {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        
+        .card .label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        .card.green .value { color: #4ecdc4; }
+        .card.red .value { color: #ff6b6b; }
+        .card.blue .value { color: #45b7d1; }
+        .card.purple .value { color: #a855f7; }
+        
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.15);
+            padding-bottom: 0;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        
+        .tab:hover { color: #ffd700; }
+        .tab.active {
+            color: #ffd700;
+            border-bottom-color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* ===== CONTROLS ===== */
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .controls select, .controls input {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            color: #e0e0e0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .controls select:focus, .controls input:focus {
+            outline: none;
+            border-color: #ffd700;
+        }
+        
+        /* ===== TABLE ===== */
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        
+        th {
+            background: rgba(255, 215, 0, 0.1);
+            color: #ffd700;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+        
+        th:hover { background: rgba(255, 215, 0, 0.2); }
+        th .sort-arrow { margin-left: 5px; font-size: 0.7rem; }
+        
+        td {
+            padding: 10px 15px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        tr:hover { background: rgba(255, 215, 0, 0.05); }
+        
+        .ratio-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+        
+        .ratio-bar .bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            min-width: 60px;
+        }
+        
+        .ratio-bar .bar .fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .ratio-bar .pct { 
+            font-weight: bold; 
+            min-width: 42px;
+            text-align: right;
+        }
+        
+        .level-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-align: center;
+            min-width: 35px;
+        }
+        
+        .level-badge.easy { background: #22c55e33; color: #4ade80; }
+        .level-badge.medium { background: #f59e0b33; color: #fbbf24; }
+        .level-badge.hard { background: #ef444433; color: #f87171; }
+        
+        .suggested-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .suggested-badge.up { background: #ef444433; color: #f87171; }
+        .suggested-badge.down { background: #22c55e33; color: #4ade80; }
+        .suggested-badge.same { background: rgba(255,255,255,0.08); color: #888; }
+        
+        .category-tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            background: rgba(255, 215, 0, 0.1);
+            color: #ffd700;
+        }
+        
+        /* ===== TOP LISTS ===== */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .insight-box {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .insight-box h3 {
+            color: #ffd700;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+        
+        .insight-list {
+            list-style: none;
+        }
+        
+        .insight-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .insight-list li:last-child { border-bottom: none; }
+        
+        .insight-list .q-text {
+            flex: 1;
+            font-size: 0.85rem;
+            color: #ccc;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .insight-list .q-stat {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        /* ===== HIGHSCORE TAB ===== */
+        .player-row td:first-child { font-weight: bold; color: #ffd700; }
+        
+        /* ===== LOADING ===== */
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #888;
+            font-size: 1.1rem;
+        }
+        
+        .loading .spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255, 215, 0, 0.2);
+            border-top-color: #ffd700;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 10px; text-align: center; }
+            .container { padding: 10px; }
+            .summary-cards { grid-template-columns: repeat(2, 1fr); }
+            .card .value { font-size: 1.6rem; }
+            .card { padding: 15px; }
+            .insights-grid { grid-template-columns: 1fr; }
+            .tabs { overflow-x: auto; }
+            .tab { padding: 8px 14px; font-size: 0.85rem; white-space: nowrap; }
+            td, th { padding: 8px 10px; font-size: 0.8rem; }
+        }
+        
+        .refresh-btn {
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .refresh-btn:hover { background: rgba(255, 215, 0, 0.25); }
+    </style>
+</head>
+<body>
+    <!-- Lock Screen -->
+    <div class="lock-screen">
+        <h2>🔒 Admin Dashboard</h2>
+        <input type="password" id="accessCode" placeholder="Kode" maxlength="10" autofocus>
+        <div class="error" id="lockError">Forkert kode</div>
+        <button onclick="tryUnlock()">Lås op</button>
+    </div>
+    
+    <div class="header">
+        <div>
+            <h1>📊 Warehouse Warrior — Analytics</h1>
+            <div class="subtitle">Spørgsmåls- og spillerdata</div>
+        </div>
+        <div class="header-right">
+            <div>Status: <span class="status" id="dbStatus">Forbinder...</span></div>
+            <div id="lastUpdated"></div>
+            <button class="refresh-btn" onclick="loadAllData()" style="margin-top: 8px">🔄 Opdater data</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Summary Cards -->
+        <div class="summary-cards" id="summaryCards">
+            <div class="card"><div class="value" id="totalQuestions">-</div><div class="label">Spørgsmål i banken</div></div>
+            <div class="card green"><div class="value" id="totalPlays">-</div><div class="label">Samlede besvarelser</div></div>
+            <div class="card blue"><div class="value" id="totalPlayers">-</div><div class="label">Unikke spillere</div></div>
+            <div class="card"><div class="value" id="avgCorrect">-</div><div class="label">Gns. korrekt-ratio</div></div>
+            <div class="card red"><div class="value" id="hardestRatio">-</div><div class="label">Sværeste spørgsmål</div></div>
+            <div class="card purple"><div class="value" id="topScore">-</div><div class="label">Højeste score</div></div>
+            <div class="card green"><div class="value" id="totalGames">-</div><div class="label">Antal spil (gennemført)</div></div>
+            <div class="card blue"><div class="value" id="gamesThisMonth">-</div><div class="label">Spil denne måned</div></div>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('insights')">🔍 Insights</button>
+            <button class="tab" onclick="switchTab('questions')">📋 Spørgsmål</button>
+            <button class="tab" onclick="switchTab('players')">👥 Spillere</button>
+            <button class="tab" onclick="switchTab('levels')">📊 Level-analyse</button>
+        </div>
+        
+        <!-- INSIGHTS TAB -->
+        <div class="tab-content active" id="tab-insights">
+            <div class="insights-grid">
+                <div class="insight-box">
+                    <h3>🔴 Top 5 sværeste spørgsmål</h3>
+                    <ul class="insight-list" id="hardestList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>🟢 Top 5 letteste spørgsmål</h3>
+                    <ul class="insight-list" id="easiestList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>🔥 Mest besvarede spørgsmål</h3>
+                    <ul class="insight-list" id="mostPlayedList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>⚠️ Forkert level? (data vs. nuværende)</h3>
+                    <ul class="insight-list" id="mismatchList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>📂 Kategori-oversigt</h3>
+                    <ul class="insight-list" id="categoryList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>🏆 Top 5 spillere</h3>
+                    <ul class="insight-list" id="topPlayersList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>🔗 Klik på logoer</h3>
+                    <ul class="insight-list" id="clickStatsList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>📆 Spil pr. uge</h3>
+                    <div id="weeklyChart" style="display:flex;align-items:flex-end;gap:6px;height:150px;padding:10px 0;overflow-x:auto"></div>
+                    <ul class="insight-list" id="weeklyList" style="margin-top:10px;max-height:200px;overflow-y:auto"></ul>
+                </div>
+                <div class="insight-box" style="grid-column: 1 / -1">
+                    <h3>📅 Spil pr. måned</h3>
+                    <div id="monthlyChart" style="display:flex;align-items:flex-end;gap:8px;height:200px;padding:10px 0"></div>
+                    <ul class="insight-list" id="monthlyList" style="margin-top:10px"></ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- QUESTIONS TAB -->
+        <div class="tab-content" id="tab-questions">
+            <div class="controls">
+                <input type="text" id="searchQ" placeholder="🔍 Søg i spørgsmål..." oninput="renderQuestionsTable()">
+                <select id="filterCategory" onchange="renderQuestionsTable()">
+                    <option value="">Alle kategorier</option>
+                </select>
+                <select id="filterLevel" onchange="renderQuestionsTable()">
+                    <option value="">Alle levels</option>
+                </select>
+                <select id="sortBy" onchange="renderQuestionsTable()">
+                    <option value="ratio-asc">Sværeste først</option>
+                    <option value="ratio-desc">Letteste først</option>
+                    <option value="total-desc">Mest besvaret</option>
+                    <option value="level-asc">Level (lav→høj)</option>
+                    <option value="level-desc">Level (høj→lav)</option>
+                    <option value="mismatch">Størst level-mismatch</option>
+                </select>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Spørgsmål</th>
+                            <th>Kategori</th>
+                            <th>Level</th>
+                            <th>Besvarelser</th>
+                            <th>Korrekt-ratio</th>
+                            <th>Foreslået level</th>
+                        </tr>
+                    </thead>
+                    <tbody id="questionsBody"></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- PLAYERS TAB -->
+        <div class="tab-content" id="tab-players">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Navn</th>
+                            <th>Virksomhed</th>
+                            <th>Score</th>
+                            <th>Rigtige</th>
+                            <th>Dato</th>
+                        </tr>
+                    </thead>
+                    <tbody id="playersBody"></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- LEVELS TAB -->
+        <div class="tab-content" id="tab-levels">
+            <div class="insights-grid" id="levelBoxes"></div>
+        </div>
+    </div>
+
+    <script>
+        // ===== FIREBASE INIT =====
+        const firebaseConfig = {
+            apiKey: "AIzaSyD9DM5MHFMiovMxSLJaOBvO0tv4dzPJ9ug",
+            authDomain: "warehousewarrior-28109.firebaseapp.com",
+            databaseURL: "https://warehousewarrior-28109-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "warehousewarrior-28109",
+            storageBucket: "warehousewarrior-28109.firebasestorage.app",
+            messagingSenderId: "745763028734",
+            appId: "1:745763028734:web:b1bdc74b8233a68f672faf"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        
+        let questionStats = [];
+        let highscores = [];
+        let clickStats = {};
+        
+        // ===== LOAD DATA =====
+        async function loadAllData() {
+            document.getElementById('dbStatus').textContent = 'Henter data...';
+            document.getElementById('dbStatus').style.color = '#fbbf24';
+            
+            try {
+                // Hent question stats
+                const statsSnap = await db.ref('questionStats').once('value');
+                questionStats = [];
+                statsSnap.forEach(child => {
+                    const d = child.val();
+                    const total = d.totalAnswers || 0;
+                    const correct = d.correctAnswers || 0;
+                    const ratio = total > 0 ? Math.round((correct / total) * 100) : 0;
+                    questionStats.push({
+                        id: child.key,
+                        question: d.question || '?',
+                        level: d.level || 0,
+                        category: d.category || '',
+                        totalAnswers: total,
+                        correctAnswers: correct,
+                        correctRatio: ratio,
+                        suggestedLevel: ratioToLevel(ratio, total),
+                        lastUpdated: d.lastUpdated || ''
+                    });
+                });
+                
+                // Hent click stats
+                const clickSnap = await db.ref('clickStats').once('value');
+                clickStats = clickSnap.val() || {};
+                
+                // Hent highscores
+                const hsSnap = await db.ref('highscores').orderByChild('score').limitToLast(200).once('value');
+                highscores = [];
+                hsSnap.forEach(child => {
+                    highscores.push(child.val());
+                });
+                highscores.sort((a, b) => b.score - a.score);
+                
+                document.getElementById('dbStatus').textContent = 'Forbundet ✅';
+                document.getElementById('dbStatus').style.color = '#4ecdc4';
+                document.getElementById('lastUpdated').textContent = 'Opdateret: ' + new Date().toLocaleTimeString('da-DK');
+                
+                renderAll();
+            } catch (e) {
+                document.getElementById('dbStatus').textContent = 'Fejl ❌';
+                document.getElementById('dbStatus').style.color = '#ff6b6b';
+                console.error('Load failed:', e);
+            }
+        }
+        
+        function ratioToLevel(ratio, total) {
+            if (total < 5) return null;
+            if (ratio >= 90) return 1;
+            if (ratio >= 80) return 3;
+            if (ratio >= 70) return 5;
+            if (ratio >= 60) return 7;
+            if (ratio >= 50) return 9;
+            if (ratio >= 40) return 11;
+            if (ratio >= 30) return 13;
+            return 15;
+        }
+        
+        // ===== RENDER ALL =====
+        function renderAll() {
+            renderSummary();
+            renderInsights();
+            renderQuestionsTable();
+            renderPlayersTable();
+            renderLevelAnalysis();
+            populateFilters();
+        }
+        
+        // ===== SUMMARY CARDS =====
+        function renderSummary() {
+            const totalPlays = questionStats.reduce((s, q) => s + q.totalAnswers, 0);
+            const avgRatio = questionStats.length > 0 
+                ? Math.round(questionStats.reduce((s, q) => s + q.correctRatio, 0) / questionStats.length) 
+                : 0;
+            const hardest = questionStats.filter(q => q.totalAnswers >= 3).sort((a, b) => a.correctRatio - b.correctRatio)[0];
+            const topPlayer = highscores[0];
+            
+            // Antal spil = highscores entries
+            const totalGames = highscores.length;
+            
+            // Spil denne måned
+            const now = new Date();
+            const thisMonth = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+            const gamesThisMonth = highscores.filter(p => {
+                if (!p.date) return false;
+                const d = new Date(p.date);
+                return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') === thisMonth;
+            }).length;
+            
+            document.getElementById('totalQuestions').textContent = questionStats.length;
+            document.getElementById('totalPlays').textContent = totalPlays.toLocaleString();
+            document.getElementById('totalPlayers').textContent = highscores.length;
+            document.getElementById('avgCorrect').textContent = avgRatio + '%';
+            document.getElementById('hardestRatio').textContent = hardest ? hardest.correctRatio + '%' : '-';
+            document.getElementById('topScore').textContent = topPlayer ? topPlayer.score.toLocaleString() : '-';
+            document.getElementById('totalGames').textContent = totalGames;
+            document.getElementById('gamesThisMonth').textContent = gamesThisMonth;
+        }
+        
+        // ===== INSIGHTS =====
+        function renderInsights() {
+            const withData = questionStats.filter(q => q.totalAnswers >= 3);
+            
+            // Sværeste
+            const hardest = [...withData].sort((a, b) => a.correctRatio - b.correctRatio).slice(0, 5);
+            renderInsightList('hardestList', hardest, q => 
+                `<span class="q-stat" style="color:#f87171">${q.correctRatio}% ✓</span>`);
+            
+            // Letteste
+            const easiest = [...withData].sort((a, b) => b.correctRatio - a.correctRatio).slice(0, 5);
+            renderInsightList('easiestList', easiest, q => 
+                `<span class="q-stat" style="color:#4ade80">${q.correctRatio}% ✓</span>`);
+            
+            // Mest besvaret
+            const mostPlayed = [...questionStats].sort((a, b) => b.totalAnswers - a.totalAnswers).slice(0, 5);
+            renderInsightList('mostPlayedList', mostPlayed, q => 
+                `<span class="q-stat" style="color:#45b7d1">${q.totalAnswers}×</span>`);
+            
+            // Level mismatch
+            const mismatches = withData
+                .filter(q => q.suggestedLevel !== null && Math.abs(q.suggestedLevel - q.level) >= 4)
+                .sort((a, b) => Math.abs(b.suggestedLevel - b.level) - Math.abs(a.suggestedLevel - a.level))
+                .slice(0, 5);
+            const mismatchEl = document.getElementById('mismatchList');
+            if (mismatches.length === 0) {
+                mismatchEl.innerHTML = '<li style="color:#888;justify-content:center">Ingen store mismatches endnu (kræver mere data)</li>';
+            } else {
+                mismatchEl.innerHTML = mismatches.map(q => {
+                    const diff = q.suggestedLevel - q.level;
+                    const arrow = diff > 0 ? '↑' : '↓';
+                    const color = diff > 0 ? '#f87171' : '#4ade80';
+                    return `<li>
+                        <span class="q-text" title="${q.question}">${q.question}</span>
+                        <span class="q-stat" style="color:${color}">Lvl ${q.level} → ${q.suggestedLevel} ${arrow}</span>
+                    </li>`;
+                }).join('');
+            }
+            
+            // Kategorier
+            const cats = {};
+            questionStats.forEach(q => {
+                if (!q.category) return;
+                if (!cats[q.category]) cats[q.category] = { total: 0, correct: 0, count: 0 };
+                cats[q.category].total += q.totalAnswers;
+                cats[q.category].correct += q.correctAnswers;
+                cats[q.category].count++;
+            });
+            const catList = Object.entries(cats)
+                .map(([name, d]) => ({ name, ...d, ratio: d.total > 0 ? Math.round((d.correct / d.total) * 100) : 0 }))
+                .sort((a, b) => a.ratio - b.ratio);
+            document.getElementById('categoryList').innerHTML = catList.map(c => 
+                `<li>
+                    <span class="q-text"><span class="category-tag">${c.name}</span> (${c.count} sp.)</span>
+                    <span class="q-stat" style="color:${ratioColor(c.ratio)}">${c.ratio}% ✓</span>
+                </li>`
+            ).join('');
+            
+            // Klik stats
+            renderClickStats();
+            
+            // Spil pr. uge
+            renderWeeklyChart();
+            
+            // Spil pr. måned
+            renderMonthlyChart();
+            
+            // Top spillere
+            const top5 = highscores.slice(0, 5);
+            document.getElementById('topPlayersList').innerHTML = top5.map((p, i) => {
+                const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i+1}`;
+                return `<li>
+                    <span class="q-text">${medal} ${p.name || 'Anonym'}${p.company ? ' <span style="color:#888">(' + p.company + ')</span>' : ''}</span>
+                    <span class="q-stat" style="color:#ffd700">${p.score.toLocaleString()}</span>
+                </li>`;
+            }).join('');
+        }
+        
+        function renderInsightList(id, items, statFn) {
+            const el = document.getElementById(id);
+            if (items.length === 0) {
+                el.innerHTML = '<li style="color:#888;justify-content:center">Ikke nok data endnu</li>';
+                return;
+            }
+            el.innerHTML = items.map(q => 
+                `<li>
+                    <span class="q-text" title="${q.question}">${q.question}</span>
+                    ${statFn(q)}
+                </li>`
+            ).join('');
+        }
+        
+        // ===== QUESTIONS TABLE =====
+        function renderQuestionsTable() {
+            const search = document.getElementById('searchQ').value.toLowerCase();
+            const catFilter = document.getElementById('filterCategory').value;
+            const lvlFilter = document.getElementById('filterLevel').value;
+            const sortKey = document.getElementById('sortBy').value;
+            
+            let filtered = questionStats.filter(q => {
+                if (search && !q.question.toLowerCase().includes(search)) return false;
+                if (catFilter && q.category !== catFilter) return false;
+                if (lvlFilter && q.level !== parseInt(lvlFilter)) return false;
+                return true;
+            });
+            
+            // Sort
+            switch (sortKey) {
+                case 'ratio-asc': filtered.sort((a, b) => a.correctRatio - b.correctRatio); break;
+                case 'ratio-desc': filtered.sort((a, b) => b.correctRatio - a.correctRatio); break;
+                case 'total-desc': filtered.sort((a, b) => b.totalAnswers - a.totalAnswers); break;
+                case 'level-asc': filtered.sort((a, b) => a.level - b.level); break;
+                case 'level-desc': filtered.sort((a, b) => b.level - a.level); break;
+                case 'mismatch': filtered.sort((a, b) => {
+                    const da = a.suggestedLevel ? Math.abs(a.suggestedLevel - a.level) : 0;
+                    const db = b.suggestedLevel ? Math.abs(b.suggestedLevel - b.level) : 0;
+                    return db - da;
+                }); break;
+            }
+            
+            document.getElementById('questionsBody').innerHTML = filtered.map(q => {
+                const lvlClass = q.level <= 5 ? 'easy' : q.level <= 10 ? 'medium' : 'hard';
+                const barColor = ratioColor(q.correctRatio);
+                
+                let suggestedHtml = '<span style="color:#666">—</span>';
+                if (q.suggestedLevel !== null) {
+                    const diff = q.suggestedLevel - q.level;
+                    if (Math.abs(diff) >= 4) {
+                        const cls = diff > 0 ? 'up' : 'down';
+                        suggestedHtml = `<span class="suggested-badge ${cls}">${q.suggestedLevel} (${diff > 0 ? '+' : ''}${diff})</span>`;
+                    } else {
+                        suggestedHtml = `<span class="suggested-badge same">${q.suggestedLevel}</span>`;
+                    }
+                }
+                
+                return `<tr>
+                    <td title="${q.question}" style="max-width:350px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${q.question}</td>
+                    <td><span class="category-tag">${q.category || '-'}</span></td>
+                    <td><span class="level-badge ${lvlClass}">${q.level}</span></td>
+                    <td>${q.totalAnswers}</td>
+                    <td>
+                        <div class="ratio-bar">
+                            <div class="bar"><div class="fill" style="width:${q.correctRatio}%;background:${barColor}"></div></div>
+                            <span class="pct" style="color:${barColor}">${q.correctRatio}%</span>
+                        </div>
+                    </td>
+                    <td>${suggestedHtml}</td>
+                </tr>`;
+            }).join('');
+        }
+        
+        // ===== PLAYERS TABLE =====
+        function renderPlayersTable() {
+            document.getElementById('playersBody').innerHTML = highscores.map((p, i) => {
+                const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1;
+                const date = p.date ? new Date(p.date).toLocaleDateString('da-DK') : '-';
+                return `<tr class="player-row">
+                    <td>${medal}</td>
+                    <td>${p.name || 'Anonym'}</td>
+                    <td>${p.company || '-'}</td>
+                    <td style="color:#ffd700;font-weight:bold">${(p.score || 0).toLocaleString()}</td>
+                    <td>${p.correctAnswers || 0}/${p.totalQuestions || 15}</td>
+                    <td style="color:#888">${date}</td>
+                </tr>`;
+            }).join('');
+        }
+        
+        // ===== LEVEL ANALYSIS =====
+        function renderLevelAnalysis() {
+            const byLevel = {};
+            questionStats.forEach(q => {
+                if (!byLevel[q.level]) byLevel[q.level] = [];
+                byLevel[q.level].push(q);
+            });
+            
+            const levels = Object.keys(byLevel).map(Number).sort((a, b) => a - b);
+            
+            document.getElementById('levelBoxes').innerHTML = levels.map(lvl => {
+                const qs = byLevel[lvl];
+                const totalAnswers = qs.reduce((s, q) => s + q.totalAnswers, 0);
+                const totalCorrect = qs.reduce((s, q) => s + q.correctAnswers, 0);
+                const avgRatio = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
+                const color = ratioColor(avgRatio);
+                const lvlClass = lvl <= 5 ? 'easy' : lvl <= 10 ? 'medium' : 'hard';
+                
+                const qList = qs.sort((a, b) => a.correctRatio - b.correctRatio).map(q => 
+                    `<li style="font-size:0.8rem;padding:4px 0">
+                        <span class="q-text">${q.question}</span>
+                        <span class="q-stat" style="color:${ratioColor(q.correctRatio)};font-size:0.8rem">${q.correctRatio}%</span>
+                    </li>`
+                ).join('');
+                
+                return `<div class="insight-box">
+                    <h3>
+                        <span class="level-badge ${lvlClass}">Lvl ${lvl}</span>
+                        — ${qs.length} spørgsmål — 
+                        <span style="color:${color}">${avgRatio}% korrekt</span>
+                        <span style="color:#888;font-weight:normal;font-size:0.8rem">(${totalAnswers} svar)</span>
+                    </h3>
+                    <ul class="insight-list">${qList}</ul>
+                </div>`;
+            }).join('');
+        }
+        
+        // ===== CLICK STATS =====
+        function renderClickStats() {
+            const el = document.getElementById('clickStatsList');
+            const links = {
+                'smartpack': { name: 'SmartPack', emoji: '📦', url: 'smartpack.dk' },
+                'dansk_erhverv': { name: 'Dansk Erhverv', emoji: '🏢', url: 'danskerhverv.dk' }
+            };
+            
+            const entries = Object.entries(links).map(([key, info]) => {
+                const data = clickStats[key] || {};
+                const clicks = data.totalClicks || 0;
+                const lastClicked = data.lastClicked ? new Date(data.lastClicked).toLocaleString('da-DK') : 'Aldrig';
+                return { ...info, key, clicks, lastClicked };
+            });
+            
+            const totalClicks = entries.reduce((s, e) => s + e.clicks, 0);
+            
+            el.innerHTML = entries.map(e => {
+                const pct = totalClicks > 0 ? Math.round((e.clicks / totalClicks) * 100) : 0;
+                return `<li>
+                    <span class="q-text">${e.emoji} <strong>${e.name}</strong> <span style="color:#888">(${e.url})</span></span>
+                    <span class="q-stat" style="color:#45b7d1">${e.clicks} klik</span>
+                </li>
+                <li style="padding:2px 0 8px;border-bottom:1px solid rgba(255,255,255,0.08)">
+                    <span class="q-text" style="font-size:0.75rem;color:#666">Sidst klikket: ${e.lastClicked}</span>
+                    <span style="font-size:0.75rem;color:#888">${pct}%</span>
+                </li>`;
+            }).join('') + `<li style="border-top:1px solid rgba(255,215,0,0.2);padding-top:10px">
+                <span class="q-text"><strong>Total klik</strong></span>
+                <span class="q-stat" style="color:#ffd700">${totalClicks}</span>
+            </li>`;
+        }
+        
+        // ===== WEEKLY CHART =====
+        function renderWeeklyChart() {
+            const weeks = {};
+            
+            highscores.forEach(p => {
+                if (!p.date) return;
+                const d = new Date(p.date);
+                const weekKey = getISOWeekKey(d);
+                const weekLabel = getWeekLabel(d);
+                if (!weeks[weekKey]) weeks[weekKey] = { label: weekLabel, count: 0, scores: [] };
+                weeks[weekKey].count++;
+                weeks[weekKey].scores.push(p.score || 0);
+            });
+            
+            const sorted = Object.entries(weeks).sort((a, b) => a[0].localeCompare(b[0]));
+            
+            if (sorted.length === 0) {
+                document.getElementById('weeklyChart').innerHTML = '<div style="color:#888;text-align:center;width:100%;align-self:center">Ingen data endnu</div>';
+                document.getElementById('weeklyList').innerHTML = '';
+                return;
+            }
+            
+            const maxCount = Math.max(...sorted.map(([, d]) => d.count));
+            const recent = sorted.slice(-12);
+            
+            document.getElementById('weeklyChart').innerHTML = recent.map(([key, d]) => {
+                const height = Math.max(5, (d.count / maxCount) * 100);
+                const avgScore = Math.round(d.scores.reduce((s, v) => s + v, 0) / d.scores.length);
+                return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:40px">
+                    <span style="color:#4ecdc4;font-weight:bold;font-size:0.85rem">${d.count}</span>
+                    <div style="width:100%;max-width:50px;height:${height}%;background:linear-gradient(180deg,#4ecdc4,#45b7d1);border-radius:6px 6px 0 0;min-height:5px" title="${d.label}: ${d.count} spil, gns: ${avgScore}"></div>
+                    <span style="color:#888;font-size:0.65rem;white-space:nowrap">${d.label}</span>
+                </div>`;
+            }).join('');
+            
+            document.getElementById('weeklyList').innerHTML = sorted.reverse().map(([key, d]) => {
+                const avgScore = Math.round(d.scores.reduce((s, v) => s + v, 0) / d.scores.length);
+                return `<li>
+                    <span class="q-text">📆 ${d.label}</span>
+                    <span class="q-stat" style="color:#4ecdc4">${d.count} spil &nbsp;·&nbsp; gns: ${avgScore.toLocaleString()}</span>
+                </li>`;
+            }).join('');
+        }
+        
+        function getISOWeekKey(date) {
+            const d = new Date(date);
+            d.setHours(0, 0, 0, 0);
+            d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+            const week1 = new Date(d.getFullYear(), 0, 4);
+            const weekNum = 1 + Math.round(((d - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+            return d.getFullYear() + '-W' + String(weekNum).padStart(2, '0');
+        }
+        
+        function getWeekLabel(date) {
+            const d = new Date(date);
+            d.setHours(0, 0, 0, 0);
+            d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+            const week1 = new Date(d.getFullYear(), 0, 4);
+            const weekNum = 1 + Math.round(((d - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+            return 'Uge ' + weekNum;
+        }
+        
+        // ===== MONTHLY CHART =====
+        function renderMonthlyChart() {
+            const months = {};
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
+            
+            highscores.forEach(p => {
+                if (!p.date) return;
+                const d = new Date(p.date);
+                const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+                const label = monthNames[d.getMonth()] + ' ' + d.getFullYear();
+                if (!months[key]) months[key] = { label, count: 0, scores: [] };
+                months[key].count++;
+                months[key].scores.push(p.score || 0);
+            });
+            
+            const sorted = Object.entries(months).sort((a, b) => a[0].localeCompare(b[0]));
+            
+            if (sorted.length === 0) {
+                document.getElementById('monthlyChart').innerHTML = '<div style="color:#888;text-align:center;width:100%;align-self:center">Ingen data endnu</div>';
+                document.getElementById('monthlyList').innerHTML = '';
+                return;
+            }
+            
+            const maxCount = Math.max(...sorted.map(([, d]) => d.count));
+            
+            // Bar chart
+            document.getElementById('monthlyChart').innerHTML = sorted.map(([key, d]) => {
+                const height = Math.max(5, (d.count / maxCount) * 100);
+                const avgScore = Math.round(d.scores.reduce((s, v) => s + v, 0) / d.scores.length);
+                return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:50px">
+                    <span style="color:#ffd700;font-weight:bold;font-size:0.9rem">${d.count}</span>
+                    <div style="width:100%;max-width:60px;height:${height}%;background:linear-gradient(180deg,#ffd700,#f59e0b);border-radius:6px 6px 0 0;min-height:5px" title="${d.label}: ${d.count} spil, gns. score: ${avgScore}"></div>
+                    <span style="color:#888;font-size:0.7rem;white-space:nowrap">${d.label}</span>
+                </div>`;
+            }).join('');
+            
+            // Monthly list
+            document.getElementById('monthlyList').innerHTML = sorted.reverse().map(([key, d]) => {
+                const avgScore = Math.round(d.scores.reduce((s, v) => s + v, 0) / d.scores.length);
+                const topScore = Math.max(...d.scores);
+                return `<li>
+                    <span class="q-text">📅 ${d.label}</span>
+                    <span class="q-stat" style="color:#ffd700">${d.count} spil &nbsp;·&nbsp; gns: ${avgScore.toLocaleString()} &nbsp;·&nbsp; top: ${topScore.toLocaleString()}</span>
+                </li>`;
+            }).join('');
+        }
+        
+        // ===== HELPERS =====
+        function ratioColor(ratio) {
+            if (ratio >= 70) return '#4ade80';
+            if (ratio >= 50) return '#fbbf24';
+            if (ratio >= 30) return '#fb923c';
+            return '#f87171';
+        }
+        
+        function populateFilters() {
+            const cats = [...new Set(questionStats.map(q => q.category).filter(Boolean))].sort();
+            const levels = [...new Set(questionStats.map(q => q.level))].sort((a, b) => a - b);
+            
+            const catSelect = document.getElementById('filterCategory');
+            catSelect.innerHTML = '<option value="">Alle kategorier</option>' + 
+                cats.map(c => `<option value="${c}">${c}</option>`).join('');
+            
+            const lvlSelect = document.getElementById('filterLevel');
+            lvlSelect.innerHTML = '<option value="">Alle levels</option>' + 
+                levels.map(l => `<option value="${l}">Level ${l}</option>`).join('');
+        }
+        
+        // ===== TABS =====
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // ===== INIT =====
+        function checkAccess() {
+            if (sessionStorage.getItem('ww_admin') === '1') {
+                unlock();
+            }
+        }
+        
+        function tryUnlock() {
+            const code = document.getElementById('accessCode').value;
+            if (code === '1337') {
+                sessionStorage.setItem('ww_admin', '1');
+                unlock();
+            } else {
+                document.getElementById('lockError').style.display = 'block';
+                document.getElementById('accessCode').value = '';
+                document.getElementById('accessCode').focus();
+            }
+        }
+        
+        function unlock() {
+            document.body.classList.add('unlocked');
+            loadAllData();
+        }
+        
+        // Enter-key support
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && !document.body.classList.contains('unlocked')) {
+                tryUnlock();
+            }
+        });
+        
+        checkAccess();
+    </script>
+</body>
+</html>

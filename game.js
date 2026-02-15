@@ -375,7 +375,7 @@ class WarehouseWarriorGame {
         
         const question = this.questions[this.currentQuestionIndex];
         
-        document.getElementById('playerNameDisplay').textContent = this.playerName || 'Spiller';
+        document.getElementById('currentLevel').textContent = question.level;
         document.getElementById('currentQuestion').textContent = this.currentQuestionIndex + 1;
         document.getElementById('currentScore').textContent = this.score.toLocaleString();
         // Opdater kategori med ikon
@@ -496,11 +496,17 @@ class WarehouseWarriorGame {
         }, 1000);
     }
     
-    // Syntetisk tick-lyd via Web Audio API
+    // Syntetisk tick-lyd via Web Audio API (genbruger AudioContext)
     playTickSound() {
         if (!this.sfxEnabled) return;
         try {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            // Genbrug AudioContext (mobil kræver det)
+            if (!this._audioCtx) {
+                this._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            const ctx = this._audioCtx;
+            if (ctx.state === 'suspended') ctx.resume();
+            
             // Tick lyd
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
@@ -735,7 +741,13 @@ class WarehouseWarriorGame {
             }
         });
         
-        if (this.selectedAnswer === shuffledCorrect) {
+        // Track analytics
+        const isCorrect = this.selectedAnswer === shuffledCorrect;
+        if (typeof firebaseHighscore !== 'undefined') {
+            firebaseHighscore.trackAnswer(question.question, question.level, question.category, isCorrect);
+        }
+        
+        if (isCorrect) {
             this.correctAnswers++;
             this.streak++;
             if (this.streak > this.bestStreak) this.bestStreak = this.streak;
@@ -792,6 +804,7 @@ class WarehouseWarriorGame {
         document.getElementById('correctMessage').textContent = message;
         document.getElementById('pointsEarned').textContent = '+' + (this.lastRoundPoints || 0);
         document.getElementById('pointsTotal').textContent = this.score.toLocaleString();
+        this.loadFunFact('correctFunFact', true);
         this.showScene('correctScene');
         this.createConfetti('confettiContainer');
         setTimeout(() => this.nextQuestion(), 3000);
@@ -828,7 +841,108 @@ class WarehouseWarriorGame {
             wrongHostImg.src = wrongHostImages[Math.floor(Math.random() * wrongHostImages.length)];
         }
         
+        this.loadFunFact('wrongFunFact', false);
         this.showScene('wrongScene');
+    }
+    
+    // ===== FUN FACTS =====
+    
+    async loadFunFact(elementId, wasCorrect) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        el.textContent = '';
+        el.style.display = 'none';
+        
+        if (typeof firebaseHighscore === 'undefined' || !firebaseHighscore.initialized) return;
+        
+        try {
+            const question = this.questions[this.currentQuestionIndex];
+            const qId = firebaseHighscore.hashQuestion(question.question);
+            const ref = firebaseHighscore.db.ref('questionStats/' + qId);
+            const snapshot = await ref.once('value');
+            const data = snapshot.val();
+            
+            if (!data || data.totalAnswers < 3) return;
+            
+            const total = data.totalAnswers;
+            const correct = data.correctAnswers;
+            const wrongPct = Math.round(((total - correct) / total) * 100);
+            const correctPct = 100 - wrongPct;
+            
+            const fact = this.generateFunFact(wrongPct, correctPct, total, wasCorrect, question);
+            if (fact) {
+                el.innerHTML = fact;
+                el.style.display = 'block';
+            }
+        } catch (e) {
+            console.warn('Fun fact load failed:', e);
+        }
+    }
+    
+    generateFunFact(wrongPct, correctPct, total, wasCorrect, question) {
+        const facts = [];
+        
+        if (wasCorrect) {
+            // Spilleren svarede rigtigt
+            if (wrongPct >= 70) {
+                facts.push('\ud83e\udde0 Kun ' + correctPct + '% svarer rigtigt på dette — du er skarp!');
+                facts.push('\ud83d\udcaa ' + wrongPct + '% falder i fælden her. Ikke dig!');
+                facts.push('\ud83c\udfaf Et af de sværeste spørgsmål — ' + wrongPct + '% svarer forkert!');
+            } else if (wrongPct >= 50) {
+                facts.push('\ud83d\udcca ' + wrongPct + '% svarer forkert på dette spørgsmål');
+                facts.push('\u2696\ufe0f Halvdelen fejler her — godt klaret!');
+            } else if (wrongPct >= 30) {
+                facts.push('\ud83d\udcca ' + correctPct + '% svarer rigtigt — du er med i flertallet!');
+            } else {
+                facts.push('\u2705 ' + correctPct + '% klarer dette spørgsmål — godt gået!');
+            }
+            
+            // Streak-baserede facts
+            if (this.streak >= 5) {
+                facts.push('\ud83d\udd25 ' + this.streak + ' i streg! Kun de bedste holder det niveau!');
+            }
+            if (this.correctAnswers === this.currentQuestionIndex + 1 && this.currentQuestionIndex >= 4) {
+                facts.push('\ud83c\udfc6 Perfekt score indtil videre — ' + this.correctAnswers + '/' + (this.currentQuestionIndex + 1) + '!');
+            }
+        } else {
+            // Spilleren svarede forkert
+            if (wrongPct >= 60) {
+                facts.push('\ud83d\ude2c ' + wrongPct + '% svarer også forkert her — du er ikke alene!');
+                facts.push('\ud83d\udcca Et af de sværeste! ' + wrongPct + '% fejler dette spørgsmål');
+            } else if (wrongPct >= 40) {
+                facts.push('\ud83d\udcca ' + wrongPct + '% falder også i denne fælde');
+            } else {
+                facts.push('\ud83d\ude33 Kun ' + wrongPct + '% svarer forkert her — et sjældent fejltrin!');
+                facts.push('\ud83d\udcda ' + correctPct + '% klarer dette — tid til at læse op!');
+            }
+        }
+        
+        // Total-baserede facts
+        if (total >= 50) {
+            facts.push('\ud83d\udcc8 ' + total + ' spillere har svaret på dette spørgsmål');
+        } else if (total >= 20) {
+            facts.push('\ud83d\udc65 ' + total + ' har prøvet dette spørgsmål før dig');
+        }
+        
+        // Kategori-fact
+        if (question.category) {
+            const catFacts = {
+                'Lagerstyring': '\ud83d\udce6 Lagerstyring er fundamentet for en effektiv webshop',
+                'Returer': '\ud83d\udd04 Returer koster i snit 2-3x mere end den originale forsendelse',
+                'Svind': '\ud83d\udd0d Svind kan koste op til 3-5% af omsætningen hvis det ignoreres',
+                'Fragt': '\ud83d\ude9a Fragt er ofte den største variable omkostning for webshops',
+                'Emballage': '\ud83d\udce6 God emballage reducerer returer med op til 30%',
+                '3PL': '\ud83c\udfe2 Over 60% af e-commerce virksomheder overvejer 3PL',
+                'Kampagner': '\ud83c\udf1f Black Friday kan give 5-10x normal volumen på lageret'
+            };
+            if (catFacts[question.category] && Math.random() < 0.3) {
+                facts.push(catFacts[question.category]);
+            }
+        }
+        
+        // Vælg en tilfældig fact
+        if (facts.length === 0) return null;
+        return facts[Math.floor(Math.random() * facts.length)];
     }
     
     openChapterForCurrentQuestion() {

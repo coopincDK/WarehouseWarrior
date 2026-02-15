@@ -237,6 +237,141 @@ class FirebaseHighscore {
         }
     }
     
+    // ===== SESSION TRACKING =====
+    
+    async trackSession() {
+        if (this.fallbackToLocal || !this.initialized) return;
+        
+        try {
+            const isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const device = isMobile ? 'mobile' : 'desktop';
+            const hour = new Date().getHours();
+            let timeSlot = 'nat';
+            if (hour >= 6 && hour < 12) timeSlot = 'morgen';
+            else if (hour >= 12 && hour < 17) timeSlot = 'eftermiddag';
+            else if (hour >= 17 && hour < 22) timeSlot = 'aften';
+            
+            // Referrer/UTM
+            const params = new URLSearchParams(window.location.search);
+            const source = params.get('utm_source') || params.get('ref') || document.referrer || 'direkte';
+            let refKey = 'direkte';
+            if (source.includes('linkedin')) refKey = 'linkedin';
+            else if (source.includes('facebook')) refKey = 'facebook';
+            else if (source.includes('mail') || source.includes('outlook')) refKey = 'email';
+            else if (source.includes('google')) refKey = 'google';
+            else if (source !== 'direkte' && source !== '') refKey = 'andet';
+            
+            const ref = this.db.ref('sessions');
+            await ref.transaction(current => {
+                if (!current) current = {};
+                // Enheder
+                if (!current.devices) current.devices = {};
+                current.devices[device] = (current.devices[device] || 0) + 1;
+                // Tidspunkt
+                if (!current.timeSlots) current.timeSlots = {};
+                current.timeSlots[timeSlot] = (current.timeSlots[timeSlot] || 0) + 1;
+                // Referrer
+                if (!current.referrers) current.referrers = {};
+                current.referrers[refKey] = (current.referrers[refKey] || 0) + 1;
+                // Total
+                current.totalSessions = (current.totalSessions || 0) + 1;
+                return current;
+            });
+        } catch (e) {
+            console.warn('Session tracking failed:', e);
+        }
+    }
+    
+    // ===== ANSWER TIME TRACKING =====
+    
+    async trackAnswerTime(questionIndex, timeTakenMs, isCorrect) {
+        if (this.fallbackToLocal || !this.initialized) return;
+        
+        try {
+            const ref = this.db.ref('answerTimes');
+            await ref.transaction(current => {
+                if (!current) current = { totalTime: 0, totalAnswers: 0, byQuestion: {} };
+                current.totalTime = (current.totalTime || 0) + timeTakenMs;
+                current.totalAnswers = (current.totalAnswers || 0) + 1;
+                // Per spørgsmålsnummer (1-15)
+                const qKey = 'q' + (questionIndex + 1);
+                if (!current.byQuestion[qKey]) current.byQuestion[qKey] = { totalTime: 0, count: 0, correctTime: 0, correctCount: 0 };
+                current.byQuestion[qKey].totalTime += timeTakenMs;
+                current.byQuestion[qKey].count += 1;
+                if (isCorrect) {
+                    current.byQuestion[qKey].correctTime += timeTakenMs;
+                    current.byQuestion[qKey].correctCount += 1;
+                }
+                return current;
+            });
+        } catch (e) {
+            console.warn('Answer time tracking failed:', e);
+        }
+    }
+    
+    // ===== ARE YOU SURE TRACKING =====
+    
+    async trackAreYouSure(action, originalWasCorrect) {
+        if (this.fallbackToLocal || !this.initialized) return;
+        
+        try {
+            const ref = this.db.ref('areYouSure');
+            await ref.transaction(current => {
+                if (!current) current = { shown: 0, confirmed: 0, changed: 0, confirmedCorrect: 0, changedSavedIt: 0 };
+                current.shown = (current.shown || 0) + 1;
+                if (action === 'confirmed') {
+                    current.confirmed = (current.confirmed || 0) + 1;
+                    if (originalWasCorrect) current.confirmedCorrect = (current.confirmedCorrect || 0) + 1;
+                } else {
+                    current.changed = (current.changed || 0) + 1;
+                    if (!originalWasCorrect) current.changedSavedIt = (current.changedSavedIt || 0) + 1;
+                }
+                return current;
+            });
+        } catch (e) {
+            console.warn('AreYouSure tracking failed:', e);
+        }
+    }
+    
+    // ===== GAME COMPLETION TRACKING =====
+    
+    async trackGameCompletion(score, correctAnswers, bestStreak, questionReached) {
+        if (this.fallbackToLocal || !this.initialized) return;
+        
+        try {
+            const dateKey = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+            const ref = this.db.ref('gameCompletions/' + dateKey);
+            await ref.transaction(current => {
+                if (!current) current = { games: 0, totalScore: 0, totalCorrect: 0, victories: 0, scores: {}, streaks: {}, dropOff: {} };
+                current.games = (current.games || 0) + 1;
+                current.totalScore = (current.totalScore || 0) + score;
+                current.totalCorrect = (current.totalCorrect || 0) + correctAnswers;
+                if (correctAnswers >= 12) current.victories = (current.victories || 0) + 1;
+                // Score-fordeling (buckets: 0-999, 1000-2999, 3000-5999, 6000-9999, 10000+)
+                let bucket = '0_999';
+                if (score >= 10000) bucket = '10000_plus';
+                else if (score >= 6000) bucket = '6000_9999';
+                else if (score >= 3000) bucket = '3000_5999';
+                else if (score >= 1000) bucket = '1000_2999';
+                if (!current.scores) current.scores = {};
+                current.scores[bucket] = (current.scores[bucket] || 0) + 1;
+                // Streak-fordeling
+                const streakBucket = 's' + Math.min(bestStreak, 15);
+                if (!current.streaks) current.streaks = {};
+                current.streaks[streakBucket] = (current.streaks[streakBucket] || 0) + 1;
+                // Drop-off (hvilket spørgsmål de tabte på)
+                if (correctAnswers < 12) {
+                    const dropKey = 'q' + questionReached;
+                    if (!current.dropOff) current.dropOff = {};
+                    current.dropOff[dropKey] = (current.dropOff[dropKey] || 0) + 1;
+                }
+                return current;
+            });
+        } catch (e) {
+            console.warn('Game completion tracking failed:', e);
+        }
+    }
+    
     // ===== CLICK TRACKING =====
     
     async trackClick(linkName) {

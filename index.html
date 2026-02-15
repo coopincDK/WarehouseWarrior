@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warehouse Warrior - Lager Quiz</title>
-    <link rel="stylesheet" href="style-new.css?v=3.2">
+    <link rel="stylesheet" href="style-new.css?v=3.8">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffd700">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -375,7 +375,12 @@
             <div class="content-overlay">
                 <div class="highscore-content">
                     <img src="assets/images/icons/27_highscore_tavle_ikon.png" alt="Highscore" class="highscore-trophy">
-                    <h2>🏆 Highscore Top 10</h2>
+                    <h2 id="highscoreListTitle">🏆 Highscore Top 10</h2>
+                    <div style="display:flex;gap:6px;justify-content:center;margin-bottom:10px;flex-wrap:wrap">
+                        <button class="btn-secondary" style="padding:6px 14px;font-size:0.8rem;min-width:auto" onclick="game.showHighscoreView('top10')">🏆 Top 10</button>
+                        <button class="btn-secondary" style="padding:6px 14px;font-size:0.8rem;min-width:auto" onclick="game.showHighscoreView('top100')">📊 Top 100</button>
+                        <button class="btn-secondary" style="padding:6px 14px;font-size:0.8rem;min-width:auto" onclick="game.showHighscoreView('company')">🏢 Virksomheder</button>
+                    </div>
                     <div class="highscore-table-container">
                         <table class="highscore-table" id="highscoreTable">
                             <thead>
@@ -490,9 +495,9 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-    <script src="firebase-highscore.js?v=3.2"></script>
-    <script src="questions.js?v=3.2"></script>
-    <script src="game.js?v=3.2"></script>
+    <script src="firebase-highscore.js?v=3.8"></script>
+    <script src="questions.js?v=3.8"></script>
+    <script src="game.js?v=3.8"></script>
     <!-- Footer med logoer -->
     <div class="footer-logos">
         <span class="footer-text">Præsenteret af</span>

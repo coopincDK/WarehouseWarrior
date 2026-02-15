@@ -334,8 +334,12 @@ class WarehouseWarriorGame {
             this.musicPlaying = true;
         }
         
-        // Track spil startet
-        if (typeof firebaseHighscore !== 'undefined') firebaseHighscore.trackEvent('game_started');
+        // Track spil startet + session data
+        this.gameActive = true;
+        if (typeof firebaseHighscore !== 'undefined') {
+            firebaseHighscore.trackEvent('game_started');
+            firebaseHighscore.trackSession();
+        }
         
         // Generate questions
         this.questions = generateQuestionSet();
@@ -719,6 +723,12 @@ class WarehouseWarriorGame {
         document.getElementById('areYouSureModal').classList.remove('active');
         this.playSound('click');
         
+        // Track "Er du sikker?" effekt
+        const pendingWasCorrect = this.pendingAnswer === this.currentShuffle.correctIndex;
+        if (typeof firebaseHighscore !== 'undefined') {
+            firebaseHighscore.trackAreYouSure(confirmed ? 'confirmed' : 'changed', pendingWasCorrect);
+        }
+        
         if (confirmed) {
             // Player sticks with their answer
             this.selectedAnswer = this.pendingAnswer;
@@ -755,8 +765,10 @@ class WarehouseWarriorGame {
         const isCorrect = this.selectedAnswer === shuffledCorrect;
         const chosenAnswerText = this.currentShuffle.answers[this.selectedAnswer] || '';
         const correctAnswerText = this.currentShuffle.answers[shuffledCorrect] || '';
+        const answerTimeMs = Date.now() - this.answerStartTime;
         if (typeof firebaseHighscore !== 'undefined') {
             firebaseHighscore.trackAnswer(question.question, question.level, question.category, isCorrect, chosenAnswerText, correctAnswerText);
+            firebaseHighscore.trackAnswerTime(this.currentQuestionIndex, answerTimeMs, isCorrect);
         }
         
         if (isCorrect) {
@@ -1019,7 +1031,11 @@ class WarehouseWarriorGame {
     }
     
     gameOver() {
-        if (typeof firebaseHighscore !== 'undefined') firebaseHighscore.trackEvent('game_over', { subKey: 'q' + (this.currentQuestionIndex + 1) });
+        this.gameActive = false;
+        if (typeof firebaseHighscore !== 'undefined') {
+            firebaseHighscore.trackEvent('game_over', { subKey: 'q' + (this.currentQuestionIndex + 1) });
+            firebaseHighscore.trackGameCompletion(this.score, this.correctAnswers, this.bestStreak, this.currentQuestionIndex + 1);
+        }
         document.getElementById('finalQuestion').textContent = this.correctAnswers;
         document.getElementById('finalScore').textContent = this.score.toLocaleString();
         this.showScene('gameOverScene');
@@ -1030,7 +1046,11 @@ class WarehouseWarriorGame {
     }
     
     victory() {
-        if (typeof firebaseHighscore !== 'undefined') firebaseHighscore.trackEvent('game_victory');
+        this.gameActive = false;
+        if (typeof firebaseHighscore !== 'undefined') {
+            firebaseHighscore.trackEvent('game_victory');
+            firebaseHighscore.trackGameCompletion(this.score, this.correctAnswers, this.bestStreak, 15);
+        }
         document.getElementById('victoryScore').textContent = this.score.toLocaleString();
         this.showScene('victoryScene');
         this.playSound('celebrate');
@@ -1064,6 +1084,11 @@ class WarehouseWarriorGame {
     goHome() {
         this.playSound('click');
         this.stopTimer();
+        // Track at spilleren forlod spillet frivilligt
+        if (this.gameActive && typeof firebaseHighscore !== 'undefined') {
+            firebaseHighscore.trackEvent('game_abandoned', { subKey: 'q' + (this.currentQuestionIndex + 1) });
+        }
+        this.gameActive = false;
         this.showScene('welcomeScene');
     }
     
@@ -1108,38 +1133,111 @@ class WarehouseWarriorGame {
     
     async showHighscore() {
         this.playSound('click');
-        const highscores = await this.getHighscores();
+        let allScores = await this.getHighscores();
+        // Hent firma-aliaser + skjulte spillere
+        try {
+            if (firebaseHighscore.db) {
+                const [aliasSnap, hiddenSnap] = await Promise.all([
+                    firebaseHighscore.db.ref('companyAliases').once('value'),
+                    firebaseHighscore.db.ref('hiddenPlayers').once('value')
+                ]);
+                this.companyAliases = aliasSnap.val() || {};
+                const hidden = hiddenSnap.val() || {};
+                // Filtrer skjulte spillere
+                allScores = allScores.filter(p => {
+                    const key = ((p.name || 'Anonym') + '|' + (p.score || 0) + '|' + (p.date || '')).replace(/[.#$/\[\]]/g, '_');
+                    return !hidden[key];
+                });
+            }
+        } catch(e) { this.companyAliases = {}; }
+        this.cachedHighscores = allScores;
+        this.showHighscoreView('top10');
+        this.showScene('highscoreScene');
+    }
+    
+    resolveCompany(name) {
+        if (!name) return '';
+        const trimmed = name.trim();
+        const key = trimmed.toLowerCase().replace(/[.#$/\[\]]/g, '_');
+        return (this.companyAliases && this.companyAliases[key]) || trimmed;
+    }
+    
+    showHighscoreView(view) {
         const tbody = document.getElementById('highscoreBody');
+        const thead = document.querySelector('#highscoreTable thead tr');
+        const title = document.getElementById('highscoreListTitle');
         tbody.innerHTML = '';
         
-        // Dynamic: show top 10 until 100+ entries, then show top 100
-        const showCount = highscores.length >= 100 ? 100 : 10;
-        const listTitle = document.getElementById('highscoreListTitle');
-        if (listTitle) listTitle.textContent = `Top ${showCount}`;
+        const highscores = this.cachedHighscores || [];
         
-        if (highscores.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" class="no-scores">Ingen highscores endnu. Spil et spil!</td></tr>';
-        } else {
-            highscores.slice(0, showCount).forEach((entry, index) => {
-                const tr = document.createElement('tr');
-                let rankDisplay;
-                if (index === 0) rankDisplay = '<span class="rank-medal">🥇</span>';
-                else if (index === 1) rankDisplay = '<span class="rank-medal">🥈</span>';
-                else if (index === 2) rankDisplay = '<span class="rank-medal">🥉</span>';
-                else rankDisplay = (index + 1);
-                
-                const companyLine = entry.company ? `<span class="hs-company">${this.escapeHtml(entry.company)}</span>` : '';
-                tr.innerHTML = `
-                    <td>${rankDisplay}</td>
-                    <td>${this.escapeHtml(entry.name)}${companyLine}</td>
-                    <td>${entry.company ? this.escapeHtml(entry.company) : '-'}</td>
-                    <td>${entry.score.toLocaleString()}</td>
-                    <td>${entry.correctAnswers}/${entry.totalQuestions}</td>
-                `;
-                tbody.appendChild(tr);
+        if (view === 'company') {
+            // Bedste score per virksomhed
+            title.textContent = '🏢 Bedste score pr. virksomhed';
+            thead.innerHTML = '<th>#</th><th>Virksomhed</th><th>Bedste spiller</th><th>Score</th><th>Spillere</th>';
+            
+            const companies = {};
+            highscores.forEach(entry => {
+                const company = (entry.company || '').trim();
+                if (!company) return;
+                const resolved = this.resolveCompany(company);
+                const key = resolved.toLowerCase();
+                if (!companies[key]) companies[key] = { name: resolved, bestScore: 0, bestPlayer: '', players: new Set(), games: 0 };
+                companies[key].games++;
+                companies[key].players.add((entry.name || 'Anonym').toLowerCase());
+                if (entry.score > companies[key].bestScore) {
+                    companies[key].bestScore = entry.score;
+                    companies[key].bestPlayer = entry.name || 'Anonym';
+                }
             });
+            
+            const sorted = Object.values(companies).sort((a, b) => b.bestScore - a.bestScore);
+            
+            if (sorted.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="no-scores">Ingen virksomheder registreret endnu</td></tr>';
+            } else {
+                sorted.forEach((c, i) => {
+                    const tr = document.createElement('tr');
+                    let rank = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1);
+                    tr.innerHTML = `
+                        <td>${rank}</td>
+                        <td><strong>${this.escapeHtml(c.name)}</strong></td>
+                        <td>${this.escapeHtml(c.bestPlayer)}</td>
+                        <td>${c.bestScore.toLocaleString()}</td>
+                        <td>${c.players.size} (${c.games} spil)</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+        } else {
+            // Top 10 eller Top 100
+            const showCount = view === 'top100' ? 100 : 10;
+            title.textContent = `🏆 Highscore Top ${showCount}`;
+            thead.innerHTML = '<th>#</th><th>Navn</th><th>Virksomhed</th><th>Score</th><th>Spørgsmål</th>';
+            
+            if (highscores.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="no-scores">Ingen highscores endnu. Spil et spil!</td></tr>';
+            } else {
+                highscores.slice(0, showCount).forEach((entry, index) => {
+                    const tr = document.createElement('tr');
+                    let rankDisplay;
+                    if (index === 0) rankDisplay = '<span class="rank-medal">🥇</span>';
+                    else if (index === 1) rankDisplay = '<span class="rank-medal">🥈</span>';
+                    else if (index === 2) rankDisplay = '<span class="rank-medal">🥉</span>';
+                    else rankDisplay = (index + 1);
+                    
+                    const resolvedCo = this.resolveCompany(entry.company);
+                    const companyLine = resolvedCo ? `<span class="hs-company">${this.escapeHtml(resolvedCo)}</span>` : '';
+                    tr.innerHTML = `
+                        <td>${rankDisplay}</td>
+                        <td>${this.escapeHtml(entry.name)}${companyLine}</td>
+                        <td>${resolvedCo ? this.escapeHtml(resolvedCo) : '-'}</td>
+                        <td>${entry.score.toLocaleString()}</td>
+                        <td>${entry.correctAnswers}/${entry.totalQuestions}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
         }
-        this.showScene('highscoreScene');
     }
     
     escapeHtml(text) {
@@ -1325,4 +1423,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Init Firebase highscore
     await firebaseHighscore.init();
     game = new WarehouseWarriorGame();
+    
+    // Track abandon ved browser-luk/navigation
+    window.addEventListener('beforeunload', () => {
+        if (game && game.gameActive && typeof firebaseHighscore !== 'undefined') {
+            // sendBeacon er mere pålidelig ved page unload
+            const data = JSON.stringify({ q: game.currentQuestionIndex + 1 });
+            navigator.sendBeacon && navigator.sendBeacon('about:blank', ''); // trigger
+            firebaseHighscore.trackEvent('game_abandoned', { subKey: 'q' + (game.currentQuestionIndex + 1) });
+        }
+    });
+    
+    // Track abandon ved tab-skift på mobil (app lukkes)
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden' && game && game.gameActive && typeof firebaseHighscore !== 'undefined') {
+            firebaseHighscore.trackEvent('game_backgrounded', { subKey: 'q' + (game.currentQuestionIndex + 1) });
+        }
+    });
 });

@@ -397,6 +397,15 @@
     </div>
     
     <div class="container">
+        <!-- Time Filter -->
+        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+            <button class="tab active" id="tf-all" onclick="setTimeFilter('all')" style="font-size:0.85rem;padding:6px 16px">📅 Altid</button>
+            <button class="tab" id="tf-year" onclick="setTimeFilter('year')" style="font-size:0.85rem;padding:6px 16px">📆 År</button>
+            <button class="tab" id="tf-month" onclick="setTimeFilter('month')" style="font-size:0.85rem;padding:6px 16px">📅 Måned</button>
+            <button class="tab" id="tf-week" onclick="setTimeFilter('week')" style="font-size:0.85rem;padding:6px 16px">📆 7 dage</button>
+            <span id="timeFilterLabel" style="align-self:center;color:#888;font-size:0.8rem;margin-left:8px"></span>
+        </div>
+        
         <!-- Summary Cards -->
         <div class="summary-cards" id="summaryCards">
             <div class="card"><div class="value" id="totalQuestions">-</div><div class="label">Spørgsmål i banken</div></div>
@@ -416,6 +425,7 @@
             <button class="tab" onclick="switchTab('players')">👥 Spillere</button>
             <button class="tab" onclick="switchTab('levels')">📊 Level-analyse</button>
             <button class="tab" onclick="switchTab('wronganswers')">❌ Forkerte svar</button>
+            <button class="tab" onclick="switchTab('companies')">🏢 Firmaer</button>
         </div>
         
         <!-- INSIGHTS TAB -->
@@ -466,6 +476,46 @@
                     <div id="weeklyChart" style="display:flex;align-items:flex-end;gap:6px;height:150px;padding:10px 0;overflow-x:auto"></div>
                     <ul class="insight-list" id="weeklyList" style="margin-top:10px;max-height:200px;overflow-y:auto"></ul>
                 </div>
+                <div class="insight-box">
+                    <h3>📱 Enheder</h3>
+                    <ul class="insight-list" id="deviceList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>🕰️ Tidspunkt på dagen</h3>
+                    <ul class="insight-list" id="timeSlotList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>🌐 Trafikkilde</h3>
+                    <ul class="insight-list" id="referrerList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>⏱️ Gns. svartid</h3>
+                    <ul class="insight-list" id="answerTimeList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>🤔 "Er du sikker?"-effekt</h3>
+                    <ul class="insight-list" id="areYouSureList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>📉 Drop-off per level</h3>
+                    <div id="dropOffChart" style="display:flex;align-items:flex-end;gap:4px;height:150px;padding:10px 0"></div>
+                </div>
+                <div class="insight-box">
+                    <h3>📊 Score-fordeling</h3>
+                    <div id="scoreDistChart" style="display:flex;align-items:flex-end;gap:6px;height:150px;padding:10px 0"></div>
+                </div>
+                <div class="insight-box">
+                    <h3>🔁 Returspillere</h3>
+                    <ul class="insight-list" id="returnPlayersList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>🏢 Virksomheder</h3>
+                    <ul class="insight-list" id="companyList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>🔥 Bedste streaks</h3>
+                    <ul class="insight-list" id="streakList"></ul>
+                </div>
                 <div class="insight-box" style="grid-column: 1 / -1">
                     <h3>📅 Spil pr. måned</h3>
                     <div id="monthlyChart" style="display:flex;align-items:flex-end;gap:8px;height:200px;padding:10px 0"></div>
@@ -510,6 +560,24 @@
             </div>
         </div>
         
+        <!-- COMPANIES TAB -->
+        <div class="tab-content" id="tab-companies">
+            <p style="color:#888;margin-bottom:15px">Ret stavefejl i firmanavne. Tilføj alias → alle varianter vises under ét navn i highscore og statistik.</p>
+            
+            <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+                <input type="text" id="aliasFrom" placeholder="Forkert stavning (fx smarpack)" style="flex:1;min-width:150px;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-size:0.9rem">
+                <span style="align-self:center;color:#888">→</span>
+                <input type="text" id="aliasTo" placeholder="Korrekt navn (fx SmartPack)" style="flex:1;min-width:150px;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-size:0.9rem">
+                <button class="refresh-btn" onclick="addAlias()" style="white-space:nowrap">➕ Tilføj alias</button>
+            </div>
+            
+            <div id="aliasList" style="margin-bottom:20px"></div>
+            
+            <h3 style="color:#ffd700;margin-bottom:10px">🏢 Alle firmanavne i databasen</h3>
+            <p style="color:#666;font-size:0.8rem;margin-bottom:10px">Klik på et navn for at tilføje det som alias</p>
+            <div id="allCompanyNames" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+        </div>
+        
         <!-- WRONG ANSWERS TAB -->
         <div class="tab-content" id="tab-wronganswers">
             <p style="color:#888;margin-bottom:15px">Spørgsmål sorteret efter flest forkerte svar. Viser hvilke svar spillerne vælger — nyttigt til at finde dårlige formuleringer eller fejl.</p>
@@ -528,10 +596,15 @@
                             <th>Score</th>
                             <th>Rigtige</th>
                             <th>Dato</th>
+                            <th>🚫</th>
                         </tr>
                     </thead>
                     <tbody id="playersBody"></tbody>
                 </table>
+            </div>
+            <div style="margin-top:20px">
+                <h4 style="color:#ff6b6b;margin-bottom:8px">🚫 Skjulte spillere</h4>
+                <div id="hiddenPlayersList"></div>
             </div>
         </div>
         
@@ -560,6 +633,79 @@
         let highscores = [];
         let clickStats = {};
         let eventStats = {};
+        let sessionData = {};
+        let answerTimeData = {};
+        let areYouSureData = {};
+        let gameCompletionData = {};
+        let companyAliases = {};
+        let hiddenPlayers = {};
+        let currentTimeFilter = 'all';
+        
+        function getFilterCutoff() {
+            const now = new Date();
+            switch (currentTimeFilter) {
+                case 'week': return new Date(now.getTime() - 7 * 86400000);
+                case 'month': return new Date(now.getFullYear(), now.getMonth(), 1);
+                case 'year': return new Date(now.getFullYear(), 0, 1);
+                default: return null;
+            }
+        }
+        
+        function getFilterLabel() {
+            switch (currentTimeFilter) {
+                case 'week': return 'Sidste 7 dage';
+                case 'month': return new Date().toLocaleString('da-DK', { month: 'long', year: 'numeric' });
+                case 'year': return 'I ' + new Date().getFullYear();
+                default: return 'Al tid';
+            }
+        }
+        
+        function getPlayerKey(p) {
+            return ((p.name || 'Anonym') + '|' + (p.score || 0) + '|' + (p.date || '')).replace(/[.#$/\[\]]/g, '_');
+        }
+        
+        function isHidden(p) {
+            return !!hiddenPlayers[getPlayerKey(p)];
+        }
+        
+        function getFilteredHighscores() {
+            let filtered = highscores.filter(p => !isHidden(p));
+            const cutoff = getFilterCutoff();
+            if (cutoff) filtered = filtered.filter(p => p.date && new Date(p.date) >= cutoff);
+            return filtered;
+        }
+        
+        async function hidePlayer(p) {
+            const key = getPlayerKey(p);
+            hiddenPlayers[key] = { name: p.name, company: p.company, score: p.score, hiddenAt: new Date().toISOString() };
+            await db.ref('hiddenPlayers/' + key).set(hiddenPlayers[key]);
+            renderAll();
+        }
+        
+        async function unhidePlayer(key) {
+            delete hiddenPlayers[key];
+            await db.ref('hiddenPlayers/' + key).remove();
+            renderAll();
+        }
+        
+        function getFilteredCompletions() {
+            const cutoff = getFilterCutoff();
+            if (!cutoff) return gameCompletionData;
+            const filtered = {};
+            const cutoffKey = cutoff.toISOString().split('T')[0];
+            Object.entries(gameCompletionData).forEach(([dateKey, data]) => {
+                if (dateKey >= cutoffKey) filtered[dateKey] = data;
+            });
+            return filtered;
+        }
+        
+        function setTimeFilter(filter) {
+            currentTimeFilter = filter;
+            document.querySelectorAll('[id^="tf-"]').forEach(b => b.classList.remove('active'));
+            document.getElementById('tf-' + filter).classList.add('active');
+            document.getElementById('timeFilterLabel').textContent = getFilterLabel();
+            renderAll();
+        }
         
         // ===== LOAD DATA =====
         async function loadAllData() {
@@ -606,6 +752,30 @@
                 });
                 highscores.sort((a, b) => b.score - a.score);
                 
+                // Hent session data
+                const sessSnap = await db.ref('sessions').once('value');
+                sessionData = sessSnap.val() || {};
+                
+                // Hent svartider
+                const atSnap = await db.ref('answerTimes').once('value');
+                answerTimeData = atSnap.val() || {};
+                
+                // Hent "Er du sikker?" data
+                const aysSnap = await db.ref('areYouSure').once('value');
+                areYouSureData = aysSnap.val() || {};
+                
+                // Hent game completion data
+                const gcSnap = await db.ref('gameCompletions').once('value');
+                gameCompletionData = gcSnap.val() || {};
+                
+                // Hent firma-aliaser
+                const aliasSnap = await db.ref('companyAliases').once('value');
+                companyAliases = aliasSnap.val() || {};
+                
+                // Hent skjulte spillere
+                const hiddenSnap = await db.ref('hiddenPlayers').once('value');
+                hiddenPlayers = hiddenSnap.val() || {};
+                
                 document.getElementById('dbStatus').textContent = 'Forbundet ✅';
                 document.getElementById('dbStatus').style.color = '#4ecdc4';
                 document.getElementById('lastUpdated').textContent = 'Opdateret: ' + new Date().toLocaleTimeString('da-DK');
@@ -637,22 +807,27 @@
             renderQuestionsTable();
             renderPlayersTable();
             renderLevelAnalysis();
+            renderCompanyTab();
             populateFilters();
         }
         
         // ===== SUMMARY CARDS =====
         function renderSummary() {
+            const fhs = getFilteredHighscores();
             const totalPlays = questionStats.reduce((s, q) => s + q.totalAnswers, 0);
             const avgRatio = questionStats.length > 0 
                 ? Math.round(questionStats.reduce((s, q) => s + q.correctRatio, 0) / questionStats.length) 
                 : 0;
             const hardest = questionStats.filter(q => q.totalAnswers >= 3).sort((a, b) => a.correctRatio - b.correctRatio)[0];
-            const topPlayer = highscores[0];
+            const topPlayer = fhs[0];
             
-            // Antal spil = highscores entries
-            const totalGames = highscores.length;
+            // Unikke spillere i periode
+            const uniqueNames = new Set(fhs.map(p => (p.name || 'Anonym').toLowerCase() + '|' + (p.company || '').toLowerCase()));
             
-            // Spil denne måned
+            // Antal spil i periode
+            const totalGames = fhs.length;
+            
+            // Spil denne måned (altid vist)
             const now = new Date();
             const thisMonth = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
             const gamesThisMonth = highscores.filter(p => {
@@ -663,7 +838,7 @@
             
             document.getElementById('totalQuestions').textContent = questionStats.length;
             document.getElementById('totalPlays').textContent = totalPlays.toLocaleString();
-            document.getElementById('totalPlayers').textContent = highscores.length;
+            document.getElementById('totalPlayers').textContent = uniqueNames.size;
             document.getElementById('avgCorrect').textContent = avgRatio + '%';
             document.getElementById('hardestRatio').textContent = hardest ? hardest.correctRatio + '%' : '-';
             document.getElementById('topScore').textContent = topPlayer ? topPlayer.score.toLocaleString() : '-';
@@ -750,12 +925,24 @@
             // Spil pr. måned
             renderMonthlyChart();
             
+            // Nye analytics
+            renderDeviceStats();
+            renderTimeSlotStats();
+            renderReferrerStats();
+            renderAnswerTimeStats();
+            renderAreYouSureStats();
+            renderDropOffChart();
+            renderScoreDistribution();
+            renderReturnPlayers();
+            renderCompanyStats();
+            renderStreakStats();
+            
             // Top spillere
-            const top5 = highscores.slice(0, 5);
+            const top5 = getFilteredHighscores().slice(0, 5);
             document.getElementById('topPlayersList').innerHTML = top5.map((p, i) => {
                 const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i+1}`;
                 return `<li>
-                    <span class="q-text">${medal} ${p.name || 'Anonym'}${p.company ? ' <span style="color:#888">(' + p.company + ')</span>' : ''}</span>
+                    <span class="q-text">${medal} ${p.name || 'Anonym'}${p.company ? ' <span style="color:#888">(' + resolveCompany(p.company) + ')</span>' : ''}</span>
                     <span class="q-stat" style="color:#ffd700">${p.score.toLocaleString()}</span>
                 </li>`;
             }).join('');
@@ -836,18 +1023,37 @@
         
         // ===== PLAYERS TABLE =====
         function renderPlayersTable() {
-            document.getElementById('playersBody').innerHTML = highscores.map((p, i) => {
+            const fhs = getFilteredHighscores();
+            document.getElementById('playersBody').innerHTML = fhs.map((p, i) => {
                 const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1;
                 const date = p.date ? new Date(p.date).toLocaleDateString('da-DK') : '-';
+                const safeP = JSON.stringify(p).replace(/'/g, "\\'").replace(/"/g, '&quot;');
                 return `<tr class="player-row">
                     <td>${medal}</td>
                     <td>${p.name || 'Anonym'}</td>
-                    <td>${p.company || '-'}</td>
+                    <td>${p.company ? resolveCompany(p.company) : '-'}</td>
                     <td style="color:#ffd700;font-weight:bold">${(p.score || 0).toLocaleString()}</td>
                     <td>${p.correctAnswers || 0}/${p.totalQuestions || 15}</td>
                     <td style="color:#888">${date}</td>
+                    <td><button onclick='hidePlayer(${safeP})' style="background:none;border:none;cursor:pointer;font-size:1rem" title="Skjul denne spiller">🚫</button></td>
                 </tr>`;
             }).join('');
+            
+            // Vis skjulte spillere
+            const hiddenList = Object.entries(hiddenPlayers);
+            const hiddenEl = document.getElementById('hiddenPlayersList');
+            if (hiddenEl) {
+                if (hiddenList.length === 0) {
+                    hiddenEl.innerHTML = '<p style="color:#666;font-size:0.85rem">Ingen skjulte spillere</p>';
+                } else {
+                    hiddenEl.innerHTML = hiddenList.map(([key, h]) => 
+                        `<div style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:rgba(255,107,107,0.1);border-radius:6px;margin-bottom:3px">
+                            <span style="color:#ff6b6b;flex:1">🚫 ${h.name || '?'} ${h.company ? '(' + h.company + ')' : ''} — ${(h.score || 0).toLocaleString()} pts</span>
+                            <button onclick="unhidePlayer('${key}')" style="background:none;border:none;color:#4ade80;cursor:pointer;font-size:0.85rem" title="Vis igen">✅ Vis</button>
+                        </div>`
+                    ).join('');
+                }
+            }
         }
         
         // ===== LEVEL ANALYSIS =====
@@ -1017,17 +1223,24 @@
                 'game_over': { name: 'Game Over (forkert svar)', emoji: '💥' },
                 'game_victory': { name: 'Victory (gennemført)', emoji: '🏆' },
                 'time_up': { name: 'Tid udløbet', emoji: '⏰' },
-                'checkpoint_reached': { name: 'Checkpoint nået', emoji: '🚩' }
+                'checkpoint_reached': { name: 'Checkpoint nået', emoji: '🚩' },
+                'game_abandoned': { name: 'Forladt (lukket/hjem)', emoji: '🚪' },
+                'game_backgrounded': { name: 'Tab skiftet (mobil)', emoji: '📱' }
             };
             
             const entries = Object.entries(eventKeys).map(([key, info]) => {
                 const data = eventStats[key] || {};
-                return { ...info, count: data.count || 0, breakdown: data.breakdown || {} };
+                return { ...info, key, count: data.count || 0, breakdown: data.breakdown || {} };
             });
             
-            const started = entries[0].count;
-            const victories = entries[2].count;
+            const started = entries.find(e => e.key === 'game_started')?.count || 0;
+            const victories = entries.find(e => e.key === 'game_victory')?.count || 0;
+            const gameOvers = entries.find(e => e.key === 'game_over')?.count || 0;
+            const timeUps = entries.find(e => e.key === 'time_up')?.count || 0;
+            const abandoned = entries.find(e => e.key === 'game_abandoned')?.count || 0;
             const completionRate = started > 0 ? Math.round((victories / started) * 100) : 0;
+            const abandonRate = started > 0 ? Math.round((abandoned / started) * 100) : 0;
+            const failRate = started > 0 ? Math.round(((gameOvers + timeUps) / started) * 100) : 0;
             
             el.innerHTML = entries.map(e => {
                 let extra = '';
@@ -1039,9 +1252,18 @@
                     <span class="q-text">${e.emoji} ${e.name}${extra}</span>
                     <span class="q-stat" style="color:#4ecdc4">${e.count}</span>
                 </li>`;
-            }).join('') + `<li style="border-top:1px solid rgba(78,205,196,0.2);padding-top:8px">
-                <span class="q-text">🎯 <strong>Gennemførelsesrate</strong></span>
+            }).join('') + `
+            <li style="border-top:1px solid rgba(78,205,196,0.2);padding-top:8px">
+                <span class="q-text">🏆 <strong>Gennemførelsesrate</strong></span>
                 <span class="q-stat" style="color:${completionRate >= 20 ? '#4ade80' : '#ff6b6b'}">${completionRate}%</span>
+            </li>
+            <li>
+                <span class="q-text">💥 <strong>Fejlrate</strong> (forkert + tid)</span>
+                <span class="q-stat" style="color:#fb923c">${failRate}%</span>
+            </li>
+            <li>
+                <span class="q-text">🚪 <strong>Forladt-rate</strong></span>
+                <span class="q-stat" style="color:#f87171">${abandonRate}%</span>
             </li>`;
         }
         
@@ -1078,7 +1300,7 @@
         function renderWeeklyChart() {
             const weeks = {};
             
-            highscores.forEach(p => {
+            getFilteredHighscores().forEach(p => {
                 if (!p.date) return;
                 const d = new Date(p.date);
                 const weekKey = getISOWeekKey(d);
@@ -1141,7 +1363,7 @@
             const months = {};
             const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
             
-            highscores.forEach(p => {
+            getFilteredHighscores().forEach(p => {
                 if (!p.date) return;
                 const d = new Date(p.date);
                 const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
@@ -1180,6 +1402,391 @@
                     <span class="q-text">📅 ${d.label}</span>
                     <span class="q-stat" style="color:#ffd700">${d.count} spil &nbsp;·&nbsp; gns: ${avgScore.toLocaleString()} &nbsp;·&nbsp; top: ${topScore.toLocaleString()}</span>
                 </li>`;
+            }).join('');
+        }
+        
+        // ===== DEVICE STATS =====
+        function renderDeviceStats() {
+            const el = document.getElementById('deviceList');
+            const devices = sessionData.devices || {};
+            const total = Object.values(devices).reduce((s, v) => s + v, 0);
+            if (total === 0) { el.innerHTML = '<li style="color:#888">Ingen data endnu</li>'; return; }
+            const icons = { mobile: '📱', desktop: '💻' };
+            el.innerHTML = Object.entries(devices).sort((a,b) => b[1] - a[1]).map(([dev, count]) => {
+                const pct = Math.round((count / total) * 100);
+                return `<li>
+                    <span class="q-text">${icons[dev] || '🖥️'} ${dev === 'mobile' ? 'Mobil' : 'Desktop'}</span>
+                    <span class="q-stat" style="color:#45b7d1">${count} <span style="color:#888">(${pct}%)</span></span>
+                </li>`;
+            }).join('') + `<li style="border-top:1px solid rgba(69,183,209,0.2);padding-top:8px">
+                <span class="q-text"><strong>Total sessioner</strong></span>
+                <span class="q-stat" style="color:#45b7d1">${total}</span>
+            </li>`;
+        }
+        
+        // ===== TIME SLOT STATS =====
+        function renderTimeSlotStats() {
+            const el = document.getElementById('timeSlotList');
+            const slots = sessionData.timeSlots || {};
+            const total = Object.values(slots).reduce((s, v) => s + v, 0);
+            if (total === 0) { el.innerHTML = '<li style="color:#888">Ingen data endnu</li>'; return; }
+            const icons = { morgen: '🌅', eftermiddag: '☀️', aften: '🌙', nat: '🌚' };
+            const labels = { morgen: 'Morgen (6-12)', eftermiddag: 'Eftermiddag (12-17)', aften: 'Aften (17-22)', nat: 'Nat (22-6)' };
+            const order = ['morgen', 'eftermiddag', 'aften', 'nat'];
+            el.innerHTML = order.filter(s => slots[s]).map(slot => {
+                const count = slots[slot] || 0;
+                const pct = Math.round((count / total) * 100);
+                const barW = Math.max(5, pct);
+                return `<li style="flex-direction:column;align-items:stretch">
+                    <div style="display:flex;justify-content:space-between">
+                        <span>${icons[slot]} ${labels[slot]}</span>
+                        <span style="color:#f7b731">${count} (${pct}%)</span>
+                    </div>
+                    <div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:4px">
+                        <div style="height:100%;width:${barW}%;background:#f7b731;border-radius:2px"></div>
+                    </div>
+                </li>`;
+            }).join('');
+        }
+        
+        // ===== REFERRER STATS =====
+        function renderReferrerStats() {
+            const el = document.getElementById('referrerList');
+            const refs = sessionData.referrers || {};
+            const total = Object.values(refs).reduce((s, v) => s + v, 0);
+            if (total === 0) { el.innerHTML = '<li style="color:#888">Ingen data endnu</li>'; return; }
+            const icons = { direkte: '🎯', linkedin: '💼', facebook: '👍', email: '📧', google: '🔍', andet: '🌐' };
+            el.innerHTML = Object.entries(refs).sort((a,b) => b[1] - a[1]).map(([src, count]) => {
+                const pct = Math.round((count / total) * 100);
+                return `<li>
+                    <span class="q-text">${icons[src] || '🌐'} ${src.charAt(0).toUpperCase() + src.slice(1)}</span>
+                    <span class="q-stat" style="color:#a78bfa">${count} <span style="color:#888">(${pct}%)</span></span>
+                </li>`;
+            }).join('');
+        }
+        
+        // ===== ANSWER TIME STATS =====
+        function renderAnswerTimeStats() {
+            const el = document.getElementById('answerTimeList');
+            const data = answerTimeData;
+            if (!data.totalAnswers || data.totalAnswers === 0) { el.innerHTML = '<li style="color:#888">Ingen data endnu</li>'; return; }
+            const avgMs = Math.round(data.totalTime / data.totalAnswers);
+            const avgSec = (avgMs / 1000).toFixed(1);
+            
+            let html = `<li>
+                <span class="q-text">⏱️ Samlet gennemsnit</span>
+                <span class="q-stat" style="color:#4ecdc4">${avgSec}s</span>
+            </li>`;
+            
+            // Per spørgsmålsnummer
+            if (data.byQuestion) {
+                const questions = Object.entries(data.byQuestion)
+                    .map(([key, d]) => ({ num: parseInt(key.replace('q','')), ...d }))
+                    .sort((a,b) => a.num - b.num);
+                questions.forEach(q => {
+                    const avg = (q.totalTime / q.count / 1000).toFixed(1);
+                    const correctAvg = q.correctCount > 0 ? (q.correctTime / q.correctCount / 1000).toFixed(1) : '-';
+                    html += `<li>
+                        <span class="q-text">Spørgsmål ${q.num}</span>
+                        <span class="q-stat" style="color:#4ecdc4">${avg}s <span style="color:#888;font-size:0.75rem">(rigtigt: ${correctAvg}s)</span></span>
+                    </li>`;
+                });
+            }
+            el.innerHTML = html;
+        }
+        
+        // ===== ARE YOU SURE STATS =====
+        function renderAreYouSureStats() {
+            const el = document.getElementById('areYouSureList');
+            const d = areYouSureData;
+            if (!d.shown || d.shown === 0) { el.innerHTML = '<li style="color:#888">Ingen data endnu</li>'; return; }
+            const confirmPct = Math.round((d.confirmed / d.shown) * 100);
+            const changePct = 100 - confirmPct;
+            const confirmCorrectPct = d.confirmed > 0 ? Math.round((d.confirmedCorrect / d.confirmed) * 100) : 0;
+            const changedSavedPct = d.changed > 0 ? Math.round((d.changedSavedIt / d.changed) * 100) : 0;
+            
+            el.innerHTML = `
+                <li><span class="q-text">🔢 Vist i alt</span><span class="q-stat" style="color:#fbbf24">${d.shown}</span></li>
+                <li><span class="q-text">✅ Beholdt svar</span><span class="q-stat" style="color:#4ade80">${d.confirmed || 0} (${confirmPct}%)</span></li>
+                <li><span class="q-text">↩️ Skiftede svar</span><span class="q-stat" style="color:#f87171">${d.changed || 0} (${changePct}%)</span></li>
+                <li style="border-top:1px solid rgba(255,255,255,0.08);padding-top:8px">
+                    <span class="q-text">🎯 Beholdt + var rigtigt</span>
+                    <span class="q-stat" style="color:#4ade80">${d.confirmedCorrect || 0} (${confirmCorrectPct}%)</span>
+                </li>
+                <li>
+                    <span class="q-text">💡 Skiftede + undgik fejl</span>
+                    <span class="q-stat" style="color:#4ecdc4">${d.changedSavedIt || 0} (${changedSavedPct}%)</span>
+                </li>
+            `;
+        }
+        
+        // ===== DROP-OFF CHART =====
+        function renderDropOffChart() {
+            const el = document.getElementById('dropOffChart');
+            // Aggregér drop-off fra filtrerede dage
+            const dropOff = {};
+            Object.values(getFilteredCompletions()).forEach(day => {
+                if (!day.dropOff) return;
+                Object.entries(day.dropOff).forEach(([q, count]) => {
+                    dropOff[q] = (dropOff[q] || 0) + count;
+                });
+            });
+            
+            if (Object.keys(dropOff).length === 0) { el.innerHTML = '<div style="color:#888;text-align:center;width:100%;align-self:center">Ingen data endnu</div>'; return; }
+            
+            const maxDrop = Math.max(...Object.values(dropOff));
+            const bars = [];
+            for (let i = 1; i <= 15; i++) {
+                const count = dropOff['q' + i] || 0;
+                const height = maxDrop > 0 ? Math.max(2, (count / maxDrop) * 100) : 2;
+                const color = count > 0 ? (count === maxDrop ? '#ff6b6b' : '#fb923c') : 'rgba(255,255,255,0.1)';
+                bars.push(`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:20px">
+                    <span style="color:${count > 0 ? '#ff6b6b' : '#555'};font-size:0.7rem;font-weight:bold">${count || ''}</span>
+                    <div style="width:100%;height:${height}%;background:${color};border-radius:4px 4px 0 0;min-height:2px" title="Spørgsmål ${i}: ${count} tabte"></div>
+                    <span style="color:#888;font-size:0.6rem">Q${i}</span>
+                </div>`);
+            }
+            el.innerHTML = bars.join('');
+        }
+        
+        // ===== SCORE DISTRIBUTION =====
+        function renderScoreDistribution() {
+            const el = document.getElementById('scoreDistChart');
+            const buckets = { '0_999': 0, '1000_2999': 0, '3000_5999': 0, '6000_9999': 0, '10000_plus': 0 };
+            const labels = { '0_999': '0-999', '1000_2999': '1K-3K', '3000_5999': '3K-6K', '6000_9999': '6K-10K', '10000_plus': '10K+' };
+            
+            // Aggregér fra filtrerede gameCompletions
+            Object.values(getFilteredCompletions()).forEach(day => {
+                if (!day.scores) return;
+                Object.entries(day.scores).forEach(([bucket, count]) => {
+                    if (buckets.hasOwnProperty(bucket)) buckets[bucket] += count;
+                });
+            });
+            
+            // Fallback: beregn fra filtrerede highscores hvis ingen gameCompletion data
+            const fhs = getFilteredHighscores();
+            const totalFromBuckets = Object.values(buckets).reduce((s,v) => s + v, 0);
+            if (totalFromBuckets === 0 && fhs.length > 0) {
+                fhs.forEach(p => {
+                    const s = p.score || 0;
+                    if (s >= 10000) buckets['10000_plus']++;
+                    else if (s >= 6000) buckets['6000_9999']++;
+                    else if (s >= 3000) buckets['3000_5999']++;
+                    else if (s >= 1000) buckets['1000_2999']++;
+                    else buckets['0_999']++;
+                });
+            }
+            
+            const total = Object.values(buckets).reduce((s,v) => s + v, 0);
+            if (total === 0) { el.innerHTML = '<div style="color:#888;text-align:center;width:100%;align-self:center">Ingen data endnu</div>'; return; }
+            
+            const maxB = Math.max(...Object.values(buckets));
+            const colors = ['#f87171', '#fb923c', '#fbbf24', '#4ade80', '#4ecdc4'];
+            const order = ['0_999', '1000_2999', '3000_5999', '6000_9999', '10000_plus'];
+            
+            el.innerHTML = order.map((key, i) => {
+                const count = buckets[key];
+                const height = maxB > 0 ? Math.max(5, (count / maxB) * 100) : 5;
+                const pct = Math.round((count / total) * 100);
+                return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:40px">
+                    <span style="color:${colors[i]};font-weight:bold;font-size:0.8rem">${count}</span>
+                    <div style="width:100%;height:${height}%;background:${colors[i]};border-radius:4px 4px 0 0;min-height:5px" title="${labels[key]}: ${count} (${pct}%)"></div>
+                    <span style="color:#888;font-size:0.65rem">${labels[key]}</span>
+                </div>`;
+            }).join('');
+        }
+        
+        // ===== RETURN PLAYERS =====
+        function renderReturnPlayers() {
+            const el = document.getElementById('returnPlayersList');
+            const fhs = getFilteredHighscores();
+            if (fhs.length === 0) { el.innerHTML = '<li style="color:#888">Ingen data endnu</li>'; return; }
+            
+            // Tæl spil per spiller (navn + firma)
+            const playerGames = {};
+            fhs.forEach(p => {
+                const rc = resolveCompany(p.company);
+                const key = (p.name || 'Anonym').toLowerCase() + '|' + rc.toLowerCase();
+                if (!playerGames[key]) playerGames[key] = { name: p.name || 'Anonym', company: rc, count: 0, dates: [] };
+                playerGames[key].count++;
+                if (p.date) playerGames[key].dates.push(new Date(p.date));
+            });
+            
+            const uniquePlayers = Object.keys(playerGames).length;
+            const returnPlayers = Object.values(playerGames).filter(p => p.count > 1);
+            const returnPct = uniquePlayers > 0 ? Math.round((returnPlayers.length / uniquePlayers) * 100) : 0;
+            
+            // Top returspillere
+            const topReturn = returnPlayers.sort((a,b) => b.count - a.count).slice(0, 5);
+            
+            let html = `<li>
+                <span class="q-text">👤 Unikke spillere</span>
+                <span class="q-stat" style="color:#45b7d1">${uniquePlayers}</span>
+            </li>
+            <li>
+                <span class="q-text">🔁 Returspillere</span>
+                <span class="q-stat" style="color:#4ade80">${returnPlayers.length} (${returnPct}%)</span>
+            </li>`;
+            
+            if (topReturn.length > 0) {
+                html += '<li style="border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;color:#888;font-size:0.8rem">Top returspillere:</li>';
+                topReturn.forEach(p => {
+                    const daySpan = p.dates.length >= 2 ? 
+                        Math.round((Math.max(...p.dates) - Math.min(...p.dates)) / 86400000) : 0;
+                    html += `<li>
+                        <span class="q-text">${p.name}${p.company ? ' <span style="color:#888">(' + p.company + ')</span>' : ''}</span>
+                        <span class="q-stat" style="color:#ffd700">${p.count}x${daySpan > 0 ? ' <span style="color:#888;font-size:0.75rem">(' + daySpan + ' dage)</span>' : ''}</span>
+                    </li>`;
+                });
+            }
+            el.innerHTML = html;
+        }
+        
+        // ===== COMPANY STATS =====
+        function renderCompanyStats() {
+            const el = document.getElementById('companyList');
+            const fhs = getFilteredHighscores();
+            if (fhs.length === 0) { el.innerHTML = '<li style="color:#888">Ingen data endnu</li>'; return; }
+            
+            const companies = {};
+            fhs.forEach(p => {
+                const company = resolveCompany(p.company);
+                if (!company) return;
+                const key = company.toLowerCase();
+                if (!companies[key]) companies[key] = { name: company, players: new Set(), games: 0, totalScore: 0, bestScore: 0 };
+                companies[key].players.add((p.name || 'Anonym').toLowerCase());
+                companies[key].games++;
+                companies[key].totalScore += p.score || 0;
+                companies[key].bestScore = Math.max(companies[key].bestScore, p.score || 0);
+            });
+            
+            const companyList = Object.values(companies)
+                .map(c => ({ ...c, playerCount: c.players.size, avgScore: Math.round(c.totalScore / c.games) }))
+                .sort((a,b) => b.games - a.games);
+            
+            if (companyList.length === 0) { el.innerHTML = '<li style="color:#888">Ingen virksomheder registreret endnu</li>'; return; }
+            
+            const withCompany = fhs.filter(p => p.company && p.company.trim()).length;
+            const pctWithCompany = Math.round((withCompany / fhs.length) * 100);
+            
+            el.innerHTML = `<li>
+                <span class="q-text">🏢 Virksomheder i alt</span>
+                <span class="q-stat" style="color:#45b7d1">${companyList.length} <span style="color:#888">(${pctWithCompany}% angiver firma)</span></span>
+            </li>` + companyList.slice(0, 8).map(c => `<li>
+                <span class="q-text"><strong>${c.name}</strong> <span style="color:#888">(${c.playerCount} spillere, ${c.games} spil)</span></span>
+                <span class="q-stat" style="color:#ffd700">Top: ${c.bestScore.toLocaleString()}</span>
+            </li>`).join('');
+        }
+        
+        // ===== STREAK STATS =====
+        function renderStreakStats() {
+            const el = document.getElementById('streakList');
+            // Aggregér streaks fra filtrerede gameCompletions
+            const streaks = {};
+            Object.values(getFilteredCompletions()).forEach(day => {
+                if (!day.streaks) return;
+                Object.entries(day.streaks).forEach(([s, count]) => {
+                    streaks[s] = (streaks[s] || 0) + count;
+                });
+            });
+            
+            if (Object.keys(streaks).length === 0) { el.innerHTML = '<li style="color:#888">Ingen data endnu</li>'; return; }
+            
+            const total = Object.values(streaks).reduce((s,v) => s + v, 0);
+            const sorted = Object.entries(streaks)
+                .map(([key, count]) => ({ streak: parseInt(key.replace('s','')), count }))
+                .sort((a,b) => b.streak - a.streak);
+            
+            // Beregn gns. streak
+            const weightedSum = sorted.reduce((s, e) => s + (e.streak * e.count), 0);
+            const avgStreak = (weightedSum / total).toFixed(1);
+            
+            let html = `<li>
+                <span class="q-text">🎯 Gns. bedste streak</span>
+                <span class="q-stat" style="color:#ffd700">${avgStreak} rigtige</span>
+            </li>`;
+            
+            // Vis fordeling
+            sorted.slice(0, 8).forEach(e => {
+                const pct = Math.round((e.count / total) * 100);
+                const emoji = e.streak >= 10 ? '🔥' : e.streak >= 5 ? '⚡' : e.streak >= 3 ? '✨' : '👍';
+                html += `<li>
+                    <span class="q-text">${emoji} ${e.streak} i streg</span>
+                    <span class="q-stat" style="color:#4ecdc4">${e.count} spillere (${pct}%)</span>
+                </li>`;
+            });
+            el.innerHTML = html;
+        }
+        
+        // ===== COMPANY ALIASES =====
+        function resolveCompany(name) {
+            if (!name) return '';
+            const trimmed = name.trim();
+            const key = trimmed.toLowerCase().replace(/[.#$/\[\]]/g, '_');
+            return companyAliases[key] || trimmed;
+        }
+        
+        async function addAlias() {
+            const fromInput = document.getElementById('aliasFrom');
+            const toInput = document.getElementById('aliasTo');
+            const from = fromInput.value.trim();
+            const to = toInput.value.trim();
+            if (!from || !to) return alert('Udfyld begge felter');
+            
+            const key = from.toLowerCase().replace(/[.#$/\[\]]/g, '_');
+            companyAliases[key] = to;
+            await db.ref('companyAliases/' + key).set(to);
+            fromInput.value = '';
+            toInput.value = '';
+            renderCompanyTab();
+            renderAll(); // Opdater alt med nye aliaser
+        }
+        
+        async function removeAlias(key) {
+            delete companyAliases[key];
+            await db.ref('companyAliases/' + key).remove();
+            renderCompanyTab();
+            renderAll();
+        }
+        
+        function renderCompanyTab() {
+            // Vis eksisterende aliaser
+            const listEl = document.getElementById('aliasList');
+            const aliases = Object.entries(companyAliases);
+            if (aliases.length === 0) {
+                listEl.innerHTML = '<p style="color:#666;font-size:0.85rem">Ingen aliaser oprettet endnu</p>';
+            } else {
+                listEl.innerHTML = '<h4 style="color:#4ecdc4;margin-bottom:8px">Aktive aliaser:</h4>' + 
+                    aliases.map(([key, to]) => `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:4px">
+                        <span style="color:#ff6b6b;flex:1">${key}</span>
+                        <span style="color:#888">→</span>
+                        <span style="color:#4ade80;flex:1"><strong>${to}</strong></span>
+                        <button onclick="removeAlias('${key}')" style="background:none;border:none;color:#ff6b6b;cursor:pointer;font-size:1.1rem" title="Fjern">❌</button>
+                    </div>`).join('');
+            }
+            
+            // Vis alle unikke firmanavne fra highscores
+            const allNames = {};
+            highscores.forEach(p => {
+                const raw = (p.company || '').trim();
+                if (!raw) return;
+                const resolved = resolveCompany(raw);
+                const key = raw.toLowerCase();
+                if (!allNames[key]) allNames[key] = { raw, resolved, count: 0 };
+                allNames[key].count++;
+            });
+            
+            const namesEl = document.getElementById('allCompanyNames');
+            const sorted = Object.values(allNames).sort((a, b) => b.count - a.count);
+            namesEl.innerHTML = sorted.map(n => {
+                const isAliased = n.raw !== n.resolved;
+                const bg = isAliased ? 'rgba(74,222,128,0.15)' : 'rgba(255,255,255,0.05)';
+                const border = isAliased ? '1px solid rgba(74,222,128,0.3)' : '1px solid rgba(255,255,255,0.1)';
+                return `<button onclick="document.getElementById('aliasFrom').value='${n.raw.replace(/'/g, "\\'")}'" 
+                    style="padding:6px 12px;border-radius:20px;background:${bg};border:${border};color:#fff;cursor:pointer;font-size:0.8rem;transition:all 0.2s"
+                    title="${n.count}x${isAliased ? ' → ' + n.resolved : ''}">
+                    ${n.raw} <span style="color:#888">(${n.count})</span>${isAliased ? ' <span style="color:#4ade80">→ ' + n.resolved + '</span>' : ''}
+                </button>`;
             }).join('');
         }
         

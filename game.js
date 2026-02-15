@@ -162,6 +162,9 @@ class WarehouseWarriorGame {
             'Svind': { chapter: 'Kapitel 9: Svind & Forebyggelse', url: 'https://smartpack.dk/lagerhaandbog#kapitel9' },
             'Nøgletal': { chapter: 'Kapitel 10: Nøgletal & KPI\'er', url: 'https://smartpack.dk/lagerhaandbog#kapitel10' },
             '3PL': { chapter: 'Kapitel 11: 3PL & Outsourcing', url: 'https://smartpack.dk/lagerhaandbog#kapitel11' },
+            'Fragt': { chapter: 'Kapitel 12: Fragt & Levering', url: 'https://smartpack.dk/lagerhaandbog#kapitel12' },
+            'Emballage': { chapter: 'Kapitel 13: Emballage', url: 'https://smartpack.dk/lagerhaandbog#kapitel13' },
+            'Kampagner': { chapter: 'Kapitel 14: Kampagner & Peak', url: 'https://smartpack.dk/lagerhaandbog#kapitel14' },
             'Generelt': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' }
         };
         

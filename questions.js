@@ -572,7 +572,7 @@ const questionBank = [
         question: "Hvorfor bør ens varer adskilles fysisk – især varer der ligner hinanden?",
         answers: ["For at fylde reolerne helt ud", "For at det ser pænere ud på billeder", "For at mindske risikoen for plukfejl på næsten identiske produkter", "For at undgå at skulle bruge labels"],
         correct: 2,
-        category: "Fejlreduktion",
+        category: "Pakkefejl",
         explanation: "Hvis to næsten identiske produkter (fx samme T-shirt i sort og navy) ligger ved siden af hinanden, er risikoen for forveksling enorm. Adskil dem fysisk med andre produkter imellem, så plukkeren ikke tager den forkerte."
     },
     {
@@ -580,7 +580,7 @@ const questionBank = [
         question: "Hvad er den største ulempe ved at plukke én ordre ad gangen?",
         answers: ["Det kræver for mange labels", "Det skaber mange unødige ture på lageret og lavere effektivitet", "Det er svært at lære op", "Det kræver særligt IT-udstyr"],
         correct: 1,
-        category: "Pluk",
+        category: "Plukkestrategi",
         explanation: "Når du plukker én ordre ad gangen, går du den samme rute igen og igen. Hvis 10 ordrer har samme vare, går du til den reol 10 gange. Med batch-plukning går du derhen én gang og tager alle 10. Enorm forskel i effektivitet!"
     },
     {
@@ -588,7 +588,7 @@ const questionBank = [
         question: "Hvad er hovedideen i batch-plukning?",
         answers: ["At plukke én varelinje pr. dag", "At plukke alle varer alfabetisk", "At plukke varer til mange ordrer på én rute og først splitte dem ved pakkebordet", "At lade kunderne plukke deres egne varer"],
         correct: 2,
-        category: "Pluk",
+        category: "Plukkestrategi",
         explanation: "Batch-plukning samler flere ordrer og plukker dem på én rute. Du sorterer først ved pakkebordet. I stedet for 20 ture til samme reol, går du derhen én gang. Det er den største tidsbesparelse du kan lave på et lille lager."
     },
     {
@@ -596,7 +596,7 @@ const questionBank = [
         question: "Hvad kendetegner en single-line ordre?",
         answers: ["En ordre med mange varelinjer", "En ordre med kun én type vare", "En ordre der sendes i flere kolli", "En ordre kun til B2B-kunder"],
         correct: 1,
-        category: "Pluk",
+        category: "Plukkestrategi",
         explanation: "En single-line ordre indeholder kun én type vare (fx 2 stk. af samme T-shirt). De er perfekte til batch-plukning, fordi du kan samle alle single-line ordrer med samme vare og plukke dem på én gang."
     },
     {
@@ -604,7 +604,7 @@ const questionBank = [
         question: "Hvorfor giver plukkekasser især mening til multi-line ordrer?",
         answers: ["Fordi kasserne fylder mest muligt på lageret", "Fordi du kan farvekode kasserne", "Fordi hver kasse kan repræsentere én ordre, mens du går én samlet rute", "Fordi kasser er billigere end reoler"],
         correct: 2,
-        category: "Pluk",
+        category: "Plukkestrategi",
         explanation: "Ved multi-line ordrer har hver ordre flere forskellige varer. Med en plukkekasse pr. ordre kan du gå én samlet rute og lægge varerne i den rigtige kasse undervejs. Så blander du aldrig ordrerne sammen."
     },
     {
@@ -612,7 +612,7 @@ const questionBank = [
         question: "Hvad er det typiske problem i et lager uden nok plukkevogne?",
         answers: ["Der bliver for stille på lageret", "Alle plukker for hurtigt", "Der opstår kø og ventetid fordi folk mangler udstyr til at tage flere ordrer ad gangen", "Vognene står i vejen for nødudgangene"],
         correct: 2,
-        category: "Udstyr",
+        category: "Redskaber",
         explanation: "Hvis der kun er én plukkevogn til tre plukkere, venter to af dem altid. Ventetid er spildt arbejdstid. Hver aktiv plukker skal have sin egen vogn plus 1-2 ekstra. Plukkevogne er billige - ventetid er dyrt!"
     },
     {
@@ -620,7 +620,7 @@ const questionBank = [
         question: "Hvorfor kan en plukkevogn være en god investering?",
         answers: ["Den gør lageret pænere", "Den gør det muligt at samle flere ordrer på én rute og mindsker tunge løft", "Den gør det lettere at holde pauser", "Den mindsker behovet for emballage"],
         correct: 1,
-        category: "Udstyr",
+        category: "Redskaber",
         explanation: "En plukkevogn med flere rum lader dig plukke til 5-10 ordrer på én rute. Plus den mindsker tunge løft fordi du ikke bærer alt i hænderne. En vogn til 3.000 kr. kan spare 10+ minutter om dagen - tjent hjem på få måneder."
     },
     {
@@ -644,7 +644,7 @@ const questionBank = [
         question: "Hvad er den vigtigste datadisciplin i et lille setup uden WMS?",
         answers: ["At have et meget avanceret ERP-system", "At alle varer har unikke og konsistente SKU'er og kun én primær placering", "At alle varer har samme varenummer", "At alle varer lagres efter farve"],
         correct: 1,
-        category: "Datahygiejne",
+        category: "Lagerstyring",
         explanation: "Uden WMS er datadisciplin alt. Hver vare skal have et unikt SKU-nummer og kun én fast placering. Hvis samme vare har tre forskellige numre eller ligger tre steder, opstår der kaos. God datahygiejne er fundamentet for alt andet."
     },
     {
@@ -652,7 +652,7 @@ const questionBank = [
         question: "Hvad er en typisk rytme for optælling i et lille setup uden system?",
         answers: ["Alt tælles dagligt", "A-varer månedligt, B-varer kvartalsvist og resten cirka én gang om året", "Kun C-varer tælles", "Der tælles kun ved årsskifte"],
         correct: 1,
-        category: "Lageroptælling",
+        category: "Svind",
         explanation: "Fokusér optællingen hvor det betyder mest: A-varer bevæger sig hurtigt og skal tælles månedligt. B-varer kvartalsvist. C-varer årligt. Det er rullende optælling - du lukker aldrig lageret, men holder styr på de vigtigste varer."
     },
     {
@@ -684,7 +684,7 @@ const questionBank = [
         question: "Hvad er hovedformålet med små standarder som 'sådan plukker vi' og 'sådan pakker vi'?",
         answers: ["At begrænse medarbejdernes frihed", "At gøre oplæring og drift mere ensartet og reducere fejl", "At kunne sende manualer til kunderne", "At gøre lageret mere bureaukratisk"],
         correct: 1,
-        category: "Standarder",
+        category: "Pakkefejl",
         explanation: "Standarder sikrer at alle gør tingene ens - uanset om det er en erfaren medarbejder eller en ny vikar. Det reducerer fejl, gør oplæring hurtigere og sikrer ensartet kvalitet. Det handler ikke om kontrol, men om konsistens."
     },
     {
@@ -692,7 +692,7 @@ const questionBank = [
         question: "Hvorfor er en kort tjekliste ved pakkebordet effektiv?",
         answers: ["Fordi den erstatter al oplæring", "Fordi den gør det sværere at lave fejl i de vigtigste trin uden at gøre arbejdet langsommere", "Fordi den pynter på væggen", "Fordi den gør det lettere at gemme fejl"],
         correct: 1,
-        category: "Standarder",
+        category: "Pakkefejl",
         explanation: "En kort tjekliste (5-7 punkter) ved pakkebordet fungerer som et sikkerhedsnet. Selv erfarne medarbejdere glemmer ting under pres. Tjeklisten fanger de vigtigste fejl uden at bremse tempoet. Piloter bruger dem - det bør du også."
     },
     {
@@ -700,7 +700,7 @@ const questionBank = [
         question: "Hvad er pointen med korte, faste tavlemøder på 10-15 minutter?",
         answers: ["At holde lange strategiske oplæg", "At diskutere kampagner", "At dele fejl, forbedringsforslag og flaskehalse og vælge én konkret forbedring til næste uge", "At måle hvem der har været mest syg"],
         correct: 2,
-        category: "Forbedring",
+        category: "Generelt",
         explanation: "Korte tavlemøder skaber en kultur for løbende forbedring. Del gårsdagens fejl, diskutér flaskehalse, og vælg ÉN konkret ting at forbedre til næste uge. Ikke 10 ting - én ting. Konsistens slår ambition."
     },
     {
@@ -708,7 +708,7 @@ const questionBank = [
         question: "Hvorfor kan dårlig belysning være en direkte kilde til pakkefejl?",
         answers: ["Fordi det gør medarbejderne trætte", "Fordi labels bliver mørkere", "Fordi det er sværere at se små forskelle på produkter og størrelser", "Fordi scannere ikke virker i lys"],
         correct: 2,
-        category: "Arbejdsmiljø",
+        category: "Pakkefejl",
         explanation: "Dårlig belysning gør det svært at skelne mellem næsten ens produkter - fx navy vs. sort, str. M vs. L. Det er en billig fejlkilde at løse: God LED-belysning over pluk- og pakkeområder reducerer fejl markant."
     },
     {
@@ -748,7 +748,7 @@ const questionBank = [
         question: "Hvad er formålet med rullende lageroptælling?",
         answers: ["At undgå at tælle lageret", "At samle al optælling på én lang nat én gang om året", "At fordele optællingen over året og fokusere mest på de vigtigste varer", "At tælle kun C-varer"],
         correct: 2,
-        category: "Lageroptælling",
+        category: "Svind",
         explanation: "Rullende optælling fordeler arbejdet over hele året: A-varer månedligt, B-varer kvartalsvist, C-varer årligt. Du lukker aldrig lageret, opdager fejl hurtigere, og fokuserer energien på de varer der betyder mest."
     },
     {
@@ -788,7 +788,7 @@ const questionBank = [
         question: "Hvad er 'bundne lagerkroner i langsomme varer' et udtryk for?",
         answers: ["Hvor pænt lageret ser ud", "Hvor meget kapital der står stille i varer, der ikke sælger", "Hvor stor kredit du har hos leverandører", "Hvor meget der er solgt på udsalg"],
         correct: 1,
-        category: "Økonomi",
+        category: "Nøgletal",
         explanation: "Bundne lagerkroner er penge der står stille. Hvis du har C-varer for 200.000 kr. der ikke har solgt i 90 dage, er det 200.000 kr. du ikke kan bruge på A-varer, marketing eller vækst. Død kapital er en stille dræber."
     },
     {
@@ -796,7 +796,7 @@ const questionBank = [
         question: "Hvad er en typisk lavpraktisk måde at finde bundet kapital i C-varer?",
         answers: ["Tælle alle varer fysisk", "Gætte ud fra reolpladsen", "Trække en liste over varer uden salg de sidste 90 dage og summere kostprisen", "Spørge kunderne"],
         correct: 2,
-        category: "Økonomi",
+        category: "Nøgletal",
         explanation: "Træk en liste fra dit shopsystem over varer uden salg de sidste 90 dage. Summer kostprisen. Det tal er din bundne kapital i langsomme varer. Ofte er det overraskende højt - og det er penge du kan frigøre."
     },
     {
@@ -902,7 +902,7 @@ const questionBank = [
         question: "Hvad er det vigtigste formål med en ABC-analyse på et lille lager?",
         answers: ["At få styr på bogføringen", "At placere de mest solgte varer tættest på pakkebordet", "At sikre, at alle varer står alfabetisk", "At få et flottere visuelt udtryk i reolerne"],
         correct: 1,
-        category: "ABC-analyse & lagerlayout",
+        category: "ABC-analyse",
         explanation: "ABC-analysen handler om at give de varer, der driver mest salg, de bedste pladser. Derfor er målet at få A-varerne tættest på pakkebordet."
     },
     {
@@ -910,7 +910,7 @@ const questionBank = [
         question: "Hvad kendetegner typisk dine A-varer i en ABC-analyse?",
         answers: ["Varer der sjældent sælges, men fylder meget", "Varer med lav avance", "Varer der står for en stor del af omsætningen og går igen på mange ordrer", "Varer som kun sælges på udsalg"],
         correct: 2,
-        category: "ABC-analyse & lagerlayout",
+        category: "ABC-analyse",
         explanation: "A-varer er dem, der står for en forholdsmæssigt stor del af salget. De optræder ofte og er derfor nøglen til et effektivt lager."
     },
     {
@@ -918,7 +918,7 @@ const questionBank = [
         question: "Hvorfor er det problematisk, hvis en langsomt sælgende vase står ved pakkebordet, mens en storsælgende T-shirt står 15 meter væk?",
         answers: ["Det gør statusoptælling sværere", "Det øger risikoen for svind", "Det øger plukketiden unødigt på de varer, du sælger mest", "Det påvirker kun indretningen kosmetisk"],
         correct: 2,
-        category: "ABC-analyse & lagerlayout",
+        category: "ABC-analyse",
         explanation: "Når dine bestsellere står langt væk, bruger du for mange skridt på de ordrer, der fylder mest. Det sluger både tid og lønkroner."
     },
     {
@@ -926,7 +926,7 @@ const questionBank = [
         question: "Hvorfor giver det ofte mening at indrette lageret efter salgshyppighed frem for kun efter brand eller varegruppe?",
         answers: ["Fordi det ser bedre ud på billeder", "Fordi det gør det lettere at bestille hos leverandører", "Fordi det forkorter plukkeruterne på de varer, du rører ved hver dag", "Fordi det er et krav fra transportørerne"],
         correct: 2,
-        category: "ABC-analyse & lagerlayout",
+        category: "ABC-analyse",
         explanation: "Når reolerne afspejler salgsdata, minimerer du gåafstand på de mest brugte varer og øger tempoet uden flere hænder."
     },
     {
@@ -934,7 +934,7 @@ const questionBank = [
         question: "Hvordan kan du bruge din ABC-analyse aktivt til at frigøre likviditet?",
         answers: ["Ved at købe flere A-varer hjem uden plan", "Ved at udsælge C-varer, der har stået stille længe", "Ved at flytte A-varer længere væk", "Ved at sætte prisen ned på alle varer"],
         correct: 1,
-        category: "ABC-analyse & lagerlayout",
+        category: "ABC-analyse",
         explanation: "C-varer binder ofte unødvendig kapital. Ved at sælge dem ud frigør du både plads og likviditet til varer, der faktisk vender sig."
     },
     {
@@ -942,7 +942,7 @@ const questionBank = [
         question: "Hvad er den vigtigste forskel på at indrette et lager og en fysisk butik?",
         answers: ["Butikken skal være pænere for kunderne", "På lageret optimerer du for medarbejderens effektivitet – ikke kundens oplevelse", "Lageret må ikke have skilte", "Butikken må ikke have smalle gange"],
         correct: 1,
-        category: "Lagerlayout & flow",
+        category: "Lagerindretning",
         explanation: "I butikken designer du til kunderejsen. På lageret designer du til plukkerens rute og effektivitet."
     },
     {
@@ -950,7 +950,7 @@ const questionBank = [
         question: "Hvorfor er et ensrettet flow på lageret en fordel?",
         answers: ["Det gør lagergangen smallere", "Det forlænger den samlede rute", "Det mindsker mængden af krydsende ruter og kø", "Det gør det lettere at dekorere"],
         correct: 2,
-        category: "Lagerlayout & flow",
+        category: "Lagerindretning",
         explanation: "Når folk ikke konstant går mod hinanden, får du færre stop, mindre trængsel og et mere stabilt tempo."
     },
     {
@@ -958,7 +958,7 @@ const questionBank = [
         question: "Hvorfor giver det mening at lade medarbejderne pege på flaskehalse, før du tegner nyt layout?",
         answers: ["De har som regel flest ideer til indretning", "De kender lageret i praksis og mærker friktionen hver dag", "De skal godkende alle investeringer", "De ved mest om webshopdesign"],
         correct: 1,
-        category: "Lagerlayout & flow",
+        category: "Lagerindretning",
         explanation: "Medarbejderne oplever dagligt hvor det halter. Deres input er guld værd, fordi de kender de reelle flaskehalse – ikke kun dem der ser logiske ud på papir."
     },
     // ===== NYE SPØRGSMÅL FRA EBOG (sp4) =====
@@ -967,7 +967,7 @@ const questionBank = [
         question: "Hvad er hovedformålet med en ABC-analyse på et lille webshop-lager?",
         answers: ["At sortere varer efter farve", "At placere de mest solgte varer mest tilgængeligt", "At finde de billigste leverandører", "At reducere antallet af varenumre"],
         correct: 1,
-        category: "ABC",
+        category: "ABC-analyse",
         explanation: "ABC-analysen bruges primært til at identificere de varer, der driver størstedelen af salget, så de kan placeres tæt på pakkebordet og reducere unødvendige skridt."
     },
     {
@@ -975,7 +975,7 @@ const questionBank = [
         question: "Når du laver en simpel ABC-analyse, hvad kigger du typisk på først?",
         answers: ["Omsætning i kroner pr. vare", "Antal ordrer, hvor varen indgår", "Antal styklager på hylden", "Indkøbsprisen på varen"],
         correct: 1,
-        category: "ABC",
+        category: "ABC-analyse",
         explanation: "I guiden lægges vægt på, at du sorterer efter hvor mange ordrer varen indgår i – ikke kun omsætning – fordi det bedre afspejler den daglige belastning på lageret."
     },
     {
@@ -983,7 +983,7 @@ const questionBank = [
         question: "Hvad kendetegner typisk C-varer i en ABC-analyse?",
         answers: ["De sælger få, men er meget dyre", "De sælger ofte og i store mængder", "De sælger sjældent og binder ofte unødigt lager", "De er altid nye produkter i sortimentet"],
         correct: 2,
-        category: "ABC",
+        category: "ABC-analyse",
         explanation: "C-varer er de langsomt omsættende varer, som ofte står stille og binder kapital og plads. Derfor bør de ligge perifert og løbende vurderes for udsalg."
     },
     {
@@ -991,7 +991,7 @@ const questionBank = [
         question: "Hvad er den mest lavpraktiske måde at komme i gang med ABC på, hvis du bruger et simpelt shopsystem?",
         answers: ["Eksportér alle varer til et lagerstyringssystem", "Gå en tur på lageret og gæt dig til A-varer", "Træk salgsrapport for 3 måneder, sorter på antal ordrer og marker top 20 %", "Lad leverandøren fortælle dig, hvad der er A-varer"],
         correct: 2,
-        category: "ABC",
+        category: "ABC-analyse",
         explanation: "Guiden anbefaler at trække en simpel rapport fra webshoppen for de seneste måneder, sortere efter ordrefrekvens og markere de varer, der står for størstedelen af salget."
     },
     {
@@ -1031,7 +1031,7 @@ const questionBank = [
         question: "Hvad er hovedpointen med batch-plukning fremfor at plukke én ordre ad gangen?",
         answers: ["At få pænere plukkelister", "At reducere antal ture til de samme hylder ved at plukke til flere ordrer ad gangen", "At kunne pakke langsommere men mere sikkert", "At gøre det lettere at finde returvarer"],
         correct: 1,
-        category: "Pluk & pak",
+        category: "Plukkestrategi",
         explanation: "Batch-plukning handler om at samle ens pluk, så du kun går til samme lokation få gange, mens du plukker til flere ordrer på én tur."
     },
     {
@@ -1039,7 +1039,7 @@ const questionBank = [
         question: "Hvad kendetegner typisk en 'single-line' ordre i plukstrategien?",
         answers: ["En ordre med én kunde", "En ordre med én varelinje, fx én T-shirt", "En ordre med kun A-varer", "En ordre der sendes som brev"],
         correct: 1,
-        category: "Pluk & pak",
+        category: "Plukkestrategi",
         explanation: "Single-line ordrer er ordrer med kun én varelinje, og de egner sig godt til meget effektiv batch-plukning."
     },
     {
@@ -1047,7 +1047,7 @@ const questionBank = [
         question: "Hvordan bruges plukkekasser typisk i arbejdet med multi-line ordrer?",
         answers: ["Én kasse til hele dagens ordrer", "Én kasse pr. hyldemeter", "Én kasse pr. ordre, hvor varer lægges direkte i ordenes kasser under plukkeruten", "Kun til returvarer"],
         correct: 2,
-        category: "Pluk & pak",
+        category: "Plukkestrategi",
         explanation: "Ved multi-line ordrer giver det mening, at hver kasse repræsenterer en ordre, så plukkeren kan lægge varer direkte i den rigtige ordre på ruten."
     },
     {
@@ -1055,7 +1055,7 @@ const questionBank = [
         question: "Hvorfor kan det give mening at indføre farvekoder på plukkelister eller kasser?",
         answers: ["For at matche virksomhedens visuelle identitet", "For at gøre lageret mere Instagram-venligt", "For at vise prioritet, fx hasteordrer eller særlige ruter", "For at skelne mellem A-, B- og C-varer"],
         correct: 2,
-        category: "Pluk & pak",
+        category: "Plukkestrategi",
         explanation: "Farvekoder bruges praktisk til at indikere, hvilke ordrer eller ruter der har højeste prioritet (fx hasteordrer), så plukningen kan styres bedre."
     },
     {
@@ -1063,7 +1063,7 @@ const questionBank = [
         question: "Hvad er et centralt argument i guiden for at investere i plukkevogne?",
         answers: ["De får lageret til at se mere professionelt ud for gæster", "De kan bruges som midlertidig opbevaring", "De reducerer antallet af ture og tunge løft og kan hurtigt tjene sig hjem i sparet tid", "De er nødvendige for at kunne bruge et WMS"],
         correct: 2,
-        category: "Hardware",
+        category: "Redskaber",
         explanation: "Plukkevogne gør det muligt at plukke til flere ordrer på én rute, reducere bæring og spare tid, så investeringen ofte er tjent hjem på få måneder."
     },
     {
@@ -1071,7 +1071,7 @@ const questionBank = [
         question: "Hvad er en realistisk fremgangsmåde, når du vil teste om en ny vogn-type fungerer i praksis?",
         answers: ["Købe til hele lageret på én gang", "Bestille én vogn, teste den i nogle uger og tilpasse antal og model efter erfaring", "Leje vogne på dagsbasis", "Lade leverandøren beslutte for dig"],
         correct: 1,
-        category: "Hardware",
+        category: "Redskaber",
         explanation: "Guiden anbefaler at starte småt: test 1–2 vogne, se hvordan de bruges i praksis og tilpas derefter i stedet for at lave en stor forkert investering."
     },
     {
@@ -1079,7 +1079,7 @@ const questionBank = [
         question: "Hvorfor kan et simpelt mekanisk rullefelt være en god investering ved høj ordrevolumen?",
         answers: ["Det giver bedre ergonomi ved varemodtagelse", "Det gør det lettere at fotografere pakker", "Det flytter færdigpakkede ordrer væk fra pakkebordet og minimerer afbrydelser for pakkeren", "Det gør det muligt at veje pakker automatisk"],
         correct: 2,
-        category: "Hardware",
+        category: "Redskaber",
         explanation: "Rullefeltet gør, at færdigpakkede ordrer glider væk fra pakkebordet, så pakkeren kan holde fokus og slippe for mange små afbrydelser og løft."
     },
     {
@@ -1143,7 +1143,7 @@ const questionBank = [
         question: "Hvad er formålet med korte, konkrete procedurer ved pakkebordet?",
         answers: ["At kunne certificere lageret", "At gøre det nemmere at oplære nye og sikre ensartet kvalitet", "At dokumentere arbejdsforhold til HR", "At kunne erstatte lagersystemer"],
         correct: 1,
-        category: "Træning & onboarding",
+        category: "Pakkefejl",
         explanation: "Små procedurer sikrer, at alle udfører de vigtigste trin ens, og at nye medarbejdere hurtigere bliver trygge og laver færre fejl."
     },
     {
@@ -1151,7 +1151,7 @@ const questionBank = [
         question: "Hvad er idéen med et kort, ugentligt tavlemøde på lageret?",
         answers: ["At gennemgå alle ordrer én for én", "At planlægge kantineordning", "At tale om fejl, forbedringer og flaskehalse og vælge få konkrete ændringer", "At lave detaljerede budgetter"],
         correct: 2,
-        category: "Træning & onboarding",
+        category: "Pakkefejl",
         explanation: "Tavlemødet bruges til at dele erfaringer, fejl og irritationsmomenter og beslutte små, konkrete forbedringer fra uge til uge."
     },
     {
@@ -1359,7 +1359,7 @@ const questionBank = [
         question: "Hvad er den overordnede pointe med guiden om lageroptimering?",
         answers: ["At alle skal investere i avanceret WMS hurtigst muligt", "At lageroptimering er et engangsprojekt, der kan afsluttes", "At små, løbende forbedringer i flow, disciplin og struktur ofte skaber den største værdi", "At lageret primært er et marketingværktøj"],
         correct: 2,
-        category: "Fundament",
+        category: "Generelt",
         explanation: "Guiden understreger, at de største gevinster ofte ligger i simple, kontinuerlige forbedringer – ikke nødvendigvis i store engangsinvesteringer."
     }
 ];

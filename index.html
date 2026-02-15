@@ -443,25 +443,18 @@
         </div>
 
         <!-- Brug en livline? overlay -->
-        <div id="useLifelineModal" class="modal">
-            <div class="modal-content are-you-sure">
-                <div class="host-mini">
-                    <img src="assets/images/host/10_vaert_hvisker_hemmelighed.png" alt="Vært" class="host-mini-img">
-                </div>
-                <h3 id="useLifelineText">Vil du ikke bruge en livline? 🤔</h3>
+        <div id="useLifelineModal" class="speech-overlay">
+            <div class="speech-overlay-bubble">
+                <p id="useLifelineText">Vil du ikke bruge en livline? 🤔</p>
                 <div class="lifeline-prompt-btns" id="lifelinePromptBtns"></div>
                 <button class="btn-secondary" onclick="game.skipLifelinePrompt()">Nej tak, jeg er sikker!</button>
             </div>
         </div>
 
         <!-- Er du sikker? overlay -->
-        <div id="areYouSureModal" class="modal">
-            <div class="modal-content are-you-sure">
-                <img src="assets/images/icons/64_psyk_er_du_helt_sikker.png" alt="Er du sikker?" class="psyk-image" id="psykImage">
-                <div class="host-mini">
-                    <img src="assets/images/host/10_vaert_hvisker_hemmelighed.png" alt="Vært" class="host-mini-img">
-                </div>
-                <h3 id="areYouSureText">Er du sikker? 🤔</h3>
+        <div id="areYouSureModal" class="speech-overlay">
+            <div class="speech-overlay-bubble">
+                <p id="areYouSureText">Er du sikker? 🤔</p>
                 <div class="are-you-sure-buttons">
                     <button class="btn-primary" onclick="game.confirmAnswer(true)">Ja, jeg er sikker!</button>
                     <button class="btn-secondary" onclick="game.confirmAnswer(false)">Nej, lad mig ændre</button>
@@ -505,9 +498,9 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-    <script src="firebase-highscore.js?v=3.36"></script>
-    <script src="questions.js?v=3.36"></script>
-    <script src="game.js?v=3.36"></script>
+    <script src="firebase-highscore.js?v=3.37"></script>
+    <script src="questions.js?v=3.37"></script>
+    <script src="game.js?v=3.37"></script>
     <!-- Footer med logoer -->
     <div class="footer-logos">
         <span class="footer-text">Præsenteret af</span>

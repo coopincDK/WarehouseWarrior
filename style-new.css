@@ -744,15 +744,9 @@ body {
 /* ===== CHECKPOINT ===== */
 .checkpoint-content {
     text-align: center;
-    padding: 25px 20px;
+    padding: 40px 20px;
     max-width: 700px;
     margin: 0 auto;
-    margin-top: auto;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0.5) 100%);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 25px;
-    border: 1px solid rgba(255, 215, 0, 0.15);
 }
 
 /* Checkpoint: Carsten mindre så indhold har plads */
@@ -1063,6 +1057,9 @@ body {
     border: 3px solid #ffd700;
     max-width: 600px;
     width: 90%;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow-y: auto;
     text-align: center;
 }
 
@@ -1698,7 +1695,7 @@ body {
 }
 
 .host-mini-img {
-    max-width: 200px;
+    max-width: 150px;
     border-radius: 50%;
     border: 3px solid #ffd700;
 }
@@ -2045,7 +2042,7 @@ body {
 /* ===== PSYK BILLEDE ===== */
 
 .psyk-image {
-    max-width: 200px;
+    max-width: 150px;
     margin: 0 auto 15px;
     display: block;
     animation: psykPulse 1.5s ease-in-out infinite;

@@ -554,7 +554,10 @@ class WarehouseWarriorGame {
             this.rouletteInterval = null;
         }
         // Clear highlight
-        document.querySelectorAll('.answer-btn').forEach(btn => btn.classList.remove('selected'));
+        document.querySelectorAll('.answer-btn').forEach(btn => {
+            btn.classList.remove('selected');
+            btn.classList.remove('roulette-glow');
+        });
     }
     
     afterRoulette(index, answerBtns) {

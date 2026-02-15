@@ -503,7 +503,17 @@ body {
     border-color: #00bfff;
     background: rgba(0, 191, 255, 0.2);
     box-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
-    transition: all 0.08s ease;
+}
+
+.answer-btn.roulette-glow {
+    border-color: #ffd700;
+    background: rgba(255, 215, 0, 0.15);
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+    transition: all 0.2s ease;
+}
+
+.answer-btn:not(.roulette-glow) {
+    transition: all 0.2s ease;
 }
 
 .answer-btn.correct {

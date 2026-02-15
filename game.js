@@ -9,8 +9,8 @@ class WarehouseWarriorGame {
         this.correctAnswers = 0;
         this.questions = [];
         this.timer = null;
-        this.timeLeft = 30;
-        this.maxTime = 30;
+        this.timeLeft = 60;
+        this.maxTime = 60;
         this.answerStartTime = null; // For speed-based scoring
         this.selectedAnswer = null;
         this.pendingAnswer = null; // For "Er du sikker?"
@@ -379,7 +379,7 @@ class WarehouseWarriorGame {
         this.lifelines = { fiftyFifty: false, audience: false, phone: false, extraTime: false };
         document.querySelectorAll('.lifeline-btn').forEach(btn => btn.classList.remove('used'));
         
-        this.maxTime = 30;
+        this.maxTime = 60;
         this.showScene('questionScene');
         this.loadQuestion();
     }
@@ -451,11 +451,11 @@ class WarehouseWarriorGame {
         // Timer-sværhed baseret på spørgsmålsnummer
         const qNum = this.currentQuestionIndex + 1; // 1-15
         if (qNum <= 5) {
-            this.maxTime = 30;
+            this.maxTime = 60;
         } else if (qNum <= 10) {
-            this.maxTime = 20;
+            this.maxTime = 45;
         } else {
-            this.maxTime = 10;
+            this.maxTime = 20;
         }
         this.timeLeft = this.maxTime;
         this.selectedAnswer = null;
@@ -1192,7 +1192,7 @@ class WarehouseWarriorGame {
         this.correctAnswers = 0;
         this.streak = 0;
         this.bestStreak = 0;
-        this.maxTime = 30;
+        this.maxTime = 60;
         this.lastRoundPoints = 0;
         this.lifelines = { fiftyFifty: false, audience: false, phone: false, extraTime: false };
         document.querySelectorAll('.lifeline-btn').forEach(btn => btn.classList.remove('used'));

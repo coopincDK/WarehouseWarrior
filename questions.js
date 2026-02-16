@@ -136,7 +136,7 @@ const questionBank = [
         answers: ["Minimum pris og maksimum pris", "Minimum lagerniveau og maksimum lagerniveau", "Minimum størrelse og maksimum størrelse, hvilket er en udbredt misforståelse", "Minimum ansatte og maksimum ansatte"],
         correct: 1,
         category: "Lagerstyring",
-        explanation: "Min/max er simple grænser: Når lageret når minimum (f.eks. 10 stk), bestiller du op til maximum (f.eks. 50 stk). Det forhindrer at du løber tør, men også at du overbestænder og binder penge i lager."
+        explanation: "Min/max er simple grænser: Når lageret når minimum (f.eks. 10 stk), bestiller du op til maximum (f.eks. 50 stk). Det forhindrer at du løber tør, men også at du overbestiller og binder penge i lager."
     },
     {
         level: 8,
@@ -277,7 +277,7 @@ const questionBank = [
     {
         level: 3,
         question: "Hvad er fordelen ved at mærke emballage med stregkode og pris?",
-        answers: ["Det ser pænt ud", "Pakkemedarbejderen kan registrere rigtigt og se konsekvensen af valg", "I praksis det er lovpligtigt, men det er ikke det vigtigste", "Det er gratis"],
+        answers: ["Det ser pænt ud", "Pakkemedarbejderen kan registrere rigtigt og se konsekvensen af valg", "I praksis er det lovpligtigt, men det er ikke det vigtigste", "Det er gratis"],
         correct: 1,
         category: "Lagerindretning",
         explanation: "Når emballage er mærket med stregkode og pris, kan pakkemedarbejderen scanne den rigtige kasse og se hvad den koster. Det motiverer til at vælge den billigste passende kasse - ikke bare den nærmeste store kasse."
@@ -1037,7 +1037,7 @@ const questionBank = [
     {
         level: 7,
         question: "Hvordan bruges plukkekasser typisk i arbejdet med multi-line ordrer?",
-        answers: ["Grundlæggende set én kasse til hele dagens ordrer, hvilket mange tror er rigtigt", "Én kasse pr. hyldemeter", "Én kasse pr. ordre, hvor varer lægges direkte i ordenes kasser under plukkeruten", "Kun til returvarer"],
+        answers: ["Grundlæggende set én kasse til hele dagens ordrer, hvilket mange tror er rigtigt", "Én kasse pr. hyldemeter", "Én kasse pr. ordre, hvor varer lægges direkte i ordrernes kasser under plukkeruten", "Kun til returvarer"],
         correct: 2,
         category: "Plukkestrategi",
         explanation: "Ved multi-line ordrer giver det mening, at hver kasse repræsenterer en ordre, så plukkeren kan lægge varer direkte i den rigtige ordre på ruten."
@@ -1565,7 +1565,7 @@ const questionBank = [
     {
         level: 14,
         question: "Du indfører en ny plukkerute. 'Pluk pr. time' stiger med 20%, men 'pakkefejlsprocenten' stiger også. Hvad er det mest sandsynlige problem?",
-        answers: ["Medarbejderne er blevet dårligere til at pakke efter ændringen, hvilket er en typisk fejl", "Den nye rute skaber stress eller forvirring, som giver flere fejl", "Systemet måler forkert og viser upulidelige tal for fejlraten", "Kunderne er begyndt at bestille sværere varer med flere linjer"],
+        answers: ["Medarbejderne er blevet dårligere til at pakke efter ændringen, hvilket er en typisk fejl", "Den nye rute skaber stress eller forvirring, som giver flere fejl", "Systemet måler forkert og viser upålidelige tal for fejlraten", "Kunderne er begyndt at bestille sværere varer med flere linjer"],
         correct: 1,
         category: "Avanceret",
         explanation: "Nøgletal skal ses i sammenhæng. En stigning i effektivitet, der samtidig øger fejlraten, peger på, at den nye proces er for stressende, ulogisk eller mangler indbygget kvalitetssikring."

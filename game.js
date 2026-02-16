@@ -701,6 +701,7 @@ class WarehouseWarriorGame {
         
         this.updateHostImage('whisper');
         document.getElementById('useLifelineModal').classList.add('active');
+        this.stopTimer(); // Pause timer mens spilleren vælger
         this.playSound('dramatic');
     }
     
@@ -745,6 +746,7 @@ class WarehouseWarriorGame {
         }
         
         document.getElementById('areYouSureModal').classList.add('active');
+        this.stopTimer(); // Pause timer mens spilleren tænker
         this.playSound('dramatic');
     }
     
@@ -1421,12 +1423,54 @@ class WarehouseWarriorGame {
         
         const votes = [0, 0, 0, 0];
         const correctIndex = this.currentShuffle.correctIndex;
+        const qNum = this.currentQuestionIndex + 1;
         
-        for (let i = 0; i < 100; i++) {
-            if (Math.random() < 0.6) {
-                votes[correctIndex]++;
-            } else {
-                votes[Math.floor(Math.random() * 4)]++;
+        if (qNum <= 10) {
+            // RUNDE 1-2: Alle får stemmer, men de 2 mest sandsynlige har flest
+            // Det korrekte svar er IKKE altid #1
+            const wrongIndices = [0,1,2,3].filter(i => i !== correctIndex);
+            
+            // Vælg en "popular wrong" — det svar publikum tror er rigtigt
+            const popularWrong = wrongIndices[Math.floor(Math.random() * wrongIndices.length)];
+            
+            for (let i = 0; i < 100; i++) {
+                const r = Math.random();
+                if (r < 0.35) {
+                    votes[correctIndex]++;      // 35% korrekt
+                } else if (r < 0.65) {
+                    votes[popularWrong]++;       // 30% populært forkert
+                } else {
+                    // 35% spredt på alle 4
+                    votes[Math.floor(Math.random() * 4)]++;
+                }
+            }
+        } else {
+            // RUNDE 3 (Q11-15): Fælde! De 3 mest oplagte har næsten lige mange
+            // Det korrekte svar har SJÆLDENT flest stemmer
+            const wrongIndices = [0,1,2,3].filter(i => i !== correctIndex);
+            
+            // Vælg det forkerte svar der skal "vinde" afstemningen
+            const winningWrong = wrongIndices[Math.floor(Math.random() * wrongIndices.length)];
+            const otherWrongs = wrongIndices.filter(i => i !== winningWrong);
+            
+            // 80% chance: forkert svar vinder. 20% chance: korrekt vinder alligevel
+            const correctWins = Math.random() < 0.2;
+            
+            for (let i = 0; i < 100; i++) {
+                const r = Math.random();
+                if (correctWins) {
+                    // Sjælden: korrekt vinder med lille margin
+                    if (r < 0.28) votes[correctIndex]++;
+                    else if (r < 0.54) votes[winningWrong]++;
+                    else if (r < 0.78) votes[otherWrongs[0]]++;
+                    else votes[otherWrongs[1]]++;
+                } else {
+                    // Normal: forkert svar vinder, korrekt er #2 eller #3
+                    if (r < 0.30) votes[winningWrong]++;
+                    else if (r < 0.55) votes[otherWrongs[0]]++;
+                    else if (r < 0.78) votes[correctIndex]++;
+                    else votes[otherWrongs[1]]++;
+                }
             }
         }
         
@@ -1447,12 +1491,14 @@ class WarehouseWarriorGame {
         });
         
         document.getElementById('audienceModal').classList.add('active');
+        this.stopTimer(); // Pause timer mens spilleren ser resultater
         this.updateHostImage('thinking');
     }
     
     closeAudienceModal() {
         this.playSound('click');
         document.getElementById('audienceModal').classList.remove('active');
+        this.startTimer(); // Genstart timer efter publikum-svar
     }
     
     // ===== EXPERT SYSTEM (Ring til en Ekspert) =====
@@ -1484,6 +1530,7 @@ class WarehouseWarriorGame {
         });
         
         document.getElementById('expertModal').classList.add('active');
+        this.stopTimer(); // Pause timer mens spilleren vælger ekspert
         this.updateHostImage('thinking');
     }
     
@@ -1494,18 +1541,35 @@ class WarehouseWarriorGame {
         
         const isMatch = expert.specialty.includes(question.category);
         const correctLetter = String.fromCharCode(65 + this.currentShuffle.correctIndex);
+        const wrongLetters = [0,1,2,3].filter(i => i !== this.currentShuffle.correctIndex).map(i => String.fromCharCode(65 + i));
+        const randomWrong = wrongLetters[Math.floor(Math.random() * wrongLetters.length)];
+        const qNum = this.currentQuestionIndex + 1;
         
         let suggestedAnswer;
         let lines;
         
-        if (isMatch) {
-            // Expert knows their stuff - 90% chance correct
-            suggestedAnswer = Math.random() < 0.9 ? correctLetter : String.fromCharCode(65 + Math.floor(Math.random() * 4));
-            lines = expert.confidentLines;
+        if (qNum <= 10) {
+            // RUNDE 1-2: Ekspert er hjælpsom
+            if (isMatch) {
+                // Rigtig ekspert: 90% korrekt
+                suggestedAnswer = Math.random() < 0.9 ? correctLetter : randomWrong;
+                lines = expert.confidentLines;
+            } else {
+                // Forkert ekspert: 50% korrekt
+                suggestedAnswer = Math.random() < 0.5 ? correctLetter : randomWrong;
+                lines = expert.unsureLines;
+            }
         } else {
-            // Expert is out of their depth - 40% chance correct
-            suggestedAnswer = Math.random() < 0.4 ? correctLetter : String.fromCharCode(65 + Math.floor(Math.random() * 4));
-            lines = expert.unsureLines;
+            // RUNDE 3 (Q11-15): Ekspert er meget mere usikker
+            if (isMatch) {
+                // Rigtig ekspert: kun 60% korrekt
+                suggestedAnswer = Math.random() < 0.6 ? correctLetter : randomWrong;
+                lines = expert.confidentLines;
+            } else {
+                // Forkert ekspert: kun 20% korrekt — næsten altid forkert!
+                suggestedAnswer = Math.random() < 0.2 ? correctLetter : randomWrong;
+                lines = expert.unsureLines;
+            }
         }
         
         const line = lines[Math.floor(Math.random() * lines.length)].replace('{answer}', suggestedAnswer);
@@ -1514,11 +1578,13 @@ class WarehouseWarriorGame {
         document.getElementById('expertAnswerName').textContent = expert.name;
         document.getElementById('expertAnswerText').textContent = line;
         document.getElementById('expertAnswerModal').classList.add('active');
+        // Timer forbliver pauset fra usePhone() — genstartes når spilleren lukker
     }
     
     closeExpertAnswer() {
         this.playSound('click');
         document.getElementById('expertAnswerModal').classList.remove('active');
+        this.startTimer(); // Genstart timer efter ekspert-svar
     }
     
     // ===== EXTRA TIME =====

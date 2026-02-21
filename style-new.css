@@ -80,6 +80,14 @@ body {
     font-size: 1.2rem;
 }
 
+.host-title {
+    font-size: 0.85rem;
+    color: rgba(255, 215, 0, 0.6);
+    margin-top: 2px;
+    letter-spacing: 0.3px;
+    font-style: italic;
+}
+
 /* ===== HOST OVERLAY ===== */
 .host-overlay {
     position: absolute;
@@ -257,6 +265,21 @@ body {
 
 .welcome-bottom {
     text-align: center;
+}
+
+.welcome-book-link {
+    display: inline-block;
+    color: rgba(255, 215, 0, 0.7);
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-top: 8px;
+    padding: 4px 12px;
+    transition: color 0.3s ease;
+}
+
+.welcome-book-link:hover {
+    color: #ffd700;
+    text-decoration: underline;
 }
 
 .logo {

@@ -155,23 +155,23 @@ class WarehouseWarriorGame {
         
         // Kapitel-mapping: kategori → kapitel i bogen
         this.chapterMap = {
-            'Lagerindretning': { chapter: 'Kapitel 2: Lagerindretning & Flow', url: 'https://smartpack.dk/lagerhaandbog#kapitel2' },
-            'ABC-analyse': { chapter: 'Kapitel 3: ABC-analyse', url: 'https://smartpack.dk/lagerhaandbog#kapitel3' },
-            'Plukkestrategi': { chapter: 'Kapitel 4: Plukkestrategier', url: 'https://smartpack.dk/lagerhaandbog#kapitel4' },
-            'Redskaber': { chapter: 'Kapitel 5: Redskaber & Udstyr', url: 'https://smartpack.dk/lagerhaandbog#kapitel5' },
-            'Lagerstyring': { chapter: 'Kapitel 6: Lagerstyring', url: 'https://smartpack.dk/lagerhaandbog#kapitel6' },
-            'Pakkefejl': { chapter: 'Kapitel 7: Pakkefejl & Kvalitet', url: 'https://smartpack.dk/lagerhaandbog#kapitel7' },
-            'Returer': { chapter: 'Kapitel 8: Returer & Reklamationer', url: 'https://smartpack.dk/lagerhaandbog#kapitel8' },
-            'Svind': { chapter: 'Kapitel 9: Svind & Forebyggelse', url: 'https://smartpack.dk/lagerhaandbog#kapitel9' },
-            'Nøgletal': { chapter: 'Kapitel 10: Nøgletal & KPI\'er', url: 'https://smartpack.dk/lagerhaandbog#kapitel10' },
-            '3PL': { chapter: 'Kapitel 11: 3PL & Outsourcing', url: 'https://smartpack.dk/lagerhaandbog#kapitel11' },
-            'Fragt': { chapter: 'Kapitel 12: Fragt & Levering', url: 'https://smartpack.dk/lagerhaandbog#kapitel12' },
-            'Emballage': { chapter: 'Kapitel 13: Emballage', url: 'https://smartpack.dk/lagerhaandbog#kapitel13' },
-            'Kampagner': { chapter: 'Kapitel 14: Kampagner & Peak', url: 'https://smartpack.dk/lagerhaandbog#kapitel14' },
-            'Generelt': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' },
-            'Avanceret': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' },
-            'Ekspert': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' },
-            'Super Ekspert': { chapter: 'Hele bogen', url: 'https://smartpack.dk/lagerhaandbog' }
+            'Lagerindretning': { chapter: 'Kapitel 2: Lagerindretning & Flow', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel2' },
+            'ABC-analyse': { chapter: 'Kapitel 3: ABC-analyse', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel3' },
+            'Plukkestrategi': { chapter: 'Kapitel 4: Plukkestrategier', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel4' },
+            'Redskaber': { chapter: 'Kapitel 5: Redskaber & Udstyr', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel5' },
+            'Lagerstyring': { chapter: 'Kapitel 6: Lagerstyring', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel6' },
+            'Pakkefejl': { chapter: 'Kapitel 7: Pakkefejl & Kvalitet', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel7' },
+            'Returer': { chapter: 'Kapitel 8: Returer & Reklamationer', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel8' },
+            'Svind': { chapter: 'Kapitel 9: Svind & Forebyggelse', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel9' },
+            'Nøgletal': { chapter: 'Kapitel 10: Nøgletal & KPI\'er', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel10' },
+            '3PL': { chapter: 'Kapitel 11: 3PL & Outsourcing', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel11' },
+            'Fragt': { chapter: 'Kapitel 12: Fragt & Levering', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel12' },
+            'Emballage': { chapter: 'Kapitel 13: Emballage', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel13' },
+            'Kampagner': { chapter: 'Kapitel 14: Kampagner & Peak', url: 'https://www.danskerhverv.dk/branche/digital-handel/#kapitel14' },
+            'Generelt': { chapter: 'Hele bogen', url: 'https://www.danskerhverv.dk/branche/digital-handel/' },
+            'Avanceret': { chapter: 'Hele bogen', url: 'https://www.danskerhverv.dk/branche/digital-handel/' },
+            'Ekspert': { chapter: 'Hele bogen', url: 'https://www.danskerhverv.dk/branche/digital-handel/' },
+            'Super Ekspert': { chapter: 'Hele bogen', url: 'https://www.danskerhverv.dk/branche/digital-handel/' }
         };
         
         // Kategori til ikon-mapping
@@ -1063,7 +1063,7 @@ class WarehouseWarriorGame {
         if (chapterInfo) {
             window.open(chapterInfo.url, '_blank');
         } else {
-            window.open('https://smartpack.dk/lagerhaandbog', '_blank');
+            window.open('https://www.danskerhverv.dk/branche/digital-handel/', '_blank');
         }
     }
     

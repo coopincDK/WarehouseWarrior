@@ -46,7 +46,7 @@ class WarehouseWarriorGame {
         // Audio settings (load from localStorage)
         this.musicEnabled = localStorage.getItem('ww_music') !== 'false';
         this.sfxEnabled = localStorage.getItem('ww_sfx') !== 'false';
-        this.musicVolume = parseFloat(localStorage.getItem('ww_volume')) || 0.5;
+        this.musicVolume = parseFloat(localStorage.getItem('ww_volume')) || 0.2;
         this.musicPlaying = false;
 
         
@@ -366,7 +366,19 @@ class WarehouseWarriorGame {
             firebaseHighscore.trackSession();
         }
         
-        // Generate questions
+        // Anvend level-overrides fra admin på questionBank (hvis tilgængelige)
+        if (typeof firebaseHighscore !== 'undefined' && firebaseHighscore.levelOverrides) {
+            const overrides = firebaseHighscore.levelOverrides;
+            questionBank.forEach(q => {
+                const qId = firebaseHighscore.hashQuestion(q.question);
+                const override = overrides[qId];
+                if (override && override.newLevel) {
+                    q.level = override.newLevel;
+                }
+            });
+        }
+        
+        // Generate questions (bruger nu evt. opdaterede levels)
         this.questions = generateQuestionSet();
         this.currentQuestionIndex = 0;
         this.score = 0;
@@ -383,6 +395,9 @@ class WarehouseWarriorGame {
     
     showScene(sceneId) {
         document.querySelectorAll('.scene').forEach(scene => scene.classList.remove('active'));
+        // Clear any lingering overlays/modals
+        document.querySelectorAll('.speech-overlay').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
         setTimeout(() => {
             document.getElementById(sceneId).classList.add('active');
         }, 100);
@@ -404,8 +419,14 @@ class WarehouseWarriorGame {
     
     loadQuestion() {
         // Clear previous answer state completely
+        this.selectedAnswer = null;
+        this.pendingAnswer = null;
         const oldBtns = document.querySelectorAll('.answer-btn');
-        oldBtns.forEach(btn => btn.classList.remove('selected', 'correct', 'wrong'));
+        oldBtns.forEach(btn => {
+            btn.classList.remove('selected', 'correct', 'wrong', 'disabled');
+            btn.disabled = false;
+            btn.style.cssText = '';
+        });
         this.lifelinePromptShown = false; // Nulstil livline-prompt for nyt spørgsmål
         
         const question = this.questions[this.currentQuestionIndex];
@@ -1247,7 +1268,7 @@ class WarehouseWarriorGame {
         }
     }
     
-    saveHighscoreFromScene(scene) {
+    async saveHighscoreFromScene(scene) {
         const nameInput = document.getElementById(scene + 'HighscoreName');
         const companyInput = document.getElementById(scene + 'HighscoreCompany');
         const btn = document.getElementById(scene === 'wrong' ? 'wrongSaveScoreBtn' : scene === 'gameover' ? 'gameoverSaveScoreBtn' : 'victorySaveScoreBtn');
@@ -1269,10 +1290,23 @@ class WarehouseWarriorGame {
         this.playerName = name;
         this.playerCompany = companyInput.value.trim() || '';
         
-        this.saveHighscore();
+        await this.saveHighscore();
+        
+        // Find placering
+        let placement = '';
+        try {
+            const allScores = await this.getHighscores();
+            const rank = allScores.findIndex(s => s.score <= this.score) + 1;
+            if (rank > 0 && rank <= 100) {
+                placement = ` — Du er nr. ${rank} på listen! 🏆`;
+            } else if (rank > 100) {
+                placement = ` — Du er nr. ${rank}`;
+            }
+        } catch(e) { /* ignore */ }
         
         // Show confirmation
-        btn.textContent = '✅ Gemt!';
+        btn.textContent = `✅ Gemt!${placement}`;
+        btn.style.fontSize = placement ? '0.85rem' : '';
         btn.disabled = true;
         nameInput.disabled = true;
         companyInput.disabled = true;

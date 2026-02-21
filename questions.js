@@ -16,7 +16,7 @@ const questionBank = [
         answers: ["2 zoner", "3 zoner", "4 zoner", "5 zoner"],
         correct: 1,
         category: "Lagerindretning",
-        explanation: "Et godt lager opdeles i 3 zoner: Modtagelse (hvor varer ankommer), Lager (hvor varer opbevares) og Afsendelse (hvor varer pakkes og sendes). Dette skaber et klart, ensrettet flow fra indgang til udgang."
+        explanation: "Et lager har tre overordnede zoner: modtagelse, lager og afsendelse. Pakkeriet er ikke en selvstændig zone, men en del af afsendelseszonen. De tre zoner skaber et klart, ensrettet flow fra indgang til udgang."
     },
     {
         level: 1,

@@ -6,6 +6,7 @@ class FirebaseHighscore {
         this.db = null;
         this.initialized = false;
         this.fallbackToLocal = false;
+        this.levelOverrides = {};
     }
     
     async init() {
@@ -35,6 +36,17 @@ class FirebaseHighscore {
             
             this.db = firebase.database();
             this.initialized = true;
+            
+            // Hent level-overrides fra admin
+            try {
+                const loSnap = await this.db.ref('levelOverrides').once('value');
+                this.levelOverrides = loSnap.val() || {};
+                const count = Object.keys(this.levelOverrides).length;
+                if (count > 0) console.log(`📊 ${count} level-overrides hentet fra admin`);
+            } catch (e) {
+                console.warn('Kunne ikke hente level-overrides:', e);
+            }
+            
             console.log('✅ Firebase Highscore connected!');
         } catch (e) {
             console.warn('Firebase init failed, using local storage:', e);

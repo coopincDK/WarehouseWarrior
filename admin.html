@@ -265,6 +265,32 @@
         .suggested-badge.up { background: #ef444433; color: #f87171; }
         .suggested-badge.down { background: #22c55e33; color: #4ade80; }
         .suggested-badge.same { background: rgba(255,255,255,0.08); color: #888; }
+        .suggested-badge.accepted { background: #22c55e55; color: #4ade80; border: 1px solid #4ade80; }
+        
+        .accept-btn {
+            background: none;
+            border: 1px solid #4ade80;
+            color: #4ade80;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            margin-left: 4px;
+            transition: all 0.2s;
+        }
+        .accept-btn:hover { background: #22c55e33; }
+        .undo-btn {
+            background: none;
+            border: 1px solid #f87171;
+            color: #f87171;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            margin-left: 4px;
+            transition: all 0.2s;
+        }
+        .undo-btn:hover { background: #ef444433; }
         
         .category-tag {
             display: inline-block;
@@ -446,6 +472,10 @@
                 <div class="insight-box">
                     <h3>⚠️ Forkert level? (data vs. nuværende)</h3>
                     <ul class="insight-list" id="mismatchList"></ul>
+                </div>
+                <div class="insight-box">
+                    <h3>✅ Aktive level-overrides</h3>
+                    <ul class="insight-list" id="overridesList"></ul>
                 </div>
                 <div class="insight-box">
                     <h3>📂 Kategori-oversigt</h3>
@@ -639,6 +669,7 @@
         let gameCompletionData = {};
         let companyAliases = {};
         let hiddenPlayers = {};
+        let levelOverrides = {};
         let currentTimeFilter = 'all';
         
         function getFilterCutoff() {
@@ -776,6 +807,10 @@
                 const hiddenSnap = await db.ref('hiddenPlayers').once('value');
                 hiddenPlayers = hiddenSnap.val() || {};
                 
+                // Hent level overrides
+                const loSnap = await db.ref('levelOverrides').once('value');
+                levelOverrides = loSnap.val() || {};
+                
                 document.getElementById('dbStatus').textContent = 'Forbundet ✅';
                 document.getElementById('dbStatus').style.color = '#4ecdc4';
                 document.getElementById('lastUpdated').textContent = 'Opdateret: ' + new Date().toLocaleTimeString('da-DK');
@@ -785,6 +820,31 @@
                 document.getElementById('dbStatus').textContent = 'Fejl ❌';
                 document.getElementById('dbStatus').style.color = '#ff6b6b';
                 console.error('Load failed:', e);
+            }
+        }
+        
+        async function acceptLevel(qId, questionText, oldLevel, newLevel) {
+            try {
+                await db.ref('levelOverrides/' + qId).set({
+                    newLevel: newLevel,
+                    oldLevel: oldLevel,
+                    question: questionText.substring(0, 100),
+                    acceptedAt: new Date().toISOString()
+                });
+                levelOverrides[qId] = { newLevel, oldLevel, question: questionText.substring(0, 100) };
+                renderAll();
+            } catch (e) {
+                alert('Fejl ved gem: ' + e.message);
+            }
+        }
+        
+        async function undoLevel(qId) {
+            try {
+                await db.ref('levelOverrides/' + qId).remove();
+                delete levelOverrides[qId];
+                renderAll();
+            } catch (e) {
+                alert('Fejl ved fortryd: ' + e.message);
             }
         }
         
@@ -878,9 +938,31 @@
                     const diff = q.suggestedLevel - q.level;
                     const arrow = diff > 0 ? '↑' : '↓';
                     const color = diff > 0 ? '#f87171' : '#4ade80';
+                    const isAccepted = levelOverrides[q.id] && levelOverrides[q.id].newLevel === q.suggestedLevel;
+                    const safeQ = q.question.replace(/'/g, "\\'");
+                    const actionBtn = isAccepted 
+                        ? `<button class="undo-btn" onclick="undoLevel('${q.id}')">↩ Fortryd</button>`
+                        : `<button class="accept-btn" onclick="acceptLevel('${q.id}', '${safeQ}', ${q.level}, ${q.suggestedLevel})">✅ Acceptér</button>`;
                     return `<li>
                         <span class="q-text" title="${q.question}">${q.question}</span>
-                        <span class="q-stat" style="color:${color}">Lvl ${q.level} → ${q.suggestedLevel} ${arrow}</span>
+                        <span class="q-stat" style="color:${color}">${isAccepted ? '✅ ' : ''}Lvl ${q.level} → ${q.suggestedLevel} ${arrow}</span>
+                        ${actionBtn}
+                    </li>`;
+                }).join('');
+            }
+            
+            // Aktive overrides
+            const overrideKeys = Object.keys(levelOverrides);
+            const overridesEl = document.getElementById('overridesList');
+            if (overrideKeys.length === 0) {
+                overridesEl.innerHTML = '<li style="color:#888;justify-content:center">Ingen aktive overrides</li>';
+            } else {
+                overridesEl.innerHTML = overrideKeys.map(qId => {
+                    const o = levelOverrides[qId];
+                    return `<li>
+                        <span class="q-text" title="${o.question || qId}">${o.question || qId}</span>
+                        <span class="q-stat" style="color:#4ade80">Lvl ${o.oldLevel} → ${o.newLevel}</span>
+                        <button class="undo-btn" onclick="undoLevel('${qId}')">↩ Fortryd</button>
                     </li>`;
                 }).join('');
             }
@@ -994,12 +1076,16 @@
                 const lvlClass = q.level <= 5 ? 'easy' : q.level <= 10 ? 'medium' : 'hard';
                 const barColor = ratioColor(q.correctRatio);
                 
+                const isAccepted = levelOverrides[q.id];
                 let suggestedHtml = '<span style="color:#666">—</span>';
-                if (q.suggestedLevel !== null) {
+                if (isAccepted) {
+                    suggestedHtml = `<span class="suggested-badge accepted">✅ ${isAccepted.newLevel}</span> <button class="undo-btn" onclick="undoLevel('${q.id}')">↩</button>`;
+                } else if (q.suggestedLevel !== null) {
                     const diff = q.suggestedLevel - q.level;
+                    const safeQ = q.question.replace(/'/g, "\\'");
                     if (Math.abs(diff) >= 4) {
                         const cls = diff > 0 ? 'up' : 'down';
-                        suggestedHtml = `<span class="suggested-badge ${cls}">${q.suggestedLevel} (${diff > 0 ? '+' : ''}${diff})</span>`;
+                        suggestedHtml = `<span class="suggested-badge ${cls}">${q.suggestedLevel} (${diff > 0 ? '+' : ''}${diff})</span> <button class="accept-btn" onclick="acceptLevel('${q.id}', '${safeQ}', ${q.level}, ${q.suggestedLevel})">✅</button>`;
                     } else {
                         suggestedHtml = `<span class="suggested-badge same">${q.suggestedLevel}</span>`;
                     }

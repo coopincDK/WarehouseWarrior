@@ -1735,7 +1735,7 @@ body {
     z-index: 1000;
     align-items: flex-start;
     justify-content: center;
-    padding-top: 18vh;
+    padding-top: 8vh;
 }
 
 .speech-overlay.active {

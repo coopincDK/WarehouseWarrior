@@ -46,7 +46,9 @@ class WarehouseWarriorGame {
         // Audio settings (load from localStorage)
         this.musicEnabled = localStorage.getItem('ww_music') !== 'false';
         this.sfxEnabled = localStorage.getItem('ww_sfx') !== 'false';
-        this.musicVolume = parseFloat(localStorage.getItem('ww_volume')) || 0.2;
+        this.maxMusicVolume = 0.2; // Max volume cap (20%)
+        const savedVol = parseFloat(localStorage.getItem('ww_volume'));
+        this.musicVolume = savedVol >= 0 ? Math.min(savedVol, this.maxMusicVolume) : this.maxMusicVolume;
         this.musicPlaying = false;
 
         
@@ -271,8 +273,9 @@ class WarehouseWarriorGame {
         // Apply saved settings to checkboxes
         document.getElementById('musicToggle').checked = this.musicEnabled;
         document.getElementById('sfxToggle').checked = this.sfxEnabled;
-        document.getElementById('volumeSlider').value = this.musicVolume;
-        document.getElementById('volumeValue').textContent = Math.round(this.musicVolume * 100) + '%';
+        const sliderPos = this.maxMusicVolume > 0 ? this.musicVolume / this.maxMusicVolume : 0;
+        document.getElementById('volumeSlider').value = sliderPos;
+        document.getElementById('volumeValue').textContent = Math.round(sliderPos * 100) + '%';
         
     }
     
@@ -320,11 +323,13 @@ class WarehouseWarriorGame {
         localStorage.setItem('ww_sfx', enabled);
     }
     
-    setVolume(vol) {
-        this.musicVolume = vol;
-        localStorage.setItem('ww_volume', vol);
-        this.sounds.bgMusic.volume = vol;
-        document.getElementById('volumeValue').textContent = Math.round(vol * 100) + '%';
+    setVolume(sliderVal) {
+        // Slider 0-1 maps to 0-maxMusicVolume (0.2 = 20%)
+        const actualVol = sliderVal * this.maxMusicVolume;
+        this.musicVolume = actualVol;
+        localStorage.setItem('ww_volume', actualVol);
+        this.sounds.bgMusic.volume = actualVol;
+        document.getElementById('volumeValue').textContent = Math.round(sliderVal * 100) + '%';
     }
     
     openSettings() {

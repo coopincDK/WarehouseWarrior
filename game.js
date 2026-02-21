@@ -219,11 +219,7 @@ class WarehouseWarriorGame {
         
         // Final round playlist (level 11-15) - dramatisk stemningsskift
         this.finalTracks = [
-            'assets/music/Raz Burg - Rushing Earth.mp3',
-            'assets/music/Kyle Preston - Medieval Hitman.mp3',
-            'assets/music/Elia Azarzar - March of the Damned.mp3',
-            'assets/music/Jan Sanejko - The Brave Ones.mp3',
-            'assets/music/Tilman Sillescu - Into the Transcendence.mp3'
+            'assets/music/Raz Burg - Rushing Earth.mp3'
         ];
         
         this.musicTracks = this.normalTracks;

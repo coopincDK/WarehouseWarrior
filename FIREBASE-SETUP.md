@@ -23,8 +23,11 @@
   "rules": {
     "highscores": {
       ".read": true,
-      ".write": true,
-      ".indexOn": ["score", "timestamp"]
+      ".indexOn": ["score", "timestamp"],
+      "$entry": {
+        ".write": "!data.exists()",
+        ".validate": "newData.hasChildren(['name','score','correctAnswers','totalQuestions','timestamp']) && newData.child('name').isString() && newData.child('name').val().length >= 1 && newData.child('name').val().length <= 30 && newData.child('score').isNumber() && newData.child('score').val() >= 0 && newData.child('score').val() <= 150000 && newData.child('correctAnswers').isNumber() && newData.child('correctAnswers').val() >= 0 && newData.child('correctAnswers').val() <= 15 && newData.child('totalQuestions').isNumber() && newData.child('totalQuestions').val() == 15"
+      }
     },
     "questionStats": {
       ".read": true,
@@ -69,6 +72,14 @@
   }
 }
 ```
+
+### Hvad reglerne gør:
+- **Highscores kan kun oprettes, IKKE ændres/slettes** (`!data.exists()`)
+- **Score max 150.000** (umuligt at nå mere legitimt)
+- **Navn max 30 tegn**, mindst 1 tegn
+- **correctAnswers 0-15**, totalQuestions skal være 15
+- **Alle påkrævede felter** skal være til stede
+- Stats/admin-noder er stadig åbne (kan strammes senere)
 
 3. Klik **"Publish"**
 

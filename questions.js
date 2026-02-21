@@ -28,11 +28,11 @@ const questionBank = [
     },
     {
         level: 2,
-        question: "Hvad er den SIDSTE zone i et ensrettet lagerflow?",
+        question: "Hvad er den sidste zone i et ensrettet lagerflow?",
         answers: ["Modtagelse", "Afsendelse", "Lager", "Pakkeområde"],
         correct: 1,
         category: "Lagerindretning",
-        explanation: "Afsendelse er den sidste zone. Flowet går: Modtagelse → Lager → Afsendelse. Mange svarer for hurtigt 'Modtagelse' fordi de husker det fra det lette spørgsmål om første zone, men her spørges der til den SIDSTE."
+        explanation: "Afsendelse er den sidste zone. Flowet går: Modtagelse → Lager → Afsendelse. Mange svarer for hurtigt 'Modtagelse' fordi de husker det fra det lette spørgsmål om første zone, men her spørges der til den sidste."
     },
     {
         level: 2,

@@ -63,32 +63,51 @@ class FirebaseHighscore {
         }
     }
     
+    // Sanitize og valider score-data før gem
+    sanitizeEntry(entry) {
+        const name = String(entry.name || 'Anonym').trim().substring(0, 30) || 'Anonym';
+        const company = String(entry.company || '').trim().substring(0, 50);
+        const score = Math.max(0, Math.min(150000, Math.round(Number(entry.score) || 0)));
+        const correctAnswers = Math.max(0, Math.min(15, Math.round(Number(entry.correctAnswers) || 0)));
+        const bestStreak = Math.max(0, Math.min(15, Math.round(Number(entry.bestStreak) || 0)));
+        return { name, company, score, correctAnswers, totalQuestions: 15, bestStreak };
+    }
+    
     async saveScore(entry) {
+        const clean = this.sanitizeEntry(entry);
+        
         // Always save locally as backup
-        this.saveLocal(entry);
+        this.saveLocal(clean);
+        
+        // Rate-limit: max 1 score per 10 sekunder
+        const now = Date.now();
+        if (this._lastSave && (now - this._lastSave) < 10000) {
+            console.warn('Rate-limited: for mange score-gem p\u00e5 kort tid');
+            return;
+        }
+        this._lastSave = now;
         
         if (this.fallbackToLocal || !this.initialized || !navigator.onLine) {
-            // Gem i offline-queue til senere sync
-            this.queueOfflineScore(entry);
+            this.queueOfflineScore(clean);
             return;
         }
         
         try {
             const ref = this.db.ref('highscores');
             await ref.push({
-                name: entry.name || 'Anonym',
-                company: entry.company || '',
-                score: entry.score,
-                correctAnswers: entry.correctAnswers,
-                totalQuestions: entry.totalQuestions,
-                bestStreak: entry.bestStreak || 0,
+                name: clean.name,
+                company: clean.company,
+                score: clean.score,
+                correctAnswers: clean.correctAnswers,
+                totalQuestions: 15,
+                bestStreak: clean.bestStreak,
                 date: new Date().toISOString(),
                 timestamp: firebase.database.ServerValue.TIMESTAMP
             });
             console.log('✅ Score saved to Firebase');
         } catch (e) {
             console.warn('Firebase save failed, queuing for later:', e);
-            this.queueOfflineScore(entry);
+            this.queueOfflineScore(clean);
         }
     }
     

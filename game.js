@@ -46,7 +46,8 @@ class WarehouseWarriorGame {
         // Audio settings (load from localStorage)
         this.musicEnabled = localStorage.getItem('ww_music') !== 'false';
         this.sfxEnabled = localStorage.getItem('ww_sfx') !== 'false';
-        this.maxMusicVolume = 0.2; // Max volume cap (20%)
+        this.maxMusicVolume = 0.12; // Max volume cap (12%)
+        this.sfxVolume = 0.3; // SFX volume cap (30% - uafhængig af musik-slider)
         const savedVol = parseFloat(localStorage.getItem('ww_volume'));
         this.musicVolume = savedVol >= 0 ? Math.min(savedVol, this.maxMusicVolume) : this.maxMusicVolume;
         this.musicPlaying = false;
@@ -290,6 +291,7 @@ class WarehouseWarriorGame {
         if (!this.sfxEnabled) return;
         const sound = this.sounds[soundName];
         if (sound) {
+            sound.volume = this.sfxVolume;
             sound.currentTime = 0;
             sound.play().catch(e => console.log('Sound play failed:', e));
         }
@@ -302,6 +304,7 @@ class WarehouseWarriorGame {
             this.sounds.bgMusic.pause();
             this.musicPlaying = false;
         } else if (enabled && !this.musicPlaying) {
+            this.sounds.bgMusic.volume = this.musicVolume;
             this.sounds.bgMusic.play().catch(e => console.log('Music play failed:', e));
             this.musicPlaying = true;
         }

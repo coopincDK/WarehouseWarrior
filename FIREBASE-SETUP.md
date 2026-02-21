@@ -25,6 +25,34 @@
       ".read": true,
       ".write": true,
       ".indexOn": ["score", "timestamp"]
+    },
+    "questionStats": {
+      ".read": true,
+      ".write": true
+    },
+    "clickStats": {
+      ".read": true,
+      ".write": true
+    },
+    "eventStats": {
+      ".read": true,
+      ".write": true
+    },
+    "sessionData": {
+      ".read": true,
+      ".write": true
+    },
+    "levelOverrides": {
+      ".read": true,
+      ".write": true
+    },
+    "companyAliases": {
+      ".read": true,
+      ".write": true
+    },
+    "hiddenPlayers": {
+      ".read": true,
+      ".write": true
     }
   }
 }

@@ -123,12 +123,12 @@ body {
 /* Result-scenes: kassen i toppen, Carsten i bunden */
 #correctScene .content-overlay,
 #wrongScene .content-overlay {
-    justify-content: center;
-    padding-top: 0;
+    justify-content: flex-start;
+    padding-top: 15vh;
 }
 
 #correctScene .content-overlay {
-    margin-top: -15px;
+    margin-top: 0;
 }
 
 #correctScene .host-overlay,
@@ -791,7 +791,12 @@ body {
     -webkit-backdrop-filter: blur(4px);
 }
 
-/* Checkpoint: Carsten mindre så indhold har plads */
+/* Checkpoint: kasse i toppen, Carsten i bunden */
+#checkpointScene .content-overlay {
+    justify-content: flex-start;
+    padding-top: 8vh;
+}
+
 #checkpointScene .host-image {
     max-height: 50vh;
 }
@@ -801,8 +806,8 @@ body {
 }
 
 .checkpoint-icon {
-    max-width: 200px;
-    margin: 20px auto;
+    max-width: 260px;
+    margin: 15px auto;
 }
 
 .checkpoint-content h2 {
@@ -1285,7 +1290,7 @@ body {
     #questionScene .host-overlay { max-height: 58vh; }
     #correctScene .host-image, #wrongScene .host-image { max-height: 58vh; }
     #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 58vh; }
-    #correctScene .content-overlay, #wrongScene .content-overlay { padding-top: 0; }
+    #correctScene .content-overlay, #wrongScene .content-overlay { padding-top: 12vh; }
     .question-container { padding: 10px; margin-bottom: 8px; }
     .logo { max-width: 300px; }
     .content-overlay { padding: 10px 12px 15px; }
@@ -1330,7 +1335,7 @@ body {
     .checkpoint-content h2 { font-size: 1.8rem; margin: 8px 0; }
     .checkpoint-message { font-size: 1rem; margin: 8px 0; }
     .checkpoint-score { font-size: 1.3rem; margin: 10px 0; }
-    .checkpoint-icon { max-width: 120px; margin: 10px auto; }
+    .checkpoint-icon { max-width: 180px; margin: 10px auto; }
     #checkpointScene .host-image { max-height: 40vh; }
     #checkpointScene .host-overlay { max-height: 40vh; }
     .highscore-content { padding: 15px; }
@@ -1379,7 +1384,7 @@ body {
     #questionScene .host-overlay { max-height: 48vh; }
     #correctScene .host-image, #wrongScene .host-image { max-height: 48vh; }
     #correctScene .host-overlay, #wrongScene .host-overlay { max-height: 48vh; }
-    #correctScene .content-overlay, #wrongScene .content-overlay { padding-top: 8px; }
+    #correctScene .content-overlay, #wrongScene .content-overlay { padding-top: 10vh; }
     .question-container { padding: 8px; margin-bottom: 6px; }
     .player-input { margin: 5px 0; }
     .btn-primary { padding: 10px 25px; font-size: 1rem; }
@@ -1427,7 +1432,7 @@ body {
     .gameover-buttons { gap: 6px; margin-top: 8px; }
     .checkpoint-content { padding: 10px 8px; }
     .checkpoint-content h2 { font-size: 1.4rem; margin: 5px 0; }
-    .checkpoint-icon { width: 70px; margin-bottom: 5px; }
+    .checkpoint-icon { width: 130px; max-width: 130px; margin-bottom: 5px; }
     .checkpoint-message { font-size: 0.9rem; margin: 5px 0; }
     .checkpoint-score { font-size: 1.1rem; margin: 8px 0; }
     .checkpoint-speech { padding: 10px 14px; font-size: 0.9rem; margin: 8px 0 5px; }
@@ -1728,8 +1733,9 @@ body {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding-top: 18vh;
 }
 
 .speech-overlay.active {
@@ -1766,8 +1772,8 @@ body {
 }
 
 .are-you-sure-psyk {
-    max-width: 220px;
-    max-height: 180px;
+    max-width: 280px;
+    max-height: 230px;
     filter: drop-shadow(0 4px 16px rgba(255, 215, 0, 0.5));
     animation: psykFloat 2s ease-in-out infinite;
     margin-bottom: -15px;

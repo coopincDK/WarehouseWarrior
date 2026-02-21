@@ -1123,6 +1123,14 @@ class WarehouseWarriorGame {
             }, 1500); // 1.5 sek pause så dramatic-lyden høres først
         }
         
+        // Skift Carsten-billede: nervøs ved runde 3, begejstret ved runde 2
+        const checkpointHost = document.getElementById('checkpointHostImage');
+        if (checkpointHost) {
+            checkpointHost.src = this.currentQuestionIndex >= 10
+                ? 'assets/images/host/11_vaert_nervoes_sveder.png'
+                : 'assets/images/host/04_vaert_begejstret_haender_op.png';
+        }
+        
         this.showScene('checkpointScene');
         this.playSound('checkpointRiser');
     }
@@ -1248,7 +1256,21 @@ class WarehouseWarriorGame {
         const companyInput = document.getElementById(scene + 'HighscoreCompany');
         const btn = document.getElementById(scene === 'wrong' ? 'wrongSaveScoreBtn' : scene === 'gameover' ? 'gameoverSaveScoreBtn' : 'victorySaveScoreBtn');
         
-        this.playerName = nameInput.value.trim() || 'Anonym';
+        const name = nameInput.value.trim();
+        
+        // Kræv et navn
+        if (!name) {
+            nameInput.style.border = '2px solid #ff4444';
+            nameInput.placeholder = 'Skriv dit navn først!';
+            nameInput.focus();
+            setTimeout(() => {
+                nameInput.style.border = '';
+                nameInput.placeholder = 'Dit navn';
+            }, 2000);
+            return;
+        }
+        
+        this.playerName = name;
         this.playerCompany = companyInput.value.trim() || '';
         
         this.saveHighscore();

@@ -391,7 +391,18 @@ class WarehouseWarriorGame {
             });
         }
         
-        // Generate questions (bruger nu evt. opdaterede levels)
+        // Merge custom spørgsmål fra Firebase ind i questionBank
+        if (typeof firebaseHighscore !== 'undefined' && firebaseHighscore.customQuestions) {
+            const existing = new Set(questionBank.map(q => q.question));
+            firebaseHighscore.customQuestions.forEach(cq => {
+                if (!existing.has(cq.question)) {
+                    questionBank.push(cq);
+                    existing.add(cq.question);
+                }
+            });
+        }
+        
+        // Generate questions (bruger nu evt. opdaterede levels + custom spørgsmål)
         this.questions = generateQuestionSet();
         this.currentQuestionIndex = 0;
         this.score = 0;
@@ -1756,19 +1767,108 @@ class WarehouseWarriorGame {
     createConfetti(containerId) {
         const container = document.getElementById(containerId);
         container.innerHTML = '';
-        const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#5f27cd'];
         
-        for (let i = 0; i < 50; i++) {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.animationDelay = Math.random() * 2 + 's';
-            confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-            container.appendChild(confetti);
+        const canvas = document.createElement('canvas');
+        canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:10;';
+        container.appendChild(canvas);
+        
+        const ctx = canvas.getContext('2d');
+        const rect = container.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        
+        const colors = ['#ffd700','#ff6b6b','#4ecdc4','#45b7d1','#f7b731','#5f27cd','#ff9ff3','#00d2d3','#ff6348','#7bed9f'];
+        const shapes = ['rect','circle','star','ribbon'];
+        const particles = [];
+        const PARTICLE_COUNT = 120;
+        
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: -20 - Math.random() * canvas.height * 0.5,
+                vx: (Math.random() - 0.5) * 6,
+                vy: Math.random() * 3 + 2,
+                w: Math.random() * 10 + 5,
+                h: Math.random() * 6 + 3,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                shape: shapes[Math.floor(Math.random() * shapes.length)],
+                rotation: Math.random() * 360,
+                rotSpeed: (Math.random() - 0.5) * 12,
+                gravity: 0.04 + Math.random() * 0.04,
+                wobble: Math.random() * Math.PI * 2,
+                wobbleSpeed: 0.03 + Math.random() * 0.05,
+                opacity: 1
+            });
         }
         
-        setTimeout(() => { container.innerHTML = ''; }, 5000);
+        let frame = 0;
+        const maxFrames = 300; // ~5 sek ved 60fps
+        
+        function drawStar(ctx, cx, cy, r) {
+            ctx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+                const method = i === 0 ? 'moveTo' : 'lineTo';
+                ctx[method](cx + r * Math.cos(angle), cy + r * Math.sin(angle));
+            }
+            ctx.closePath();
+            ctx.fill();
+        }
+        
+        function animate() {
+            if (frame >= maxFrames) {
+                container.innerHTML = '';
+                return;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            let alive = 0;
+            for (const p of particles) {
+                p.vy += p.gravity;
+                p.x += p.vx;
+                p.y += p.vy;
+                p.rotation += p.rotSpeed;
+                p.wobble += p.wobbleSpeed;
+                p.x += Math.sin(p.wobble) * 0.5;
+                
+                // Fade ud i slutningen
+                if (frame > maxFrames * 0.7) {
+                    p.opacity = Math.max(0, 1 - (frame - maxFrames * 0.7) / (maxFrames * 0.3));
+                }
+                
+                if (p.y < canvas.height + 50 && p.opacity > 0) {
+                    alive++;
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rotation * Math.PI / 180);
+                    ctx.globalAlpha = p.opacity;
+                    ctx.fillStyle = p.color;
+                    
+                    if (p.shape === 'rect') {
+                        ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+                    } else if (p.shape === 'circle') {
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.w/2, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else if (p.shape === 'star') {
+                        drawStar(ctx, 0, 0, p.w/2);
+                    } else {
+                        // Ribbon - lang tynd form
+                        ctx.fillRect(-p.w, -p.h/3, p.w * 2, p.h/1.5);
+                    }
+                    ctx.restore();
+                }
+            }
+            
+            frame++;
+            if (alive > 0) {
+                requestAnimationFrame(animate);
+            } else {
+                container.innerHTML = '';
+            }
+        }
+        
+        requestAnimationFrame(animate);
     }
 }
 

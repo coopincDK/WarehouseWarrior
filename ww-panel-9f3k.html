@@ -399,14 +399,80 @@
             transition: all 0.2s;
         }
         .refresh-btn:hover { background: rgba(255, 215, 0, 0.25); }
+
+        /* ===== EDITOR ===== */
+        .editor-section {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .editor-form { display: flex; flex-direction: column; gap: 15px; }
+        .form-row { display: flex; flex-direction: column; gap: 5px; }
+        .form-row label { color: #aaa; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-input {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            color: #e0e0e0;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            width: 100%;
+        }
+        .form-input:focus { outline: none; border-color: #ffd700; background: rgba(255,255,255,0.12); }
+        .form-input.full { width: 100%; }
+        textarea.form-input { resize: vertical; min-height: 60px; }
+        .four-col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .form-actions { display: flex; gap: 10px; margin-top: 5px; }
+        .btn-save {
+            background: linear-gradient(135deg, #4ecdc4, #2ecc71);
+            color: #fff; border: none; padding: 10px 25px;
+            border-radius: 8px; font-size: 0.95rem; font-weight: bold;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .btn-save:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(78,205,196,0.3); }
+        .btn-cancel {
+            background: rgba(255,255,255,0.08); color: #aaa; border: 1px solid rgba(255,255,255,0.15);
+            padding: 10px 20px; border-radius: 8px; font-size: 0.95rem; cursor: pointer;
+        }
+        .btn-cancel:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+        .cq-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: border-color 0.2s;
+        }
+        .cq-card:hover { border-color: rgba(255, 215, 0, 0.3); }
+        .cq-card .cq-question { color: #fff; font-weight: 600; margin-bottom: 8px; }
+        .cq-card .cq-answers { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 15px; font-size: 0.85rem; color: #aaa; margin-bottom: 8px; }
+        .cq-card .cq-answers .correct { color: #4ecdc4; font-weight: bold; }
+        .cq-card .cq-meta { display: flex; gap: 12px; align-items: center; font-size: 0.8rem; color: #888; }
+        .cq-card .cq-actions { margin-left: auto; display: flex; gap: 6px; }
+        .cq-card .cq-actions button {
+            background: none; border: 1px solid rgba(255,255,255,0.15); color: #aaa;
+            padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;
+        }
+        .cq-card .cq-actions button:hover { border-color: #ffd700; color: #ffd700; }
+        .cq-card .cq-actions button.delete:hover { border-color: #ff6b6b; color: #ff6b6b; }
+
+        @media (max-width: 768px) {
+            .four-col { grid-template-columns: 1fr 1fr; }
+            .three-col { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
     <!-- Lock Screen -->
     <div class="lock-screen">
         <h2>🔒 Admin Dashboard</h2>
-        <input type="password" id="accessCode" placeholder="Kode" maxlength="10" autofocus>
-        <div class="error" id="lockError">Forkert kode</div>
+        <input type="email" id="accessEmail" placeholder="Email" autofocus style="letter-spacing:normal;width:280px">
+        <input type="password" id="accessCode" placeholder="Adgangskode" maxlength="30" style="letter-spacing:normal;width:280px">
+        <div class="error" id="lockError">Forkert email eller adgangskode</div>
         <button onclick="tryUnlock()">Lås op</button>
     </div>
     
@@ -452,6 +518,7 @@
             <button class="tab" onclick="switchTab('levels')">📊 Level-analyse</button>
             <button class="tab" onclick="switchTab('wronganswers')">❌ Forkerte svar</button>
             <button class="tab" onclick="switchTab('companies')">🏢 Firmaer</button>
+            <button class="tab" onclick="switchTab('editor')">✏️ Rediger spørgsmål</button>
         </div>
         
         <!-- INSIGHTS TAB -->
@@ -642,6 +709,77 @@
         <div class="tab-content" id="tab-levels">
             <div class="insights-grid" id="levelBoxes"></div>
         </div>
+
+        <!-- EDITOR TAB -->
+        <div class="tab-content" id="tab-editor">
+            <div class="editor-section">
+                <h3 id="editorTitle" style="color:#ffd700;margin-bottom:15px">➕ Opret nyt spørgsmål</h3>
+                <input type="hidden" id="editId" value="">
+                <div class="editor-form">
+                    <div class="form-row">
+                        <label>Spørgsmål</label>
+                        <input type="text" id="edQ" placeholder="Skriv spørgsmålet her..." class="form-input full">
+                    </div>
+                    <div class="form-row four-col">
+                        <div><label>Svar A</label><input type="text" id="edA0" placeholder="Svar A" class="form-input"></div>
+                        <div><label>Svar B</label><input type="text" id="edA1" placeholder="Svar B" class="form-input"></div>
+                        <div><label>Svar C</label><input type="text" id="edA2" placeholder="Svar C" class="form-input"></div>
+                        <div><label>Svar D</label><input type="text" id="edA3" placeholder="Svar D" class="form-input"></div>
+                    </div>
+                    <div class="form-row three-col">
+                        <div>
+                            <label>Korrekt svar</label>
+                            <select id="edCorrect" class="form-input">
+                                <option value="0">A</option>
+                                <option value="1">B</option>
+                                <option value="2">C</option>
+                                <option value="3">D</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Level (1-15)</label>
+                            <input type="number" id="edLevel" min="1" max="15" value="5" class="form-input">
+                        </div>
+                        <div>
+                            <label>Kategori</label>
+                            <select id="edCategory" class="form-input">
+                                <option>Lagerindretning</option>
+                                <option>Plukkestrategi</option>
+                                <option>Redskaber</option>
+                                <option>Lagerstyring</option>
+                                <option>Pakkefejl</option>
+                                <option>Returer</option>
+                                <option>Svind</option>
+                                <option>Nøgletal</option>
+                                <option>3PL</option>
+                                <option>ABC-analyse</option>
+                                <option>Kampagner</option>
+                                <option>Emballage</option>
+                                <option>Fragt</option>
+                                <option>Generelt</option>
+                                <option>Avanceret</option>
+                                <option>Ekspert</option>
+                                <option>Super Ekspert</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label>Forklaring (vises efter svar)</label>
+                        <textarea id="edExplanation" placeholder="Forklaring på hvorfor svaret er korrekt..." class="form-input full" rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-save" onclick="saveQuestion()">Gem spørgsmål</button>
+                        <button class="btn-cancel" onclick="clearEditor()" style="display:none" id="edCancelBtn">Annuller</button>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="border-color:rgba(255,215,0,0.15);margin:25px 0">
+
+            <h3 style="color:#ffd700;margin-bottom:5px">📝 Custom spørgsmål i Firebase (<span id="customQCount">0</span>)</h3>
+            <p style="color:#888;font-size:0.85rem;margin-bottom:15px">Disse spørgsmål hentes automatisk af spillet og blandes med de faste spørgsmål.</p>
+            <div id="customQuestionsList"></div>
+        </div>
     </div>
 
     <script>
@@ -816,6 +954,7 @@
                 document.getElementById('lastUpdated').textContent = 'Opdateret: ' + new Date().toLocaleTimeString('da-DK');
                 
                 renderAll();
+                loadCustomQuestions();
             } catch (e) {
                 document.getElementById('dbStatus').textContent = 'Fejl ❌';
                 document.getElementById('dbStatus').style.color = '#ff6b6b';
@@ -1897,6 +2036,143 @@
                 levels.map(l => `<option value="${l}">Level ${l}</option>`).join('');
         }
         
+        // ===== QUESTION EDITOR =====
+        let customQuestions = {};
+
+        async function loadCustomQuestions() {
+            try {
+                const snap = await db.ref('customQuestions').once('value');
+                customQuestions = snap.val() || {};
+                renderCustomQuestions();
+            } catch (e) {
+                console.warn('Kunne ikke hente custom questions:', e);
+            }
+        }
+
+        function renderCustomQuestions() {
+            const entries = Object.entries(customQuestions);
+            document.getElementById('customQCount').textContent = entries.length;
+            const container = document.getElementById('customQuestionsList');
+
+            if (entries.length === 0) {
+                container.innerHTML = '<p style="color:#666;font-style:italic">Ingen custom sp\u00f8rgsm\u00e5l endnu. Brug formularen ovenfor til at oprette.</p>';
+                return;
+            }
+
+            container.innerHTML = entries.map(([id, q]) => {
+                const letters = ['A','B','C','D'];
+                const answersHtml = q.answers.map((a, i) =>
+                    `<span class="${i === q.correct ? 'correct' : ''}">${letters[i]}: ${a}</span>`
+                ).join('');
+                return `<div class="cq-card">
+                    <div class="cq-question">${q.question}</div>
+                    <div class="cq-answers">${answersHtml}</div>
+                    <div class="cq-meta">
+                        <span class="level-badge ${q.level <= 5 ? 'easy' : q.level <= 10 ? 'medium' : 'hard'}">${q.level}</span>
+                        <span class="category-tag">${q.category}</span>
+                        <div class="cq-actions">
+                            <button onclick="editQuestion('${id}')">\u270f\ufe0f Rediger</button>
+                            <button class="delete" onclick="deleteQuestion('${id}')">\ud83d\uddd1\ufe0f Slet</button>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        async function saveQuestion() {
+            const q = document.getElementById('edQ').value.trim();
+            const a0 = document.getElementById('edA0').value.trim();
+            const a1 = document.getElementById('edA1').value.trim();
+            const a2 = document.getElementById('edA2').value.trim();
+            const a3 = document.getElementById('edA3').value.trim();
+            const correct = parseInt(document.getElementById('edCorrect').value);
+            const level = parseInt(document.getElementById('edLevel').value);
+            const category = document.getElementById('edCategory').value;
+            const explanation = document.getElementById('edExplanation').value.trim();
+
+            // Validering
+            if (!q) return alert('Skriv et sp\u00f8rgsm\u00e5l');
+            if (!a0 || !a1 || !a2 || !a3) return alert('Alle 4 svar skal udfyldes');
+            if (level < 1 || level > 15) return alert('Level skal v\u00e6re 1-15');
+            if (!explanation) return alert('Tilf\u00f8j en forklaring');
+
+            const entry = {
+                question: q,
+                answers: [a0, a1, a2, a3],
+                correct: correct,
+                level: level,
+                category: category,
+                explanation: explanation,
+                updatedAt: new Date().toISOString()
+            };
+
+            const editId = document.getElementById('editId').value;
+
+            try {
+                if (editId) {
+                    // Opdater eksisterende
+                    await db.ref('customQuestions/' + editId).set(entry);
+                    customQuestions[editId] = entry;
+                } else {
+                    // Opret ny
+                    entry.createdAt = new Date().toISOString();
+                    const ref = await db.ref('customQuestions').push(entry);
+                    customQuestions[ref.key] = entry;
+                }
+                clearEditor();
+                renderCustomQuestions();
+            } catch (e) {
+                alert('Fejl ved gem: ' + e.message);
+            }
+        }
+
+        function editQuestion(id) {
+            const q = customQuestions[id];
+            if (!q) return;
+            document.getElementById('editId').value = id;
+            document.getElementById('edQ').value = q.question;
+            document.getElementById('edA0').value = q.answers[0];
+            document.getElementById('edA1').value = q.answers[1];
+            document.getElementById('edA2').value = q.answers[2];
+            document.getElementById('edA3').value = q.answers[3];
+            document.getElementById('edCorrect').value = q.correct;
+            document.getElementById('edLevel').value = q.level;
+            document.getElementById('edCategory').value = q.category;
+            document.getElementById('edExplanation').value = q.explanation || '';
+            document.getElementById('editorTitle').textContent = '\u270f\ufe0f Rediger sp\u00f8rgsm\u00e5l';
+            document.getElementById('edCancelBtn').style.display = '';
+            // Scroll til toppen af editor
+            document.getElementById('tab-editor').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function deleteQuestion(id) {
+            const q = customQuestions[id];
+            if (!q) return;
+            if (!confirm('Slet sp\u00f8rgsm\u00e5let?\n\n"' + q.question + '"')) return;
+            try {
+                await db.ref('customQuestions/' + id).remove();
+                delete customQuestions[id];
+                renderCustomQuestions();
+            } catch (e) {
+                alert('Fejl ved sletning: ' + e.message);
+            }
+        }
+
+        function clearEditor() {
+            document.getElementById('editId').value = '';
+            document.getElementById('edQ').value = '';
+            document.getElementById('edA0').value = '';
+            document.getElementById('edA1').value = '';
+            document.getElementById('edA2').value = '';
+            document.getElementById('edA3').value = '';
+            document.getElementById('edCorrect').value = '0';
+            document.getElementById('edLevel').value = '5';
+            document.getElementById('edCategory').value = 'Lagerindretning';
+            document.getElementById('edExplanation').value = '';
+            document.getElementById('editorTitle').textContent = '\u2795 Opret nyt sp\u00f8rgsm\u00e5l';
+            document.getElementById('edCancelBtn').style.display = 'none';
+        }
+
         // ===== TABS =====
         function switchTab(tabId) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -1913,8 +2189,9 @@
         }
         
         function tryUnlock() {
+            const email = (document.getElementById('accessEmail').value || '').trim().toLowerCase();
             const code = document.getElementById('accessCode').value;
-            if (code === '1337') {
+            if (email === 'mrm@smartpack.dk' && code === 'dv1337MtJs!') {
                 sessionStorage.setItem('ww_admin', '1');
                 unlock();
             } else {

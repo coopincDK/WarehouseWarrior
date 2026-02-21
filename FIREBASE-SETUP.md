@@ -68,6 +68,10 @@
     "hiddenPlayers": {
       ".read": true,
       ".write": true
+    },
+    "customQuestions": {
+      ".read": true,
+      ".write": true
     }
   }
 }

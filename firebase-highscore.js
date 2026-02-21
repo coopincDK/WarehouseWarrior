@@ -7,6 +7,7 @@ class FirebaseHighscore {
         this.initialized = false;
         this.fallbackToLocal = false;
         this.levelOverrides = {};
+        this.customQuestions = [];
     }
     
     async init() {
@@ -45,6 +46,25 @@ class FirebaseHighscore {
                 if (count > 0) console.log(`📊 ${count} level-overrides hentet fra admin`);
             } catch (e) {
                 console.warn('Kunne ikke hente level-overrides:', e);
+            }
+            
+            // Hent custom spørgsmål fra admin-editor
+            try {
+                const cqSnap = await this.db.ref('customQuestions').once('value');
+                const cqData = cqSnap.val() || {};
+                this.customQuestions = Object.values(cqData).map(q => ({
+                    level: q.level,
+                    question: q.question,
+                    answers: q.answers,
+                    correct: q.correct,
+                    category: q.category,
+                    explanation: q.explanation || ''
+                }));
+                if (this.customQuestions.length > 0) {
+                    console.log(`\ud83d\udcdd ${this.customQuestions.length} custom sp\u00f8rgsm\u00e5l hentet`);
+                }
+            } catch (e) {
+                console.warn('Kunne ikke hente custom questions:', e);
             }
             
             console.log('✅ Firebase Highscore connected!');

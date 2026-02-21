@@ -178,8 +178,8 @@ body {
 
 /* ===== RESULT ICONS ===== */
 .result-icon {
-    max-width: 140px;
-    width: 25%;
+    max-width: 180px;
+    width: 30%;
     height: auto;
     display: block;
     margin: -50px auto 5px;
@@ -1377,7 +1377,7 @@ body {
     .btn-secondary { padding: 10px 20px; font-size: 0.95rem; }
     .player-input .btn-primary,
     .player-input .btn-secondary { width: 260px; padding: 12px 30px; font-size: 1.1rem; box-sizing: border-box; }
-    .result-icon { max-width: 110px; margin: -40px auto 5px; }
+    .result-icon { max-width: 145px; margin: -45px auto 5px; }
     .gameover-sign, .victory-sign { max-width: 140px; }
 }
 
@@ -1418,7 +1418,7 @@ body {
     .lifeline-btn { padding: 10px 8px; gap: 5px; min-width: 60px; }
     .lifeline-btn img { width: 48px; height: 48px; }
     .lifeline-label { font-size: 0.75rem; }
-    .result-icon { max-width: 80px; width: 20%; margin: -30px auto 3px; }
+    .result-icon { max-width: 105px; width: 25%; margin: -35px auto 3px; }
     .result-title { font-size: 1.6rem; margin: 5px 0; }
     .result-content { padding: 12px 10px; }
     .points-earned { font-size: 1.2rem; margin: 4px 0 2px; }

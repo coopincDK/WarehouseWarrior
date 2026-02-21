@@ -403,6 +403,11 @@ class WarehouseWarriorGame {
         // Clear any lingering overlays/modals
         document.querySelectorAll('.speech-overlay').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
+        // Ryd svar-knapper når vi forlader question scene (fjerner sticky hover/selected states)
+        if (sceneId !== 'questionScene') {
+            const grid = document.getElementById('answersGrid');
+            if (grid) grid.innerHTML = '';
+        }
         setTimeout(() => {
             document.getElementById(sceneId).classList.add('active');
         }, 100);

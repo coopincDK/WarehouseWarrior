@@ -34,11 +34,23 @@
       ".read": true,
       ".write": true
     },
-    "eventStats": {
+    "events": {
       ".read": true,
       ".write": true
     },
-    "sessionData": {
+    "sessions": {
+      ".read": true,
+      ".write": true
+    },
+    "answerTimes": {
+      ".read": true,
+      ".write": true
+    },
+    "areYouSure": {
+      ".read": true,
+      ".write": true
+    },
+    "gameCompletions": {
       ".read": true,
       ".write": true
     },

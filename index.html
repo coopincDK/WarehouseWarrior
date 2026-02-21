@@ -36,8 +36,22 @@
     <audio id="celebrateSound" src="assets/sounds/Celebratory Jingle 1.MP3"></audio>
     <audio id="checkpointRiserSound" src="assets/sounds/Checkpoint Riser.aac"></audio>
 
+    <!-- Offline Banner -->
+    <div id="offlineBanner" class="offline-banner" style="display:none">
+        ⚠️ Offline-tilstand — spillet virker! Score synces når du er online igen
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <img src="assets/images/icons/01_warehouse_warrior_logo.png" alt="Warehouse Warrior" class="loading-logo">
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <p class="loading-text" id="loadingText">Indlæser spillet...</p>
+    </div>
+
     <!-- Main Container -->
-    <div id="gameContainer">
+    <div id="gameContainer" style="display:none">
         
         <!-- Welcome Scene -->
         <div id="welcomeScene" class="scene active">
@@ -99,6 +113,9 @@
                     <div class="score-display">
                         <img src="assets/images/icons/05_neon_stjerne_point.png" alt="Point" class="score-icon">
                         <span id="currentScore">10000</span>
+                    </div>
+                    <div class="streak-display" id="streakDisplay" style="display:none">
+                        🔥 <span id="streakCount">0</span> i streg!
                     </div>
                 </div>
 
@@ -214,8 +231,12 @@
                     <div class="points-total">
                         <span id="pointsTotal">0</span> i alt
                     </div>
-                    <div class="fun-fact" id="correctFunFact"></div>
+                    <div class="explanation-box correct-explanation" id="correctExplanation" style="display:none">
+                        <h3>💡 Forklaring:</h3>
+                        <p id="correctExplanationText"></p>
+                    </div>
                     <div class="pro-tip-box" id="correctProTip" style="display:none"></div>
+                    <div class="fun-fact" id="correctFunFact"></div>
                 </div>
             </div>
         </div>
@@ -261,6 +282,7 @@
 
                     <div class="wrong-buttons">
                         <button id="wrongRetryBtn" class="btn-primary">🔄 Prøv Igen</button>
+                        <button id="wrongShareBtn" class="btn-share">📱 Del din score</button>
                         <button id="wrongHomeBtn" class="btn-secondary">🏠 Gå til Forside</button>
                         <button id="wrongReadMoreBtn" class="btn-book">📖 Læs mere om svaret</button>
                     </div>
@@ -306,6 +328,7 @@
 
                     <div class="gameover-buttons">
                         <button id="restartBtn" class="btn-primary">🔄 Prøv Igen</button>
+                        <button id="gameoverShareBtn" class="btn-share">📱 Del din score</button>
                         <button id="gameoverHighscoreBtn" class="btn-secondary">🏆 Se Highscore</button>
                         <button id="gameoverHomeBtn" class="btn-secondary">🏠 Gå til Forside</button>
                     </div>
@@ -357,6 +380,7 @@
 
                     <div class="gameover-buttons">
                         <button id="playAgainBtn" class="btn-primary">🔄 Spil Igen</button>
+                        <button id="victoryShareBtn" class="btn-share">📱 Del din score</button>
                         <button id="victoryHighscoreBtn" class="btn-secondary">🏆 Se Highscore</button>
                         <button id="victoryHomeBtn" class="btn-secondary">🏠 Gå til Forside</button>
                     </div>
@@ -699,6 +723,66 @@
     })();
     </script>
 
+    <script>
+    // Offline detection
+    window.addEventListener('offline', function() {
+        document.getElementById('offlineBanner').style.display = '';
+    });
+    window.addEventListener('online', function() {
+        document.getElementById('offlineBanner').style.display = 'none';
+    });
+    if (!navigator.onLine) document.getElementById('offlineBanner').style.display = '';
+    </script>
+
+    <script>
+    // Loading screen - preload vigtige assets
+    (function() {
+        const criticalImages = [
+            'assets/images/scenes/01_velkomst_scene_desktop.png',
+            'assets/images/scenes/01_velkomst_scene_mobil.png',
+            'assets/images/scenes/02_spoergsmaal_scene_desktop.png',
+            'assets/images/scenes/02_spoergsmaal_scene_mobil.png',
+            'assets/images/host/01_vaert_velkommen_aabne_arme.png',
+            'assets/images/icons/01_warehouse_warrior_logo.png'
+        ];
+        let loaded = 0;
+        const total = criticalImages.length;
+        const bar = document.getElementById('loadingBar');
+        const text = document.getElementById('loadingText');
+        
+        function onLoad() {
+            loaded++;
+            const pct = Math.round((loaded / total) * 100);
+            bar.style.width = pct + '%';
+            text.textContent = 'Indl\u00e6ser... ' + pct + '%';
+            if (loaded >= total) {
+                setTimeout(function() {
+                    document.getElementById('loadingScreen').style.opacity = '0';
+                    document.getElementById('gameContainer').style.display = '';
+                    setTimeout(function() {
+                        document.getElementById('loadingScreen').style.display = 'none';
+                    }, 400);
+                }, 300);
+            }
+        }
+        
+        criticalImages.forEach(function(src) {
+            var img = new Image();
+            img.onload = onLoad;
+            img.onerror = onLoad;
+            img.src = src;
+        });
+        
+        // Fallback: vis spillet efter 5 sek uanset hvad
+        setTimeout(function() {
+            if (document.getElementById('gameContainer').style.display === 'none') {
+                document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById('gameContainer').style.display = '';
+            }
+        }, 5000);
+    })();
+    </script>
 
 </body>
 </html>
+

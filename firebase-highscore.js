@@ -48,6 +48,15 @@ class FirebaseHighscore {
             }
             
             console.log('✅ Firebase Highscore connected!');
+            
+            // Sync offline-queue hvis der er noget
+            this.syncOfflineQueue();
+            
+            // Lyt efter online-event for at synce
+            window.addEventListener('online', () => {
+                console.log('🌐 Online igen — syncer offline-queue...');
+                this.syncOfflineQueue();
+            });
         } catch (e) {
             console.warn('Firebase init failed, using local storage:', e);
             this.fallbackToLocal = true;
@@ -58,7 +67,11 @@ class FirebaseHighscore {
         // Always save locally as backup
         this.saveLocal(entry);
         
-        if (this.fallbackToLocal || !this.initialized) return;
+        if (this.fallbackToLocal || !this.initialized || !navigator.onLine) {
+            // Gem i offline-queue til senere sync
+            this.queueOfflineScore(entry);
+            return;
+        }
         
         try {
             const ref = this.db.ref('highscores');
@@ -68,12 +81,52 @@ class FirebaseHighscore {
                 score: entry.score,
                 correctAnswers: entry.correctAnswers,
                 totalQuestions: entry.totalQuestions,
+                bestStreak: entry.bestStreak || 0,
                 date: new Date().toISOString(),
                 timestamp: firebase.database.ServerValue.TIMESTAMP
             });
             console.log('✅ Score saved to Firebase');
         } catch (e) {
-            console.warn('Firebase save failed:', e);
+            console.warn('Firebase save failed, queuing for later:', e);
+            this.queueOfflineScore(entry);
+        }
+    }
+    
+    queueOfflineScore(entry) {
+        try {
+            const queue = JSON.parse(localStorage.getItem('ww_offline_queue') || '[]');
+            queue.push(entry);
+            localStorage.setItem('ww_offline_queue', JSON.stringify(queue));
+            console.log('📦 Score queued for offline sync');
+        } catch (e) {
+            console.warn('Offline queue save failed:', e);
+        }
+    }
+    
+    async syncOfflineQueue() {
+        if (!this.initialized || this.fallbackToLocal) return;
+        try {
+            const queue = JSON.parse(localStorage.getItem('ww_offline_queue') || '[]');
+            if (queue.length === 0) return;
+            
+            console.log(`🔄 Syncing ${queue.length} offline scores...`);
+            const ref = this.db.ref('highscores');
+            for (const entry of queue) {
+                await ref.push({
+                    name: entry.name || 'Anonym',
+                    company: entry.company || '',
+                    score: entry.score,
+                    correctAnswers: entry.correctAnswers,
+                    totalQuestions: entry.totalQuestions,
+                    bestStreak: entry.bestStreak || 0,
+                    date: entry.date || new Date().toISOString(),
+                    timestamp: firebase.database.ServerValue.TIMESTAMP
+                });
+            }
+            localStorage.removeItem('ww_offline_queue');
+            console.log('✅ Offline queue synced!');
+        } catch (e) {
+            console.warn('Offline sync failed, will retry later:', e);
         }
     }
     

@@ -245,6 +245,11 @@ class WarehouseWarriorGame {
         document.getElementById('restartBtn').addEventListener('click', () => this.restartSamePlayer());
         document.getElementById('playAgainBtn').addEventListener('click', () => this.restartSamePlayer());
         
+        // Share buttons
+        document.getElementById('wrongShareBtn').addEventListener('click', () => this.shareScore());
+        document.getElementById('gameoverShareBtn').addEventListener('click', () => this.shareScore());
+        document.getElementById('victoryShareBtn').addEventListener('click', () => this.shareScore());
+        
         // Highscore save buttons (on wrong/gameover/victory scenes)
         document.getElementById('wrongSaveScoreBtn').addEventListener('click', () => this.saveHighscoreFromScene('wrong'));
         document.getElementById('gameoverSaveScoreBtn').addEventListener('click', () => this.saveHighscoreFromScene('gameover'));
@@ -452,6 +457,18 @@ class WarehouseWarriorGame {
             categoryIcon.src = this.categoryIcons[question.category] || this.categoryIcons['Generelt'];
         }
         document.getElementById('questionText').textContent = question.question;
+        
+        // Vis streak-display
+        const streakEl = document.getElementById('streakDisplay');
+        if (this.streak >= 2) {
+            streakEl.style.display = '';
+            document.getElementById('streakCount').textContent = this.streak;
+            if (this.streak >= 5) streakEl.className = 'streak-display streak-fire';
+            else if (this.streak >= 3) streakEl.className = 'streak-display streak-hot';
+            else streakEl.className = 'streak-display';
+        } else {
+            streakEl.style.display = 'none';
+        }
         
         // Varier vært-billede baseret på spørgsmålsnummer
         const questionMoods = ['question', 'reading', 'microphone', 'thinking', 'whisper', 'cool'];
@@ -854,16 +871,32 @@ class WarehouseWarriorGame {
             // Point multiplier: Runde 1 (1-5) = x1, Runde 2 (6-10) = x3, Runde 3 (11-15) = x5
             const currentLevel = this.questions[this.currentQuestionIndex].level;
             const multiplier = currentLevel >= 11 ? 5 : currentLevel >= 6 ? 3 : 1;
-            const totalPoints = speedBonus * multiplier;
+            let totalPoints = speedBonus * multiplier;
+            
+            // Streak-bonus: +200 per streak over 2
+            let streakBonus = 0;
+            if (this.streak >= 3) {
+                streakBonus = (this.streak - 2) * 200;
+                totalPoints += streakBonus;
+            }
             
             this.score += totalPoints;
             document.getElementById('currentScore').textContent = this.score.toLocaleString();
             this.lastRoundPoints = totalPoints;
+            this.lastStreakBonus = streakBonus;
+            
+            // Byg points-tekst
+            let pointsText = '';
             if (multiplier > 1) {
-                document.getElementById('pointsEarned').textContent = '+' + speedBonus + ' × ' + multiplier + ' = ' + totalPoints;
+                pointsText = '+' + speedBonus + ' \u00d7 ' + multiplier;
             } else {
-                document.getElementById('pointsEarned').textContent = '+' + totalPoints;
+                pointsText = '+' + (speedBonus * multiplier);
             }
+            if (streakBonus > 0) {
+                pointsText += ' +' + streakBonus + ' streak';
+            }
+            pointsText += ' = ' + totalPoints;
+            document.getElementById('pointsEarned').textContent = pointsText;
             
             // Vary host reactions for correct answers
             const correctMoods = ['excited', 'thumbsup', 'dancing', 'strong', 'cool'];
@@ -896,9 +929,18 @@ class WarehouseWarriorGame {
         document.getElementById('correctMessage').textContent = message;
         document.getElementById('pointsEarned').textContent = '+' + (this.lastRoundPoints || 0);
         document.getElementById('pointsTotal').textContent = this.score.toLocaleString();
-        this.loadFunFact('correctFunFact', true);
-        // Pro Tip ved korrekt svar
+        // Vis forklaring ved korrekt svar
         const correctQ = this.questions[this.currentQuestionIndex];
+        const correctExplEl = document.getElementById('correctExplanation');
+        const correctExplText = document.getElementById('correctExplanationText');
+        if (correctQ.explanation) {
+            correctExplText.textContent = correctQ.explanation;
+            correctExplEl.style.display = 'block';
+        } else {
+            correctExplEl.style.display = 'none';
+        }
+        
+        // Pro Tip ved korrekt svar
         const correctProTipEl = document.getElementById('correctProTip');
         if (correctQ.proTip) {
             correctProTipEl.innerHTML = '<span class="pro-tip-bulb">💡</span><strong>Pro Tip:</strong> ' + correctQ.proTip;
@@ -907,9 +949,12 @@ class WarehouseWarriorGame {
         } else {
             correctProTipEl.style.display = 'none';
         }
+        this.loadFunFact('correctFunFact', true);
         this.showScene('correctScene');
         this.createConfetti('confettiContainer');
-        setTimeout(() => this.nextQuestion(), correctQ.proTip ? 6000 : 3000);
+        // Mere tid når der er forklaring/proTip
+        const hasExtra = correctQ.explanation || correctQ.proTip;
+        setTimeout(() => this.nextQuestion(), hasExtra ? 6000 : 3000);
     }
     
     showWrongScene() {
@@ -1322,6 +1367,45 @@ class WarehouseWarriorGame {
         companyInput.disabled = true;
     }
     
+    shareScore() {
+        this.playSound('click');
+        if (typeof firebaseHighscore !== 'undefined') firebaseHighscore.trackClick('share_score');
+        
+        const questionsAnswered = this.currentQuestionIndex + (this.selectedAnswer !== null ? 1 : 0);
+        const isVictory = this.correctAnswers >= 15;
+        
+        let text;
+        if (isVictory) {
+            text = `\ud83c\udfc6 Jeg klarede ALLE 15 sp\u00f8rgsm\u00e5l i Warehouse Warrior og fik ${this.score.toLocaleString()} point!`;
+        } else {
+            text = `\ud83d\udce6 Jeg n\u00e5ede sp\u00f8rgsm\u00e5l ${questionsAnswered} af 15 i Warehouse Warrior med ${this.score.toLocaleString()} point!`;
+        }
+        if (this.bestStreak >= 3) {
+            text += ` \ud83d\udd25 Bedste streak: ${this.bestStreak} i streg!`;
+        }
+        text += `\n\nTest din lager-viden her: ${window.location.origin}${window.location.pathname}`;
+        text += `\n\n#WarehouseWarrior #DanskErhverv #DigitalHandel #Lager`;
+        
+        // Pr\u00f8v Web Share API f\u00f8rst (mobil), ellers clipboard
+        if (navigator.share) {
+            navigator.share({
+                title: 'Warehouse Warrior - Min Score',
+                text: text
+            }).catch(() => {});
+        } else {
+            // Fallback: kopier til clipboard + \u00e5bn LinkedIn
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target.closest('.btn-share');
+                const original = btn.textContent;
+                btn.textContent = '\u2705 Kopieret! Inds\u00e6t p\u00e5 LinkedIn';
+                setTimeout(() => { btn.textContent = original; }, 3000);
+            }).catch(() => {});
+            // \u00c5bn LinkedIn share
+            const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
+            window.open(linkedInUrl, '_blank', 'width=600,height=500');
+        }
+    }
+    
     async saveHighscore() {
         const entry = {
             name: this.playerName || 'Anonym',
@@ -1329,6 +1413,7 @@ class WarehouseWarriorGame {
             score: this.score,
             correctAnswers: this.correctAnswers,
             totalQuestions: this.questions.length,
+            bestStreak: this.bestStreak || 0,
             date: new Date().toISOString()
         };
         await firebaseHighscore.saveScore(entry);

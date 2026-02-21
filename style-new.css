@@ -2197,6 +2197,123 @@ body {
     transform: none;
 }
 
+/* ===== OFFLINE BANNER ===== */
+.offline-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #ff6b35, #e63946);
+    color: #fff;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    z-index: 10000;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
+/* ===== LOADING SCREEN ===== */
+.loading-screen {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.4s ease;
+}
+
+.loading-logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 30px;
+    animation: loadingPulse 1.5s ease infinite;
+}
+
+@keyframes loadingPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+.loading-bar-container {
+    width: 200px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.loading-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ffd700, #f0a500);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.loading-text {
+    color: rgba(255, 215, 0, 0.7);
+    font-size: 0.9rem;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===== STREAK DISPLAY ===== */
+.streak-display {
+    background: rgba(255, 165, 0, 0.2);
+    border: 1px solid rgba(255, 165, 0, 0.4);
+    color: #ffa500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    animation: streakPulse 1s ease infinite;
+}
+
+.streak-display.streak-hot {
+    background: rgba(255, 100, 0, 0.25);
+    border-color: rgba(255, 100, 0, 0.5);
+    color: #ff6400;
+}
+
+.streak-display.streak-fire {
+    background: rgba(255, 50, 0, 0.3);
+    border-color: rgba(255, 50, 0, 0.6);
+    color: #ff3200;
+    animation: streakPulse 0.6s ease infinite;
+}
+
+@keyframes streakPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.btn-share {
+    background: linear-gradient(135deg, #0077b5, #005f8d);
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.btn-share:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 119, 181, 0.4);
+}
+
 /* ===== KATEGORI IKON ===== */
 
 .category-icon {

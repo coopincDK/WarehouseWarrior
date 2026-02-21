@@ -781,8 +781,9 @@ body {
 
 .checkpoint-content {
     text-align: center;
-    padding: 40px 25px;
-    max-width: 700px;
+    padding: 30px 25px;
+    max-width: 92%;
+    width: 92%;
     margin: 0 auto;
     background: rgba(40, 30, 0, 0.45);
     border-radius: 20px;
@@ -1746,9 +1747,9 @@ body {
     background: rgba(40, 30, 0, 0.85);
     border: 2px solid rgba(255, 215, 0, 0.6);
     border-radius: 18px;
-    padding: 20px 28px;
-    max-width: 420px;
-    width: 90%;
+    padding: 25px 32px;
+    max-width: 520px;
+    width: 92%;
     text-align: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(255, 215, 0, 0.05);
     animation: speechPop 0.3s ease;
@@ -1766,7 +1767,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 420px;
+    max-width: 520px;
     z-index: 2;
     position: relative;
 }
@@ -1811,9 +1812,9 @@ body {
 }
 
 .speech-overlay-bubble p {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: #fff;
-    margin: 0 0 15px;
+    margin: 0 0 18px;
     line-height: 1.4;
 }
 

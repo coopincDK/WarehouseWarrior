@@ -1128,7 +1128,7 @@ class WarehouseWarriorGame {
         if (checkpointHost) {
             checkpointHost.src = this.currentQuestionIndex >= 10
                 ? 'assets/images/host/11_vaert_nervoes_sveder.png'
-                : 'assets/images/host/04_vaert_begejstret_haender_op.png';
+                : 'assets/images/host/vaert_dobbelt_tommel_op.png';
         }
         
         this.showScene('checkpointScene');

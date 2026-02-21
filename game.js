@@ -46,6 +46,7 @@ class WarehouseWarriorGame {
         // Audio settings (load from localStorage)
         this.musicEnabled = localStorage.getItem('ww_music') !== 'false';
         this.sfxEnabled = localStorage.getItem('ww_sfx') !== 'false';
+        this.hapticEnabled = localStorage.getItem('ww_haptic') !== 'false';
         this.maxMusicVolume = 0.12; // Max volume cap (12%)
         this.sfxVolume = 0.3; // SFX volume cap (30% - uafhængig af musik-slider)
         const savedVol = parseFloat(localStorage.getItem('ww_volume'));
@@ -275,10 +276,13 @@ class WarehouseWarriorGame {
         document.getElementById('musicToggle').addEventListener('change', (e) => this.setMusic(e.target.checked));
         document.getElementById('sfxToggle').addEventListener('change', (e) => this.setSfx(e.target.checked));
         document.getElementById('volumeSlider').addEventListener('input', (e) => this.setVolume(parseFloat(e.target.value)));
+        const hapticToggle = document.getElementById('hapticToggle');
+        if (hapticToggle) hapticToggle.addEventListener('change', (e) => this.setHaptic(e.target.checked));
         
         // Apply saved settings to checkboxes
         document.getElementById('musicToggle').checked = this.musicEnabled;
         document.getElementById('sfxToggle').checked = this.sfxEnabled;
+        if (hapticToggle) hapticToggle.checked = this.hapticEnabled;
         const sliderPos = this.maxMusicVolume > 0 ? this.musicVolume / this.maxMusicVolume : 0;
         document.getElementById('volumeSlider').value = sliderPos;
         document.getElementById('volumeValue').textContent = Math.round(sliderPos * 100) + '%';
@@ -329,6 +333,20 @@ class WarehouseWarriorGame {
     setSfx(enabled) {
         this.sfxEnabled = enabled;
         localStorage.setItem('ww_sfx', enabled);
+    }
+    
+    setHaptic(enabled) {
+        this.hapticEnabled = enabled;
+        localStorage.setItem('ww_haptic', enabled);
+        // Kort test-vibration når man slår det til
+        if (enabled) this.vibrate([30]);
+    }
+    
+    vibrate(pattern) {
+        if (!this.hapticEnabled) return;
+        if (navigator.vibrate) {
+            navigator.vibrate(pattern);
+        }
     }
     
     setVolume(sliderVal) {
@@ -577,10 +595,12 @@ class WarehouseWarriorGame {
                 if (timerBar) timerBar.classList.add('danger-glow');
                 document.getElementById('questionScene').classList.add('screen-danger');
                 this.playTickSound();
+                this.vibrate([40]); // Kort puls hvert sekund under danger
                 if (this.timeLeft === 5) this.updateHostImage('panic');
             } else if (this.timeLeft <= 10) {
                 // WARNING: orange + rød skærm-vignette
                 timerFill.classList.add('warning');
+                if (this.timeLeft === 10) this.vibrate([100, 50, 100]); // Advarsel ved 10 sek
                 document.getElementById('questionScene').classList.add('screen-warning');
             }
             
@@ -916,10 +936,12 @@ class WarehouseWarriorGame {
             const correctMoods = ['excited', 'thumbsup', 'dancing', 'strong', 'cool'];
             const randomMood = correctMoods[Math.floor(Math.random() * correctMoods.length)];
             this.updateHostImage(randomMood);
+            this.vibrate([50, 30, 50]); // Kort dobbelt-puls ved korrekt
             setTimeout(() => this.showCorrectScene(), 1500);
         } else {
             this.streak = 0;
             this.playSound('buzzer');
+            this.vibrate([200, 100, 200]); // Lang dobbelt-vibration ved forkert
             setTimeout(() => this.playSound('wahwah'), 500);
             // Vary host reactions for wrong answers
             const wrongMoods = ['sad', 'angry', 'confused', 'shocked'];

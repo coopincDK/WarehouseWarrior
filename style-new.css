@@ -592,10 +592,17 @@ body {
     -webkit-user-select: none;
 }
 
-.answer-btn:hover {
-    border-color: #ffd700;
-    background: rgba(255, 215, 0, 0.1);
-    transform: translateY(-3px);
+.answer-btn:focus {
+    outline: none;
+}
+
+/* Hover kun på devices med mus — undgår sticky gul outline på touch */
+@media (hover: hover) {
+    .answer-btn:hover {
+        border-color: #ffd700;
+        background: rgba(255, 215, 0, 0.1);
+        transform: translateY(-3px);
+    }
 }
 
 .answer-btn:active {

@@ -1048,7 +1048,7 @@ class WarehouseWarriorGame {
             // Normal countdown til næste spørgsmål
             const btnEl = document.getElementById('btnNextQuestion');
             if (btnEl) {
-                btnEl.textContent = 'Næste spørgsmål ';
+                btnEl.innerHTML = 'Næste spørgsmål <span id="nextCountdown"></span>';
                 btnEl.onclick = () => game.skipToNext();
             }
             const hasExtra = correctQ.explanation || correctQ.proTip || correctQ.wmsFact;

@@ -9,7 +9,7 @@
     "theme_color": "#ffd700",
     "icons": [
         {
-            "src": "assets/images/icons/01_warehouse_warrior_logo.png",
+            "src": "assets/images/icons/warehouse_warrior_app_icon.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"

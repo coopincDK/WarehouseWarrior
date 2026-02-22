@@ -1,5 +1,1 @@
-node_modules/
-compress.js
-package.json
-package-lock.json
-_unused_assets/
+_dev/

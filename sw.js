@@ -1,4 +1,4 @@
-const CACHE_NAME = 'warehouse-warrior-v4.02';
+const CACHE_NAME = 'warehouse-warrior-v4.04';
 
 // Alle filer der skal pre-caches for offline-brug
 // Musik udeladt (for store) — caches on-demand
@@ -52,6 +52,7 @@ const PRECACHE_FILES = [
     // Ikoner
     './assets/images/icons/01_warehouse_warrior_logo.png',
     './assets/images/icons/01_warehouse_warrior_logo_lvl_up.png',
+    './assets/images/icons/warehouse_warrior_app_icon.png',
     './assets/images/icons/02_quiz_spoergsmaalstegn_ikon.png',
     './assets/images/icons/03_tidsbombe_timer_ikon.png',
     './assets/images/icons/05_neon_stjerne_point.png',

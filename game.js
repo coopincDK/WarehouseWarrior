@@ -202,7 +202,7 @@ class WarehouseWarriorGame {
         this.psykImages = [
             'assets/images/icons/62_psyk_taenk_dig_om.png',
             'assets/images/icons/63_psyk_de_fleste_ville_ikke.png',
-            'assets/images/icons/64_psyk_er_du_helt_sikker.png'
+            'assets/images/icons/64_psyk_er_du_helt_sikker.webp'
         ];
         
         // Streak tracking

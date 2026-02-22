@@ -66,6 +66,39 @@ body {
     display: none;
 }
 
+/* ===== SCENE CLOSE BUTTON ===== */
+.scene-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 1.6rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.scene-close-btn:hover {
+    background: rgba(255, 50, 50, 0.6);
+    border-color: rgba(255, 100, 100, 0.6);
+    transform: scale(1.1);
+}
+
+.scene-close-btn:active {
+    transform: scale(0.95);
+}
+
 /* ===== BOOK TITLE ===== */
 .book-title {
     font-size: 0.75rem;

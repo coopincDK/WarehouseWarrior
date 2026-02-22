@@ -47,8 +47,8 @@ class WarehouseWarriorGame {
         this.musicEnabled = localStorage.getItem('ww_music') !== 'false';
         this.sfxEnabled = localStorage.getItem('ww_sfx') !== 'false';
         this.hapticEnabled = localStorage.getItem('ww_haptic') !== 'false';
-        this.maxMusicVolume = 0.12; // Max volume cap (12%)
-        this.sfxVolume = 0.3; // SFX volume cap (30% - uafhængig af musik-slider)
+        this.maxMusicVolume = 0.08; // Max volume cap (8%)
+        this.sfxVolume = 0.15; // SFX volume cap (15%)
         const savedVol = parseFloat(localStorage.getItem('ww_volume'));
         this.musicVolume = savedVol >= 0 ? Math.min(savedVol, this.maxMusicVolume) : this.maxMusicVolume;
         this.musicPlaying = false;

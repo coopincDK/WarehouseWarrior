@@ -1,4 +1,4 @@
-const CACHE_NAME = 'warehouse-warrior-v3.87';
+const CACHE_NAME = 'warehouse-warrior-v3.89';
 
 // Alle filer der skal pre-caches for offline-brug
 // Musik udeladt (for store) — caches on-demand

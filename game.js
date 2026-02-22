@@ -53,6 +53,10 @@ class WarehouseWarriorGame {
         this.musicVolume = savedVol >= 0 ? Math.min(savedVol, this.maxMusicVolume) : this.maxMusicVolume;
         this.musicPlaying = false;
 
+        // Awards-musik til highscore
+        this.awardsMusic = new Audio('assets/music/Veaceslav Draganov - Awards.mp3');
+        this.awardsMusic.loop = true;
+        this.awardsMusic.volume = this.musicVolume;
         
         // Expert definitions
         this.experts = [
@@ -223,7 +227,8 @@ class WarehouseWarriorGame {
         
         // Final round playlist (level 11-15) - dramatisk stemningsskift
         this.finalTracks = [
-            'assets/music/Raz Burg - Rushing Earth.mp3'
+            'assets/music/Raz Burg - Rushing Earth.mp3',
+            'assets/music/Tiko Tiko - Dark Iron - Instrumental version.mp3'
         ];
         
         this.musicTracks = this.normalTracks;
@@ -355,6 +360,7 @@ class WarehouseWarriorGame {
         this.musicVolume = actualVol;
         localStorage.setItem('ww_volume', actualVol);
         this.sounds.bgMusic.volume = actualVol;
+        this.awardsMusic.volume = actualVol;
         document.getElementById('volumeValue').textContent = Math.round(sliderVal * 100) + '%';
     }
     
@@ -372,6 +378,7 @@ class WarehouseWarriorGame {
         this.playerName = '';
         this.playerCompany = '';
         
+        this.stopAwardsMusic();
         this.playSound('whoosh');
         
         // Reset til normal musik-playlist ved ny quiz
@@ -1332,6 +1339,7 @@ class WarehouseWarriorGame {
     goHome() {
         this.playSound('click');
         this.stopTimer();
+        this.stopAwardsMusic();
         this.showWelcomeQuote();
         // Track at spilleren forlod spillet frivilligt
         if (this.gameActive && typeof firebaseHighscore !== 'undefined') {
@@ -1477,6 +1485,24 @@ class WarehouseWarriorGame {
         this.cachedHighscores = allScores;
         this.showHighscoreView('top10');
         this.showScene('highscoreScene');
+        
+        // Spil awards-musik
+        if (this.musicEnabled) {
+            this.sounds.bgMusic.pause();
+            this.awardsMusic.volume = this.musicVolume;
+            this.awardsMusic.currentTime = 0;
+            this.awardsMusic.play().catch(e => console.log('Awards music failed:', e));
+        }
+    }
+    
+    stopAwardsMusic() {
+        this.awardsMusic.pause();
+        this.awardsMusic.currentTime = 0;
+        // Genstart normal baggrundsmusik hvis musik er slået til
+        if (this.musicEnabled && this.musicPlaying) {
+            this.sounds.bgMusic.volume = this.musicVolume;
+            this.sounds.bgMusic.play().catch(e => console.log('Resume music failed:', e));
+        }
     }
     
     resolveCompany(name) {

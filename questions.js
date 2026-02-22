@@ -339,8 +339,8 @@ const questionBank = [
         answers: ["Ingenting","Plads til at bevæge sig, ikke klemt op ad væg","Grundlæggende set kun én person, hvilket er en typisk fejl","Lagervarer"],
         correct: 1,
         explanation: "Pakkebordet skal have plads omkring sig - ikke være klemt op ad en væg. Du skal kunne gå rundt om det, nå materialer fra begge sider, og have plads til plukkevogne. Et klemt pakkebord = langsom pakning.",
-        proTip: "Sørg for mindst 80 cm fri plads rundt om pakkebordet. Pakkeren skal kunne dreje sig uden at ramme noget.",
-        wmsFact: "WMS-boost: måling af pakketid per station. Effekt: du ser om layoutet bremser bestemte pakkere."
+        proTip: "Sørg for mindst 80 cm gangbredde overalt. Kan to personer passere hinanden? Hvis ikke, er gangen for smal.",
+        wmsFact: "WMS-boost: heatmap over medarbejderbevægelser. Effekt: du ser præcis hvor gangene er for smalle."
     },
     {
         level: 3,
@@ -518,8 +518,8 @@ const questionBank = [
         answers: ["Ingenting","'Bestil mere' sammen med bestillingsnummer","I de fleste tilfælde kundens navn, hvilket er en gængs opfattelse","Prisen"],
         correct: 1,
         explanation: "En simpel post-it på den sidste enhed med 'BESTIL MERE' og bestillingsnummer sikrer, at I aldrig løber tør for A-varer. Når post-it'en dukker op, ved du det er tid til at genbestille. Simpelt og effektivt!",
-        proTip: "Sæt en rød streg på reolen ved minimum-niveau. Når stregen er synlig, læg en seddel i bestillingskurven.",
-        wmsFact: "WMS-boost: automatisk genbestillingsforslag ved minimum. Effekt: du løber aldrig tør uden varsel."
+        proTip: "Fast genopfyldning kl. 11 og kl. 14, 10 minutter. En tom A-plads koster mere end 10 minutters fyldning.",
+        wmsFact: "WMS-boost: automatisk genopfyldningsforslag på pluklokationer. Effekt: A-pladser løber aldrig tør."
     },
     {
         level: 9,
@@ -528,8 +528,8 @@ const questionBank = [
         answers: ["At spare penge","At undgå at samme vare ligger flere steder (hvis ikke du bruger scanner)","At fylde mere","På et typisk lager det er lovpligtigt, som er en almindelig tilgang"],
         correct: 1,
         explanation: "Uden scanner skal hver vare kun have én fast placering. Hvis samme T-shirt ligger 3 steder, hvordan ved plukkeren hvor den skal hentes? Det skaber forvirring og fejl. Én vare = ét sted (medmindre du har WMS med multi-location).",
-        proTip: "Hvis en vare ligger flere steder, marker den primære plukplads tydeligt. Resten er buffer.",
-        wmsFact: "WMS-boost: multi-location per vare. Effekt: samme vare kan ligge flere steder, systemet guider plukkeren."
+        proTip: "Marker den primære plukplads tydeligt. Alt andet er buffer. Plukkeren skal aldrig være i tvivl om hvor.",
+        wmsFact: "WMS-boost: multi-location med primær plukplads. Effekt: systemet guider altid til nærmeste lokation."
     },
     {
         level: 10,
@@ -568,8 +568,8 @@ const questionBank = [
         answers: ["Generelt set smide det ud med det samme, hvilket er en gængs opfattelse","Lægge det i 'Defekt/kan ikke sælges' kasse og registrere som kasseret","Ignorere det","Sælge det alligevel"],
         correct: 1,
         explanation: "Når noget går i stykker: 1) Læg det i en 'Defekt' kasse. 2) Registrer det som kasseret i systemet SAMME DAG. 3) Opdater lagerbeholdningen. Hvis du ikke registrerer det, viser systemet varer du ikke har - det skaber kaos!",
-        proTip: "Log altid kasserede varer med årsag: beskadiget, udløbet, defekt. Mønstrene afslører leverandørproblemer.",
-        wmsFact: "WMS-boost: kassationsworkflow med årsagskoder. Effekt: lagerbeholdningen opdateres automatisk."
+        proTip: "Hav altid en 'Defekt'-kasse synligt på lageret. Alt med tvivl ryger deri, aldrig tilbage på hylden.",
+        wmsFact: "WMS-boost: kassationsworkflow med årsagskoder ved scanning. Effekt: ingen glemte registreringer."
     },
     {
         level: 14,
@@ -638,8 +638,8 @@ const questionBank = [
         answers: ["I praksis at få de dyreste varer tættest på pakkebordet, men det er ikke hele billedet","At placere varerne efter leverandør","At reducere unødige skridt ved at have de mest solgte varer tættest på flowet","At få alle varer til at stå alfabetisk"],
         correct: 2,
         explanation: "ABC-analysen handler om at minimere unødige skridt. De varer der sælges mest (A-varer) skal ligge tættest på pakkebordet. Det handler ikke om pris, men om frekvens - hvor ofte du skal hen til varen.",
-        proTip: "Lav en simpel ABC-oversigt i et regneark. Sortér efter ordrefrekvens og farvemarkér top 20%.",
-        wmsFact: "WMS-boost: automatisk ABC-analyse på realtidsdata. Effekt: du arbejder aldrig med forældet klassificering."
+        proTip: "Print din top-20 A-varer-liste og hæng den ved pakkebordet. De 20 varer styrer 80% af dine skridt.",
+        wmsFact: "WMS-boost: dynamisk top-20 liste baseret på realtidsdata. Effekt: listen opdaterer sig selv når salget skifter."
     },
     {
         level: 4,
@@ -648,8 +648,8 @@ const questionBank = [
         answers: ["Varer der næsten aldrig sælges","Varer der sælges dagligt eller meget hyppigt","Varer med høj stykpris men lav omsætning","Varer der kun bruges til kampagner én gang om året"],
         correct: 1,
         explanation: "A-varer er dine daglige bestsellere - de sælges hver dag, ofte flere gange. Det er dem du plukker oftest, og derfor skal de ligge tættest på pakkebordet. Høj stykpris er irrelevant - det handler om plukfrekvens.",
-        proTip: "Dine A-varer skal stå i albuehøjde og tættest på pakkebordet. Ingen bøjning, ingen omveje.",
-        wmsFact: "WMS-boost: plukfrekvens per vare i realtid. Effekt: du optimerer placering løbende baseret på data."
+        proTip: "Placer A-varer i albuehøjde. Ingen bøjning, ingen strækning. Det sparer ryg og tid.",
+        wmsFact: "WMS-boost: forslag til optimal placering baseret på plukfrekvens og ergonomi. Effekt: færre løft, færre skridt."
     },
     {
         level: 1,
@@ -870,7 +870,7 @@ const questionBank = [
         answers: ["Erfaringsmæssigt fordi det gør medarbejderne trætte, men det overser kerneproblemet","Fordi labels bliver mørkere","Fordi det er sværere at se små forskelle på produkter og størrelser","Fordi scannere ikke virker i lys"],
         correct: 2,
         explanation: "Dårlig belysning gør det svært at skelne mellem næsten ens produkter - fx navy vs. sort, str. M vs. L. Det er en billig fejlkilde at løse: God LED-belysning over pluk- og pakkeområder reducerer fejl markant.",
-        proTip: "Investér i ordentlig belysning over pluk- og pakkeområder. LED-paneler er billige og giver markant bedre lys.",
+        proTip: "Sæt 'god belysning' som standard ved pakkebordet. Minimum 500 lux. Fejl elsker mørke.",
         wmsFact: "WMS-boost: stregkodescanning uanset lysforhold. Effekt: scanneren ser det øjet overser i dårligt lys."
     },
     {
@@ -930,8 +930,8 @@ const questionBank = [
         answers: ["Så de kan sælges som nye","På et typisk lager så de ikke forstyrrer medarbejderne, men det er ikke det vigtigste","Så svind bliver noget, du aktivt tager stilling til og kan reducere","Så der kommer mere rod på lageret"],
         correct: 2,
         explanation: "Hvis kasserede varer bare forsvinder stille, ved du aldrig hvor meget du taber. Gør dem synlige med en 'Defekt'-kasse og registrer dem. Når svind er synligt, kan du måle det, forstå det og reducere det.",
-        proTip: "Hold en månedlig 'svind-gennemgang': hvad blev kasseret, hvorfor, og hvad kan vi gøre anderledes?",
-        wmsFact: "WMS-boost: svind-dashboard i realtid. Effekt: du ser hvad der kasseres, hvorfor, og hvornår."
+        proTip: "Hav en 'Defekt'-kasse med årsagslabels: transport, produktion, håndtering. Registrér kassation samme dag.",
+        wmsFact: "WMS-boost: karantæne-status på vareniveau. Effekt: tvivlsvarer blokeres automatisk fra pluk."
     },
     {
         level: 14,
@@ -1068,7 +1068,8 @@ const questionBank = [
         answers: ["Planlægning, budget, evaluering","Marketing, lager, bogholderi","Før, under og efter","Dag, uge og måned"],
         correct: 2,
         explanation: "Før = planlæg bemanding, lager, emballage og roller. Under = kør planen, prioritér og hold fokus. Efter = evaluer hvad der virkede og hvad der skal forbedres. De fleste glemmer 'efter' - men det er der læringen sker.",
-        proTip: "Sæt en fast cut-off tid for 'send i dag' ordrer. Kommunikér den tydeligt til hele teamet og webshoppen."
+        proTip: "Hæng et skilt ved pakkebordet: 'Bestilt før 14:00 = sendt i dag'. Synlig cut-off stopper panikpluk.",
+        wmsFact: "WMS-boost: automatisk cut-off med digital prioritering. Effekt: hasteordrer plukkes først uden panik."
     },
     {
         level: 15,
@@ -1152,7 +1153,8 @@ const questionBank = [
         answers: ["Erfaringsmæssigt butikken skal være pænere for kunderne, hvilket er en typisk fejl","På lageret optimerer du for medarbejderens effektivitet – ikke kundens oplevelse","Lageret må ikke have skilte","Butikken må ikke have smalle gange"],
         correct: 1,
         explanation: "I butikken designer du til kunderejsen. På lageret designer du til plukkerens rute og effektivitet.",
-        proTip: "Brug farvekoder på dine hylder: grøn tape for A-varer, gul for B, rød for C. Alle kan se prioriteringen."
+        proTip: "Brug farvet tape på reolerne: grøn for A-varer, gul for B, rød for C. Nye folk forstår det på 5 sekunder.",
+        wmsFact: "WMS-boost: digital zonestyring med farver på håndscanner. Effekt: plukkeren ser zone og prioritet på skærmen."
     },
     {
         level: 6,
@@ -1251,7 +1253,8 @@ const questionBank = [
         answers: ["At få pænere plukkelister","At reducere antal ture til de samme hylder ved at plukke til flere ordrer ad gangen","Helt konkret at kunne pakke langsommere men mere sikkert, hvilket er en udbredt misforståelse","At gøre det lettere at finde returvarer"],
         correct: 1,
         explanation: "Batch-plukning handler om at samle ens pluk, så du kun går til samme lokation få gange, mens du plukker til flere ordrer på én tur.",
-        proTip: "Sæt faste pladser til alt ved pakkebordet: tape til venstre, labels til højre, poser foran. Altid det samme."
+        proTip: "Tape-afmærk pladser på pakkebordet: tape til venstre, labels i midten, poser til højre. Altid det samme.",
+        wmsFact: "WMS-boost: digital tjekliste ved pakkebordet med scan-bekræftelse. Effekt: hvert trin verificeres."
     },
     {
         level: 7,
@@ -1314,7 +1317,8 @@ const questionBank = [
         answers: ["At få styr på leverandørernes rabatter","At minimere antal varenumre i sortimentet","At definere et minimums- og maksimumsniveau og visualisere det på reolen","I de fleste tilfælde at finde de varer, der kan sælges bedst på tilbud, ifølge mange lagerledere"],
         correct: 2,
         explanation: "Min/max handler om at bestemme hvornår du skal bestille (minimum) og hvor meget du typisk vil have liggende (maksimum), og gøre det synligt fx med en rød streg.",
-        proTip: "Indfør en daglig 5-minutters oprydning: alle rydder deres område inden fyraften. Det holder standarden."
+        proTip: "Kør '5-minutters oprydning' før fyraften: alt uden fast plads får en plads. Morgenen starter rent.",
+        wmsFact: "WMS-boost: daglig rapport over lokationer med afvigelser. Effekt: oprydning styres af data, ikke mavefornemmelse."
     },
     {
         level: 5,
@@ -1436,7 +1440,8 @@ const questionBank = [
         answers: ["At undgå krav om revision","At slippe for at tælle C-varer","At fordele optælling ud over året og opdage afvigelser løbende","Helt konkret at kunne holde lageret åbent 24/7, som er en almindelig tilgang"],
         correct: 2,
         explanation: "Rullende optælling gør, at du løbende får øje på afvigelser og ikke skal lukke alt ned for én stor, tung optælling.",
-        proTip: "Lav en 'pakke-standard': foto af den perfekte pakke for hver produkttype. Hæng dem ved pakkebordet."
+        proTip: "Lav en 'pakkestandard' med foto af den perfekte pakke for dine 5 mest solgte varer. Hæng den ved bordet.",
+        wmsFact: "WMS-boost: digital pakkestandard med billeder per vare på skærmen. Effekt: pakkeren ser altid den rigtige metode."
     },
     {
         level: 8,
@@ -1455,7 +1460,8 @@ const questionBank = [
         answers: ["At kunne vise pæne grafer på bestyrelsesmøder","I virkeligheden at kunne sammenligne sig med store konkurrenter, hvilket er en typisk fejl","At få et praktisk kompas til at se, om ændringer faktisk forbedrer lageret over tid","At overflødiggøre dialogen med medarbejderne"],
         correct: 2,
         explanation: "Nøgletal skal fungere som et lille kompas, der viser, om dine tiltag forbedrer eller forværrer drift – ikke som pynt.",
-        proTip: "Brug en simpel stopurs-app til at måle pluk- og pakketid. 10 målinger giver dig et pålideligt gennemsnit."
+        proTip: "Tag 10 tilfældige ordrer og mål pluk-tid med stopur. Det er dit før/efter-kompas for forbedringer.",
+        wmsFact: "WMS-boost: automatisk måling af pluk- og pakketid per ordre. Effekt: benchmark uden stopur."
     },
     {
         level: 7,
@@ -1655,7 +1661,8 @@ const questionBank = [
         answers: ["Alle reklamationer afvises som udgangspunkt","Ved at bruge en model, fx 'under X kr.' løses hurtigt, 'over X kr.' kræver billeder og vurdering","Alle reklamationer sendes direkte til leverandøren","Helt konkret ved at give dobbelt erstatning på alle reklamationer, som er en almindelig tilgang"],
         correct: 1,
         explanation: "En simpel model som 'under X kr. løses med det samme, over X kr. kræver dokumentation' gør processen effektiv og forudsigelig, uden at du taber for mange penge.",
-        proTip: "Indfør en 'clean desk'-politik ved pakkebordet: kun den aktuelle ordre må ligge fremme. Resten væk."
+        proTip: "Én ordre ad gangen på pakkebordet. Ryd bordet helt, før næste ordre startes. Bunker skaber fejl.",
+        wmsFact: "WMS-boost: digital ordrekø der kun frigiver én ordre ad gangen. Effekt: pakkeren kan ikke blande ordrer."
     },
     {
         level: 10,
@@ -1963,7 +1970,8 @@ const questionBank = [
         answers: ["Dine B-varer står for tæt på C-varerne og bliver forvekslet med dem","Dårlig belysning i B-zonen kombineret med manglende faste pladser","Dine plukkevogne er for små til B-varer og skaber håndteringsfejl","Dine B-varer er for populære og burde reklassificeres som A-varer"],
         correct: 1,
         explanation: "En høj fejlrate på en specifik varegruppe peger ofte på en kombination af faktorer. Dårlig belysning (Kap. 6) og mangel på faste, adskilte pladser (Kap. 2 & 8) er en klassisk cocktail, der fører til fejlpluk, især på varer, man ikke håndterer dagligt.",
-        proTip: "Tjek belysningen i alle zoner, ikke kun A-zonen. Dårligt lys i B-zonen giver fejl på B-varer."
+        proTip: "Tjek belysningen i alle zoner, ikke kun A-zonen. Dårligt lys i B-zonen giver fejl på B-varer.",
+        wmsFact: "WMS-boost: zone-specifik fejlrapport. Effekt: du ser præcis hvilken zone der har dårligst belysning/flest fejl."
     },
     {
         level: 11,
@@ -2378,6 +2386,156 @@ const questionBank = [
         correct: 1,
         explanation: "Dette er et organisatorisk design, der bygger på bogens principper. Ved at fjerne afstanden mellem problem (retur) og løsning (webshop-opdatering), skaber du en hyper-effektiv forbedringscyklus (Kap. 7).",
         proTip: "Lad den der håndterer returer også opdatere produktbeskrivelser. Kort feedback-loop løser problemer ved kilden."
+    },
+    {
+        level: 6,
+        category: "Lagerstyring",
+        question: "Hvad sker der med pluktempoet, når en A-vares plukplads løber tom?",
+        answers: ["Intet, plukkeren finder bare varen et andet sted","Tempoet falder drastisk, fordi plukkeren skal lede eller hente fra buffer","Det påvirker kun C-varer","Plukkeren springer ordren over"],
+        correct: 1,
+        explanation: "En tom A-plads er en af de dyreste ting på et lager. Plukkeren stopper, leder, går til buffer, og mister rytmen. Guiden anbefaler faste genopfyldningstider for at undgå dette.",
+        proTip: "Indfør fast genopfyldning kl. 11 og kl. 14. 10 minutter der holder A-pladserne fyldte hele dagen.",
+        wmsFact: "WMS-boost: automatisk genopfyldningsforslag når plukplads rammer minimum. Effekt: A-pladser løber aldrig tør."
+    },
+    {
+        level: 8,
+        category: "Lagerstyring",
+        question: "Hvad er forskellen på en plukplads og en bufferlokation?",
+        answers: ["Der er ingen forskel","Plukpladsen er der plukkeren henter varen, bufferen er ekstra lager der fylder op","Bufferen er til A-varer, plukpladsen er til C-varer","Plukpladsen er altid på gulvet"],
+        correct: 1,
+        explanation: "Plukpladsen er den faste lokation hvor plukkeren henter varen. Bufferen er ekstra lager, typisk højere oppe eller længere væk, der bruges til at genopfylde plukpladsen. Guiden anbefaler at markere den primære plukplads tydeligt.",
+        proTip: "Marker plukpladsen med et tydeligt skilt. Bufferen behøver ikke skilte, den er kun til genopfyldning.",
+        wmsFact: "WMS-boost: multi-location med primær plukplads og buffer. Effekt: systemet guider plukkeren til den rigtige lokation."
+    },
+    {
+        level: 7,
+        category: "Lagerstyring",
+        question: "Hvad er formålet med en fast cut-off tid for 'send i dag'-ordrer?",
+        answers: ["At spare på fragten","At give lageret en klar deadline, så der ikke opstår panikpluk sidst på dagen","At begrænse antallet af ordrer","At undgå overarbejde"],
+        correct: 1,
+        explanation: "En fast cut-off tid (fx 'bestilt før kl. 14 = sendt i dag') giver lageret en klar ramme. Uden cut-off opstår der panikpluk, hvor medarbejdere løber efter enkeltordrer i stedet for at plukke effektivt i batches.",
+        proTip: "Hæng et tydeligt skilt ved pakkebordet med cut-off tiden. Kommunikér den også på webshoppen.",
+        wmsFact: "WMS-boost: automatisk prioritering af ordrer baseret på cut-off. Effekt: hasteordrer plukkes først uden panik."
+    },
+    {
+        level: 9,
+        category: "Lagerstyring",
+        question: "Hvorfor anbefaler guiden at holde hasteordrer ude af det normale batch-pluk?",
+        answers: ["Fordi hasteordrer altid er dyrere","Fordi de forstyrrer batch-rytmen og skaber fejl for alle ordrer","Fordi hasteordrer ikke behøver kvalitetstjek","Fordi de altid er single-line ordrer"],
+        correct: 1,
+        explanation: "Hasteordrer der blandes ind i batch-pluk forstyrrer rytmen for alle. Guiden anbefaler en separat, hurtig kanal: hasteordrer plukkes direkte og sendes til pakning uden om det normale flow.",
+        proTip: "Giv hasteordrer en separat kasse eller vogn med rød markering. De går direkte til pakning.",
+        wmsFact: "WMS-boost: separat hastekø med automatisk prioritering. Effekt: hasteordrer forstyrrer ikke batch-flowet."
+    },
+    {
+        level: 6,
+        category: "Svind",
+        question: "Hvad bør der ske med en vare, du er i tvivl om på lageret (beskadiget emballage, ukendt oprindelse)?",
+        answers: ["Sæt den tilbage på hylden og håb det bedste","Smid den ud med det samme","Læg den i en karantæne-zone til den er vurderet","Send den til kunden alligevel"],
+        correct: 2,
+        explanation: "Guiden anbefaler at alt med tvivl ryger i en karantæne-zone, aldrig tilbage på hylden. Varer uden afklaring ender enten som pakkefejl eller usynligt svind. En fast karantæne-kasse gør tvivl synlig og håndterbar.",
+        proTip: "Lav en 'Karantæne'-kasse med rødt tape. Alt med tvivl ryger deri. Gennemgå den dagligt.",
+        wmsFact: "WMS-boost: karantæne-status på vareniveau. Effekt: tvivlsvarer blokeres automatisk fra pluk og salg."
+    },
+    {
+        level: 8,
+        category: "Svind",
+        question: "Hvorfor er det vigtigt at varer i karantæne IKKE ligger blandet med salgbart lager?",
+        answers: ["Fordi det ser rodet ud","Fordi en tvivlsvare der plukkes og sendes, bliver til en pakkefejl eller en retur","Fordi det er ulovligt","Fordi det fylder for meget"],
+        correct: 1,
+        explanation: "En tvivlsvare der ender hos kunden er enten en pakkefejl (forkert/beskadiget vare) eller en retur. Begge koster fragt, tid og goodwill. Guiden understreger at svind skal gøres synligt, og karantæne er første skridt.",
+        proTip: "Placer karantæne-kassen synligt, ikke gemt i et hjørne. Synlighed skaber handling.",
+        wmsFact: "WMS-boost: automatisk blokering af karantæne-varer i plukflow. Effekt: tvivlsvarer kan ikke sendes til kunder."
+    },
+    {
+        level: 5,
+        category: "Pakkefejl",
+        question: "Hvad er den vigtigste regel for indretning af pakkebordet ifølge guiden?",
+        answers: ["Det skal være så stort som muligt","Alt du bruger dagligt skal være inden for armslængde, altid på samme plads","Det skal stå midt i lokalet","Der skal være plads til mindst 10 ordrer samtidig"],
+        correct: 1,
+        explanation: "Guiden beskriver 'radius-reglen': stå ved pakkebordet og ræk armene ud. Alt du bruger dagligt, tape, labels, poser, skal være inden for den radius. Faste pladser eliminerer søgetid og reducerer fejl.",
+        proTip: "Tape-afmærk faste pladser på pakkebordet: tape til venstre, labels i midten, poser til højre.",
+        wmsFact: "WMS-boost: digital pakkeliste med billeder og trin-for-trin guide. Effekt: pakkeren følger altid samme standard."
+    },
+    {
+        level: 7,
+        category: "Pakkefejl",
+        question: "Hvad bør du gøre, når tape, labels eller fyldmateriale løber tør ved pakkebordet?",
+        answers: ["Vente til næste dag med at bestille","Låne fra en kollegas bord","Have en fast refill-rutine, så forbrugsstoffer aldrig løber tør under drift","Bruge alternativt materiale"],
+        correct: 2,
+        explanation: "Mangel på forbrugsstoffer stopper pakkeflowet. Guiden anbefaler faste pladser og faste refill-rutiner: tjek beholdning morgen og middag, og hav altid en ekstra rulle tape og labels klar.",
+        proTip: "Hav altid én ekstra rulle tape og ét ekstra ark labels klar under pakkebordet. Tjek beholdning kl. 8 og kl. 12.",
+        wmsFact: "WMS-boost: automatisk bestilling af forbrugsstoffer ved minimum. Effekt: tape og labels løber aldrig tør."
+    },
+    {
+        level: 7,
+        category: "Svind",
+        question: "Hvornår skal en beskadiget vare registreres som kasseret ifølge guiden?",
+        answers: ["Ved næste optælling","Samme dag som skaden opdages","Når der er tid til det","Ved månedens udgang"],
+        correct: 1,
+        explanation: "Guiden er klar: registrér kassation SAMME DAG. Hvis du venter, glemmer du det, og lagerbeholdningen bliver forkert. Forkert beholdning fører til oversalg, stockouts og endnu mere svind.",
+        proTip: "Hav en 'Defekt'-kasse med en simpel blanket: dato, vare, årsag. Udfyld den med det samme.",
+        wmsFact: "WMS-boost: kassationsworkflow med scanning og årsagskode. Effekt: lagerbeholdningen opdateres automatisk."
+    },
+    {
+        level: 9,
+        category: "Svind",
+        question: "Hvorfor anbefaler guiden at skelne mellem 'defekt' og '2. sortering' i stedet for at kassere alt?",
+        answers: ["Fordi det er lovpligtigt","Fordi 2. sortering kan sælges billigt og dermed reducere det reelle tab","Fordi det ser bedre ud i regnskabet","Fordi defekte varer kan repareres"],
+        correct: 1,
+        explanation: "Guiden anbefaler separate zoner: 'Defekt/kan ikke sælges' og '2. sortering/udsalg'. En vare med kosmetisk skade kan ofte sælges med rabat. Det reducerer det reelle tab og gør svind til en aktiv beslutning.",
+        proTip: "Lav to kasser: 'Kassér' (rød) og '2. sortering' (gul). Gennemgå gul-kassen ugentligt for udsalg.",
+        wmsFact: "WMS-boost: separat tracking af kassation og 2. sortering. Effekt: du ser præcis hvad der kasseres vs. sælges billigt."
+    },
+    {
+        level: 5,
+        category: "Lagerindretning",
+        question: "I hvilken højde bør dine mest plukkede varer (A-varer) placeres?",
+        answers: ["Øverst på reolen for bedre overblik","Nederst på gulvet for nem adgang","I albuehøjde, så plukkeren hverken bøjer eller strækker sig","Det er ligegyldigt, bare de er tæt på pakkebordet"],
+        correct: 2,
+        explanation: "Albuehøjde er den ergonomisk optimale zone. Plukkeren kan gribe varen uden at bøje ryg eller strække sig. Det sparer tid, reducerer træthed og mindsker risikoen for skader ved gentagne løft.",
+        proTip: "Mål albuehøjden på dine medarbejdere. Placer de 20 mest plukkede varer i den zone.",
+        wmsFact: "WMS-boost: placeringsforslag baseret på plukfrekvens og ergonomi. Effekt: færre løft, hurtigere pluk."
+    },
+    {
+        level: 7,
+        category: "Lagerindretning",
+        question: "Hvad er minimumsbredden for en gang på lageret, hvis to personer skal kunne passere hinanden?",
+        answers: ["50 cm","80 cm","120 cm","200 cm"],
+        correct: 1,
+        explanation: "80 cm er minimum for at to personer kan passere hinanden. Smallere gange skaber kø, frustration og risiko for at vælte varer. Bredere gange (120+ cm) er nødvendige hvis der bruges plukkevogne.",
+        proTip: "Gå lageret igennem med en meterstok. Mål de smalleste gange. Kan to personer passere? Hvis ikke, flyt reolerne.",
+        wmsFact: "WMS-boost: heatmap over medarbejderbevægelser. Effekt: du ser præcis hvor gangene skaber kø."
+    },
+    {
+        level: 6,
+        category: "Lagerstyring",
+        question: "Hvornår bør du tjekke kvaliteten af modtagne varer?",
+        answers: ["Når de skal plukkes","Ved modtagelse, før de placeres på lageret","Kun hvis kunden klager","Ved den årlige optælling"],
+        correct: 1,
+        explanation: "Kvalitetstjek ved modtagelse fanger problemer før de når kunden. En defekt vare der placeres på lageret, bliver til en pakkefejl, en retur og en utilfreds kunde. Tjek altid mod følgeseddel og inspicér for skader.",
+        proTip: "Lav en fast modtagelsesrutine: 1) Tæl kolli, 2) Tjek mod følgeseddel, 3) Inspicér for skader, 4) Placer.",
+        wmsFact: "WMS-boost: modtagelsesworkflow med scanning og kvalitetstjek. Effekt: defekte varer fanges før de når hylden."
+    },
+    {
+        level: 8,
+        category: "Pakkefejl",
+        question: "Hvorfor er det vigtigt at have en fast procedure for hvad der sker, når pakkeren opdager en fejl?",
+        answers: ["For at kunne give pakkeren en advarsel","For at fejlen registreres, rettes og bruges til forbedring i stedet for at blive skjult","For at spare tid","For at kunden kan få kompensation"],
+        correct: 1,
+        explanation: "Uden en fast procedure bliver fejl skjult eller glemt. Guiden anbefaler en fejllog og en kultur hvor fejl er læringsmuligheder. En fast procedure sikrer at fejlen rettes, registreres og bruges til at forbedre processen.",
+        proTip: "Lav en 'fejl-kasse' ved pakkebordet: forkert vare lægges deri med en seddel om hvad der skete. Gennemgå ugentligt.",
+        wmsFact: "WMS-boost: automatisk fejlregistrering med årsagskode. Effekt: fejlmønstre synlige i dashboards."
+    },
+    {
+        level: 6,
+        category: "Lagerindretning",
+        question: "Hvad er den vigtigste fordel ved et hæve-sænkebord ved pakkestationen?",
+        answers: ["Det ser professionelt ud","Det kan bruges som ekstra lagerplads","Det forbedrer ergonomien og kan reducere træthed og fejl","Det er billigere end et fast bord"],
+        correct: 2,
+        explanation: "Et hæve-sænkebord tilpasser sig medarbejderens højde. Det reducerer belastning på ryg og skuldre, mindsker træthed over en lang dag, og dermed også fejl. Guiden nævner det som en lille investering med stor effekt.",
+        proTip: "Hvis du ikke har budget til hæve-sænkebord: brug en forhøjningsklods under bordet, tilpasset den højeste medarbejder.",
+        wmsFact: "WMS-boost: ergonomi-data koblet til fejlrapporter. Effekt: du ser om træthed korrelerer med fejl på bestemte tidspunkter."
     }
 ];
 

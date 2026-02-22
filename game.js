@@ -972,30 +972,40 @@ class WarehouseWarriorGame {
         document.getElementById('correctMessage').textContent = message;
         document.getElementById('pointsEarned').textContent = '+' + (this.lastRoundPoints || 0);
         document.getElementById('pointsTotal').textContent = this.score.toLocaleString();
-        // Vis forklaring ved korrekt svar
+        // Vis én tilfældig callout ved korrekt svar (for variation/replay)
         const correctQ = this.questions[this.currentQuestionIndex];
         const correctExplEl = document.getElementById('correctExplanation');
         const correctExplText = document.getElementById('correctExplanationText');
-        if (correctQ.explanation) {
+        const correctProTipEl = document.getElementById('correctProTip');
+        const correctWmsFactEl = document.getElementById('correctWmsFact');
+        
+        // Saml tilgængelige callouts
+        const callouts = [];
+        if (correctQ.explanation) callouts.push('explanation');
+        if (correctQ.proTip) callouts.push('proTip');
+        if (correctQ.wmsFact) callouts.push('wmsFact');
+        
+        // Vælg én tilfældig
+        const chosen = callouts.length > 0 ? callouts[Math.floor(Math.random() * callouts.length)] : null;
+        
+        // Vis kun den valgte
+        if (chosen === 'explanation') {
             correctExplText.textContent = correctQ.explanation;
             correctExplEl.style.display = 'block';
         } else {
             correctExplEl.style.display = 'none';
         }
         
-        // Pro Tip ved korrekt svar
-        const correctProTipEl = document.getElementById('correctProTip');
-        if (correctQ.proTip) {
+        if (chosen === 'proTip') {
             correctProTipEl.innerHTML = '<span class="pro-tip-bulb">💡</span><strong>Pro Tip:</strong> ' + correctQ.proTip;
             correctProTipEl.style.display = 'block';
             setTimeout(() => this.playSound('ding'), 400);
         } else {
             correctProTipEl.style.display = 'none';
         }
-        // Vidste du? WMS-fact
-        const correctWmsFactEl = document.getElementById('correctWmsFact');
-        if (correctQ.wmsFact) {
-            correctWmsFactEl.innerHTML = '<span class="wms-fact-icon">💻</span><strong>Vidste du?</strong> ' + correctQ.wmsFact;
+        
+        if (chosen === 'wmsFact') {
+            correctWmsFactEl.innerHTML = '<span class="wms-fact-icon">💻</span><strong>WMS-boost:</strong> ' + correctQ.wmsFact.replace(/^WMS-boost:\s*/i, '');
             correctWmsFactEl.style.display = 'block';
         } else {
             correctWmsFactEl.style.display = 'none';
@@ -1003,10 +1013,36 @@ class WarehouseWarriorGame {
         this.loadFunFact('correctFunFact', true);
         this.showScene('correctScene');
         this.createConfetti('confettiContainer');
-        // Countdown-knap: mere tid når der er forklaring/proTip
-        const hasExtra = correctQ.explanation || correctQ.proTip || correctQ.wmsFact;
-        const totalSecs = hasExtra ? 6 : 3;
-        this.startNextCountdown(totalSecs);
+        
+        // Sidste spørgsmål? Gå direkte til gameComplete efter kort pause
+        const isLastQuestion = this.currentQuestionIndex >= this.questions.length - 1;
+        if (isLastQuestion) {
+            const btnEl = document.getElementById('btnNextQuestion');
+            if (btnEl) {
+                btnEl.textContent = 'Se resultat';
+                btnEl.style.display = 'inline-block';
+                btnEl.onclick = () => {
+                    this.playSound('click');
+                    this.nextQuestion();
+                };
+            }
+            const countdownEl = document.getElementById('nextCountdown');
+            if (countdownEl) countdownEl.textContent = '';
+            // Auto-gå videre efter 6 sek
+            this.nextAutoTimer = setTimeout(() => {
+                this.nextQuestion();
+            }, 6000);
+        } else {
+            // Normal countdown til næste spørgsmål
+            const btnEl = document.getElementById('btnNextQuestion');
+            if (btnEl) {
+                btnEl.textContent = 'Næste spørgsmål ';
+                btnEl.onclick = () => game.skipToNext();
+            }
+            const hasExtra = correctQ.explanation || correctQ.proTip || correctQ.wmsFact;
+            const totalSecs = hasExtra ? 6 : 3;
+            this.startNextCountdown(totalSecs);
+        }
     }
     
     startNextCountdown(seconds) {
@@ -1046,12 +1082,20 @@ class WarehouseWarriorGame {
         const question = this.questions[this.currentQuestionIndex];
         document.getElementById('correctAnswerText').textContent = question.answers[question.correct];
         document.getElementById('explanationText').textContent = question.explanation || 'Ingen forklaring tilgængelig.';
-        // Pro Tip ved forkert svar
+        // Vis én tilfældig bonus-callout ved forkert svar (proTip eller wmsFact)
         const wrongProTipEl = document.getElementById('wrongProTip');
-        if (question.proTip) {
+        const bonusOptions = [];
+        if (question.proTip) bonusOptions.push('proTip');
+        if (question.wmsFact) bonusOptions.push('wmsFact');
+        const wrongBonus = bonusOptions.length > 0 ? bonusOptions[Math.floor(Math.random() * bonusOptions.length)] : null;
+        
+        if (wrongBonus === 'proTip') {
             wrongProTipEl.innerHTML = '<span class="pro-tip-bulb">💡</span><strong>Pro Tip:</strong> ' + question.proTip;
             wrongProTipEl.style.display = 'block';
             setTimeout(() => this.playSound('ding'), 400);
+        } else if (wrongBonus === 'wmsFact') {
+            wrongProTipEl.innerHTML = '<span class="wms-fact-icon">💻</span><strong>WMS-boost:</strong> ' + question.wmsFact.replace(/^WMS-boost:\s*/i, '');
+            wrongProTipEl.style.display = 'block';
         } else {
             wrongProTipEl.style.display = 'none';
         }

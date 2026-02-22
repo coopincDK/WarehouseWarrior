@@ -1019,19 +1019,31 @@ class WarehouseWarriorGame {
         if (isLastQuestion) {
             const btnEl = document.getElementById('btnNextQuestion');
             if (btnEl) {
-                btnEl.textContent = 'Se resultat';
                 btnEl.style.display = 'inline-block';
                 btnEl.onclick = () => {
+                    if (this.nextCountdownTimer) { clearInterval(this.nextCountdownTimer); this.nextCountdownTimer = null; }
+                    if (this.nextAutoTimer) { clearTimeout(this.nextAutoTimer); this.nextAutoTimer = null; }
                     this.playSound('click');
                     this.nextQuestion();
                 };
             }
+            // Countdown til "Se resultat"
+            const totalSecs = 6;
+            let remaining = totalSecs;
             const countdownEl = document.getElementById('nextCountdown');
-            if (countdownEl) countdownEl.textContent = '';
-            // Auto-gå videre efter 6 sek
+            if (btnEl) btnEl.innerHTML = 'Se resultat <span id="nextCountdown">(' + remaining + ')</span>';
+            this.nextCountdownTimer = setInterval(() => {
+                remaining--;
+                const cdEl = document.getElementById('nextCountdown');
+                if (cdEl) cdEl.textContent = remaining > 0 ? '(' + remaining + ')' : '';
+                if (remaining <= 0) {
+                    clearInterval(this.nextCountdownTimer);
+                    this.nextCountdownTimer = null;
+                }
+            }, 1000);
             this.nextAutoTimer = setTimeout(() => {
                 this.nextQuestion();
-            }, 6000);
+            }, totalSecs * 1000);
         } else {
             // Normal countdown til næste spørgsmål
             const btnEl = document.getElementById('btnNextQuestion');

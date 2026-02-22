@@ -1636,12 +1636,23 @@ class WarehouseWarriorGame {
         const correctIndex = this.currentShuffle.correctIndex;
         const qNum = this.currentQuestionIndex + 1;
         
-        if (qNum <= 10) {
-            // RUNDE 1-2: Alle får stemmer, men de 2 mest sandsynlige har flest
-            // Det korrekte svar er IKKE altid #1
+        if (qNum <= 5) {
+            // RUNDE 1 (Q1-5): Publikum er MEGET sikre — korrekt svar dominerer tydeligt
             const wrongIndices = [0,1,2,3].filter(i => i !== correctIndex);
             
-            // Vælg en "popular wrong" — det svar publikum tror er rigtigt
+            for (let i = 0; i < 100; i++) {
+                const r = Math.random();
+                if (r < 0.75) {
+                    votes[correctIndex]++;      // 75% korrekt — helt tydeligt
+                } else {
+                    // 25% spredt på de forkerte
+                    const randomWrong = wrongIndices[Math.floor(Math.random() * wrongIndices.length)];
+                    votes[randomWrong]++;
+                }
+            }
+        } else if (qNum <= 10) {
+            // RUNDE 2 (Q6-10): Publikum er lidt mere usikre
+            const wrongIndices = [0,1,2,3].filter(i => i !== correctIndex);
             const popularWrong = wrongIndices[Math.floor(Math.random() * wrongIndices.length)];
             
             for (let i = 0; i < 100; i++) {

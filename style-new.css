@@ -66,6 +66,18 @@ body {
     display: none;
 }
 
+/* ===== BOOK TITLE ===== */
+.book-title {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+    margin-top: -2px;
+    margin-bottom: 6px;
+    letter-spacing: 1.5px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
 /* ===== HOST NAME ===== */
 .host-name {
     font-size: 1.1rem;
@@ -983,6 +995,20 @@ body {
 
 .welcome-speech p {
     margin: 0;
+}
+
+.speech-author {
+    margin-top: 14px !important;
+    font-size: 1.1rem;
+    color: #ffd700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.speech-author-title {
+    margin-top: 2px !important;
+    font-size: 0.8rem;
+    color: rgba(255, 215, 0, 0.7);
+    font-style: italic;
 }
 
 /* ===== CHECKPOINT SPEECH BUBBLE ===== */

@@ -1482,6 +1482,8 @@ class WarehouseWarriorGame {
                 });
             }
         } catch(e) { this.companyAliases = {}; }
+        // Skjul anonyme spillere
+        allScores = allScores.filter(p => p.name && p.name.trim() !== '' && p.name !== 'Anonym');
         this.cachedHighscores = allScores;
         this.showHighscoreView('top10');
         this.showScene('highscoreScene');

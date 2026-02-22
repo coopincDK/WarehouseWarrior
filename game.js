@@ -992,12 +992,54 @@ class WarehouseWarriorGame {
         } else {
             correctProTipEl.style.display = 'none';
         }
+        // Vidste du? WMS-fact
+        const correctWmsFactEl = document.getElementById('correctWmsFact');
+        if (correctQ.wmsFact) {
+            correctWmsFactEl.innerHTML = '<span class="wms-fact-icon">💻</span><strong>Vidste du?</strong> ' + correctQ.wmsFact;
+            correctWmsFactEl.style.display = 'block';
+        } else {
+            correctWmsFactEl.style.display = 'none';
+        }
         this.loadFunFact('correctFunFact', true);
         this.showScene('correctScene');
         this.createConfetti('confettiContainer');
-        // Mere tid når der er forklaring/proTip
-        const hasExtra = correctQ.explanation || correctQ.proTip;
-        setTimeout(() => this.nextQuestion(), hasExtra ? 6000 : 3000);
+        // Countdown-knap: mere tid når der er forklaring/proTip
+        const hasExtra = correctQ.explanation || correctQ.proTip || correctQ.wmsFact;
+        const totalSecs = hasExtra ? 6 : 3;
+        this.startNextCountdown(totalSecs);
+    }
+    
+    startNextCountdown(seconds) {
+        // Ryd evt. eksisterende countdown
+        if (this.nextCountdownTimer) clearInterval(this.nextCountdownTimer);
+        if (this.nextAutoTimer) clearTimeout(this.nextAutoTimer);
+        
+        let remaining = seconds;
+        const countdownEl = document.getElementById('nextCountdown');
+        const btnEl = document.getElementById('btnNextQuestion');
+        if (countdownEl) countdownEl.textContent = '(' + remaining + ')';
+        if (btnEl) btnEl.style.display = 'inline-block';
+        
+        this.nextCountdownTimer = setInterval(() => {
+            remaining--;
+            if (countdownEl) countdownEl.textContent = remaining > 0 ? '(' + remaining + ')' : '';
+            if (remaining <= 0) {
+                clearInterval(this.nextCountdownTimer);
+                this.nextCountdownTimer = null;
+            }
+        }, 1000);
+        
+        this.nextAutoTimer = setTimeout(() => {
+            this.skipToNext();
+        }, seconds * 1000);
+    }
+    
+    skipToNext() {
+        // Ryd timers
+        if (this.nextCountdownTimer) { clearInterval(this.nextCountdownTimer); this.nextCountdownTimer = null; }
+        if (this.nextAutoTimer) { clearTimeout(this.nextAutoTimer); this.nextAutoTimer = null; }
+        this.playSound('click');
+        this.nextQuestion();
     }
     
     showWrongScene() {

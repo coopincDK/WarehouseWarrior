@@ -255,7 +255,9 @@
                         <p id="correctExplanationText"></p>
                     </div>
                     <div class="pro-tip-box" id="correctProTip" style="display:none"></div>
+                    <div class="wms-fact-box" id="correctWmsFact" style="display:none"></div>
                     <div class="fun-fact" id="correctFunFact"></div>
+                    <button class="btn-next-question" id="btnNextQuestion" onclick="game.skipToNext()">Næste spørgsmål <span id="nextCountdown"></span></button>
                 </div>
             </div>
         </div>
@@ -433,7 +435,6 @@
 
             <div class="content-overlay">
                 <div class="highscore-content">
-                    <img src="assets/images/icons/27_highscore_tavle_ikon.png" alt="Highscore" class="highscore-trophy">
                     <h2 id="highscoreListTitle">🏆 Highscore Top 10</h2>
                     <div style="display:flex;gap:6px;justify-content:center;margin-bottom:10px;flex-wrap:wrap">
                         <button class="btn-secondary" style="padding:6px 14px;font-size:0.8rem;min-width:auto" onclick="game.showHighscoreView('top10')">🏆 Top 10</button>

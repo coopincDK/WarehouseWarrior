@@ -8,7 +8,8 @@ const questionBank = [
         answers: ["Tænk flow, ikke flot", "Tænk flot, ikke flow", "Tænk pris, ikke plads", "Tænk højde, ikke bredde"],
         correct: 0,
         category: "Lagerindretning",
-        explanation: "Det vigtigste er at tænke i flow - hvordan varerne og medarbejderne bevæger sig. Et lager der ser pænt ud, men har dårligt flow, koster dig tid og penge hver eneste dag. Fokusér på at minimere skridt og undgå flaskehalse."
+        explanation: "Det vigtigste er at tænke i flow - hvordan varerne og medarbejderne bevæger sig. Et lager der ser pænt ud, men har dårligt flow, koster dig tid og penge hver eneste dag. Fokusér på at minimere skridt og undgå flaskehalse.",
+        proTip: "Tegn dit lager op på papir og tegn pile for, hvordan varer og folk bevæger sig. Krydser pilene? Så har du et flow-problem."
     },
     {
         level: 1,
@@ -16,7 +17,8 @@ const questionBank = [
         answers: ["2 zoner", "3 zoner", "4 zoner", "5 zoner"],
         correct: 1,
         category: "Lagerindretning",
-        explanation: "Et lager har tre overordnede zoner: modtagelse, lager og afsendelse. Pakkeriet er ikke en selvstændig zone, men en del af afsendelseszonen. De tre zoner skaber et klart, ensrettet flow fra indgang til udgang."
+        explanation: "Et lager har tre overordnede zoner: modtagelse, lager og afsendelse. Pakkeriet er ikke en selvstændig zone, men en del af afsendelseszonen. De tre zoner skaber et klart, ensrettet flow fra indgang til udgang.",
+        wmsFact: "Mange WMS kan styre hvert trin i alle tre zoner — fra modtagelsesscan til plukrute til forsendelseslabel. Alt i ét system."
     },
     {
         level: 1,
@@ -24,7 +26,8 @@ const questionBank = [
         answers: ["Afsendelse", "Modtagelse", "Lager", "Pakkeområde"],
         correct: 1,
         category: "Lagerindretning",
-        explanation: "Modtagelse er den første zone, hvor varer ankommer og kontrolleres. Herfra går de videre til lager-zonen, og til sidst til afsendelse. Dette ensrettede flow forhindrer kaos og sikrer, at varer ikke krydser hinandens veje."
+        explanation: "Modtagelse er den første zone, hvor varer ankommer og kontrolleres. Herfra går de videre til lager-zonen, og til sidst til afsendelse. Dette ensrettede flow forhindrer kaos og sikrer, at varer ikke krydser hinandens veje.",
+        wmsFact: "Mange WMS kan afstemme dine indkøb automatisk mod følgesedler ved modtagelse — slut med bøvlede papirer og manuelle optjæk."
     },
     {
         level: 2,
@@ -32,7 +35,8 @@ const questionBank = [
         answers: ["Modtagelse", "Afsendelse", "Lager", "Pakkeområde"],
         correct: 1,
         category: "Lagerindretning",
-        explanation: "Afsendelse er den sidste zone. Flowet går: Modtagelse → Lager → Afsendelse. Mange svarer for hurtigt 'Modtagelse' fordi de husker det fra det lette spørgsmål om første zone, men her spørges der til den sidste."
+        explanation: "Afsendelse er den sidste zone. Flowet går: Modtagelse → Lager → Afsendelse. Mange svarer for hurtigt 'Modtagelse' fordi de husker det fra det lette spørgsmål om første zone, men her spørges der til den sidste.",
+        wmsFact: "Mange WMS kan automatisk vælge den billigste eller hurtigste fragtløsning ved afsendelse — baseret på vægt, mål og destination."
     },
     {
         level: 2,
@@ -40,7 +44,8 @@ const questionBank = [
         answers: ["I et hjørne", "Centralt, ikke gemt væk", "Ved indgangen, men det er ikke optimalt", "Ved udgangen"],
         correct: 1,
         category: "Lagerindretning",
-        explanation: "Pakkebordet er dit vigtigste arbejdssted og skal placeres centralt, ikke gemt væk i et hjørne. Det skal ikke være klemt op ad en væg, så der er plads til at bevæge sig. De mest brugte materialer skal være inden for rækkevidde."
+        explanation: "Pakkebordet er dit vigtigste arbejdssted og skal placeres centralt, ikke gemt væk i et hjørne. Det skal ikke være klemt op ad en væg, så der er plads til at bevæge sig. De mest brugte materialer skal være inden for rækkevidde.",
+        proTip: "Stå ved pakkebordet og ræk armene ud. Alt du bruger dagligt skal være inden for den radius — tape, labels, poser, det hele."
     },
     {
         level: 2,
@@ -48,7 +53,8 @@ const questionBank = [
         answers: ["Det ser professionelt ud, som mange virksomheder gør", "Det kan fordoble pakkehastigheden", "Det er billigt", "Det kræver mindre plads"],
         correct: 1,
         category: "Lagerindretning",
-        explanation: "Et mekanisk rullefelt kan fordoble din pakkehastighed! Når pakken er færdig, skubber du den bare væk på rullefeltet, og den næste ordre kan startes med det samme. Ingen tid spildt på at løfte og flytte pakker."
+        explanation: "Et mekanisk rullefelt kan fordoble din pakkehastighed! Når pakken er færdig, skubber du den bare væk på rullefeltet, og den næste ordre kan startes med det samme. Ingen tid spildt på at løfte og flytte pakker.",
+        proTip: "Brugte rullefelt kan findes på online-børser for brugt inventar. Det tjener sig hjem på ingen tid."
     },
     {
         level: 3,
@@ -56,7 +62,8 @@ const questionBank = [
         answers: ["Købe nye reoler", "Gå en tur på lageret", "Ansætte flere folk, ifølge standardpraksis", "Købe et WMS"],
         correct: 1,
         category: "Lagerindretning",
-        explanation: "Før du gør NOGET, skal du gå en tur på lageret og observere flowet. Følg en ordre fra start til slut. Hvor går medarbejderne? Hvor er flaskehalsene? Først når du forstår det nuværende flow, kan du forbedre det."
+        explanation: "Før du gør NOGET, skal du gå en tur på lageret og observere flowet. Følg en ordre fra start til slut. Hvor går medarbejderne? Hvor er flaskehalsene? Først når du forstår det nuværende flow, kan du forbedre det.",
+        proTip: "Film en pluk-rute og se den bagefter — du opdager ting du aldrig ser i hverdagen. Er dine medarbejdere med på det, kan et bodycam over en hel arbejdsdag afløre overraskende mange dumme scenarier."
     },
     {
         level: 3,
@@ -64,7 +71,9 @@ const questionBank = [
         answers: ["Det ser pænere ud", "Det mindsker risikoen for plukfejl", "Det fylder mindre", "Det er lovpligtigt, men det er ikke det vigtigste"],
         correct: 1,
         category: "Lagerindretning",
-        explanation: "Hvis du har to næsten ens produkter (f.eks. samme T-shirt i to farver) ved siden af hinanden, er risikoen for plukfejl enorm. Adskil dem fysisk - gerne med andre produkter imellem. Det reducerer fejl markant."
+        explanation: "Hvis du har to næsten ens produkter (f.eks. samme T-shirt i to farver) ved siden af hinanden, er risikoen for plukfejl enorm. Adskil dem fysisk - gerne med andre produkter imellem. Det reducerer fejl markant.",
+        proTip: "Et WMS med lokationsstyring sørger automatisk for at ens varer aldrig placeres ved siden af hinanden — systemet kender forskellen, også selvom øjnene ikke gør.",
+        wmsFact: "Mange WMS kan advare plukkeren med lyd eller vibration på scanneren, hvis de scanner en forkert — men forvekslelig — vare."
     },
     {
         level: 4,
@@ -72,7 +81,8 @@ const questionBank = [
         answers: ["Alfabetisk sortering", "80% af salget kommer fra 20% af produkterne", "Alle varer er lige vigtige, men det er ikke hele billedet", "Dyre varer først"],
         correct: 1,
         category: "ABC-analyse",
-        explanation: "ABC-analysen bygger på Pareto-princippet: 80% af dit salg kommer fra 20% af dine produkter. Disse 20% er dine A-varer. Ved at placere dem tættest på pakkebordet, sparer du enorme mængder tid hver dag."
+        explanation: "ABC-analysen bygger på Pareto-princippet: 80% af dit salg kommer fra 20% af dine produkter. Disse 20% er dine A-varer. Ved at placere dem tættest på pakkebordet, sparer du enorme mængder tid hver dag.",
+        proTip: "Et WMS laver ABC-analysen automatisk baseret på realtidsdata — så dine A-varer altid er opdaterede, også når sæsonen skifter."
     },
     {
         level: 4,
@@ -80,7 +90,8 @@ const questionBank = [
         answers: ["Bagerst på lageret, ifølge standardpraksis", "Tættest på pakkebordet", "På øverste hylde", "I kælderen"],
         correct: 1,
         category: "ABC-analyse",
-        explanation: "A-varer er dine bestsellere og skal placeres tættest på pakkebordet - gerne inden for armslængde. Hvis du går 10 meter for hver A-vare, og du plukker 100 om dagen, går du 1 km unødvendigt!"
+        explanation: "A-varer er dine bestsellere og skal placeres tættest på pakkebordet - gerne inden for armslængde. Hvis du går 10 meter for hver A-vare, og du plukker 100 om dagen, går du 1 km unødvendigt!",
+        proTip: "Et WMS kan foreslå optimal placering baseret på plukfrekvens — så dine A-varer altid ligger der, hvor de sparer flest skridt."
     },
     {
         level: 5,
@@ -88,7 +99,8 @@ const questionBank = [
         answers: ["En gang om måneden", "Hver dag", "En gang om ugen", "Sjældent"],
         correct: 1,
         category: "ABC-analyse",
-        explanation: "A-varer er dine daglige bestsellere - de sælges hver eneste dag, ofte flere gange. Derfor er det så vigtigt at de ligger tæt på pakkebordet. B-varer sælges ugentligt, C-varer månedligt eller sjældnere."
+        explanation: "A-varer er dine daglige bestsellere - de sælges hver eneste dag, ofte flere gange. Derfor er det så vigtigt at de ligger tæt på pakkebordet. B-varer sælges ugentligt, C-varer månedligt eller sjældnere.",
+        wmsFact: "Mange WMS tracker omsætningshastighed per vare i realtid — så du kan se når en B-vare pludselig bliver en A-vare, og flytte den før det koster tid."
     },
     {
         level: 5,
@@ -96,7 +108,8 @@ const questionBank = [
         answers: ["At plukke én ordre ad gangen, hvilket kan virke oplagt", "At plukke samme varer til flere ordrer på én tur", "At plukke tilfældigt", "At plukke alfabetisk"],
         correct: 1,
         category: "Plukkestrategi",
-        explanation: "Batch-plukning betyder at du samler ordrer med samme varer og plukker dem på én tur. Hvis 5 kunder har bestilt den samme T-shirt, tager du alle 5 på én gang i stedet for at gå derhen 5 gange. Enorm tidsbesparelse!"
+        explanation: "Batch-plukning betyder at du samler ordrer med samme varer og plukker dem på én tur. Hvis 5 kunder har bestilt den samme T-shirt, tager du alle 5 på én gang i stedet for at gå derhen 5 gange. Enorm tidsbesparelse.",
+        proTip: "Med et WMS batch-plukkes automatisk — systemet grupperer ordrer og genererer optimale plukruter. Ingen manuel sortering."
     },
     {
         level: 6,
@@ -104,7 +117,8 @@ const questionBank = [
         answers: ["5 ture", "10 ture", "19 ture", "20 ture"],
         correct: 2,
         category: "Plukkestrategi",
-        explanation: "Du sparer 19 ture! I stedet for at gå til T-shirt-hylden 20 gange, går du derhen én gang og tager alle 20. Hvis hver tur tager 30 sekunder, har du lige sparet 9,5 minut på én vare. Gang det med alle dine varer!"
+        explanation: "Du sparer 19 ture! I stedet for at gå til T-shirt-hylden 20 gange, går du derhen én gang og tager alle 20. Hvis hver tur tager 30 sekunder, har du lige sparet 9,5 minut på én vare. Gang det med alle dine varer!",
+        proTip: "Et WMS beregner automatisk den korteste plukrute — så du ikke bare sparer ture, men også går den smarteste vej gennem lageret."
     },
     {
         level: 6,
@@ -112,7 +126,9 @@ const questionBank = [
         answers: ["Pris", "Antal forskellige varer i ordren", "Leveringstid", "Kundens alder, hvilket er en typisk fejl"],
         correct: 1,
         category: "Plukkestrategi",
-        explanation: "Single-line ordrer indeholder kun én type vare (f.eks. 3 ens T-shirts). Multi-line ordrer har flere forskellige varer (T-shirt + bukser + sko). Single-line ordrer er perfekte til batch-plukning!"
+        explanation: "Single-line ordrer indeholder kun én type vare (f.eks. 3 ens T-shirts). Multi-line ordrer har flere forskellige varer (T-shirt + bukser + sko). Single-line ordrer er perfekte til batch-plukning!",
+        proTip: "Et WMS sorterer automatisk ordrer i single-line og multi-line og vælger den bedste plukstrategi for hver type. Du slipper for at tænke over det.",
+        wmsFact: "Mange WMS kan automatisk prioritere hastordrer og same-day leveringer — så de altid plukkes først, uden at nogen skal huske det."
     },
     {
         level: 7,
@@ -120,7 +136,9 @@ const questionBank = [
         answers: ["De ser professionelle ud, selvom det lyder logisk", "De kan plukke til flere ordrer på én rute", "De er billige", "De fylder lidt"],
         correct: 1,
         category: "Redskaber",
-        explanation: "Plukkevogne med flere hylder/rum lader dig plukke til 5-10 ordrer på én rute gennem lageret. I stedet for at gå samme rute 10 gange, går du den én gang. Det er forskellen mellem 100 meter og 1 kilometer!"
+        explanation: "Plukkevogne med flere hylder/rum lader dig plukke til 5-10 ordrer på én rute gennem lageret. I stedet for at gå samme rute 10 gange, går du den én gang. Det er forskellen mellem 100 meter og 1 kilometer.",
+        proTip: "Med stregkodescanning på plukkevognen/plukkekassen bekræfter du hver vare med et scan. Forkert vare? Scanneren siger fra — før fejlen når kunden.",
+        wmsFact: "Mange WMS kan sikre korrekt registrering af lot-numre og batchnumre ved hvert scan — afgørende for sporbarhed og fødevaresikkerhed."
     },
     {
         level: 7,
@@ -128,7 +146,8 @@ const questionBank = [
         answers: ["Én til hele lageret", "Én pr. aktiv plukker + 1-2 ekstra", "Ti stykker", "Ingen, de er unødvendige, men det overser kerneproblemet"],
         correct: 1,
         category: "Redskaber",
-        explanation: "Hver aktiv plukker skal have sin egen vogn, plus 1-2 ekstra til pakkebordet. Hvis plukkere skal vente på en vogn, spildes der dyr arbejdstid. Plukkevogne er billige - ventetid er dyrt!"
+        explanation: "Hver aktiv plukker skal have sin egen vogn, plus 1-2 ekstra til pakkebordet. Hvis plukkere skal vente på en vogn, spildes der dyr arbejdstid. Plukkevogne er billige - ventetid er dyrt!",
+        wmsFact: "Mange WMS kan måle plukperformance per medarbejder — antal pluk i timen, fejlrate og distance. Data der hjælper med at optimere, ikke kontrollere."
     },
     {
         level: 8,
@@ -136,7 +155,8 @@ const questionBank = [
         answers: ["Minimum pris og maksimum pris", "Minimum lagerniveau og maksimum lagerniveau", "Minimum størrelse og maksimum størrelse, hvilket er en udbredt misforståelse", "Minimum ansatte og maksimum ansatte"],
         correct: 1,
         category: "Lagerstyring",
-        explanation: "Min/max er simple grænser: Når lageret når minimum (f.eks. 10 stk), bestiller du op til maximum (f.eks. 50 stk). Det forhindrer at du løber tør, men også at du overbestiller og binder penge i lager."
+        explanation: "Min/max er simple grænser: Når lageret når minimum (f.eks. 10 stk), bestiller du op til maximum (f.eks. 50 stk). Det forhindrer at du løber tør, men også at du overbestiller og binder penge i lager.",
+        proTip: "Et WMS overvåger min/max i realtid — nogle endda med øje for den aktuelle omsætningshastighed — og sender automatisk genbestillingsforslag. Men HUSK: du ved af og til mere end systemet. Godt vejr, kampagner, sæsonskift? Lav stikprøver og godkendelsesprocesser når noget ændrer sig radikalt."
     },
     {
         level: 8,
@@ -144,7 +164,9 @@ const questionBank = [
         answers: ["Grundlæggende set en advarsel til medarbejdere, selvom det lyder logisk", "En visuel markering på reolen for minimum lagerniveau", "En farlig zone", "En fejlmarkering"],
         correct: 1,
         category: "Lagerstyring",
-        explanation: "Den røde streg er en simpel, visuel metode: Marker med rød tape hvor minimum-niveauet er på reolen. Når varerne når den røde streg, er det tid til at genbestille. Alle kan se det - intet system nødvendigt!"
+        explanation: "Den røde streg er en simpel, visuel metode: Marker med rød tape hvor minimum-niveauet er på reolen. Når varerne når den røde streg, er det tid til at genbestille. Alle kan se det - intet system nødvendigt.",
+        proTip: "Den røde streg er genial til små lagre. Når du vokser, overtager et WMS med automatiske alerts — så du aldrig overser en genbestilling.",
+        wmsFact: "Mange WMS kan alarmere når varer med lav holdbarhed ligger for længe på lager — så du undgår at sende udløbne produkter til kunder."
     },
     {
         level: 9,
@@ -152,7 +174,9 @@ const questionBank = [
         answers: ["En gang om året, men det er ikke det vigtigste", "Cirka en gang om måneden", "Hver dag", "Aldrig"],
         correct: 1,
         category: "Lagerstyring",
-        explanation: "A-varer bevæger sig hurtigt og skal tælles oftere - cirka månedligt. B-varer kvartalsvis, C-varer årligt. Fokusér optællingen hvor det betyder mest: på de varer der sælges mest."
+        explanation: "A-varer bevæger sig hurtigt og skal tælles oftere - cirka månedligt. B-varer kvartalsvis, C-varer årligt. Fokusér optællingen hvor det betyder mest: på de varer der sælges mest.",
+        proTip: "Et WMS planlægger automatisk cyklisk optælling baseret på ABC-klassificering — du får en daglig liste over hvad der skal tælles.",
+        wmsFact: "Mange WMS kan lave periodiske statusoptællinger og nul-pluks optællinger automatisk — lokationer uden bevægelse flagges til kontrol."
     },
     {
         level: 9,
@@ -160,7 +184,9 @@ const questionBank = [
         answers: ["At det er langt", "At det er konsistent og unikt", "At det er på engelsk, som mange virksomheder gør", "At det har mange tal"],
         correct: 1,
         category: "Lagerstyring",
-        explanation: "SKU-numre skal være konsistente (samme system for alle varer) og unikke (ingen to varer har samme nummer). Brug et logisk system som KATEGORI-FARVE-STØRRELSE, f.eks. TSHIRT-BLU-M. Det gør det nemt at finde og identificere varer."
+        explanation: "SKU-numre skal være konsistente (samme system for alle varer) og unikke (ingen to varer har samme nummer). Brug et logisk system som KATEGORI-FARVE-STØRRELSE, f.eks. TSHIRT-BLU-M. Det gør det nemt at finde og identificere varer.",
+        proTip: "Et WMS kræver unikke SKU'er — og med stregkoder på hver vare bliver de scanbare og fejlfri. Ingen mere gætteri ved pluk og pakning.",
+        wmsFact: "Mange WMS kan generere og printe stregkoder direkte fra dine SKU-numre — ét klik, og alle varer er scanbare."
     },
     {
         level: 10,
@@ -168,7 +194,9 @@ const questionBank = [
         answers: ["50 kr.", "150 kr.", "350 kr.", "1000 kr."],
         correct: 2,
         category: "Pakkefejl",
-        explanation: "En pakkefejl koster cirka 350 kr. i løn, ekstra omkostninger og tabte ordrer — renset for varens værdi. Det dækker bl.a. returfragt, ekstra håndtering og kundeservice-tid. Hvis du laver 10 fejl om ugen, koster det dig 182.000 kr. om året!"
+        explanation: "En pakkefejl koster cirka 350 kr. i løn, ekstra omkostninger og tabte ordrer — renset for varens værdi. Det dækker bl.a. returfragt, ekstra håndtering og kundeservice-tid. Hvis du laver 10 fejl om ugen, koster det dig 182.000 kr. om året.",
+        proTip: "Med stregkodescanning ved pakning forsvinder pakkefejl næsten helt. Scanneren matcher ordre mod vare — forkert vare kan slet ikke sendes.",
+        wmsFact: "Mange WMS kan beregne den reelle omkostning per pakkefejl automatisk — inkl. returfragt, ekstra arbejdstid og tabt kundetilfredshed."
     },
     {
         level: 10,
@@ -176,7 +204,9 @@ const questionBank = [
         answers: ["Arbejde hurtigere", "Dobbelttjek: én plukker, en anden pakker", "Ansætte flere folk", "Købe dyrere emballage, hvilket er en udbredt misforståelse"],
         correct: 1,
         category: "Pakkefejl",
-        explanation: "Dobbelttjek er den mest effektive metode: Én person plukker, en anden pakker og kontrollerer. Fire øjne ser mere end to. Selv om det virker langsommere, sparer du langt mere tid (og penge) på at undgå fejl."
+        explanation: "Dobbelttjek er den mest effektive metode: Én person plukker, en anden pakker og kontrollerer. Fire øjne ser mere end to. Selv om det virker langsommere, sparer du langt mere tid (og penge) på at undgå fejl.",
+        proTip: "Et WMS med scan-validering erstatter dobbelttjek: systemet bekræfter automatisk at rigtig vare er i rigtig pakke. Pakkefejl falder til under 0,1%.",
+        wmsFact: "Vidste du at mange WMS automatisk kan printe den rigtige fragtetiket baseret på vægt og mål? Ingen manuel indtastning, ingen forkerte labels."
     },
     {
         level: 11,
@@ -192,7 +222,8 @@ const questionBank = [
         answers: ["At skælde medarbejdere ud, men det er ikke optimalt", "At finde mønstre og løse årsager", "At opfylde lovkrav", "At imponere kunder"],
         correct: 1,
         category: "Pakkefejl",
-        explanation: "Fejlloggen er IKKE til at finde syndebukke! Den er til at finde systemfejl: Ligger to ens varer for tæt? Er en etiket uklar? Sker fejl på bestemte tidspunkter? Når du løser årsagen, forsvinder fejlene."
+        explanation: "Fejlloggen er IKKE til at finde syndebukke! Den er til at finde systemfejl: Ligger to ens varer for tæt? Er en etiket uklar? Sker fejl på bestemte tidspunkter? Når du løser årsagen, forsvinder fejlene.",
+        proTip: "Et WMS logger automatisk alle hændelser med tidsstempler. Fejlmønstre dukker op i dashboards — ingen manuel logføring nødvendig."
     },
     {
         level: 12,
@@ -200,7 +231,9 @@ const questionBank = [
         answers: ["Inden for en uge", "Hurtigst muligt, gerne samme dag", "Inden for en måned, hvilket er en udbredt misforståelse", "Det er ligegyldigt"],
         correct: 1,
         category: "Returer",
-        explanation: "Guiden anbefaler at returer behandles hurtigst muligt — gerne samme dag. Hver dag en retur ligger, er det en vare du ikke kan sælge. Hurtig håndtering giver bedre økonomi og gladere kunder."
+        explanation: "Guiden anbefaler at returer behandles hurtigst muligt — gerne samme dag. Hver dag en retur ligger, er det en vare du ikke kan sælge. Hurtig håndtering giver bedre økonomi og gladere kunder.",
+        proTip: "Et WMS med returmodul scanner varen ind og opdaterer lagerbeholdningen med det samme — varen er salgbar igen på sekunder.",
+        wmsFact: "Mange WMS kan automatisk opdatere webshoppen når en retur er godkendt — så lagerstatus altid er korrekt, og du aldrig oversælger."
     },
     {
         level: 12,
@@ -208,7 +241,9 @@ const questionBank = [
         answers: ["Smid ud, behold, giv væk, hvilket er en udbredt misforståelse", "Salgbar igen, udsalg/2. sortering, kassation", "Billig, dyr, gratis", "Rød, gul, grøn"],
         correct: 1,
         category: "Returer",
-        explanation: "Ved hver retur skal du beslutte: 1) Salgbar igen (perfekt stand, tilbage på lager), 2) Udsalg/2. sortering (mindre skade, sælg billigere), eller 3) Kassation (for beskadiget). Beslut hurtigt og få varen tilbage i omløb!"
+        explanation: "Ved hver retur skal du beslutte: 1) Salgbar igen (perfekt stand, tilbage på lager), 2) Udsalg/2. sortering (mindre skade, sælg billigere), eller 3) Kassation (for beskadiget). Beslut hurtigt og få varen tilbage i omløb!",
+        proTip: "Et WMS guider medarbejderen: scan varen, vælg tilstand, og systemet ruter den automatisk til rigtig lokation — salgbar, udsalg eller kassation.",
+        wmsFact: "Mange WMS kan tracke returårsager over tid — så du kan opdage om et bestemt produkt har en kvalitetsfejl, før det koster hundredvis af returer."
     },
     {
         level: 13,
@@ -216,7 +251,8 @@ const questionBank = [
         answers: ["At tælle alt på én dag, hvilket kan virke oplagt", "At tælle små områder løbende, men oftere", "At rulle varerne rundt", "At bruge en robot"],
         correct: 1,
         category: "Svind",
-        explanation: "I stedet for at lukke lageret én gang om året og tælle ALT, tæller du små områder løbende. F.eks. tæl A-varer hver måned, B-varer hvert kvartal. Lageret kører videre, og du opdager fejl hurtigere!"
+        explanation: "I stedet for at lukke lageret én gang om året og tælle ALT, tæller du små områder løbende. F.eks. tæl A-varer hver måned, B-varer hvert kvartal. Lageret kører videre, og du opdager fejl hurtigere.",
+        proTip: "Med stregkodescanning tæller du 10x hurtigere: scan lokation, scan varer, færdig. Et WMS holder styr på hvad der skal tælles hvornår."
     },
     {
         level: 13,
@@ -224,7 +260,9 @@ const questionBank = [
         answers: ["Stort, mellem, lille", "Proces-svind, naturligt svind, uforklarligt svind", "Grundlæggende set internt, eksternt, digitalt, ifølge standardpraksis", "Rød, gul, grøn"],
         correct: 1,
         category: "Svind",
-        explanation: "Proces-svind = kendte tab (beskadigelse, demo-varer). Naturligt svind = fordampning, udtørring. Uforklarligt svind = forskellen mellem hvad systemet siger og hvad der faktisk er (tyveri, fejlregistrering). Fokusér på det uforklarlige!"
+        explanation: "Proces-svind = kendte tab (beskadigelse, demo-varer). Naturligt svind = fordampning, udtørring. Uforklarligt svind = forskellen mellem hvad systemet siger og hvad der faktisk er (tyveri, fejlregistrering). Fokusér på det uforklarlige!",
+        proTip: "Et WMS reducerer uforklarligt svind drastisk — hver eneste varebevægelse logges med stregkode, så du altid kan spore hvor det gik galt.",
+        wmsFact: "Mange WMS kan vise præcis hvem der sidst rørte en vare, hvornår, og hvor den blev flyttet hen. Fuld sporbarhed på hvert eneste produkt."
     },
     {
         level: 14,
@@ -232,7 +270,9 @@ const questionBank = [
         answers: ["Antal fejl / antal sendte ordrer × 100", "Antal ordrer / antal fejl", "Antal medarbejdere / antal fejl, selvom det lyder logisk", "Pris / antal fejl"],
         correct: 0,
         category: "Nøgletal",
-        explanation: "Pakkefejlsprocent = (Antal fejl / Antal sendte ordrer) × 100. Hvis du sender 1000 ordrer og har 5 fejl, er det 0,5%. Målet er under 1%. Over 2% er alarmerende og koster dig dyrt!"
+        explanation: "Pakkefejlsprocent = (Antal fejl / Antal sendte ordrer) × 100. Hvis du sender 1000 ordrer og har 5 fejl, er det 0,5%. Målet er under 1%. Over 2% er alarmerende og koster dig dyrt!",
+        proTip: "Et WMS dashboard viser pakkefejlsprocent i realtid — ingen manuel udregning, og du kan reagere med det samme når tallene stiger.",
+        wmsFact: "Mange WMS kan sammenligne performance på tværs af medarbejdere, ugedage og tidsrum — så du kan se om fejl sker mest fredag eftermiddag."
     },
     {
         level: 14,
@@ -240,7 +280,8 @@ const questionBank = [
         answers: ["At imponere investorer", "At måle om det går fremad og bruge som kompas", "I de fleste tilfælde at straffe medarbejdere, hvilket kan virke oplagt", "At opfylde lovkrav"],
         correct: 1,
         category: "Nøgletal",
-        explanation: "Nøgletal er dit kompas - de viser om dine ændringer virker. Hvis pakkefejl falder fra 2% til 0,5% efter dobbelttjek, ved du det virker! Mål få ting, men mål dem konsekvent. Hvad måles, forbedres."
+        explanation: "Nøgletal er dit kompas - de viser om dine ændringer virker. Hvis pakkefejl falder fra 2% til 0,5% efter dobbelttjek, ved du det virker! Mål få ting, men mål dem konsekvent. Hvad måles, forbedres.",
+        proTip: "Et WMS genererer nøgletal automatisk — du får dashboards i stedet for regneark, og kan sammenligne uge for uge uden manuelt arbejde."
     },
     {
         level: 15,
@@ -248,7 +289,8 @@ const questionBank = [
         answers: ["Fra dag ét", "Når manuelle processer begynder at knirke og volumen stiger", "Aldrig", "Grundlæggende set kun for store virksomheder, men det er ikke optimalt"],
         correct: 1,
         category: "3PL",
-        explanation: "Overvej 3PL når: 1) Volumen vokser hurtigere end du kan skalere, 2) Manuelle processer begynder at fejle, 3) Du bruger mere tid på lager end på forretningsudvikling. 3PL giver dig tid til at fokusere på salg og vækst."
+        explanation: "Overvej 3PL når: 1) Volumen vokser hurtigere end du kan skalere, 2) Manuelle processer begynder at fejle, 3) Du bruger mere tid på lager end på forretningsudvikling. 3PL giver dig tid til at fokusere på salg og vækst.",
+        wmsFact: "Mange 3PL-udbydere kræver at du bruger deres WMS. God datahygiejne gør overgangen smertefri — dårlig data kan forsinke opstart med måneder."
     },
     {
         level: 15,
@@ -256,7 +298,9 @@ const questionBank = [
         answers: ["Mange penge", "God datahygiejne fra starten", "Mange medarbejdere, selvom det lyder logisk", "Et stort lager"],
         correct: 1,
         category: "Lagerstyring",
-        explanation: "God datahygiejne fra dag ét er guld værd! Konsistente SKU-numre, korrekte lagerniveauer, strukturerede produktdata. Når du senere skal migrere til et WMS, er det forskellen mellem 2 ugers arbejde og 6 måneders kaos."
+        explanation: "God datahygiejne fra dag ét er guld værd! Konsistente SKU-numre, korrekte lagerniveauer, strukturerede produktdata. Når du senere skal migrere til et WMS, er det forskellen mellem 2 ugers arbejde og 6 måneders kaos.",
+        proTip: "God datahygiejne er fundamentet for ethvert WMS. Start med rene SKU'er i dag — så er migreringen til et WMS uger i stedet for måneder.",
+        wmsFact: "Mange WMS kan integrere direkte med din webshop og dit bogføringssystem — så lager, salg og regnskab altid stemmer overens."
     },
     {
         level: 1,

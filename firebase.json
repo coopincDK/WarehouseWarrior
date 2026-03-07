@@ -1,0 +1,48 @@
+{
+  "hosting": {
+    "site": "warehousewarrior-28109",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "FIREBASE-SETUP.md",
+      "HOSTING.md",
+      ".gitignore",
+      "ww-panel-9f3k.html",
+      "node_modules/**",
+      "firebase-debug.log"
+    ],
+    "headers": [
+      {
+        "source": "/sw.js",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        ]
+      },
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=604800" }
+        ]
+      },
+      {
+        "source": "**/*.@(png|jpg|jpeg|gif|svg|ico)",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }
+        ]
+      },
+      {
+        "source": "**/*.@(mp3|aac|wav|ogg)",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }
+        ]
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

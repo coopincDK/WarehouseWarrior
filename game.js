@@ -452,9 +452,8 @@ class WarehouseWarriorGame {
             const grid = document.getElementById('answersGrid');
             if (grid) grid.innerHTML = '';
         }
-        setTimeout(() => {
-            document.getElementById(sceneId).classList.add('active');
-        }, 100);
+        const el = document.getElementById(sceneId);
+        if (el) el.classList.add('active');
     }
     
     // Shuffle answers to randomize positions
@@ -1092,7 +1091,11 @@ class WarehouseWarriorGame {
     
     showWrongScene() {
         const question = this.questions[this.currentQuestionIndex];
-        document.getElementById('correctAnswerText').textContent = question.answers[question.correct];
+        // Brug shuffled svar-tekst (ikke original index) så det rigtige svar vises korrekt
+        const correctAnswerText = this.currentShuffle
+            ? this.currentShuffle.answers[this.currentShuffle.correctIndex]
+            : question.answers[question.correct];
+        document.getElementById('correctAnswerText').textContent = correctAnswerText;
         document.getElementById('explanationText').textContent = question.explanation || 'Ingen forklaring tilgængelig.';
         // Vis én tilfældig bonus-callout ved forkert svar (proTip eller wmsFact)
         const wrongProTipEl = document.getElementById('wrongProTip');
@@ -1390,8 +1393,8 @@ class WarehouseWarriorGame {
         this.showScene('gameOverScene');
         this.playSound('crowdGroan');
         
-        // Skift til game over musik
-        this.switchMusic('assets/music/FASSounds - Game Over.mp3');
+        // Skift til game over musik (brug eksisterende track - Game Over fil mangler)
+        this.switchMusic('assets/music/Raz Burg - Rushing Earth.mp3');
     }
     
     victory() {
@@ -1458,6 +1461,7 @@ class WarehouseWarriorGame {
     // ===== HIGHSCORE =====
     
     async getHighscores() {
+        if (typeof firebaseHighscore === 'undefined') return [];
         try {
             return await firebaseHighscore.getHighscores();
         } catch (e) {
@@ -1549,6 +1553,7 @@ class WarehouseWarriorGame {
     }
     
     async saveHighscore() {
+        if (typeof firebaseHighscore === 'undefined') return;
         const entry = {
             name: this.playerName || 'Anonym',
             company: this.playerCompany,
@@ -1558,11 +1563,22 @@ class WarehouseWarriorGame {
             bestStreak: this.bestStreak || 0,
             date: new Date().toISOString()
         };
-        await firebaseHighscore.saveScore(entry);
+        try {
+            await firebaseHighscore.saveScore(entry);
+        } catch(e) {
+            console.warn('Highscore save failed (Firebase not configured):', e);
+        }
     }
     
     async showHighscore() {
         this.playSound('click');
+        if (typeof firebaseHighscore === 'undefined') {
+            // Firebase ikke konfigureret - vis tom highscore
+            this.cachedHighscores = [];
+            this.showHighscoreView('top10');
+            this.showScene('highscoreScene');
+            return;
+        }
         let allScores = await this.getHighscores();
         // Hent firma-aliaser + skjulte spillere
         try {
@@ -2034,8 +2050,14 @@ class WarehouseWarriorGame {
 // Initialize game when DOM is loaded
 let game;
 document.addEventListener('DOMContentLoaded', async () => {
-    // Init Firebase highscore
-    await firebaseHighscore.init();
+    // Init Firebase highscore (fejl må ikke stoppe spillet)
+    try {
+        if (typeof firebaseHighscore !== 'undefined') {
+            await firebaseHighscore.init();
+        }
+    } catch(e) {
+        console.warn('Firebase init failed - spillet kører uden highscore:', e);
+    }
     game = new WarehouseWarriorGame();
     game.showWelcomeQuote();
     
